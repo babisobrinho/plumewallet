@@ -15,10 +15,25 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if(auth()->user()->hasVerifiedEmail())
+                        <x-nav-link href="{{ route('wallets.index') }}" :active="request()->routeIs('wallets.*')">
+                            {{ __('Carteiras') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <!-- Email Verification Status -->
+                @unless(auth()->user()->hasVerifiedEmail())
+                    <div class="me-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            {{ __('E-mail não verificado') }}
+                        </span>
+                    </div>
+                @endunless
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ms-3 relative">
@@ -39,17 +54,17 @@
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
+                                        {{ __('Gerenciar Time') }}
                                     </div>
 
                                     <!-- Team Settings -->
                                     <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
+                                        {{ __('Configurações') }}
                                     </x-dropdown-link>
 
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                                         <x-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
+                                            {{ __('Criar Novo Time') }}
                                         </x-dropdown-link>
                                     @endcan
 
@@ -58,7 +73,7 @@
                                         <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
+                                            {{ __('Trocar Time') }}
                                         </div>
 
                                         @foreach (Auth::user()->allTeams() as $team)
@@ -95,12 +110,18 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Gerenciar Conta') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('Perfil') }}
                             </x-dropdown-link>
+
+                            @unless(auth()->user()->hasVerifiedEmail())
+                                <x-dropdown-link href="{{ route('verification.notice') }}" class="text-yellow-600 hover:text-yellow-800">
+                                    {{ __('Verificar E-mail') }}
+                                </x-dropdown-link>
+                            @endunless
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -115,8 +136,8 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                                 @click.prevent="$root.submit();">
+                                    {{ __('Sair') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -142,6 +163,12 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @if(auth()->user()->hasVerifiedEmail())
+                <x-responsive-nav-link href="{{ route('wallets.index') }}" :active="request()->routeIs('wallets.*')">
+                    {{ __('Carteiras') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -156,14 +183,23 @@
                 <div>
                     <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    @unless(auth()->user()->hasVerifiedEmail())
+                        <span class="text-xs text-yellow-600">{{ __('E-mail não verificado') }}</span>
+                    @endunless
                 </div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
+
+                @unless(auth()->user()->hasVerifiedEmail())
+                    <x-responsive-nav-link href="{{ route('verification.notice') }}" class="text-yellow-600">
+                        {{ __('Verificar E-mail') }}
+                    </x-responsive-nav-link>
+                @endunless
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
@@ -176,8 +212,8 @@
                     @csrf
 
                     <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
+                                           @click.prevent="$root.submit();">
+                        {{ __('Sair') }}
                     </x-responsive-nav-link>
                 </form>
 
@@ -186,17 +222,17 @@
                     <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
+                        {{ __('Gerenciar Time') }}
                     </div>
 
                     <!-- Team Settings -->
                     <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
+                        {{ __('Configurações') }}
                     </x-responsive-nav-link>
 
                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                         <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
+                            {{ __('Criar Novo Time') }}
                         </x-responsive-nav-link>
                     @endcan
 
@@ -205,7 +241,7 @@
                         <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                         <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
+                            {{ __('Trocar Time') }}
                         </div>
 
                         @foreach (Auth::user()->allTeams() as $team)

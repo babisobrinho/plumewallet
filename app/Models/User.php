@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -66,4 +67,44 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+
+//MÉTODO ADICIONADO POR LENICE - WALLET
+
+
+
+    /**
+     * Relação com as carteiras do utilizador
+     */
+
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    /**
+     * Obter carteiras ativas do utilizador
+     */
+    public function activeWallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class)->where('is_active', true);
+    }
+
+    /**
+     * Calcular saldo total de todas as carteiras
+     */
+    public function getTotalBalanceAttribute(): float
+    {
+        return $this->wallets()->where('is_active', true)->sum('balance');
+    }
+
+    /**
+     * Obter saldo total formatado
+     */
+    public function getFormattedTotalBalanceAttribute(): string
+    {
+        return number_format($this->total_balance, 2, ',', '.') . '€';
+    }
+
+
 }
