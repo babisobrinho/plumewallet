@@ -68,26 +68,21 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-
-//MÉTODO ADICIONADO POR LENICE - WALLET
-
-
-
     /**
      * Relação com as carteiras do utilizador
      */
 
-    public function wallets(): HasMany
+    public function accounts(): HasMany
     {
-        return $this->hasMany(Wallet::class);
+        return $this->hasMany(Account::class);
     }
 
     /**
      * Obter carteiras ativas do utilizador
      */
-    public function activeWallets(): HasMany
+    public function activeAccounts(): HasMany
     {
-        return $this->hasMany(Wallet::class)->where('is_active', true);
+        return $this->hasMany(Account::class)->where('is_active', true);
     }
 
     /**
@@ -95,7 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getTotalBalanceAttribute(): float
     {
-        return $this->wallets()->where('is_active', true)->sum('balance');
+        return $this->accounts()->where('is_active', true)->sum('balance');
     }
 
     /**

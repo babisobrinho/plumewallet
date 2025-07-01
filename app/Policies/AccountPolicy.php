@@ -3,9 +3,9 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Wallet;
+use App\Models\Account;
 
-class WalletPolicy
+class AccountPolicy
 {
     /**
      * Determinar se o utilizador pode ver qualquer carteira
@@ -18,9 +18,9 @@ class WalletPolicy
     /**
      * Determinar se o utilizador pode ver a carteira
      */
-    public function view(User $user, Wallet $wallet): bool
+    public function view(User $user, Account $account): bool
     {
-        return $user->id === $wallet->user_id;
+        return $user->id === $account->user_id;
     }
 
     /**
@@ -34,33 +34,33 @@ class WalletPolicy
     /**
      * Determinar se o utilizador pode atualizar a carteira
      */
-    public function update(User $user, Wallet $wallet): bool
+    public function update(User $user, Account $account): bool
     {
-        return $user->id === $wallet->user_id;
+        return $user->id === $account->user_id;
     }
 
     /**
      * Determinar se o utilizador pode eliminar a carteira
      */
-    public function delete(User $user, Wallet $wallet): bool
+    public function delete(User $user, Account $account): bool
     {
-        return $user->id === $wallet->user_id;
+        return $user->id === $account->user_id;
     }
 
     /**
      * Determinar se o utilizador pode restaurar a carteira
      */
-    public function restore(User $user, Wallet $wallet): bool
+    public function restore(User $user, Account $account): bool
     {
-        return $user->id === $wallet->user_id;
+        return $user->id === $account->user_id;
     }
 
     /**
      * Determinar se o utilizador pode eliminar permanentemente a carteira
      */
-    public function forceDelete(User $user, Wallet $wallet): bool
+    public function forceDelete(User $user, Account $account): bool
     {
-        return $user->id === $wallet->user_id;
+        return $user->id === $account->user_id;
     }
 }
 

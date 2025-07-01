@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="font-family: 'Playfair Display', serif;">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Minhas Carteiras') }}
             </h2>
-            <a href="{{ route('wallets.create') }}"
-               class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
+            <a href="{{ route('accounts.create') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold
+                text-xs text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
@@ -29,10 +29,10 @@
                                 </div>
                             </div>
                             <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900" style="font-family: 'Playfair Display', serif;">
+                                <h3 class="text-lg font-medium text-gray-900">
                                     Saldo Total
                                 </h3>
-                                <p class="text-3xl font-bold text-teal-600" style="font-family: 'Poppins', sans-serif;">
+                                <p class="text-3xl font-bold text-teal-600">
                                     {{ number_format($totalBalance, 2, ',', '.') }}€
                                 </p>
                             </div>
@@ -42,9 +42,9 @@
             </div>
 
             <!-- Lista de Carteiras -->
-            @if($wallets->count() > 0)
+            @if($accounts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{ showChart: false }">
-                    @foreach($wallets as $wallet)
+                    @foreach($accounts as $wallet)
                         <div class="bg-white overflow-hidden shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 border-l-4"
                              style="border-left-color: {{ $wallet->color }};">
                             <div class="p-6">
@@ -55,10 +55,10 @@
                                             <i class="ti ti-{{ $wallet->icon }}"></i>
                                         </div>
                                         <div class="ml-3">
-                                            <h3 class="text-lg font-medium text-gray-900" style="font-family: 'Playfair Display', serif;">
+                                            <h3 class="text-lg font-medium text-gray-900">
                                                 {{ $wallet->name }}
                                             </h3>
-                                            <p class="text-sm text-gray-500 capitalize" style="font-family: 'Poppins', sans-serif;">
+                                            <p class="text-sm text-gray-500 capitalize">
                                                 {{ str_replace('_', ' ', $wallet->type) }}
                                             </p>
                                         </div>
@@ -83,11 +83,11 @@
                                              x-transition:leave-end="transform opacity-0 scale-95"
                                              class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                             <div class="py-1">
-                                                <a href="{{ route('wallets.show', $wallet) }}"
+                                                <a href="{{ route('accounts.show', $wallet) }}"
                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Detalhes</a>
-                                                <a href="{{ route('wallets.edit', $wallet) }}"
+                                                <a href="{{ route('accounts.edit', $wallet) }}"
                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Editar</a>
-                                                <form action="{{ route('wallets.toggle-status', $wallet) }}" method="POST" class="inline">
+                                                <form action="{{ route('accounts.toggle-status', $wallet) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit"
@@ -95,7 +95,7 @@
                                                         {{ $wallet->is_active ? 'Desativar' : 'Ativar' }}
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('wallets.destroy', $wallet) }}" method="POST" class="inline">
+                                                <form action="{{ route('accounts.destroy', $wallet) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -118,20 +118,6 @@
                         </div>
                     @endforeach
                 </div>
-
-                <!-- Gráfico de Distribuição -->
-                <div class="mt-8">
-                    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4" style="font-family: 'Playfair Display', serif;">
-                                Distribuição por Carteira
-                            </h3>
-                            <div class="relative">
-                                <canvas id="walletChart" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             @else
                 <!-- Estado Vazio -->
                 <div class="text-center py-12">
@@ -140,14 +126,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2" style="font-family: 'Playfair Display', serif;">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">
                         Nenhuma carteira encontrada
                     </h3>
-                    <p class="text-gray-500 mb-6" style="font-family: 'Poppins', sans-serif;">
+                    <p class="text-gray-500 mb-6">
                         Comece criando sua primeira carteira para gerir suas finanças.
                     </p>
-                    <a href="{{ route('wallets.create') }}"
-                       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    <a href="{{ route('accounts.create') }}"
+                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
@@ -157,57 +143,4 @@
             @endif
         </div>
     </div>
-
-    @if($wallets->count() > 0)
-        @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                // Carregar dados das carteiras via API
-                fetch('{{ route("wallets.api.data") }}')
-                    .then(response => response.json())
-                    .then(data => {
-                        const ctx = document.getElementById('walletChart').getContext('2d');
-                        new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: data.labels,
-                                datasets: [{
-                                    data: data.data,
-                                    backgroundColor: data.backgroundColor,
-                                    borderWidth: 2,
-                                    borderColor: '#ffffff'
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        position: 'bottom',
-                                        labels: {
-                                            padding: 20,
-                                            usePointStyle: true,
-                                            font: {
-                                                family: 'Poppins'
-                                            }
-                                        }
-                                    },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: function(context) {
-                                                const value = context.parsed;
-                                                const total = data.total;
-                                                const percentage = ((value / total) * 100).toFixed(1);
-                                                return context.label + ': ' + value.toFixed(2) + '€ (' + percentage + '%)';
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    })
-                    .catch(error => console.error('Erro ao carregar dados das carteiras:', error));
-            </script>
-        @endpush
-    @endif
 </x-app-layout>

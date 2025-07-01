@@ -17,8 +17,8 @@
                     </x-nav-link>
 
                     @if(auth()->user()->hasVerifiedEmail())
-                        <x-nav-link href="{{ route('wallets.index') }}" :active="request()->routeIs('wallets.*')">
-                            {{ __('Carteiras') }}
+                        <x-nav-link href="{{ route('accounts.index') }}" :active="request()->routeIs('accounts.*')">
+                            {{ __('Contas') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -165,8 +165,8 @@
             </x-responsive-nav-link>
 
             @if(auth()->user()->hasVerifiedEmail())
-                <x-responsive-nav-link href="{{ route('wallets.index') }}" :active="request()->routeIs('wallets.*')">
-                    {{ __('Carteiras') }}
+                <x-responsive-nav-link href="{{ route('accounts.index') }}" :active="request()->routeIs('accounts.*')">
+                    {{ __('Contas') }}
                 </x-responsive-nav-link>
             @endif
         </div>

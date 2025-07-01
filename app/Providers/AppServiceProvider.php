@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Models\Wallet; 
-use App\Policies\WalletPolicy;
+use App\Models\Account; 
+use App\Policies\AccountPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::policy(Wallet::class, WalletPolicy::class);
+        Gate::policy(Account::class, AccountPolicy::class);
     }
 }

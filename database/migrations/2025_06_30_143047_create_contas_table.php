@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wallets', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->enum('type', ['dinheiro', 'conta_corrente', 'poupanca', 'cartao_debito', 'cartao_credito']);
+            $table->enum('type', ['dinheiro', 'conta_corrente', 'poupanca', 'investimentos', 'cartao_alimentacao', 'outros']);
             $table->decimal('balance', 10, 2)->default(0.00);
-            $table->string('color', 7)->default('#0b4c64'); // Cor em hexadecimal
-            $table->string('icon')->nullable(); // Ícone do Tabler
+            $table->string('color', 7)->default('#0b4c64');
+            $table->string('icon')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wallets');
+        Schema::dropIfExists('accounts');
     }
 };
 

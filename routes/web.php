@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\WalletController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,20 +59,20 @@ Route::middleware([
     })->name('dashboard');
 
     // Gestão de Carteiras
-    Route::resource('wallets', WalletController::class)->except(['show']);
+    Route::resource('accounts', AccountController::class)->except(['show']);
 
     // Rota para visualizar a carteira (detalhes)
-    Route::get('wallets/{wallet}', [WalletController::class, 'show'])->name('wallets.show');
+    Route::get('accounts/{account}', [AccountController::class, 'show'])->name('accounts.show');
 
     // Rota customizada para alternar status
-    Route::patch('wallets/{wallet}/toggle-status',
-        [WalletController::class, 'toggleStatus'])
-        ->name('wallets.toggle-status');
+    Route::patch('accounts/{account}/toggle-status',
+        [AccountController::class, 'toggleStatus'])
+        ->name('accounts.toggle-status');
 
     // API para gráficos
-    Route::get('api/wallets/data',
-        [WalletController::class, 'apiData'])
-        ->name('wallets.api.data');
+    Route::get('api/accounts/data',
+        [AccountController::class, 'apiData'])
+        ->name('accounts.api.data');
 });
 
 /*

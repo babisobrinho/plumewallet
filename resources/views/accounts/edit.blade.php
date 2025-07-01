@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center">
-            <a href="{{ route('wallets.index') }}"
+            <a href="{{ route('accounts.index') }}"
                class="mr-4 text-gray-500 hover:text-gray-700 transition-colors duration-150">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
             </a>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="font-family: 'Playfair Display', serif;">
-                {{ __('Nova Carteira') }}
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Editar Carteira') }}
             </h2>
         </div>
     </x-slot>
@@ -16,10 +16,11 @@
     <div class="py-12" style="background: linear-gradient(135deg, #f8f5ef 0%, #fff9f0 100%);">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form method="POST" action="{{ route('wallets.store') }}"
-                      x-data="walletForm()"
+                <form method="POST" action="{{ route('accounts.update', $account) }}"
+                      x-data="accountForm()"
                       class="p-6 space-y-6">
                     @csrf
+                    @method('PUT')
 
                     <!-- Nome da Carteira -->
                     <div>
@@ -29,7 +30,7 @@
                         <input type="text"
                                id="name"
                                name="name"
-                               value="{{ old('name') }}"
+                               value="{{ old('name', $account->name) }}"
                                x-model="form.name"
                                required
                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
@@ -52,7 +53,7 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
                             <option value="">Selecione um tipo</option>
                             @foreach($types as $key => $label)
-                                <option value="{{ $key }}" {{ old('type') == $key ? 'selected' : '' }}>
+                                <option value="{{ $key }}" {{ old('type', $account->type) == $key ? 'selected' : '' }}>
                                     {{ $label }}
                                 </option>
                             @endforeach
@@ -62,16 +63,16 @@
                         @enderror
                     </div>
 
-                    <!-- Saldo Inicial -->
+                    <!-- Saldo Atual -->
                     <div>
                         <label for="balance" class="block text-sm font-medium text-gray-700 mb-2" style="font-family: 'Poppins', sans-serif;">
-                            Saldo Inicial
+                            Saldo Atual
                         </label>
                         <div class="relative">
                             <input type="number"
                                    id="balance"
                                    name="balance"
-                                   value="{{ old('balance', '0.00') }}"
+                                   value="{{ old('balance', $account->balance) }}"
                                    x-model="form.balance"
                                    step="0.01"
                                    min="0"
@@ -98,7 +99,7 @@
                                            value="{{ $color }}"
                                            x-model="form.color"
                                            class="sr-only"
-                                        {{ old('color', $defaultColors[1]) == $color ? 'checked' : '' }}>
+                                        {{ old('color', $account->color) == $color ? 'checked' : '' }}>
                                     <div class="w-12 h-12 rounded-full border-4 transition-all duration-200 hover:scale-110"
                                          style="background-color: {{ $color }};"
                                          :class="form.color === '{{ $color }}' ? 'border-gray-800 shadow-lg' : 'border-gray-300'">
@@ -132,12 +133,11 @@
                             <div class="flex items-center">
                                 <div class="w-10 h-10 rounded-full flex items-center justify-center text-white"
                                      :style="'background-color: ' + form.color">
-                                    <i class="ti ti-wallet" x-show="!form.icon"></i>
-                                    <i class="ti" :class="'ti-' + form.icon" x-show="form.icon"></i>
+                                    <i class="ti ti-{{ $account->icon }}"></i>
                                 </div>
                                 <div class="ml-3">
                                     <h3 class="text-lg font-medium text-gray-900"
-                                        style="font-family: 'Playfair Display', serif;"
+                                    
                                         x-text="form.name || 'Nome da Carteira'">
                                     </h3>
                                     <p class="text-sm text-gray-500 capitalize"
@@ -160,13 +160,13 @@
 
                     <!-- Botões -->
                     <div class="flex items-center justify-end space-x-4 pt-6">
-                        <a href="{{ route('wallets.index') }}"
+                        <a href="{{ route('accounts.index') }}"
                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-150">
                             Cancelar
                         </a>
                         <button type="submit"
                                 class="px-6 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            Criar Carteira
+                            Atualizar Carteira
                         </button>
                     </div>
                 </form>
@@ -176,14 +176,14 @@
 
     @push('scripts')
         <script>
-            function walletForm() {
+            function accountForm() {
                 return {
                     form: {
-                        name: '{{ old("name") }}' || '',
-                        type: '{{ old("type") }}' || '',
-                        balance: '{{ old("balance", "0.00") }}' || '0.00',
-                        color: '{{ old("color", $defaultColors[1]) }}' || '#0b4c64',
-                        icon: ''
+                        name: '{{ old("name", $account->name) }}' || '',
+                        type: '{{ old("type", $account->type) }}' || '',
+                        balance: '{{ old("balance", $account->balance) }}' || '0.00',
+                        color: '{{ old("color", $account->color) }}' || '#0b4c64',
+                        icon: '{{ old("icon", $account->icon) }}' || 'wallet'
                     },
 
                     init() {
