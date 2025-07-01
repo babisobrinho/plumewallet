@@ -129,12 +129,17 @@
                                 </x-dropdown-link>
                             @endif
 
+                            <!-- Theme Toggle -->
+                            <x-dropdown-link @click="toggleTheme()">
+                                <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                            </x-dropdown-link>
+
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
-
+EAD
                                 <x-dropdown-link href="{{ route('logout') }}"
                                                  @click.prevent="$root.submit();">
                                     {{ __('Sair') }}
@@ -207,12 +212,16 @@
                     </x-responsive-nav-link>
                 @endif
 
+                <!-- Theme Toggle -->
+                <x-responsive-nav-link @click="toggleTheme()">
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <x-responsive-nav-link href="{{ route('logout') }}"
-                                           @click.prevent="$root.submit();">
+                    <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                         {{ __('Sair') }}
                     </x-responsive-nav-link>
                 </form>
