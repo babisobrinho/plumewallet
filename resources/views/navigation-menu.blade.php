@@ -139,9 +139,7 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
-EAD
-                                <x-dropdown-link href="{{ route('logout') }}"
-                                                 @click.prevent="$root.submit();">
+                                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                     {{ __('Sair') }}
                                 </x-dropdown-link>
                             </form>
