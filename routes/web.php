@@ -61,6 +61,9 @@ Route::middleware([
     // Gestão de Carteiras
     Route::resource('wallets', WalletController::class)->except(['show']);
 
+    // Rota para visualizar a carteira (detalhes)
+    Route::get('wallets/{wallet}', [WalletController::class, 'show'])->name('wallets.show');
+
     // Rota customizada para alternar status
     Route::patch('wallets/{wallet}/toggle-status',
         [WalletController::class, 'toggleStatus'])

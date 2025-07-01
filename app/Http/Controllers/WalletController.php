@@ -18,7 +18,7 @@ class WalletController extends Controller
     {
         $wallets = Auth::user()->wallets()->active()->orderBy('created_at', 'desc')->get();
         $totalBalance = Auth::user()->total_balance;
-        
+
         return view('wallets.index', compact('wallets', 'totalBalance'));
     }
 
@@ -30,7 +30,7 @@ class WalletController extends Controller
         $types = Wallet::getTypes();
         $defaultColors = Wallet::getDefaultColors();
         $defaultIcons = Wallet::getDefaultIcons();
-        
+
         return view('wallets.create', compact('types', 'defaultColors', 'defaultIcons'));
     }
 
@@ -68,7 +68,7 @@ class WalletController extends Controller
     {
         // Verificar se a carteira pertence ao utilizador autenticado
         $this->authorize('view', $wallet);
-        
+
         return view('wallets.show', compact('wallet'));
     }
 
@@ -79,11 +79,11 @@ class WalletController extends Controller
     {
         // Verificar se a carteira pertence ao utilizador autenticado
         $this->authorize('update', $wallet);
-        
+
         $types = Wallet::getTypes();
         $defaultColors = Wallet::getDefaultColors();
         $defaultIcons = Wallet::getDefaultIcons();
-        
+
         return view('wallets.edit', compact('wallet', 'types', 'defaultColors', 'defaultIcons'));
     }
 
@@ -94,7 +94,7 @@ class WalletController extends Controller
     {
         // Verificar se a carteira pertence ao utilizador autenticado
         $this->authorize('update', $wallet);
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => ['required', Rule::in(array_keys(Wallet::getTypes()))],
@@ -122,7 +122,7 @@ class WalletController extends Controller
     {
         // Verificar se a carteira pertence ao utilizador autenticado
         $this->authorize('delete', $wallet);
-        
+
         $wallet->update(['is_active' => false]);
 
         return redirect()->route('wallets.index')
@@ -135,7 +135,7 @@ class WalletController extends Controller
     public function apiData(): \Illuminate\Http\JsonResponse
     {
         $wallets = Auth::user()->wallets()->active()->get();
-        
+
         $data = [
             'labels' => $wallets->pluck('name'),
             'data' => $wallets->pluck('balance'),
@@ -153,13 +153,12 @@ class WalletController extends Controller
     {
         // Verificar se a carteira pertence ao utilizador autenticado
         $this->authorize('update', $wallet);
-        
+
         $wallet->update(['is_active' => !$wallet->is_active]);
-        
+
         $status = $wallet->is_active ? 'ativada' : 'desativada';
-        
+
         return redirect()->route('wallets.index')
             ->with('success', "Carteira {$status} com sucesso!");
     }
 }
-

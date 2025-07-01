@@ -39,11 +39,12 @@ class Wallet extends Model
     public static function getTypes(): array
     {
         return [
-            'dinheiro' => 'Dinheiro',
             'conta_corrente' => 'Conta Corrente',
+            'dinheiro' => 'Dinheiro',
             'poupanca' => 'Poupança',
-            'cartao_debito' => 'Cartão de Débito',
-            'cartao_credito' => 'Cartão de Crédito'
+            'investimentos' => 'Investimentos',
+            'vr_va' => 'VR/VA',
+            'outros' => 'Outros'
         ];
     }
 
@@ -53,11 +54,12 @@ class Wallet extends Model
     public static function getDefaultIcons(): array
     {
         return [
-            'dinheiro' => 'cash',
             'conta_corrente' => 'building-bank',
+            'dinheiro' => 'cash',
             'poupanca' => 'pig-money',
-            'cartao_debito' => 'credit-card',
-            'cartao_credito' => 'credit-card-pay'
+            'investimentos' => 'trending-up',
+            'vr_va' => 'tools-kitchen-2',
+            'outros' => 'wallet'
         ];
     }
 
@@ -103,4 +105,6 @@ class Wallet extends Model
         return $query->where('is_active', true);
     }
 }
+
+
 

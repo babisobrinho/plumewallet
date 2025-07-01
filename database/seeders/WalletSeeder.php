@@ -15,7 +15,7 @@ class WalletSeeder extends Seeder
     {
         // Buscar o primeiro utilizador ou criar um de exemplo
         $user = User::first();
-        
+
         if (!$user) {
             $user = User::create([
                 'name' => 'Utilizador Exemplo',
@@ -25,35 +25,55 @@ class WalletSeeder extends Seeder
             ]);
         }
 
-        // Criar carteiras de exemplo
+        // Criar carteiras de exemplo com os NOVOS tipos
         $wallets = [
             [
                 'name' => 'Carteira Principal',
                 'type' => 'dinheiro',
                 'balance' => 150.00,
                 'color' => '#13243a',
-                'icon' => 'cash'
+                'icon' => 'cash',
+                'is_active' => true
             ],
             [
-                'name' => 'Conta Millennium',
+                'name' => 'Conta Bancária',
                 'type' => 'conta_corrente',
                 'balance' => 2500.75,
                 'color' => '#0b4c64',
-                'icon' => 'building-bank'
+                'icon' => 'building-bank',
+                'is_active' => true
             ],
             [
                 'name' => 'Poupança',
                 'type' => 'poupanca',
                 'balance' => 5000.00,
                 'color' => '#00675b',
-                'icon' => 'pig-money'
+                'icon' => 'pig-money',
+                'is_active' => true
             ],
             [
-                'name' => 'Cartão Débito',
-                'type' => 'cartao_debito',
+                'name' => 'Investimentos',
+                'type' => 'investimentos',
+                'balance' => 3500.00,
+                'color' => '#227c7c',
+                'icon' => 'trending-up',
+                'is_active' => true
+            ],
+            [
+                'name' => 'Vale Refeição',
+                'type' => 'vr_va',
+                'balance' => 250.00,
+                'color' => '#029b89',
+                'icon' => 'tools-kitchen-2',
+                'is_active' => true
+            ],
+            [
+                'name' => 'Outras Carteiras',
+                'type' => 'outros',
                 'balance' => 800.50,
-                'color' => '#a37f48',
-                'icon' => 'credit-card'
+                'color' => '#455f76',
+                'icon' => 'wallet',
+                'is_active' => true
             ]
         ];
 
@@ -62,4 +82,3 @@ class WalletSeeder extends Seeder
         }
     }
 }
-

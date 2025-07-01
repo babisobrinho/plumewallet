@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
-                <a href="{{ route('wallets.index') }}" 
+                <a href="{{ route('wallets.index') }}"
                    class="mr-4 text-gray-500 hover:text-gray-700 transition-colors duration-150">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div class="flex space-x-2">
-                <a href="{{ route('wallets.edit', $wallet) }}" 
+                <a href="{{ route('wallets.edit', $wallet) }}"
                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -33,25 +33,7 @@
                         <div class="flex items-center">
                             <div class="w-16 h-16 rounded-full flex items-center justify-center text-white mr-6"
                                  style="background-color: {{ $wallet->color }};">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    @switch($wallet->icon)
-                                        @case('cash')
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                            @break
-                                        @case('building-bank')
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                            @break
-                                        @case('pig-money')
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9a2 2 0 10-4 0v5a2 2 0 01-2 2h6m-6-4h4m8 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            @break
-                                        @case('credit-card')
-                                        @case('credit-card-pay')
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                                            @break
-                                        @default
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    @endswitch
-                                </svg>
+                                <i class="ti ti-{{ $wallet->icon }} text-3xl"></i>
                             </div>
                             <div>
                                 <h1 class="text-3xl font-bold text-gray-900 mb-2" style="font-family: 'Playfair Display', serif;">
@@ -62,7 +44,7 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="text-right">
                             <p class="text-sm text-gray-500 mb-1" style="font-family: 'Poppins', sans-serif;">
                                 Saldo Atual
@@ -81,7 +63,7 @@
                                 {{ $wallet->is_active ? 'Ativa' : 'Inativa' }}
                             </span>
                         </div>
-                        
+
                         <div class="text-sm text-gray-500" style="font-family: 'Poppins', sans-serif;">
                             Criada em {{ $wallet->created_at->format('d/m/Y') }}
                         </div>
@@ -135,18 +117,18 @@
                         </h3>
                     </div>
                     <div class="p-6 space-y-4">
-                        <a href="{{ route('wallets.edit', $wallet) }}" 
+                        <a href="{{ route('wallets.edit', $wallet) }}"
                            class="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                             Editar Carteira
                         </a>
-                        
+
                         <form action="{{ route('wallets.toggle-status', $wallet) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" 
+                            <button type="submit"
                                     class="w-full inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-sm text-gray-700 uppercase tracking-widest hover:bg-gray-50 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     @if($wallet->is_active)
@@ -158,11 +140,11 @@
                                 {{ $wallet->is_active ? 'Desativar' : 'Ativar' }} Carteira
                             </button>
                         </form>
-                        
+
                         <form action="{{ route('wallets.destroy', $wallet) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" 
+                            <button type="submit"
                                     onclick="return confirm('Tem certeza que deseja remover esta carteira? Esta ação não pode ser desfeita.')"
                                     class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition ease-in-out duration-150">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +167,7 @@
                 <div class="p-6">
                     <div class="text-center py-8">
                         <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002 2"></path>
                         </svg>
                         <h4 class="text-lg font-medium text-gray-900 mb-2" style="font-family: 'Playfair Display', serif;">
                             Nenhuma transação encontrada
@@ -199,4 +181,3 @@
         </div>
     </div>
 </x-app-layout>
-
