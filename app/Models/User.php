@@ -14,8 +14,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
-
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasProfilePhoto;
     use HasTeams;
@@ -31,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'whatsapp_number', // Adicionei campo para integração com WhatsApp
     ];
 
     /**
@@ -65,5 +64,61 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relationship with categories
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    /**
+     * Relationship with transactions (movimentos financeiros)
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * Relationship with accounts (contas bancárias/carteiras)
+     */
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+    /**
+     * Relationship with budgets (orçamentos)
+     */
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    /**
+     * Get the user's preferred color scheme from profile
+     */
+    public function getThemeAttribute()
+    {
+        return $this->profile_photo_path ? 'dark' : 'light';
+    }
+
+    /**
+     * Check if user has connected WhatsApp
+     */
+    public function hasWhatsAppConnected(): bool
+    {
+        return !empty($this->whatsapp_number);
+    }
+
+    /**
+     * Scope for users with WhatsApp connected
+     */
+    public function scopeWithWhatsApp($query)
+    {
+        return $query->whereNotNull('whatsapp_number');
     }
 }
