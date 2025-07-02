@@ -90,4 +90,23 @@ class TransactionController extends Controller
             ->route('categories.index') // Redireciona para o índice de categorias após deletar
             ->with('success', 'Transação removida com sucesso!');
     }
+
+      public function transactionsByCategory(Category $category)
+    {
+        $this->authorize('view', $category); // Garante que o usuário pode ver esta categoria
+
+        $user = Auth::user();
+        // Busca as transações do usuário filtradas pela categoria, ordenadas por data
+        $transactions = $user->transactions()
+                             ->where('category_id', $category->id)
+                             ->with('category') // Carrega a categoria relacionada
+                             ->orderBy('date', 'desc')
+                             ->get();
+
+        return view('transactions.by_category', [ // Nova view para transações por categoria
+            'category' => $category, // Passa a categoria para a view
+            'transactions' => $transactions,
+            'balance' => $user->transactions()->sum('amount') // Saldo total do usuário
+        ]);
+    }
 }

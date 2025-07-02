@@ -39,22 +39,35 @@ class CategoryController extends Controller
         'ti ti-carrot', 'ti ti-apple', 'ti ti-mood-happy', 'ti ti-friends'
     ];
 
+   
+
     public function index()
-    {
-        $user = Auth::user();
-        // Carrega as categorias do usuário e soma os valores das transações associadas
-        $userCategories = $user->categories()
-            ->withSum('transactions', 'amount')
-            ->get();
+{
+    $user = Auth::user();
 
-        // Calcula o saldo total do usuário
-        $balance = $user->transactions()->sum('amount');
+    // Carrega as categorias e suas dependências
+    $userCategories = $user->categories()
+        ->withSum('transactions', 'amount')
+        ->withCount('transactions')
+        ->with(['transactions' => function($query) {
+            $query->latest('date')->limit(1);
+        }])
+        ->latest('created_at') // Ordena as categorias pela mais recente primeiro
+        ->get();
 
-        return view('categories.index', [
-            'userCategories' => $userCategories,
-            'balance' => $balance // Passa o saldo para a view
-        ]);
-    }
+    // Agrupa as categorias pela data de criação (formato 'd M, Y')
+    $groupedCategories = $userCategories->groupBy(function($category) {
+        return $category->created_at->format('d M, Y');
+    });
+
+    // Calcula o saldo total do usuário
+    $balance = $user->transactions()->sum('amount');
+
+    return view('categories.index', [
+        'groupedCategories' => $groupedCategories, // Passa os grupos para a view
+        'balance' => $balance
+    ]);
+}
 
     public function create()
     {

@@ -56,9 +56,8 @@
                 <label class="block text-plume-blue-600 font-semibold mb-2">Cor</label>
                 <div class="grid grid-cols-5 gap-3">
                     @foreach($availableColors as $color)
-                    <label class="flex items-center justify-center h-12 rounded-lg cursor-pointer transform transition duration-300 ease-in-out hover:scale-105 border-2 border-transparent has-[:checked]:border-plume-blue-600"
-                           style="background-color: var(--color-plume-{{ str_replace('-', '-', $color) }});"
-                           title="{{ $color }}">
+                    <label class="flex items-center justify-center h-12 rounded-lg cursor-pointer transform transition duration-300 ease-in-out hover:scale-105 border-2 border-transparent has-[:checked]:border-plume-blue-600 bg-plume-{{ $color }}" {{-- AQUI --}}
+                            title="{{ $color }}">
                         <input type="radio" name="color" value="{{ $color }}" 
                                class="form-radio border-2 border-white h-5 w-5 hidden" 
                                {{ old('color', $category->color) === $color ? 'checked' : '' }}>
