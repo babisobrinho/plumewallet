@@ -20,26 +20,18 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth:sanctum'])->group(function () {
-    // Página de aviso de verificação
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
     })->name('verification.notice');
 
-    // Processar o link de verificação
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
-
-        return redirect()
-            ->route('dashboard')
-            ->with('success', 'E-mail verificado com sucesso!');
+        return redirect()->route('dashboard')->with('success', 'E-mail verificado com sucesso!');
     })->middleware('signed')->name('verification.verify');
 
-    // Reenviar e-mail de verificação
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
-
-        return back()
-            ->with('success', 'Novo link de verificação enviado para seu e-mail!');
+        return back()->with('success', 'Novo link de verificação enviado para seu e-mail!');
     })->middleware('throttle:6,1')->name('verification.send');
 });
 
@@ -58,44 +50,26 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    // Gestão de Carteiras
-    Route::resource('accounts', AccountController::class)->except(['show']);
+    // Rotas de Accounts - Definidas manualmente para maior controle
+    Route::prefix('accounts')->name('accounts.')->group(function () {
+        Route::get('/', [AccountController::class, 'index'])->name('index');
+        Route::get('/create', [AccountController::class, 'create'])->name('create');
+        Route::post('/', [AccountController::class, 'store'])->name('store');
+        Route::get('/{account}', [AccountController::class, 'show'])->name('show');
+        Route::get('/{account}/edit', [AccountController::class, 'edit'])->name('edit');
+        Route::put('/{account}', [AccountController::class, 'update'])->name('update');
+        Route::delete('/{account}', [AccountController::class, 'destroy'])->name('destroy');
 
-    // Rota para visualizar a carteira (detalhes)
-    Route::get('accounts/{account}', [AccountController::class, 'show'])->name('accounts.show');
+        // Rotas customizadas
+        Route::patch('/{account}/toggle-status', [AccountController::class, 'toggleStatus'])
+            ->name('toggle-status');
 
-    // Rota customizada para alternar status
-    Route::patch('accounts/{account}/toggle-status',
-        [AccountController::class, 'toggleStatus'])
-        ->name('accounts.toggle-status');
+        Route::patch('/{account}/toggle-balance-effective', [AccountController::class, 'toggleBalanceEffective'])
+            ->name('toggle-balance-effective');
 
-    // API para gráficos
-    Route::get('api/accounts/data',
-        [AccountController::class, 'apiData'])
-        ->name('accounts.api.data');
+        // API
+        Route::get('/api/data', [AccountController::class, 'apiData'])
+            ->name('api.data');
+    });
 });
 
-/*
-|--------------------------------------------------------------------------
-| Rotas de Compatibilidade e Redirecionamento
-|--------------------------------------------------------------------------
-*/
-Route::redirect('/carteira', '/wallets')
-    ->middleware(['auth:sanctum', 'verified']);
-
-/*
-|--------------------------------------------------------------------------
-| Rotas de Desenvolvimento (Remover em Produção)
-|--------------------------------------------------------------------------
-*/
-if (app()->environment('local')) {
-    Route::get('/test-verify', function() {
-        if (!auth()->user()->hasVerifiedEmail()) {
-            auth()->user()->sendEmailVerificationNotification();
-            return response()->json([
-                'message' => 'E-mail de verificação enviado para ' . auth()->user()->email
-            ]);
-        }
-        return response()->json(['message' => 'E-mail já verificado']);
-    })->middleware('auth:sanctum');
-}

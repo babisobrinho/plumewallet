@@ -3,18 +3,18 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('accounts.index') }}"
-                   class="mr-4 text-gray-500 hover:text-gray-700 transition-colors duration-150">
+                   class="mr-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-150">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
                 </a>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ $account->name }}
                 </h2>
             </div>
             <div class="flex space-x-2">
                 <a href="{{ route('accounts.edit', $account) }}"
-                   class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
+                   class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
@@ -24,10 +24,10 @@
         </div>
     </x-slot>
 
-    <div class="py-12" style="background: linear-gradient(135deg, #f8f5ef 0%, #fff9f0 100%);">
+    <div class="py-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-800 dark:to-gray-900">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <!-- Cartão Principal da Carteira -->
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg mb-8">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center">
@@ -36,35 +36,35 @@
                                 <i class="ti ti-{{ $account->icon }} text-3xl"></i>
                             </div>
                             <div>
-                                <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                                <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                                     {{ $account->name }}
                                 </h1>
-                                <p class="text-lg text-gray-600 capitalize">
-                                    {{ str_replace('_', ' ', $account->type) }}
+                                <p class="text-lg text-gray-600 dark:text-gray-400 capitalize">
+                                    {{ $account->accountType->name }}
                                 </p>
                             </div>
                         </div>
 
                         <div class="text-right">
-                            <p class="text-sm text-gray-500 mb-1">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
                                 Saldo Atual
                             </p>
-                            <p class="text-4xl font-bold" style="color: {{ $account->color }};">
+                            <p class="text-4xl font-bold font-sans" style="color: {{ $account->color }};">
                                 {{ $account->formatted_balance }}
                             </p>
                         </div>
                     </div>
 
                     <!-- Status da Carteira -->
-                    <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-200 dark:border-gray-700">
                         <div class="flex items-center">
-                            <span class="text-sm text-gray-500 mr-2">Status:</span>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $account->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            <span class="text-sm text-gray-500 dark:text-gray-400 mr-2">Status:</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $account->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100' }}">
                                 {{ $account->is_active ? 'Ativa' : 'Inativa' }}
                             </span>
                         </div>
 
-                        <div class="text-sm text-gray-500">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">
                             Criada em {{ $account->created_at->format('d/m/Y') }}
                         </div>
                     </div>
@@ -74,45 +74,51 @@
             <!-- Informações Detalhadas -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Detalhes da Carteira -->
-                <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
-                    <div class="px-6 py-4 border-b border-gray-200">
-                        <h3 class="text-lg font-medium text-gray-900">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             Detalhes da Carteira
                         </h3>
                     </div>
                     <div class="p-6 space-y-4">
                         <div class="flex justify-between">
-                            <span class="text-sm font-medium text-gray-500">Nome:</span>
-                            <span class="text-sm text-gray-900">{{ $account->name }}</span>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Nome:</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-200">{{ $account->name }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-sm font-medium text-gray-500">Tipo:</span>
-                            <span class="text-sm text-gray-900 capitalize">{{ str_replace('_', ' ', $account->type) }}</span>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Tipo:</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-200 capitalize">{{ $account->accountType->name }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-sm font-medium text-gray-500">Saldo:</span>
-                            <span class="text-sm font-semibold" style="color: {{ $account->color }};">{{ $account->formatted_balance }}</span>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Saldo:</span>
+                            <span class="text-sm font-semibold font-sans" style="color: {{ $account->color }};">{{ $account->formatted_balance }}</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-sm font-medium text-gray-500">Cor:</span>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Cor:</span>
                             <div class="flex items-center">
-                                <div class="w-6 h-6 rounded-full border border-gray-300 mr-2" style="background-color: {{ $account->color }};"></div>
-                                <span class="text-sm text-gray-900 uppercase">{{ $account->color }}</span>
+                                <div class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 mr-2" style="background-color: {{ $account->color }};"></div>
+                                <span class="text-sm text-gray-900 dark:text-gray-200 uppercase">{{ $account->color }}</span>
                             </div>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-sm font-medium text-gray-500">Status:</span>
-                            <span class="text-sm {{ $account->is_active ? 'text-green-600' : 'text-red-600' }}">
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Status:</span>
+                            <span class="text-sm {{ $account->is_active ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                 {{ $account->is_active ? 'Ativa' : 'Inativa' }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Saldo efetivo:</span>
+                            <span class="text-sm {{ $account->is_balance_effective ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400' }}">
+                                {{ $account->is_balance_effective ? 'Sim' : 'Não (apenas marcação)' }}
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Ações Rápidas -->
-                <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
-                    <div class="px-6 py-4 border-b border-gray-200">
-                        <h3 class="text-lg font-medium text-gray-900">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             Ações Rápidas
                         </h3>
                     </div>
@@ -129,7 +135,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit"
-                                    class="w-full inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-sm text-gray-700 uppercase tracking-widest hover:bg-gray-50 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
+                                    class="w-full inline-flex items-center justify-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     @if($account->is_active)
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636"></path>
@@ -158,21 +164,21 @@
             </div>
 
             <!-- Histórico (Placeholder para futuras funcionalidades) -->
-            <div class="mt-8 bg-white overflow-hidden shadow-lg sm:rounded-lg">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900">
+            <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         Histórico de Transações
                     </h3>
                 </div>
                 <div class="p-6">
                     <div class="text-center py-8">
-                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002 2"></path>
                         </svg>
-                        <h4 class="text-lg font-medium text-gray-900 mb-2">
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
                             Nenhuma transação encontrada
                         </h4>
-                        <p class="text-gray-500">
+                        <p class="text-gray-500 dark:text-gray-400">
                             As transações desta carteira aparecerão aqui quando forem registadas.
                         </p>
                     </div>

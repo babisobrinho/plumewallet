@@ -12,17 +12,29 @@ class Account extends Model
 
     protected $fillable = [
         'user_id',
+        'account_type_id', // <-- Novo campo de relacionamento
         'name',
-        'type',
         'balance',
         'color',
-        'icon',
-        'is_active'
+        'is_active',
+        'is_balance_effective'
     ];
-
+    public static function getDefaultColors(): array
+    {
+        return [
+            'bg-teal-500',
+            'bg-violet-500',
+            'bg-lime-500',
+            'bg-orange-500',
+            'bg-red-500',
+            'bg-cyan-500',
+            'bg-purple-500'
+        ];
+    }
     protected $casts = [
         'balance' => 'decimal:2',
         'is_active' => 'boolean',
+        'is_balance_effective' => 'boolean'
     ];
 
     /**
@@ -34,59 +46,19 @@ class Account extends Model
     }
 
     /**
-     * Tipos de carteira disponíveis
+     * Relação com o tipo de conta
      */
-    public static function getTypes(): array
+    public function accountType(): BelongsTo
     {
-        return [
-            'conta_corrente' => 'Conta Corrente',
-            'dinheiro' => 'Dinheiro',
-            'poupanca' => 'Poupança',
-            'investimentos' => 'Investimentos',
-            'vr_va' => 'VR/VA',
-            'outros' => 'Outros'
-        ];
+        return $this->belongsTo(AccountType::class);
     }
 
     /**
-     * Ícones padrão para cada tipo
+     * Obter ícone da conta (agora vem do accountType)
      */
-    public static function getDefaultIcons(): array
+    public function getIconAttribute(): string
     {
-        return [
-            'conta_corrente' => 'building-bank',
-            'dinheiro' => 'cash',
-            'poupanca' => 'pig-money',
-            'investimentos' => 'trending-up',
-            'vr_va' => 'tools-kitchen-2',
-            'outros' => 'wallet'
-        ];
-    }
-
-    /**
-     * Cores padrão baseadas no manual de marca
-     */
-    public static function getDefaultColors(): array
-    {
-        return [
-            '#13243a', // Azul marinho (confiança)
-            '#0b4c64', // Azul-petróleo (clareza e inovação)
-            '#00675b', // Verde-água (vitalidade)
-            '#a37f48', // Dourado (prosperidade)
-            '#227c7c', // Verde-água secundário
-            '#029b89', // Verde-água claro
-            '#455f76', // Azul acinzentado
-            '#57823a'  // Verde oliva
-        ];
-    }
-
-    /**
-     * Obter ícone padrão baseado no tipo
-     */
-    public function getDefaultIcon(): string
-    {
-        $icons = self::getDefaultIcons();
-        return $icons[$this->type] ?? 'wallet';
+        return $this->accountType->icon ?? 'wallet';
     }
 
     /**
@@ -104,7 +76,13 @@ class Account extends Model
     {
         return $query->where('is_active', true);
     }
+
+    /**
+     * Scope para carteiras com saldo efetivo
+     */
+    public function scopeEffectiveBalance($query)
+    {
+        return $query->where('is_balance_effective', true);
+    }
+    protected $appends = ['formatted_balance', 'icon'];
 }
-
-
-

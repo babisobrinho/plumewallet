@@ -2,166 +2,236 @@
     <x-slot name="header">
         <div class="flex items-center">
             <a href="{{ route('accounts.index') }}"
-               class="mr-4 text-gray-500 hover:text-gray-700 transition-colors duration-150">
+               class="mr-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-150">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
             </a>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Editar Carteira') }}
             </h2>
         </div>
     </x-slot>
 
-    <div class="py-12" style="background: linear-gradient(135deg, #f8f5ef 0%, #fff9f0 100%);">
+    <div class="py-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-800 dark:to-gray-900">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <form method="POST" action="{{ route('accounts.update', $account) }}"
-                      x-data="accountForm()"
+                      x-data="{
+                          form: {
+                              name: '{{ old('name', $account->name) }}',
+                              type: '{{ old('type', $account->type) }}',
+                              balance: '{{ old('balance', number_format($account->balance, 2, '.', '')) }}',
+                              color: '{{ old('color', $account->color) }}',
+                              icon: '{{ old('icon', $account->icon) }}',
+                              is_balance_effective: {{ old('is_balance_effective', $account->is_balance_effective) ? 'true' : 'false' }}
+                          },
+                          updateIcon() {
+                              const iconMap = {
+                                  'conta_corrente': 'building-bank',
+                                  'dinheiro': 'cash',
+                                  'poupanca': 'pig-money',
+                                  'investimentos': 'trending-up',
+                                  'cartao_alimentacao': 'tools-kitchen-2',
+                                  'outros': 'wallet'
+                              };
+                              this.form.icon = iconMap[this.form.type] || 'wallet';
+                          }
+                      }"
+                      x-init="updateIcon()"
                       class="p-6 space-y-6">
                     @csrf
                     @method('PUT')
 
                     <!-- Nome da Carteira -->
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2" style="font-family: 'Poppins', sans-serif;">
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Nome da Carteira
                         </label>
                         <input type="text"
                                id="name"
                                name="name"
-                               value="{{ old('name', $account->name) }}"
                                x-model="form.name"
                                required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                               class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-gray-200"
                                placeholder="Ex: Carteira Principal, Conta Poupança...">
                         @error('name')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Tipo de Carteira -->
                     <div>
-                        <label for="type" class="block text-sm font-medium text-gray-700 mb-2" style="font-family: 'Poppins', sans-serif;">
+                        <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Tipo de Carteira
                         </label>
-                        <select id="type"
-                                name="type"
-                                x-model="form.type"
-                                @change="updateIcon()"
-                                required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                        <select id="account_type_id" name="account_type_id" x-model="form.type" @change="updateIcon()" required>
                             <option value="">Selecione um tipo</option>
-                            @foreach($types as $key => $label)
-                                <option value="{{ $key }}" {{ old('type', $account->type) == $key ? 'selected' : '' }}>
-                                    {{ $label }}
+                            @foreach($types as $id => $name)
+                                <option value="{{ $id }}" {{ old('account_type_id') == $id ? 'selected' : '' }}>
+                                    {{ $name }}
                                 </option>
                             @endforeach
                         </select>
                         @error('type')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Saldo Atual -->
                     <div>
-                        <label for="balance" class="block text-sm font-medium text-gray-700 mb-2" style="font-family: 'Poppins', sans-serif;">
+                        <label for="balance" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Saldo Atual
                         </label>
                         <div class="relative">
                             <input type="number"
                                    id="balance"
                                    name="balance"
-                                   value="{{ old('balance', $account->balance) }}"
                                    x-model="form.balance"
                                    step="0.01"
                                    min="0"
                                    max="999999.99"
                                    required
-                                   class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
-                            <span class="absolute right-3 top-2 text-gray-500">€</span>
+                                   class="w-full px-3 py-2 pr-8 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-gray-200">
+                            <span class="absolute right-3 top-2 text-gray-500 dark:text-gray-400">€</span>
                         </div>
                         @error('balance')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Seleção de Cor -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-3" style="font-family: 'Poppins', sans-serif;">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                             Cor da Carteira
                         </label>
-                        <div class="grid grid-cols-4 gap-3">
-                            @foreach($defaultColors as $color)
-                                <label class="cursor-pointer">
-                                    <input type="radio"
-                                           name="color"
-                                           value="{{ $color }}"
-                                           x-model="form.color"
-                                           class="sr-only"
-                                        {{ old('color', $account->color) == $color ? 'checked' : '' }}>
-                                    <div class="w-12 h-12 rounded-full border-4 transition-all duration-200 hover:scale-110"
-                                         style="background-color: {{ $color }};"
-                                         :class="form.color === '{{ $color }}' ? 'border-gray-800 shadow-lg' : 'border-gray-300'">
+
+                        <!-- Cores principais destacadas -->
+                        <div class="mb-4">
+                            <div class="flex flex-wrap gap-3 mb-4">
+                                @foreach([
+                                    'bg-teal-500' => 'Teal',
+                                    'bg-violet-500' => 'Violet',
+                                    'bg-lime-500' => 'Lime',
+                                    'bg-orange-500' => 'Orange',
+                                    'bg-red-500' => 'Red',
+                                    'bg-cyan-500' => 'Cyan',
+                                    'bg-purple-500' => 'Purple'
+                                ] as $colorClass => $name)
+                                    <label class="cursor-pointer flex flex-col items-center">
+                                        <input type="radio" name="color" value="{{ $colorClass }}" x-model="form.color" class="sr-only">
+                                        <div class="w-10 h-10 rounded-full border-4 transition-all duration-200 hover:scale-110 relative {{ $colorClass }}"
+                                             :class="form.color === '{{ $colorClass }}' ? 'border-gray-800 dark:border-gray-200 shadow-lg' : 'border-gray-300 dark:border-gray-600'">
+                                            <div x-show="form.color === '{{ $colorClass }}'" class="absolute inset-0 flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs mt-1 text-gray-600 dark:text-gray-400">{{ $name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Todas as cores organizadas por tonalidades -->
+                        <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 shadow-sm">
+                            @foreach([
+                                'Cores 500' => [
+                                    'bg-teal-500' => 'Teal',
+                                    'bg-violet-500' => 'Violet',
+                                    'bg-lime-500' => 'Lime',
+                                    'bg-orange-500' => 'Orange',
+                                    'bg-red-500' => 'Red',
+                                    'bg-cyan-500' => 'Cyan',
+                                    'bg-purple-500' => 'Purple'
+                                ],
+                                'Cores 400' => [
+                                    'bg-teal-400' => 'Teal 400',
+                                    'bg-violet-400' => 'Violet 400',
+                                    'bg-lime-400' => 'Lime 400',
+                                    'bg-orange-400' => 'Orange 400',
+                                    'bg-red-400' => 'Red 400',
+                                    'bg-cyan-400' => 'Cyan 400',
+                                    'bg-purple-400' => 'Purple 400'
+                                ],
+                                'Cores 300' => [
+                                    'bg-teal-300' => 'Teal 300',
+                                    'bg-violet-300' => 'Violet 300',
+                                    'bg-lime-300' => 'Lime 300',
+                                    'bg-orange-300' => 'Orange 300',
+                                    'bg-red-300' => 'Red 300',
+                                    'bg-cyan-300' => 'Cyan 300',
+                                    'bg-purple-300' => 'Purple 300'
+                                ],
+                                'Cores Neutras' => [
+                                    'bg-slate-100' => 'Slate 100',
+                                    'bg-slate-300' => 'Slate 300',
+                                    'bg-slate-400' => 'Slate 400',
+                                    'bg-slate-500' => 'Slate 500',
+                                    'bg-slate-600' => 'Slate 600',
+                                    'bg-slate-700' => 'Slate 700',
+                                    'bg-slate-800' => 'Slate 800'
+                                ],
+                                'Especiais' => [
+                                    'bg-black' => 'Preto',
+                                    'bg-blue-600' => 'Azul',
+                                    'bg-emerald-600' => 'Emerald',
+                                    'bg-teal-800' => 'Teal 800'
+                                ]
+                            ] as $group => $colors)
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ $group }}</h4>
+                                    <div class="grid grid-cols-7 gap-2">
+                                        @foreach($colors as $colorClass => $name)
+                                            <label class="cursor-pointer flex flex-col items-center">
+                                                <input type="radio" name="color" value="{{ $colorClass }}" x-model="form.color" class="sr-only">
+                                                <div class="w-8 h-8 rounded-full border-2 transition-all duration-200 hover:scale-110 relative {{ $colorClass }}"
+                                                     :class="form.color === '{{ $colorClass }}' ? 'border-gray-800 dark:border-gray-200 shadow-lg' : 'border-gray-300 dark:border-gray-600'">
+                                                    <div x-show="form.color === '{{ $colorClass }}'" class="absolute inset-0 flex items-center justify-center">
+                                                        <svg class="w-3 h-3 {{ in_array($colorClass, ['bg-slate-100', 'bg-slate-300', 'bg-teal-300', 'bg-lime-300', 'bg-orange-300', 'bg-red-300', 'bg-cyan-300', 'bg-purple-300']) ? 'text-gray-800' : 'text-white' }}" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        @endforeach
                                     </div>
-                                </label>
+                                </div>
                             @endforeach
-                        </div>
-
-                        <!-- Cor Personalizada -->
-                        <div class="mt-4">
-                            <label for="custom_color" class="block text-sm text-gray-600 mb-2">
-                                Ou escolha uma cor personalizada:
-                            </label>
-                            <input type="color"
-                                   id="custom_color"
-                                   x-model="form.color"
-                                   class="w-16 h-10 border border-gray-300 rounded cursor-pointer">
-                        </div>
-                        @error('color')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Preview da Carteira -->
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <h4 class="text-sm font-medium text-gray-700 mb-3" style="font-family: 'Poppins', sans-serif;">
-                            Pré-visualização
-                        </h4>
-                        <div class="bg-white rounded-lg shadow-md p-4 border-l-4"
-                             :style="'border-left-color: ' + form.color">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center text-white"
-                                     :style="'background-color: ' + form.color">
-                                    <i class="ti ti-{{ $account->icon }}"></i>
-                                </div>
-                                <div class="ml-3">
-                                    <h3 class="text-lg font-medium text-gray-900"
-                                    
-                                        x-text="form.name || 'Nome da Carteira'">
-                                    </h3>
-                                    <p class="text-sm text-gray-500 capitalize"
-                                       style="font-family: 'Poppins', sans-serif;"
-                                       x-text="form.type ? form.type.replace('_', ' ') : 'Tipo da carteira'">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <p class="text-2xl font-bold"
-                                   :style="'color: ' + form.color + '; font-family: Poppins, sans-serif;'">
-                                    <span x-text="parseFloat(form.balance || 0).toFixed(2).replace('.', ',')"></span>€
-                                </p>
-                            </div>
                         </div>
                     </div>
 
                     <!-- Campo oculto para o ícone -->
                     <input type="hidden" name="icon" x-model="form.icon">
 
+                    <!-- Campo para definir se o saldo é efetivo -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <label for="is_balance_effective" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Este saldo deve ser considerado no total?
+                            </label>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                Desative esta opção se este valor for apenas para marcação e não deva ser somado ao seu saldo total.
+                            </p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="hidden" name="is_balance_effective" value="0">
+                            <input type="checkbox"
+                                   id="is_balance_effective"
+                                   name="is_balance_effective"
+                                   value="1"
+                                   class="sr-only peer"
+                                   x-model="form.is_balance_effective"
+                                @checked(old('is_balance_effective', true))>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-teal-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600 dark:peer-checked:bg-teal-700 dark:bg-gray-600"></div>
+                        </label>
+                    </div>
+
                     <!-- Botões -->
                     <div class="flex items-center justify-end space-x-4 pt-6">
                         <a href="{{ route('accounts.index') }}"
-                           class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-150">
+                           class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-150">
                             Cancelar
                         </a>
                         <button type="submit"
@@ -173,18 +243,18 @@
             </div>
         </div>
     </div>
-
     @push('scripts')
         <script>
-            function accountForm() {
+            function walletForm() {
                 return {
                     form: {
-                        name: '{{ old("name", $account->name) }}' || '',
-                        type: '{{ old("type", $account->type) }}' || '',
-                        balance: '{{ old("balance", $account->balance) }}' || '0.00',
-                        color: '{{ old("color", $account->color) }}' || '#0b4c64',
-                        icon: '{{ old("icon", $account->icon) }}' || 'wallet'
+                        name: '{{ old("name") }}' || '',
+                        account_type_id: '{{ old("account_type_id") }}' || '',
+                        balance: '{{ old("balance", "0.00") }}' || '0.00',
+                        color: '{{ old("color") }}' || 'bg-teal-500',
+                        is_balance_effective: {{ old('is_balance_effective', 1) ? 'true' : 'false' }}
                     },
+
 
                     init() {
                         this.updateIcon();
@@ -192,12 +262,12 @@
 
                     updateIcon() {
                         const iconMap = {
-                            'conta_corrente': 'building-bank',
-                            'dinheiro': 'cash',
-                            'poupanca': 'pig-money',
-                            'investimentos': 'trending-up',
-                            'vr_va': 'tools-kitchen-2',
-                            'outros': 'wallet'
+                            'checking_account': 'building-bank',
+                            'cash': 'cash',
+                            'savings': 'pig-money',
+                            'investments': 'trending-up',
+                            'meal_card': 'tools-kitchen-2',
+                            'others': 'wallet'
                         };
 
                         this.form.icon = iconMap[this.form.type] || 'wallet';

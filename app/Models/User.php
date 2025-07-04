@@ -85,12 +85,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Account::class)->where('is_active', true);
     }
 
+
     /**
      * Calcular saldo total de todas as carteiras
      */
     public function getTotalBalanceAttribute(): float
     {
-        return $this->accounts()->where('is_active', true)->sum('balance');
+        return $this->accounts()
+            ->where('is_active', true)
+            ->where('is_balance_effective', true)
+            ->sum('balance');
     }
 
     /**
@@ -100,6 +104,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return number_format($this->total_balance, 2, ',', '.') . '€';
     }
-
-
 }
