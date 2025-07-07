@@ -1,51 +1,50 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Minhas Carteiras') }}
-            </h2>
-            <div class="flex space-x-3">
-                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 border border-transparent rounded-md font-semibold
-                    text-xs text-white uppercase tracking-widest hover:from-orange-700 hover:to-orange-800 focus:outline-none focus:border-orange-900 focus:ring focus:ring-orange-300 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
+            <div class="flex items-center">
+                <a href="{{ route('accounts.index') }}"
+                   class="mr-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-150">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Ver Carteiras Desativadas
                 </a>
-                <a href="{{ route('accounts.create') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold
-                    text-xs text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Nova Carteira
-                </a>
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Carteiras Desativadas') }}
+                </h2>
             </div>
+            <a href="{{ route('accounts.index') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 border border-transparent rounded-md font-semibold
+                text-xs text-white uppercase tracking-widest hover:from-gray-700 hover:to-gray-800 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Voltar às Carteiras Ativas
+            </a>
         </div>
     </x-slot>
 
     <div class="py-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-800 dark:to-gray-900">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Resumo Financeiro -->
+            <!-- Informação sobre carteiras arquivadas -->
             <div class="mb-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg border-l-4 border-teal-600">
+                <div class="bg-orange-50 dark:bg-orange-900/20 overflow-hidden shadow-xl sm:rounded-lg border-l-4 border-orange-500">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-12 h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center">
+                                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
                                     </svg>
                                 </div>
                             </div>
                             <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    Saldo Total (Efetivo)
+                                <h3 class="text-lg font-medium text-orange-800 dark:text-orange-200">
+                                    Carteiras Arquivadas
                                 </h3>
-                                <p class="text-3xl font-bold text-teal-600 dark:text-teal-400">
-                                    {{ number_format($totalBalance, 2, ',', '.') }}€
+                                <p class="text-orange-700 dark:text-orange-300">
+                                    Estas carteiras foram desativadas e não são incluídas no saldo total.
                                 </p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                    Exclui valores marcados como "apenas marcação"
+                                <p class="text-sm text-orange-600 dark:text-orange-400 mt-1">
+                                    Pode reativar qualquer carteira a qualquer momento através do menu de ações.
                                 </p>
                             </div>
                         </div>
@@ -53,16 +52,23 @@
                 </div>
             </div>
 
-            <!-- Lista de Carteiras -->
+            <!-- Lista de Carteiras Desativadas -->
             @if($accounts->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{ showChart: false }">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($accounts as $account)
-                        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 border-l-4 relative"
+                        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 border-l-4 relative opacity-75"
                              style="border-left-color: {{ $account->color }};">
+                            <!-- Badge de "Desativada" -->
+                            <div class="absolute top-2 right-2">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100">
+                                    Desativada
+                                </span>
+                            </div>
+                            
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white {{ $account->color }}">
+                                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white opacity-75 {{ $account->color }}">
                                             <i class="ti ti-{{ $account->icon }}"></i>
                                         </div>
                                         <div class="ml-3">
@@ -71,8 +77,8 @@
                                             </h3>
                                             @if(!$account->is_balance_effective)
                                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 mt-1">
-                                Apenas marcação
-                            </span>
+                                                    Apenas marcação
+                                                </span>
                                             @endif
                                             <p class="text-sm text-gray-500 dark:text-gray-400 capitalize">
                                                 {{ $account->accountType->name }}
@@ -118,41 +124,29 @@
                                                     </svg>
                                                     Editar
                                                 </a>
-                                                <form action="{{ route('accounts.toggle-balance-effective', $account) }}" method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                            class="group flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
-                                                            role="menuitem">
-                                                        <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                        </svg>
-                                                        {{ $account->is_balance_effective ? 'Marcar como não efetivo' : 'Marcar como efetivo' }}
-                                                    </button>
-                                                </form>
                                                 <form action="{{ route('accounts.toggle-status', $account) }}" method="POST">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit"
-                                                            class="group flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
+                                                            class="group flex items-center w-full px-4 py-2 text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900 hover:text-green-900 dark:hover:text-green-100"
                                                             role="menuitem">
-                                                        <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $account->is_active ? 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636' : 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' }}"></path>
+                                                        <svg class="mr-3 h-5 w-5 text-green-400 group-hover:text-green-500 dark:group-hover:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                         </svg>
-                                                        {{ $account->is_active ? 'Desativar' : 'Ativar' }}
+                                                        Reativar Carteira
                                                     </button>
                                                 </form>
                                                 <form action="{{ route('accounts.destroy', $account) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            onclick="return confirm('Tem certeza que deseja remover esta carteira?')"
+                                                            onclick="return confirm('Tem certeza que deseja remover permanentemente esta carteira? Esta ação não pode ser desfeita.')"
                                                             class="group flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 hover:text-red-900 dark:hover:text-red-100"
                                                             role="menuitem">
                                                         <svg class="mr-3 h-5 w-5 text-red-400 group-hover:text-red-500 dark:group-hover:text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                         </svg>
-                                                        Remover
+                                                        Remover Permanentemente
                                                     </button>
                                                 </form>
                                             </div>
@@ -161,8 +155,11 @@
                                 </div>
 
                                 <div class="mt-4">
-                                    <p class="text-2xl font-bold" style="color: {{ $account->color }};">
+                                    <p class="text-2xl font-bold opacity-75" style="color: {{ $account->color }};">
                                         {{ $account->formatted_balance }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        Desativada em {{ $account->updated_at->format('d/m/Y') }}
                                     </p>
                                 </div>
                             </div>
@@ -174,21 +171,21 @@
                 <div class="text-center py-12">
                     <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
                         <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
                         </svg>
                     </div>
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                        Nenhuma carteira encontrada
+                        Nenhuma carteira desativada
                     </h3>
                     <p class="text-gray-500 dark:text-gray-400 mb-6">
-                        Comece criando sua primeira carteira para gerir suas finanças.
+                        Todas as suas carteiras estão ativas. As carteiras desativadas aparecerão aqui.
                     </p>
-                    <a href="{{ route('accounts.create') }}"
+                    <a href="{{ route('accounts.index') }}"
                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
-                        Criar Primeira Carteira
+                        Ver Carteiras Ativas
                     </a>
                 </div>
             @endif

@@ -53,6 +53,7 @@ Route::middleware([
     // Rotas de Accounts - Definidas manualmente para maior controle
     Route::prefix('accounts')->name('accounts.')->group(function () {
         Route::get('/', [AccountController::class, 'index'])->name('index');
+        Route::get('/archive', [AccountController::class, 'archive'])->name('archive');
         Route::get('/create', [AccountController::class, 'create'])->name('create');
         Route::post('/', [AccountController::class, 'store'])->name('store');
         Route::get('/{account}', [AccountController::class, 'show'])->name('show');

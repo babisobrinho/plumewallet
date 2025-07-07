@@ -176,17 +176,42 @@ class AccountController extends Controller
     }
 
     /**
+     * Exibir lista de carteiras desativadas do utilizador
+     */
+    public function archive(): View
+    {
+        $accounts = Auth::user()->accounts()
+            ->with('accountType') // Carrega o relacionamento
+            ->where('is_active', false) // Busca apenas carteiras inativas
+            ->orderBy('updated_at', 'desc') // Ordena pela data de desativação
+            ->get();
+
+        return view('accounts.archive', compact('accounts'));
+    }
+
+    /**
      * Ativar/Desativar carteira
      */
     public function toggleStatus(Account $account): RedirectResponse
     {
         $this->authorize('update', $account);
 
+        $wasActive = $account->is_active;
         $account->update(['is_active' => !$account->is_active]);
 
         $status = $account->is_active ? 'ativada' : 'desativada';
 
-        return redirect()->route('accounts.index')
-            ->with('success', "Carteira {$status} com sucesso!");
+        // Redireciona para a página apropriada baseado no estado anterior
+        if ($wasActive) {
+            // Se estava ativa e foi desativada, redireciona para a página principal
+            return redirect()->route('accounts.index')
+                ->with('success', "Carteira {$status} com sucesso!");
+        } else {
+            // Se estava inativa e foi reativada, pode vir da página de arquivo
+            $redirectTo = request()->get('from') === 'archive' ? 'accounts.archive' : 'accounts.index';
+            return redirect()->route($redirectTo)
+                ->with('success', "Carteira {$status} com sucesso!");
+        }
     }
 }
+

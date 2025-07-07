@@ -13,6 +13,13 @@
                 </h2>
             </div>
             <div class="flex space-x-2">
+                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 border border-transparent rounded-md font-semibold
+                    text-xs text-white uppercase tracking-widest hover:from-orange-700 hover:to-orange-800 focus:outline-none focus:border-orange-900 focus:ring focus:ring-orange-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
+                    </svg>
+                    Ver Carteiras Desativadas
+                </a>
                 <a href="{{ route('accounts.edit', $account) }}"
                    class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,3 +194,4 @@
         </div>
     </div>
 </x-app-layout>
+
