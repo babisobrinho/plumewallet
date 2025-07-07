@@ -12,18 +12,22 @@ class CategoryController extends Controller
 {
 // Categorias padrão que o usuário pode escolher ao criar uma nova categoria
     protected $defaultCategories = [
-        ['name' => 'Alimentação', 'icon' => 'ti ti-shopping-cart', 'color' => 'blue-500', 'type' => 'expense'],
-        ['name' => 'Transporte', 'icon' => 'ti ti-bus', 'color' => 'teal-500', 'type' => 'expense'],
-        ['name' => 'Moradia', 'icon' => 'ti ti-home', 'color' => 'blue-600', 'type' => 'expense'],
-        ['name' => 'Lazer', 'icon' => 'ti ti-movie', 'color' => 'purple', 'type' => 'expense'],
-        ['name' => 'Educação', 'icon' => 'ti ti-school', 'color' => 'blue-700', 'type' => 'expense'],
-        ['name' => 'Saúde', 'icon' => 'ti ti-heart', 'color' => 'red-500', 'type' => 'expense'],
-        ['name' => 'Salário', 'icon' => 'ti ti-wallet', 'color' => 'teal-600', 'type' => 'income'],
-        ['name' => 'Investimentos', 'icon' => 'ti ti-chart-line', 'color' => 'green-500', 'type' => 'income'],
+   
     ];
 
     // Cores disponíveis para as categorias personalizadas
     protected $availableColors = [
+        // Cores 500
+        'teal-500', 'violet-500', 'lime-500', 'orange-500', 'red-500', 'cyan-500', 'purple-500',
+        // Cores 400
+        'teal-400', 'violet-400', 'lime-400', 'orange-400', 'red-400', 'cyan-400', 'purple-400',
+        // Cores 300
+        'teal-300', 'violet-300', 'lime-300', 'orange-300', 'red-300', 'cyan-300', 'purple-300',
+        // Cores Neutras
+        'white', 'gray-200', 'gray-300', 'gray-400', 'gray-500', 'gray-600', 'gray-700',
+        // Especiais
+        'black', 'blue-500', 'green-500', 'teal-600',
+        // Cores antigas para compatibilidade
         'blue-500', 'blue-600', 'teal-500', 'teal-600',
         'red-500', 'red-600', 'purple', 'cyan', 'yellow-500'
     ];
@@ -36,18 +40,26 @@ class CategoryController extends Controller
         'ti ti-hamburger', 'ti ti-shirt', 'ti ti-glass', 'ti ti-smoking',
         'ti ti-device-laptop', 'ti ti-plane', 'ti ti-paw', 'ti ti-tools',
         'ti ti-coin', 'ti ti-confetti', 'ti ti-cookie', 'ti ti-baby-carriage',
-        'ti ti-carrot', 'ti ti-apple', 'ti ti-mood-happy', 'ti ti-friends'
+        'ti ti-carrot', 'ti ti-apple', 'ti ti-mood-happy', 'ti ti-friends',
+        // Novos ícones do Tabler
+        'ti ti-cash', 'ti ti-building-bank', 'ti ti-download', 'ti ti-pig-money',
+        'ti ti-trending-up', 'ti ti-credit-card', 'ti ti-tools-kitchen-2',
+        'ti ti-device-gamepad-2', 'ti ti-user-heart', 'ti ti-ball-football',
+        'ti ti-users-group', 'ti ti-glass-full', 'ti ti-cpu', 'ti ti-plane-tilt',
+        'ti ti-heartbeat', 'ti ti-buildings', 'ti ti-home-heart', 'ti ti-location-heart',
+        'ti ti-clover', 'ti ti-arrow-left', 'ti ti-chevron-down', 'ti ti-eye',
+        'ti ti-x', 'ti ti-check'
     ];
 
    
 
-    public function index()
+        public function index()
 {
     $user = Auth::user();
 
     // Carrega as categorias e suas dependências
     $userCategories = $user->categories()
-        ->withSum('transactions', 'amount')
+        ->withSum('transactions', 'amount') // <-- Isso já soma as transações
         ->withCount('transactions')
         ->with(['transactions' => function($query) {
             $query->latest('date')->limit(1);
@@ -70,14 +82,12 @@ class CategoryController extends Controller
 }
 
     public function create()
-    {
-        // Passa as categorias padrão, cores e ícones para a view de criação de categoria
-        return view('categories.create', [ // Esta é a view para criar CATEGORIAS
-            'defaultCategories' => $this->defaultCategories,
-            'availableColors' => $this->availableColors,
-            'availableIcons' => $this->availableIcons
-        ]);
-    }
+{
+    return view('categories.create', [
+        'availableColors' => $this->availableColors,
+        'availableIcons' => $this->availableIcons
+    ]);
+}
 
     public function store(Request $request)
     {
@@ -141,3 +151,4 @@ class CategoryController extends Controller
             ->with('success', 'Categoria removida com sucesso!');
     }
 }
+

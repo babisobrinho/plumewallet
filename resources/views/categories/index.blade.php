@@ -65,6 +65,10 @@
                                         </span>
                                     </div>
                                     <div class="flex justify-end mt-4 space-x-4 border-t pt-4">
+                                        {{-- NOVO: Link para ver todas as transações da categoria --}}
+                                        <a href="{{ route('categories.transactions', $category) }}" class="text-plume-blue-500 hover:text-plume-blue-700 transition duration-300 ease-in-out text-xl" title="Ver Transações">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
                                         @if($category->transactions_count > 0 && $category->transactions->first())
                                             <a href="{{ route('transactions.edit', $category->transactions->first()) }}" class="text-plume-blue-500 hover:text-plume-blue-700 transition duration-300 ease-in-out text-xl" title="Editar Última Transação">
                                                 <i class="fas fa-edit"></i>

@@ -20,6 +20,3 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('transactions', TransactionController::class);
 });
-
-
-
