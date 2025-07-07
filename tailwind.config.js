@@ -11,6 +11,16 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
+    // Adicione esta seção safelist
+    safelist: [
+        {
+            pattern: /border-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange)-\d{3}/,
+        },
+        {
+            pattern: /text-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange)-\d{3}/,
+        },
+    ],
+
     theme: {
         extend: {
             fontFamily: {
@@ -18,7 +28,8 @@ export default {
             },
             colors: {
                 plume: {
-                    'azul-500': '#3B82F6',
+                    // Se você mudou no DB para 'blue-500', esta linha pode ser removida
+                    // 'azul-500': '#3B82F6',
                     blue: {
                         500: '#084baa',
                         600: '#052a54',
@@ -111,4 +122,3 @@ export default {
         typography,
     ],
 };
-
