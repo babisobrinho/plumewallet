@@ -19,10 +19,13 @@ class CategoryController extends Controller
     protected $availableColors = [
         // Cores 500
         'teal-500', 'violet-500', 'lime-500', 'orange-500', 'red-500', 'cyan-500', 'purple-500',
+        'pink-500', 'indigo-500', 'slate-500',
         // Cores 400
         'teal-400', 'violet-400', 'lime-400', 'orange-400', 'red-400', 'cyan-400', 'purple-400',
+        'pink-400', 'indigo-400', 'slate-400',
         // Cores 300
         'teal-300', 'violet-300', 'lime-300', 'orange-300', 'red-300', 'cyan-300', 'purple-300',
+        'pink-300', 'indigo-300', 'slate-300',
         // Cores Neutras
         'white', 'gray-200', 'gray-300', 'gray-400', 'gray-500', 'gray-600', 'gray-700',
         // Especiais

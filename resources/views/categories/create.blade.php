@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
         <!-- Cabeçalho -->
-        <div class="bg-plume-blue-600 px-6 py-4">
+        <div class="bg-plume-blue-600 dark:bg-plume-blue-700 px-6 py-4">
             <div class="flex items-center">
                 <a href="{{ route('categories.index') }}" class="text-plume-cream hover:text-white mr-4 transition duration-300 ease-in-out">
                     <i class="ti ti-arrow-left text-xl"></i>
@@ -19,9 +19,9 @@
             
             <!-- Nome da Categoria -->
             <div class="mb-6">
-                <label for="name" class="block text-plume-blue-600 font-semibold mb-2">Nome da Categoria</label>
+                <label for="name" class="block text-plume-blue-600 dark:text-plume-blue-400 font-semibold mb-2">Nome da Categoria</label>
                 <input type="text" name="name" id="name" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-plume-blue-500 focus:border-transparent transition duration-300 ease-in-out" 
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-plume-blue-500 focus:border-transparent transition duration-300 ease-in-out dark:bg-gray-700 dark:text-white" 
                        placeholder="Ex: Academia, Salário Extra" value="{{ old('name') }}" required>
                 @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -30,17 +30,17 @@
             
             <!-- Tipo -->
             <div class="mb-6">
-                <label class="block text-plume-blue-600 font-semibold mb-2">Tipo</label>
+                <label class="block text-plume-blue-600 dark:text-plume-blue-400 font-semibold mb-2">Tipo</label>
                 <div class="flex space-x-6">
                     <label class="inline-flex items-center cursor-pointer">
                         <input type="radio" name="type" value="expense" id="type_expense"
                                class="form-radio text-plume-blue-600 h-5 w-5" {{ old('type', 'expense') === 'expense' ? 'checked' : '' }}>
-                        <span class="ml-2 text-gray-700">Despesa</span>
+                        <span class="ml-2 text-gray-700 dark:text-gray-300">Despesa</span>
                     </label>
                     <label class="inline-flex items-center cursor-pointer">
                         <input type="radio" name="type" value="income" id="type_income"
                                class="form-radio text-plume-blue-600 h-5 w-5" {{ old('type') === 'income' ? 'checked' : '' }}>
-                        <span class="ml-2 text-gray-700">Receita</span>
+                        <span class="ml-2 text-gray-700 dark:text-gray-300">Receita</span>
                     </label>
                 </div>
                 @error('type')
@@ -48,248 +48,78 @@
                 @enderror
             </div>
 
-            <!-- Cor -->
-            <div class="mb-6">
-                <label class="block text-plume-blue-600 font-semibold mb-2">Cor</label>
-                
-                <!-- Cores Principais com Legendas -->
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex space-x-4">
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-teal-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Teal</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-violet-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Violet</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-lime-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Lime</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-orange-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Orange</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-red-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Red</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-cyan-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Cyan</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-4 h-4 bg-plume-purple-500 rounded-full"></div>
-                            <span class="text-gray-600 text-xs">Purple</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cores 500 -->
-                <div class="mb-4">
-                    <h4 class="text-gray-700 text-sm font-medium mb-2">Cores 500</h4>
-                    <div class="grid grid-cols-7 gap-2">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="teal-500" class="sr-only" {{ old('color') == 'teal-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-teal-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="violet-500" class="sr-only" {{ old('color') == 'violet-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-violet-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="lime-500" class="sr-only" {{ old('color') == 'lime-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-lime-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="orange-500" class="sr-only" {{ old('color') == 'orange-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-orange-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="red-500" class="sr-only" {{ old('color') == 'red-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-red-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="cyan-500" class="sr-only" {{ old('color') == 'cyan-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-cyan-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="purple-500" class="sr-only" {{ old('color') == 'purple-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-purple-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                    </div>
-                </div>
+<!-- Cor -->
+<div class="mb-6">
+    <label class="block text-plume-blue-600 dark:text-plume-blue-400 font-semibold mb-2">Cor</label>
+    
+    <!-- Cores agrupadas por tonalidade -->
+    <div class="space-y-4" id="color-container">
+        @php
+            $colorGroups = [
+                'Azul/Verde' => ['blue-500', 'cyan-300', 'cyan-400', 'cyan-500', 'teal-300', 'teal-400', 'teal-500', 'teal-600', 'green-500', 'lime-300', 'lime-400', 'lime-500'],
+                'Roxo/Rosa' => ['violet-300', 'violet-400', 'violet-500', 'purple-300', 'purple-400', 'purple-500', 'indigo-300', 'indigo-400', 'indigo-500', 'pink-300', 'pink-400', 'pink-500'],
+                'Quentes' => ['red-300', 'red-400', 'red-500', 'orange-300', 'orange-400', 'orange-500', 'yellow-500'],
+                'Neutras' => ['white', 'gray-200', 'gray-300', 'gray-400', 'gray-500', 'gray-600', 'gray-700', 'black', 'slate-300', 'slate-400', 'slate-500']
+            ];
+        @endphp
 
-                <!-- Cores 400 -->
-                <div class="mb-4">
-                    <h4 class="text-gray-700 text-sm font-medium mb-2">Cores 400</h4>
-                    <div class="grid grid-cols-7 gap-2">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="teal-400" class="sr-only" {{ old('color') == 'teal-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-teal-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="violet-400" class="sr-only" {{ old('color') == 'violet-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-violet-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="lime-400" class="sr-only" {{ old('color') == 'lime-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-lime-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="orange-400" class="sr-only" {{ old('color') == 'orange-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-orange-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="red-400" class="sr-only" {{ old('color') == 'red-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-red-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="cyan-400" class="sr-only" {{ old('color') == 'cyan-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-cyan-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="purple-400" class="sr-only" {{ old('color') == 'purple-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-purple-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
+        @foreach($colorGroups as $groupName => $colors)
+        <div>
+            <h4 class="text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ $groupName }}</h4>
+            <div class="flex flex-wrap gap-2">
+                @foreach($colors as $color)
+                <label class="cursor-pointer">
+                    <input type="radio" name="color" value="{{ $color }}" class="sr-only" {{ old('color') == $color ? 'checked' : '' }}>
+                    <div class="w-8 h-8 rounded-full border-2 border-transparent transition-colors duration-200 color-option
+                        @if(str_contains($color, 'white')) bg-white border border-gray-300 @else bg-plume-{{ str_replace('-', '-', $color) }} @endif">
                     </div>
-                </div>
-
-                <!-- Cores 300 -->
-                <div class="mb-4">
-                    <h4 class="text-gray-700 text-sm font-medium mb-2">Cores 300</h4>
-                    <div class="grid grid-cols-7 gap-2">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="teal-300" class="sr-only" {{ old('color') == 'teal-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-teal-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="violet-300" class="sr-only" {{ old('color') == 'violet-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-violet-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="lime-300" class="sr-only" {{ old('color') == 'lime-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-lime-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="orange-300" class="sr-only" {{ old('color') == 'orange-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-orange-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="red-300" class="sr-only" {{ old('color') == 'red-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-red-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="cyan-300" class="sr-only" {{ old('color') == 'cyan-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-cyan-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="purple-300" class="sr-only" {{ old('color') == 'purple-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-purple-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Cores Neutras -->
-                <div class="mb-4">
-                    <h4 class="text-gray-700 text-sm font-medium mb-2">Cores Neutras</h4>
-                    <div class="grid grid-cols-7 gap-2">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="white" class="sr-only" {{ old('color') == 'white' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-white rounded-full border-2 border-gray-300 hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-200" class="sr-only" {{ old('color') == 'gray-200' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-200 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-300" class="sr-only" {{ old('color') == 'gray-300' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-300 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-400" class="sr-only" {{ old('color') == 'gray-400' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-400 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-500" class="sr-only" {{ old('color') == 'gray-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-600" class="sr-only" {{ old('color') == 'gray-600' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-600 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="gray-700" class="sr-only" {{ old('color') == 'gray-700' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-gray-700 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Especiais -->
-                <div class="mb-6">
-                    <h4 class="text-gray-700 text-sm font-medium mb-2">Especiais</h4>
-                    <div class="grid grid-cols-4 gap-2">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="black" class="sr-only" {{ old('color') == 'black' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-black rounded-full border-2 border-gray-300 hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="blue-500" class="sr-only" {{ old('color') == 'blue-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-blue-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="green-500" class="sr-only" {{ old('color') == 'green-500' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-green-500 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="color" value="teal-600" class="sr-only" {{ old('color') == 'teal-600' ? 'checked' : '' }}>
-                            <div class="w-8 h-8 bg-plume-teal-600 rounded-full border-2 border-transparent hover:border-plume-blue-500 transition-colors duration-200 color-option"></div>
-                        </label>
-                    </div>
-                </div>
-
-                @error('color')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+                </label>
+                @endforeach
             </div>
+        </div>
+        @endforeach
+    </div>
+
+    @error('color')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+</div>
             
             <!-- Ícone -->
             <div class="mb-8">
-                <label class="block text-plume-blue-600 font-semibold mb-2">Ícone</label>
+                <label class="block text-plume-blue-600 dark:text-plume-blue-400 font-semibold mb-2">Ícone</label>
                 <div class="grid grid-cols-4 sm:grid-cols-6 gap-3" id="icons-container">
                     @foreach($expenseIcons as $icon)
-                    <label class="flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:bg-plume-cream cursor-pointer transition duration-300 ease-in-out shadow-sm icon-option">
+                    <label class="flex flex-col items-center p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-plume-cream dark:hover:bg-gray-700 cursor-pointer transition duration-300 ease-in-out shadow-sm icon-option">
                         <input type="radio" name="icon" value="{{ $icon }}" 
                             class="form-radio text-plume-blue-600 h-4 w-4 mb-2 hidden"
                             {{ (old('icon') == $icon) || ($loop->first && !old('icon')) ? 'checked' : '' }}>
-                        <i class="{{ $icon }} text-3xl text-plume-blue-600"></i>
+                        <div class="icon-container w-12 h-12 rounded-full flex items-center justify-center bg-plume-blue-500">
+                            <i class="{{ $icon }} text-3xl text-white"></i>
+                        </div>
                     </label>
                     @endforeach
                 </div>
-                <p class="text-sm text-gray-500 mt-3 text-center">
-                    Mais ícones em <a href="https://tabler.io/icons" target="_blank" 
-                    class="text-plume-blue-600 hover:underline font-medium">Tabler Icons</a>
-                </p>
                 @error('icon')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
             
             <!-- Botões -->
-            <div class="flex justify-between border-t pt-6 mt-6">
+            <div class="flex justify-between border-t pt-6 mt-6 border-gray-200 dark:border-gray-700">
                 <a href="{{ route('categories.index') }}" 
-                   class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition duration-300 ease-in-out shadow-sm">
+                   class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 ease-in-out shadow-sm">
                     Cancelar
                 </a>
                 <button type="submit" 
-                        class="px-6 py-2 bg-plume-blue-600 text-white rounded-lg hover:bg-plume-blue-700 transition duration-300 ease-in-out flex items-center shadow-md">
+                        class="px-6 py-2 bg-plume-blue-600 dark:bg-plume-blue-500 text-white rounded-lg hover:bg-plume-blue-700 dark:hover:bg-plume-blue-600 transition duration-300 ease-in-out flex items-center shadow-md">
                     <i class="ti ti-device-floppy mr-2"></i> Salvar Categoria
                 </button>
             </div>
         </form>
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -304,62 +134,71 @@
             'income': @json($incomeIcons)
         };
 
-        // Mapeamento de cores para classes CSS
-        const colorMap = {
-            'teal-500': 'text-plume-teal-500',
-            'violet-500': 'text-plume-violet-500',
-            'lime-500': 'text-plume-lime-500',
-            'orange-500': 'text-plume-orange-500',
-            'red-500': 'text-plume-red-500',
-            'cyan-500': 'text-plume-cyan-500',
-            'purple-500': 'text-plume-purple-500',
-            'teal-400': 'text-plume-teal-400',
-            'violet-400': 'text-plume-violet-400',
-            'lime-400': 'text-plume-lime-400',
-            'orange-400': 'text-plume-orange-400',
-            'red-400': 'text-plume-red-400',
-            'cyan-400': 'text-plume-cyan-400',
-            'purple-400': 'text-plume-purple-400',
-            'teal-300': 'text-plume-teal-300',
-            'violet-300': 'text-plume-violet-300',
-            'lime-300': 'text-plume-lime-300',
-            'orange-300': 'text-plume-orange-300',
-            'red-300': 'text-plume-red-300',
-            'cyan-300': 'text-plume-cyan-300',
-            'purple-300': 'text-plume-purple-300',
-            'white': 'text-white',
-            'gray-200': 'text-plume-gray-200',
-            'gray-300': 'text-plume-gray-300',
-            'gray-400': 'text-plume-gray-400',
-            'gray-500': 'text-plume-gray-500',
-            'gray-600': 'text-plume-gray-600',
-            'gray-700': 'text-plume-gray-700',
-            'black': 'text-black',
-            'blue-500': 'text-plume-blue-500',
-            'green-500': 'text-plume-green-500',
-            'teal-600': 'text-plume-teal-600',
+        // Mapeamento de cores para classes CSS de background
+        const bgColorMap = {
+            'teal-500': 'bg-plume-teal-500',
+            'violet-500': 'bg-plume-violet-500',
+            'lime-500': 'bg-plume-lime-500',
+            'orange-500': 'bg-plume-orange-500',
+            'red-500': 'bg-plume-red-500',
+            'cyan-500': 'bg-plume-cyan-500',
+            'purple-500': 'bg-plume-purple-500',
+            'pink-500': 'bg-plume-pink-500',
+            'indigo-500': 'bg-plume-indigo-500',
+            'slate-500': 'bg-plume-slate-500',
+            'teal-400': 'bg-plume-teal-400',
+            'violet-400': 'bg-plume-violet-400',
+            'lime-400': 'bg-plume-lime-400',
+            'orange-400': 'bg-plume-orange-400',
+            'red-400': 'bg-plume-red-400',
+            'cyan-400': 'bg-plume-cyan-400',
+            'purple-400': 'bg-plume-purple-400',
+            'pink-400': 'bg-plume-pink-400',
+            'indigo-400': 'bg-plume-indigo-400',
+            'slate-400': 'bg-plume-slate-400',
+            'teal-300': 'bg-plume-teal-300',
+            'violet-300': 'bg-plume-violet-300',
+            'lime-300': 'bg-plume-lime-300',
+            'orange-300': 'bg-plume-orange-300',
+            'red-300': 'bg-plume-red-300',
+            'cyan-300': 'bg-plume-cyan-300',
+            'purple-300': 'bg-plume-purple-300',
+            'pink-300': 'bg-plume-pink-300',
+            'indigo-300': 'bg-plume-indigo-300',
+            'slate-300': 'bg-plume-slate-300',
+            'white': 'bg-white',
+            'gray-200': 'bg-plume-gray-200',
+            'gray-300': 'bg-plume-gray-300',
+            'gray-400': 'bg-plume-gray-400',
+            'gray-500': 'bg-plume-gray-500',
+            'gray-600': 'bg-plume-gray-600',
+            'gray-700': 'bg-plume-gray-700',
+            'black': 'bg-black',
+            'blue-500': 'bg-plume-blue-500',
+            'green-500': 'bg-plume-green-500',
+            'teal-600': 'bg-plume-teal-600',
             // Cores antigas para compatibilidade
-            'blue-600': 'text-plume-blue-600',
-            'red-600': 'text-plume-red-600',
-            'purple': 'text-plume-purple-500',
-            'cyan': 'text-plume-cyan-500',
-            'yellow-500': 'text-plume-yellow-500'
+            'blue-600': 'bg-plume-blue-600',
+            'red-600': 'bg-plume-red-600',
+            'purple': 'bg-plume-purple-500',
+            'cyan': 'bg-plume-cyan-500',
+            'yellow-500': 'bg-plume-yellow-500'
         };
 
-        // Função para aplicar cor aos ícones
+        // Função para aplicar cor aos ícones (fundo)
         function applyColorToIcons(selectedColor) {
-            const iconElements = document.querySelectorAll('.icon-option i');
-            const colorClass = colorMap[selectedColor] || 'text-plume-blue-600';
+            const iconContainers = document.querySelectorAll('.icon-container');
+            const bgColorClass = bgColorMap[selectedColor] || 'bg-plume-blue-500';
             
-            iconElements.forEach(icon => {
-                // Remove todas as classes de cor
-                Object.values(colorMap).forEach(colorCls => {
-                    icon.classList.remove(colorCls);
+            iconContainers.forEach(container => {
+                // Remove todas as classes de background
+                Object.values(bgColorMap).forEach(bgCls => {
+                    container.classList.remove(bgCls);
                 });
-                // Remove cor padrão
-                icon.classList.remove('text-plume-blue-600');
-                // Adiciona a nova cor
-                icon.classList.add(colorClass);
+                // Remove a classe padrão (bg-plume-blue-500) se estiver presente
+                container.classList.remove('bg-plume-blue-500');
+                // Adiciona o novo background
+                container.classList.add(bgColorClass);
             });
         }
 
@@ -368,6 +207,9 @@
             const icons = iconsByType[type];
             const currentSelectedIcon = document.querySelector('input[name="icon"]:checked')?.value;
             iconsContainer.innerHTML = '';
+            
+            const selectedColor = document.querySelector('input[name="color"]:checked')?.value || 'blue-500';
+            const bgColorClass = bgColorMap[selectedColor] || 'bg-plume-blue-500';
             
             icons.forEach(icon => {
                 const isChecked = icon === currentSelectedIcon || 
@@ -389,11 +231,15 @@
                     input.checked = true;
                 }
                 
-                const iconElement = document.createElement('i');
-                iconElement.className = `${icon} text-3xl text-plume-blue-600`;
+                const iconContainer = document.createElement('div');
+                iconContainer.className = `icon-container w-12 h-12 rounded-full flex items-center justify-center ${bgColorClass}`;
                 
+                const iconElement = document.createElement('i');
+                iconElement.className = `${icon} text-3xl text-white`;
+                
+                iconContainer.appendChild(iconElement);
                 label.appendChild(input);
-                label.appendChild(iconElement);
+                label.appendChild(iconContainer);
                 iconsContainer.appendChild(label);
                 
                 // Adiciona evento de change para o novo input
@@ -407,12 +253,6 @@
                     }
                 });
             });
-            
-            // Aplica a cor selecionada aos novos ícones
-            const selectedColor = document.querySelector('input[name="color"]:checked')?.value;
-            if (selectedColor) {
-                applyColorToIcons(selectedColor);
-            }
         }
 
         // Adiciona evento para mudar os ícones quando o tipo muda
@@ -435,7 +275,7 @@
                     const div = this.nextElementSibling;
                     div.classList.add('ring-2', 'ring-plume-blue-500', 'border-plume-blue-600');
                     
-                    // Aplica a cor aos ícones
+                    // Aplica a cor aos fundos dos ícones
                     applyColorToIcons(this.value);
                 }
             });
@@ -447,6 +287,14 @@
             const div = checkedColorRadio.nextElementSibling;
             div.classList.add('ring-2', 'ring-plume-blue-500', 'border-plume-blue-600');
             applyColorToIcons(checkedColorRadio.value);
+        } else {
+            // Se nenhum estiver selecionado, selecione o primeiro e aplique
+            if (colorRadios.length > 0) {
+                colorRadios[0].checked = true;
+                const div = colorRadios[0].nextElementSibling;
+                div.classList.add('ring-2', 'ring-plume-blue-500', 'border-plume-blue-600');
+                applyColorToIcons(colorRadios[0].value);
+            }
         }
 
         // Aplicar seleção visual inicial para ícones

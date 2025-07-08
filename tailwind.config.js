@@ -5,7 +5,6 @@ import typography from '@tailwindcss/typography';
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: 'class',
-    
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -13,13 +12,16 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
-    // Adicione esta seção safelist
     safelist: [
         {
-            pattern: /border-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange)-\d{3}/,
+            pattern: /(bg|text|border)-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange|pink|indigo|slate|gray)-\d{3}/,
+            variants: ['dark', 'hover', 'focus'],
         },
         {
-            pattern: /text-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange)-\d{3}/,
+            pattern: /(bg|text|border)-plume-(black|white|cream)/,
+        },
+        {
+            pattern: /dark:(bg|text|border)-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange|pink|indigo|slate|gray)-\d{3}/,
         },
     ],
 
@@ -30,9 +32,10 @@ export default {
             },
             colors: {
                 plume: {
-                    // Se você mudou no DB para 'blue-500', esta linha pode ser removida
-                    // 'azul-500': '#3B82F6',
+                    // Cores principais
                     blue: {
+                        300: '#93c5fd',
+                        400: '#60a5fa',
                         500: '#084baa',
                         600: '#052a54',
                         700: '#0b4c64',
@@ -100,6 +103,31 @@ export default {
                         600: '#c27e33',
                         700: '#9b6126',
                     },
+                    
+                    // Novas cores do manual
+                    pink: {
+                        300: '#f9a8d4',
+                        400: '#f472b6',
+                        500: '#ec4899',
+                        600: '#db2777',
+                        700: '#be185d',
+                    },
+                    indigo: {
+                        300: '#a5b4fc',
+                        400: '#818cf8',
+                        500: '#6366f1',
+                        600: '#4f46e5',
+                        700: '#4338ca',
+                    },
+                    slate: {
+                        300: '#cbd5e1',
+                        400: '#94a3b8',
+                        500: '#64748b',
+                        600: '#475569',
+                        700: '#334155',
+                    },
+                    
+                    // Cores neutras
                     gray: {
                         100: '#f3f4f6',
                         200: '#e5e7eb',
@@ -111,6 +139,8 @@ export default {
                         800: '#1f2937',
                         900: '#111827',
                     },
+                    
+                    // Cores especiais
                     black: '#000000',
                     white: '#ffffff',
                     cream: '#fff9f0'
