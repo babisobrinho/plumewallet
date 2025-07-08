@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    x-data="{
+        darkMode: localStorage.getItem('theme') === 'dark',
+        toggleTheme() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+        }
+    }"
+    x-init="$watch('darkMode', val => document.documentElement.classList.toggle('dark', val))"
+    :class="{ 'dark': darkMode }">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,5 +54,21 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            function themeSwitcher() {
+                return {
+                    isDark: false,
+                    initTheme() {
+                        const savedTheme = localStorage.getItem('theme');
+                        this.isDark = savedTheme === 'dark';
+                    },
+                    toggleTheme() {
+                        this.isDark = !this.isDark;
+                        localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                    }
+                }
+            }
+        </script>
     </body>
 </html>
