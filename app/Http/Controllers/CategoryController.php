@@ -32,97 +32,156 @@ class CategoryController extends Controller
         'red-500', 'red-600', 'purple', 'cyan', 'yellow-500'
     ];
 
-    // Ícones disponíveis para as categorias personalizadas
-    protected $availableIcons = [
-        'ti ti-shopping-cart', 'ti ti-bus', 'ti ti-home', 'ti ti-movie',
-        'ti ti-school', 'ti ti-heart', 'ti ti-wallet', 'ti ti-chart-line',
-        'ti ti-car', 'ti ti-device-mobile', 'ti ti-run', 'ti ti-gift',
-        'ti ti-hamburger', 'ti ti-shirt', 'ti ti-glass', 'ti ti-smoking',
-        'ti ti-device-laptop', 'ti ti-plane', 'ti ti-paw', 'ti ti-tools',
-        'ti ti-coin', 'ti ti-confetti', 'ti ti-cookie', 'ti ti-baby-carriage',
-        'ti ti-carrot', 'ti ti-apple', 'ti ti-mood-happy', 'ti ti-friends',
-        // Novos ícones do Tabler
-        'ti ti-cash', 'ti ti-building-bank', 'ti ti-download', 'ti ti-pig-money',
-        'ti ti-trending-up', 'ti ti-credit-card', 'ti ti-tools-kitchen-2',
-        'ti ti-device-gamepad-2', 'ti ti-user-heart', 'ti ti-ball-football',
-        'ti ti-users-group', 'ti ti-glass-full', 'ti ti-cpu', 'ti ti-plane-tilt',
-        'ti ti-heartbeat', 'ti ti-buildings', 'ti ti-home-heart', 'ti ti-location-heart',
-        'ti ti-clover', 'ti ti-arrow-left', 'ti ti-chevron-down', 'ti ti-eye',
-        'ti ti-x', 'ti ti-check'
+    // Ícones disponíveis para receitas
+    protected $incomeIcons = [
+        'ti ti-shopping-cart-dollar', // Vendas
+        'ti ti-report-money', // Serviços
+        'ti ti-brand-cashapp', // Salário
+        'ti ti-basket-dollar', // Freelancer
+        'ti ti-brand-tiktok', // Criação de conteúdo
+        'ti ti-chalkboard-teacher', // Mentoria
+        'ti ti-cash-banknote', // Part-time
+        'ti ti-brand-vinted', // Vinted
+        'ti ti-user-dollar', // Pensão
+        'ti ti-moneybag', // Aposentadoria
+        'ti ti-pencil-dollar', // Bolsa de mérito
+        'ti ti-cake', // Aniversário
+        'ti ti-coin-bitcoin', // Bitcoin
+        'ti ti-chart-candle', // Trade
+        'ti ti-database-dollar', // Extra
+        'ti ti-baby-carriage', // Babá
+        'ti ti-brand-youtube', // YouTube
+        'ti ti-devices-dollar', // Comissões
+        'ti ti-coins', // Moedas
+        'ti ti-cash', // Dinheiro
+        'ti ti-building-bank', // Banco
+        'ti ti-trending-up', // Investimentos
+        'ti ti-credit-card', // Cartão de crédito
     ];
 
-public function index()
-{
-    $user = Auth::user();
+    // Ícones disponíveis para despesas
+    protected $expenseIcons = [
+        'ti ti-burger', // Lanche
+        'ti ti-apple', // Frutas
+        'ti ti-carrot', // Vegetais
+        'ti ti-cake', // Bolo
+        'ti ti-coffee', // Café
+        'ti ti-glass-full', // Álcool
+        'ti ti-shopping-cart', // Supermercado
+        'ti ti-shopping-bag', // Compras
+        'ti ti-device-gamepad-2', // Jogos
+        'ti ti-ball-football', // Esportes
+        'ti ti-bowling', // Bowling
+        'ti ti-movie', // Cinema
+        'ti ti-plane-tilt', // Viagem
+        'ti ti-beach', // Férias
+        'ti ti-charging-pile', // Carro
+        'ti ti-bus', // Transporte
+        'ti ti-school', // Educação
+        'ti ti-books', // Livros
+        'ti ti-backpack', // Mochila
+        'ti ti-users-group', // Social
+        'ti ti-shoe', // Compras
+        'ti ti-shirt', // Roupas
+        'ti ti-gift', // Presentes
+        'ti ti-brush', // Maquiagem
+        'ti ti-headphone', // Eletrônicos
+        'ti ti-device-mobile', // Telemóvel
+        'ti ti-device-laptop', // Laptop
+        'ti ti-camera', // Câmera
+        'ti ti-heartbeat', // Saúde
+        'ti ti-dental', // Dentista
+        'ti ti-stethoscope', // Médico
+        'ti ti-pill', // Remédio
+        'ti ti-barbell', // Ginásio
+        'ti ti-home', // Lar
+        'ti ti-buildings', // Condomínio
+        'ti ti-armchair', // Móveis
+        'ti ti-baby-carriage', // Filhos
+        'ti ti-paw', // Pets
+        'ti ti-clover', // Loteria
+        'ti ti-smoking', // Tabaco
+        'ti ti-music', // Música
+        'ti ti-empathize', // Doações
+        'ti ti-hamburger', // Fast food
+        'ti ti-tools-kitchen-2', // Utensílios de cozinha
+        'ti ti-perfume', // Perfume
+        'ti ti-microscope', // Material escolar
+    ];
 
-    // Carrega as categorias com suas transações e somatórios
-    $userCategories = $user->categories()
-        ->withSum('transactions', 'amount')
-        ->withCount('transactions')
-        ->with(['transactions' => function($query) {
-            $query->orderBy('date', 'desc');
-        }])
-        ->get();
+    public function index()
+    {
+        $user = Auth::user();
 
-    // Prepara uma coleção para todas as ocorrências das categorias
-    $allCategoryOccurrences = collect();
+        // Carrega as categorias com suas transações e somatórios
+        $userCategories = $user->categories()
+            ->withSum('transactions', 'amount')
+            ->withCount('transactions')
+            ->with(['transactions' => function($query) {
+                $query->orderBy('date', 'desc');
+            }])
+            ->get();
 
-    foreach ($userCategories as $category) {
-        // Adiciona a categoria com a data de criação (como Carbon)
-        $allCategoryOccurrences->push([
-            'category' => $category,
-            'date' => $category->created_at,
-            'is_creation' => true,
-            'transaction_amount' => null
-        ]);
+        // Prepara uma coleção para todas as ocorrências das categorias
+        $allCategoryOccurrences = collect();
 
-        // Adiciona a categoria para cada transação (com a data e valor da transação)
-        foreach ($category->transactions as $transaction) {
+        foreach ($userCategories as $category) {
+            // Adiciona a categoria com a data de criação (como Carbon)
             $allCategoryOccurrences->push([
                 'category' => $category,
-                'date' => \Carbon\Carbon::parse($transaction->date),
-                'is_creation' => false,
-                'transaction_amount' => $transaction->amount,
-                'transaction' => $transaction
+                'date' => $category->created_at,
+                'is_creation' => true,
+                'transaction_amount' => null
             ]);
+
+            // Adiciona a categoria para cada transação (com a data e valor da transação)
+            foreach ($category->transactions as $transaction) {
+                $allCategoryOccurrences->push([
+                    'category' => $category,
+                    'date' => \Carbon\Carbon::parse($transaction->date),
+                    'is_creation' => false,
+                    'transaction_amount' => $transaction->amount,
+                    'transaction' => $transaction
+                ]);
+            }
         }
-    }
 
-    // Remove duplicatas exatas (mesma categoria na mesma data)
-    $allCategoryOccurrences = $allCategoryOccurrences->unique(function ($item) {
-        return $item['category']->id . '-' . $item['date']->format('Y-m-d');
-    });
-
-    // Agrupa as ocorrências pela data formatada
-    $groupedCategories = $allCategoryOccurrences->sortByDesc('date')
-        ->groupBy(function($item) {
-            return $item['date']->format('d M, Y');
-        })
-        ->map(function($group) {
-            return $group->map(function($item) {
-                return [
-                    'category' => $item['category'],
-                    'is_creation' => $item['is_creation'],
-                    'transaction_amount' => $item['transaction_amount'] ?? null,
-                    'transaction' => $item['transaction'] ?? null
-                ];
-            })->unique('category.id');
+        // Remove duplicatas exatas (mesma categoria na mesma data)
+        $allCategoryOccurrences = $allCategoryOccurrences->unique(function ($item) {
+            return $item['category']->id . '-' . $item['date']->format('Y-m-d');
         });
 
-    // Calcula o saldo total do usuário
-    $balance = $user->transactions()->sum('amount');
+        // Agrupa as ocorrências pela data formatada
+        $groupedCategories = $allCategoryOccurrences->sortByDesc('date')
+            ->groupBy(function($item) {
+                return $item['date']->format('d M, Y');
+            })
+            ->map(function($group) {
+                return $group->map(function($item) {
+                    return [
+                        'category' => $item['category'],
+                        'is_creation' => $item['is_creation'],
+                        'transaction_amount' => $item['transaction_amount'] ?? null,
+                        'transaction' => $item['transaction'] ?? null
+                    ];
+                })->unique('category.id');
+            });
 
-    return view('categories.index', [
-        'groupedCategories' => $groupedCategories,
-        'balance' => $balance
-    ]);
-}
+        // Calcula o saldo total do usuário
+        $balance = $user->transactions()->sum('amount');
+
+        return view('categories.index', [
+            'groupedCategories' => $groupedCategories,
+            'balance' => $balance
+        ]);
+    }
 
     public function create()
     {
         return view('categories.create', [
             'availableColors' => $this->availableColors,
-            'availableIcons' => $this->availableIcons
+            'expenseIcons' => $this->expenseIcons,
+            'incomeIcons' => $this->incomeIcons
         ]);
     }
 
@@ -132,7 +191,7 @@ public function index()
             'name' => 'required|string|max:255|unique:categories,name,NULL,id,user_id,' . Auth::id(),
             'type' => 'required|in:expense,income',
             'color' => 'required|string|in:' . implode(',', $this->availableColors),
-            'icon' => 'required|string|in:' . implode(',', $this->availableIcons)
+            'icon' => 'required|string|in:' . implode(',', array_merge($this->incomeIcons, $this->expenseIcons))
         ]);
 
         $category = Auth::user()->categories()->create($validated);
@@ -149,7 +208,8 @@ public function index()
         return view('categories.edit', [
             'category' => $category,
             'availableColors' => $this->availableColors,
-            'availableIcons' => $this->availableIcons
+            'expenseIcons' => $this->expenseIcons,
+            'incomeIcons' => $this->incomeIcons
         ]);
     }
 
@@ -161,7 +221,7 @@ public function index()
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id . ',id,user_id,' . Auth::id(),
             'type' => 'required|in:expense,income',
             'color' => 'required|string|in:' . implode(',', $this->availableColors),
-            'icon' => 'required|string|in:' . implode(',', $this->availableIcons)
+            'icon' => 'required|string|in:' . implode(',', array_merge($this->incomeIcons, $this->expenseIcons))
         ]);
 
         $category->update($validated);

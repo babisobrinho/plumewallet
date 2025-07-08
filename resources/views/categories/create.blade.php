@@ -48,7 +48,7 @@
                 @enderror
             </div>
 
-            <!-- Cor - Layout da Imagem -->
+            <!-- Cor -->
             <div class="mb-6">
                 <label class="block text-plume-blue-600 font-semibold mb-2">Cor</label>
                 
@@ -257,8 +257,8 @@
             <!-- Ícone -->
             <div class="mb-8">
                 <label class="block text-plume-blue-600 font-semibold mb-2">Ícone</label>
-                <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
-                    @foreach($availableIcons as $icon)
+                <div class="grid grid-cols-4 sm:grid-cols-6 gap-3" id="icons-container">
+                    @foreach($expenseIcons as $icon)
                     <label class="flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:bg-plume-cream cursor-pointer transition duration-300 ease-in-out shadow-sm icon-option">
                         <input type="radio" name="icon" value="{{ $icon }}" 
                             class="form-radio text-plume-blue-600 h-4 w-4 mb-2 hidden"
@@ -295,6 +295,14 @@
     document.addEventListener('DOMContentLoaded', function() {
         const colorRadios = document.querySelectorAll('input[name="color"]');
         const iconRadios = document.querySelectorAll('input[name="icon"]');
+        const typeRadios = document.querySelectorAll('input[name="type"]');
+        const iconsContainer = document.getElementById('icons-container');
+        
+        // Ícones por tipo
+        const iconsByType = {
+            'expense': @json($expenseIcons),
+            'income': @json($incomeIcons)
+        };
 
         // Mapeamento de cores para classes CSS
         const colorMap = {
@@ -355,31 +363,64 @@
             });
         }
 
-        // Função para garantir seleção de cor
-        function ensureColorSelected() {
-            let anyColorChecked = false;
-            colorRadios.forEach(radio => {
-                if (radio.checked) anyColorChecked = true;
+        // Função para atualizar os ícones com base no tipo selecionado
+        function updateIconsByType(type) {
+            const icons = iconsByType[type];
+            const currentSelectedIcon = document.querySelector('input[name="icon"]:checked')?.value;
+            iconsContainer.innerHTML = '';
+            
+            icons.forEach(icon => {
+                const isChecked = icon === currentSelectedIcon || 
+                                 (icon === @json($expenseIcons[0]) && !currentSelectedIcon && type === 'expense') ||
+                                 (icon === @json($incomeIcons[0]) && !currentSelectedIcon && type === 'income');
+                
+                const label = document.createElement('label');
+                label.className = 'flex flex-col items-center p-3 border border-gray-200 rounded-lg hover:bg-plume-cream cursor-pointer transition duration-300 ease-in-out shadow-sm icon-option';
+                if (isChecked) {
+                    label.classList.add('border-plume-blue-500', 'bg-plume-blue-50');
+                }
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'icon';
+                input.value = icon;
+                input.className = 'form-radio text-plume-blue-600 h-4 w-4 mb-2 hidden';
+                if (isChecked) {
+                    input.checked = true;
+                }
+                
+                const iconElement = document.createElement('i');
+                iconElement.className = `${icon} text-3xl text-plume-blue-600`;
+                
+                label.appendChild(input);
+                label.appendChild(iconElement);
+                iconsContainer.appendChild(label);
+                
+                // Adiciona evento de change para o novo input
+                input.addEventListener('change', function() {
+                    document.querySelectorAll('.icon-option').forEach(option => {
+                        option.classList.remove('border-plume-blue-500', 'bg-plume-blue-50');
+                    });
+                    
+                    if (this.checked) {
+                        label.classList.add('border-plume-blue-500', 'bg-plume-blue-50');
+                    }
+                });
             });
-            if (!anyColorChecked && colorRadios.length > 0) {
-                colorRadios[0].checked = true;
-                applyColorToIcons(colorRadios[0].value);
+            
+            // Aplica a cor selecionada aos novos ícones
+            const selectedColor = document.querySelector('input[name="color"]:checked')?.value;
+            if (selectedColor) {
+                applyColorToIcons(selectedColor);
             }
         }
 
-        // Função para garantir seleção de ícone
-        function ensureIconSelected() {
-            let anyIconChecked = false;
-            iconRadios.forEach(radio => {
-                if (radio.checked) anyIconChecked = true;
+        // Adiciona evento para mudar os ícones quando o tipo muda
+        typeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateIconsByType(this.value);
             });
-            if (!anyIconChecked && iconRadios.length > 0) {
-                iconRadios[0].checked = true;
-            }
-        }
-
-        ensureColorSelected();
-        ensureIconSelected();
+        });
 
         // Adicionar efeito visual para seleção de cores
         colorRadios.forEach(radio => {
@@ -396,22 +437,6 @@
                     
                     // Aplica a cor aos ícones
                     applyColorToIcons(this.value);
-                }
-            });
-        });
-
-        // Adicionar efeito visual para seleção de ícones
-        iconRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                // Remove seleção visual de todos
-                document.querySelectorAll('.icon-option').forEach(option => {
-                    option.classList.remove('border-plume-blue-500', 'bg-plume-blue-50');
-                });
-                
-                // Adiciona seleção visual ao selecionado
-                if (this.checked) {
-                    const label = this.closest('label');
-                    label.classList.add('border-plume-blue-500', 'bg-plume-blue-50');
                 }
             });
         });
@@ -433,4 +458,3 @@
     });
 </script>
 @endsection
-
