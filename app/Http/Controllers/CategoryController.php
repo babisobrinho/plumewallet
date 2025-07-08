@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-// Categorias padrão que o usuário pode escolher ao criar uma nova categoria
+    // Categorias padrão que o usuário pode escolher ao criar uma nova categoria
     protected $defaultCategories = [
    
     ];
@@ -51,43 +51,80 @@ class CategoryController extends Controller
         'ti ti-x', 'ti ti-check'
     ];
 
-   
-
-        public function index()
+public function index()
 {
     $user = Auth::user();
 
-    // Carrega as categorias e suas dependências
+    // Carrega as categorias com suas transações e somatórios
     $userCategories = $user->categories()
-        ->withSum('transactions', 'amount') // <-- Isso já soma as transações
+        ->withSum('transactions', 'amount')
         ->withCount('transactions')
         ->with(['transactions' => function($query) {
-            $query->latest('date')->limit(1);
+            $query->orderBy('date', 'desc');
         }])
-        ->latest('created_at') // Ordena as categorias pela mais recente primeiro
         ->get();
 
-    // Agrupa as categorias pela data de criação (formato 'd M, Y')
-    $groupedCategories = $userCategories->groupBy(function($category) {
-        return $category->created_at->format('d M, Y');
+    // Prepara uma coleção para todas as ocorrências das categorias
+    $allCategoryOccurrences = collect();
+
+    foreach ($userCategories as $category) {
+        // Adiciona a categoria com a data de criação (como Carbon)
+        $allCategoryOccurrences->push([
+            'category' => $category,
+            'date' => $category->created_at,
+            'is_creation' => true,
+            'transaction_amount' => null
+        ]);
+
+        // Adiciona a categoria para cada transação (com a data e valor da transação)
+        foreach ($category->transactions as $transaction) {
+            $allCategoryOccurrences->push([
+                'category' => $category,
+                'date' => \Carbon\Carbon::parse($transaction->date),
+                'is_creation' => false,
+                'transaction_amount' => $transaction->amount,
+                'transaction' => $transaction
+            ]);
+        }
+    }
+
+    // Remove duplicatas exatas (mesma categoria na mesma data)
+    $allCategoryOccurrences = $allCategoryOccurrences->unique(function ($item) {
+        return $item['category']->id . '-' . $item['date']->format('Y-m-d');
     });
+
+    // Agrupa as ocorrências pela data formatada
+    $groupedCategories = $allCategoryOccurrences->sortByDesc('date')
+        ->groupBy(function($item) {
+            return $item['date']->format('d M, Y');
+        })
+        ->map(function($group) {
+            return $group->map(function($item) {
+                return [
+                    'category' => $item['category'],
+                    'is_creation' => $item['is_creation'],
+                    'transaction_amount' => $item['transaction_amount'] ?? null,
+                    'transaction' => $item['transaction'] ?? null
+                ];
+            })->unique('category.id');
+        });
 
     // Calcula o saldo total do usuário
     $balance = $user->transactions()->sum('amount');
 
     return view('categories.index', [
-        'groupedCategories' => $groupedCategories, // Passa os grupos para a view
+        'groupedCategories' => $groupedCategories,
         'balance' => $balance
     ]);
 }
 
     public function create()
-{
-    return view('categories.create', [
-        'availableColors' => $this->availableColors,
-        'availableIcons' => $this->availableIcons
-    ]);
-}
+    {
+        return view('categories.create', [
+            'availableColors' => $this->availableColors,
+            'availableIcons' => $this->availableIcons
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -107,7 +144,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $this->authorize('update', $category); // Garante que o usuário pode editar esta categoria
+        $this->authorize('update', $category);
         
         return view('categories.edit', [
             'category' => $category,
@@ -118,7 +155,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $this->authorize('update', $category); // Garante que o usuário pode atualizar esta categoria
+        $this->authorize('update', $category);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id . ',id,user_id,' . Auth::id(),
@@ -136,9 +173,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        $this->authorize('delete', $category); // Garante que o usuário pode deletar esta categoria
+        $this->authorize('delete', $category);
 
-        // Verifica se existem transações associadas a esta categoria
         if ($category->transactions()->exists()) {
             return back()
                 ->with('error', 'Não é possível excluir categoria com transações associadas. Remova as transações primeiro.');
@@ -151,4 +187,3 @@ class CategoryController extends Controller
             ->with('success', 'Categoria removida com sucesso!');
     }
 }
-

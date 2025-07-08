@@ -23,7 +23,7 @@
                 <div>
                     <label for="amount" class="block text-plume-blue-600 font-semibold mb-2">Valor</label>
                     <div class="relative">
-                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-bold">R$</span>
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-bold">€</span>
                         <input type="number" name="amount" id="amount" step="0.01" min="0.01"
                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-plume-blue-500 focus:border-transparent transition duration-300 ease-in-out" 
                                value="{{ old('amount', abs($transaction->amount)) }}" required>
