@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController; // Importe o TransactionController
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -102,5 +104,23 @@ Route::middleware([
 
     // API para dados de transações
     Route::get("/transactions/api/data",[TransactionsController::class, "apiData"])->name("transactions.api.data");
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    // Rota principal que redireciona para categories.index
+    Route::get('/', [CategoryController::class, 'index'])->name('dashboard');
+
+    // Rotas de Categorias (Resourceful para CRUD completo)
+    Route::resource('categories', CategoryController::class);
+
+    // Rotas de Transações (Resourceful para CRUD completo)
+    Route::resource('transactions', TransactionController::class); // <-- Esta linha cuida disso
+
+    Route::get('categories/{category}/transactions', [TransactionController::class, 'transactionsByCategory'])->name('categories.transactions');
+
+    // ... (suas rotas resource para categories e transactions)
+    Route::resource('categories', CategoryController::class);
+    Route::resource('transactions', TransactionController::class);
+
 });
 

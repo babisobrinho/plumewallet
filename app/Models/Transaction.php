@@ -133,4 +133,3 @@ class Transaction extends Model
         };
     }
 }
-
