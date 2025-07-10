@@ -161,7 +161,7 @@
                                 </div>
 
                                 <div class="mt-4">
-                                    <p class="text-2xl font-bold" style="color: {{ $account->color }};">
+                                    <p class="text-2xl font-bold">
                                         {{ $account->formatted_balance }}
                                     </p>
                                 </div>
