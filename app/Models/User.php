@@ -69,6 +69,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Relationship with categories
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    /**
+     * Relationship with transactions (movimentos financeiros)
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
      * Relação com as carteiras do utilizador
      */
 
