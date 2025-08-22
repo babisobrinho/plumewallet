@@ -5,11 +5,11 @@
                 <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     As Minhas Finanças
                 </h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Faça a gestão das suas informações pessoais e segurança</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Dashboard</p>
             </div>
             <div>
                 <button id="month-selector" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-                    <span>Junho 2023</span>
+                    <span>Julho 2025</span>
                     <i class="ti ti-chevron-down ml-1"></i>
                 </button>
             </div>

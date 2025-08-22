@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
         <!-- Cabeçalho -->
@@ -305,4 +303,4 @@
         }
     });
 </script>
-@endsection
+</x-app-layout>

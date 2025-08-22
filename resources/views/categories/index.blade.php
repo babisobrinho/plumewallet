@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="container mx-auto px-4 py-8">
     <!-- Cabeçalho -->
     <div class="flex flex-col mb-6">
@@ -139,4 +137,4 @@
         @endif
     </div>
 </div>
-@endsection
+</x-app-layout>
