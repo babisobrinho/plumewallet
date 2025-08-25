@@ -60,6 +60,9 @@ class AccountTypesSeeder extends Seeder
             ],
         ];
 
-        DB::table('account_types')->insert($types);
+        // Usar insertOrIgnore para evitar erros de duplicação
+        foreach ($types as $type) {
+            DB::table('account_types')->insertOrIgnore($type);
+        }
     }
 }

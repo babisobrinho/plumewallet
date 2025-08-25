@@ -16,11 +16,19 @@ class DatabaseSeeder extends Seeder
         // Desativa os eventos de model durante o seeding para melhor performance
         // User::unsetEventDispatcher();
 
-        // Cria o usuário de teste
-        $user = User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Cria o usuário de teste apenas se não existir
+        $user = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]
+        );
+
+        // Se o usuário foi criado agora, cria o time pessoal
+        if ($user->wasRecentlyCreated) {
+            $user->createPersonalTeam();
+        }
 
         // Chama os seeders na ordem correta
         $this->call([
