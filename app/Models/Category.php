@@ -20,4 +20,9 @@ class Category extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function budgetEnvelopes()
+    {
+        return $this->hasMany(BudgetEnvelope::class);
+    }
 }

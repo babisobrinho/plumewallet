@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\BudgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,9 @@ Route::middleware([
     Route::get("/dashboard", function () {
         return view("dashboard");
     })->name("dashboard");
+
+    // Rotas de Budget (YNAB)
+    Route::resource('budget', BudgetController::class);
 
     // Rotas de Accounts - Definidas manualmente para maior controle
     Route::prefix("accounts")->name("accounts.")->group(function () {
