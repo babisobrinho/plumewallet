@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Budget
+                    {{ __('Meu Orçamento Mensal') }}
                 </h1>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $currentBudget->getMonthName() }}</p>
             </div>
@@ -12,14 +12,45 @@
                     <span>{{ $currentBudget->getMonthName() }}</span>
                     <i class="ti ti-chevron-down ml-1"></i>
                 </button>
+                <a href="{{ route('budget.create') }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    <i class="ti ti-plus mr-2"></i>{{ __('Novo Orçamento') }}
+                </a>
+                <a href="{{ route('budget.show', $currentBudget) }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    <i class="ti ti-eye mr-2"></i>{{ __('Ver Detalhes') }}
+                </a>
                 <a href="{{ route('budget.edit', $currentBudget) }}" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    <i class="ti ti-edit mr-2"></i>Editar Budget
+                    <i class="ti ti-edit mr-2"></i>{{ __('Configurar Orçamento') }}
                 </a>
             </div>
         </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+        <!-- Explicação do Sistema de Orçamento -->
+        <div class="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg p-6 mb-8 border border-blue-200 dark:border-blue-800">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <i class="ti ti-lightbulb text-2xl text-blue-600 dark:text-blue-400"></i>
+                </div>
+                <div class="ml-4">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        🎯 Como Funciona o Sistema de Orçamento
+                    </h2>
+                    <div class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                        <p><strong>1.</strong> <strong>Receita:</strong> Todo dinheiro que entra no mês (salário, extras, etc.)</p>
+                        <p><strong>2.</strong> <strong>Orçamento:</strong> Você decide quanto quer gastar em cada categoria (alimentação, transporte, lazer, etc.)</p>
+                        <p><strong>3.</strong> <strong>Controle:</strong> Quando gasta, o dinheiro sai do "envelope" da categoria</p>
+                        <p><strong>4.</strong> <strong>Resultado:</strong> Você sempre sabe quanto ainda pode gastar em cada categoria!</p>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <p class="text-sm text-blue-800 dark:text-blue-200">
+                            <strong>💡 Dica:</strong> Este sistema é baseado no método YNAB (You Need A Budget) e ajuda você a nunca gastar mais do que ganha!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Resumo do Budget -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <!-- Receita do Mês -->
@@ -42,7 +73,7 @@
                         <i class="ti ti-wallet text-2xl text-blue-600 dark:text-blue-400"></i>
                     </div>
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Alocado</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Dinheiro Orçado</p>
                         <p class="text-2xl font-bold text-gray-800 dark:text-white">€{{ number_format($currentBudget->total_budgeted, 2, ',', '.') }}</p>
                     </div>
                 </div>
@@ -68,7 +99,7 @@
                         <i class="ti ti-check text-2xl text-teal-600 dark:text-teal-400"></i>
                     </div>
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Disponível</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Ainda Disponível</p>
                         <p class="text-2xl font-bold text-gray-800 dark:text-white">€{{ number_format($currentBudget->total_available, 2, ',', '.') }}</p>
                     </div>
                 </div>
@@ -96,10 +127,16 @@
         <!-- Envelopes do Budget -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Envelopes do Budget</h3>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Meus Envelopes de Orçamento</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Cada envelope representa uma categoria onde você pode alocar dinheiro</p>
+                </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('categories.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                         <i class="ti ti-plus mr-2"></i>Nova Categoria
+                    </a>
+                    <a href="{{ route('budget.edit', $currentBudget) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        <i class="ti ti-plus mr-2"></i>Adicionar Categoria ao Orçamento
                     </a>
                     <a href="{{ route('expenses.create') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                         <i class="ti ti-plus mr-2"></i>Nova Despesa
@@ -167,7 +204,7 @@
                             </div>
 
                             <!-- Ações -->
-                            <div class="flex justify-between items-center pt-3 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
                                 <a href="{{ route('expenses.create') }}?category={{ $envelope->category_id }}" 
                                    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium">
                                     <i class="ti ti-plus mr-1"></i>Adicionar Despesa
@@ -181,22 +218,7 @@
                     @endforeach
                 </div>
 
-                <!-- Botão para Alocar Dinheiro -->
-                <div class="mt-8 text-center">
-                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-                        <h4 class="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">
-                            🎯 Próximo Passo: Alocar seu Dinheiro
-                        </h4>
-                        <p class="text-blue-600 dark:text-blue-300 mb-4">
-                            Agora que você tem €{{ number_format($currentBudget->total_available, 2, ',', '.') }} disponível, 
-                            clique em "Editar Budget" para distribuir esse dinheiro entre suas categorias!
-                        </p>
-                        <a href="{{ route('budget.edit', $currentBudget) }}" 
-                           class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition-colors">
-                            <i class="ti ti-edit mr-2"></i>Alocar Dinheiro às Categorias
-                        </a>
-                    </div>
-                </div>
+
             @else
                 <div class="text-center py-12">
                     <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
@@ -216,29 +238,96 @@
             @endif
         </div>
 
-        <!-- Dicas YNAB -->
+        <!-- Lista de Todos os Orçamentos -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Todos os Meus Orçamentos</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Gerencie orçamentos de diferentes períodos</p>
+                </div>
+                <a href="{{ route('budget.create') }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    <i class="ti ti-plus mr-2"></i>Criar Novo Orçamento
+                </a>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Período</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Receita</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Orçado</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Gasto</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Disponível</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @foreach($allBudgets as $budget)
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $budget->name }}</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ $budget->start_date->format('d/m/Y') }} - {{ $budget->end_date->format('d/m/Y') }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                €{{ number_format($budget->total_income, 2, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                €{{ number_format($budget->total_budgeted, 2, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                €{{ number_format($budget->total_spent, 2, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full {{ $budget->total_available >= 0 ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400' }}">
+                                    €{{ number_format($budget->total_available, 2, ',', '.') }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                <a href="{{ route('budget.show', $budget) }}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                    <i class="ti ti-eye mr-1"></i>Ver
+                                </a>
+                                <a href="{{ route('budget.edit', $budget) }}" class="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300">
+                                    <i class="ti ti-edit mr-1"></i>Editar
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Dicas de Uso -->
         <div class="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg p-6 mt-8">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
                 <i class="ti ti-lightbulb text-yellow-500 mr-2"></i>
-                Como Funciona o Budget
+                💡 Dicas para Usar o Sistema
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300">
                 <div class="flex items-start">
                     <i class="ti ti-check text-green-500 mr-2 mt-0.5"></i>
-                    <span><strong>1.</strong> Você tem €{{ number_format($currentBudget->total_available, 2, ',', '.') }} disponível</span>
+                    <span><strong>1.</strong> <strong>Configure primeiro:</strong> Defina quanto quer gastar em cada categoria</span>
                 </div>
                 <div class="flex items-start">
                     <i class="ti ti-check text-green-500 mr-2 mt-0.5"></i>
-                    <span><strong>2.</strong> Clique em "Alocar Dinheiro às Categorias"</span>
+                    <span><strong>2.</strong> <strong>Registre despesas:</strong> Sempre anote quando gastar dinheiro</span>
                 </div>
                 <div class="flex items-start">
                     <i class="ti ti-check text-green-500 mr-2 mt-0.5"></i>
-                    <span><strong>3.</strong> Defina quanto quer gastar em cada categoria</span>
+                    <span><strong>3.</strong> <strong>Acompanhe:</strong> Veja quanto ainda pode gastar em cada categoria</span>
                 </div>
                 <div class="flex items-start">
                     <i class="ti ti-check text-green-500 mr-2 mt-0.5"></i>
-                    <span><strong>4.</strong> Quando gastar, o dinheiro sai do envelope da categoria</span>
+                    <span><strong>4.</strong> <strong>Ajuste quando necessário:</strong> Mude os valores conforme sua realidade</span>
                 </div>
+            </div>
+            <div class="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                    <strong>🎯 Objetivo:</strong> Este sistema ajuda você a nunca gastar mais do que ganha e ter controle total sobre suas finanças!
+                </p>
             </div>
         </div>
     </div>

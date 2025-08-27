@@ -5,18 +5,12 @@
                 {{ __('Minhas Carteiras') }}
             </h2>
             <div class="flex space-x-3">
-                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 border border-transparent rounded-md font-semibold
-                    text-xs text-white uppercase tracking-widest hover:from-orange-700 hover:to-orange-800 focus:outline-none focus:border-orange-900 focus:ring focus:ring-orange-300 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
-                    </svg>
+                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 border border-gray-500 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                    <i class="ti ti-archive mr-2"></i>
                     Ver Carteiras Desativadas
                 </a>
-                <a href="{{ route('accounts.create') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold
-                    text-xs text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
+                <a href="{{ route('accounts.create') }}" class="inline-flex items-center px-4 py-2 bg-plume-blue-600 hover:bg-plume-blue-700 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                    <i class="ti ti-plus mr-2"></i>
                     Nova Carteira
                 </a>
             </div>
@@ -57,8 +51,11 @@
             @if($accounts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{ showChart: false }">
                     @foreach($accounts as $account)
-                        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 border-l-4 relative"
-                             style="border-left-color: {{ $account->color }};">
+                                            @php
+                        // Converte bg- para border- para usar a mesma cor da borda
+                        $borderColor = str_replace('bg-', 'border-', $account->color);
+                    @endphp
+                        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 border-l-4 relative {{ $borderColor }}">
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center">
@@ -161,7 +158,7 @@
                                 </div>
 
                                 <div class="mt-4">
-                                    <p class="text-2xl font-bold">
+                                    <p class="text-2xl font-bold text-gray-900 dark:text-white">
                                         {{ $account->formatted_balance }}
                                     </p>
                                 </div>
@@ -184,10 +181,8 @@
                         Comece criando sua primeira carteira para gerir suas finanças.
                     </p>
                     <a href="{{ route('accounts.create') }}"
-                       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
+                       class="inline-flex items-center px-6 py-3 bg-plume-blue-600 hover:bg-plume-blue-700 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                        <i class="ti ti-plus mr-2"></i>
                         Criar Primeira Carteira
                     </a>
                 </div>

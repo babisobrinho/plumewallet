@@ -13,20 +13,11 @@
                 </h2>
             </div>
             <div class="flex space-x-2">
-                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 border border-transparent rounded-md font-semibold
-                    text-xs text-white uppercase tracking-widest hover:from-orange-700 hover:to-orange-800 focus:outline-none focus:border-orange-900 focus:ring focus:ring-orange-300 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8l6 6 6-6"></path>
-                    </svg>
+                <a href="{{ route('accounts.archive') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 border border-gray-500 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                    <i class="ti ti-archive mr-2"></i>
                     Ver Carteiras Desativadas
                 </a>
-                <a href="{{ route('accounts.edit', $account) }}"
-                   class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    Editar
-                </a>
+
             </div>
         </div>
     </x-slot>
@@ -56,7 +47,7 @@
                             <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
                                 Saldo Atual
                             </p>
-                            <p class="text-4xl font-bold font-sans" style="color: {{ $account->color }};">
+                            <p class="text-4xl font-bold font-sans text-gray-900 dark:text-white">
                                 {{ $account->formatted_balance }}
                             </p>
                         </div>
@@ -98,15 +89,9 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Saldo:</span>
-                            <span class="text-sm font-semibold font-sans" style="color: {{ $account->color }};">{{ $account->formatted_balance }}</span>
+                            <span class="text-sm font-semibold font-sans text-gray-900 dark:text-white">{{ $account->formatted_balance }}</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Cor:</span>
-                            <div class="flex items-center">
-                                <div class="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 mr-2" style="background-color: {{ $account->color }};"></div>
-                                <span class="text-sm text-gray-900 dark:text-gray-200 uppercase">{{ $account->color }}</span>
-                            </div>
-                        </div>
+
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Status:</span>
                             <span class="text-sm {{ $account->is_active ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
@@ -130,11 +115,8 @@
                         </h3>
                     </div>
                     <div class="p-6 space-y-4">
-                        <a href="{{ route('accounts.edit', $account) }}" class="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase
-                            tracking-widest hover:from-teal-700 hover:to-teal-800 focus:outline-none focus:border-teal-900 focus:ring focus:ring-teal-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
+                        <a href="{{ route('accounts.edit', $account) }}" class="w-full inline-flex items-center justify-center px-4 py-2 bg-plume-blue-600 hover:bg-plume-blue-700 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                            <i class="ti ti-edit mr-2"></i>
                             Editar Carteira
                         </a>
 

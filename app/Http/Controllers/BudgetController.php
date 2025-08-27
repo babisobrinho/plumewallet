@@ -29,6 +29,12 @@ class BudgetController extends Controller
             $currentBudget = $this->createCurrentMonthBudget($user);
         }
         
+        // Obter todos os budgets do usuário para a tabela
+        $allBudgets = Budget::forUser($user->id)
+            ->with(['envelopes'])
+            ->orderBy('start_date', 'desc')
+            ->get();
+        
         // Obter categorias de despesa para criar envelopes
         $expenseCategories = Category::where('user_id', $user->id)
             ->where('type', 'expense')
@@ -67,7 +73,7 @@ class BudgetController extends Controller
         // Recalcular total disponível
         $currentBudget->calculateAvailable();
         
-        return view('budget.index', compact('currentBudget', 'expenseCategories', 'totalIncome', 'totalSpent'));
+        return view('budget.index', compact('currentBudget', 'expenseCategories', 'totalIncome', 'totalSpent', 'allBudgets'));
     }
 
     /**

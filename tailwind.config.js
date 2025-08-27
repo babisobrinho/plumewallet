@@ -23,6 +23,11 @@ export default {
         {
             pattern: /dark:(bg|text|border)-plume-(blue|teal|red|yellow|green|cyan|purple|violet|lime|orange|pink|indigo|slate|gray)-\d{3}/,
         },
+        // Cores padrão do Tailwind para garantir que funcionem
+        {
+            pattern: /(bg|text|border)-(pink|blue|red|green|orange|purple|cyan|teal|yellow|indigo|slate|gray|violet|lime)-\d{3}/,
+            variants: ['dark', 'hover', 'focus'],
+        },
     ],
 
     theme: {

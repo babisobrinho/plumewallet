@@ -8,10 +8,8 @@
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Faça a gestão das suas contas desativadas</p>
             </div>
             <div class="flex space-x-2">
-                <a href="{{ route('accounts.index') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:from-gray-700 hover:to-gray-800 transition ease-in-out duration-150">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
+                <a href="{{ route('accounts.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 border border-gray-500 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                    <i class="ti ti-arrow-left mr-2"></i>
                     Voltar
                 </a>
             </div>
@@ -40,7 +38,11 @@
         @if($accounts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($accounts as $account)
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    @php
+                        // Converte bg- para border- para usar a mesma cor da borda
+                        $borderColor = str_replace('bg-', 'border-', $account->color);
+                    @endphp
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300 border-l-4 {{ $borderColor }}">
                         <div class="p-6 relative">
                             <!-- Badge de Status -->
                             <span class="absolute top-4 right-4 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
@@ -49,7 +51,7 @@
                             
                             <div class="flex items-start">
                                 <div class="flex-shrink-0">
-                                    <div class="h-12 w-12 rounded-full flex items-center justify-center text-white opacity-75" style="background-color: {{ $account->color }};">
+                                    <div class="h-12 w-12 rounded-full flex items-center justify-center text-white opacity-75 {{ $account->color }}">
                                         <i class="ti ti-{{ $account->icon }} text-xl"></i>
                                     </div>
                                 </div>
@@ -66,7 +68,7 @@
                             </div>
                             
                             <div class="mt-4">
-                                <p class="text-2xl font-bold" style="color: {{ $account->color }};">{{ $account->formatted_balance }}</p>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $account->formatted_balance }}</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desativada em {{ $account->updated_at->format('d/m/Y') }}</p>
                             </div>
                             
@@ -104,10 +106,8 @@
                 <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">Nenhuma conta desativada</h3>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Todas as suas contas estão ativas no momento.</p>
                 <div class="mt-6">
-                    <a href="{{ route('accounts.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition">
-                        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
+                    <a href="{{ route('accounts.index') }}" class="inline-flex items-center px-4 py-2 bg-plume-blue-600 hover:bg-plume-blue-700 text-white font-medium rounded-lg transition-colors duration-300 ease-in-out">
+                        <i class="ti ti-arrow-left mr-2"></i>
                         Voltar às contas ativas
                     </a>
                 </div>
