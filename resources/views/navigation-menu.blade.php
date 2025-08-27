@@ -27,6 +27,10 @@
                             {{ __('Contas') }}
                         </x-nav-link>
 
+                        <x-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.*')">
+                            {{ __('Categorias') }}
+                        </x-nav-link>
+
                         <x-nav-link href="{{ route('incomes.index') }}" :active="request()->routeIs('incomes.*')">
                             {{ __('Receitas') }}
                         </x-nav-link>
@@ -134,6 +138,10 @@
                 @if(auth()->user()->hasVerifiedEmail())
                     <x-responsive-nav-link href="{{ route('accounts.index') }}" :active="request()->routeIs('accounts.*')">
                         {{ __('Contas') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.*')">
+                        {{ __('Categorias') }}
                     </x-responsive-nav-link>
 
                     <x-responsive-nav-link href="{{ route('incomes.index') }}" :active="request()->routeIs('incomes.*')">
