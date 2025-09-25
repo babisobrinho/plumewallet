@@ -170,8 +170,8 @@ class CategoryController extends Controller
                 })->unique('category.id');
             });
 
-        // Calcula o saldo total do usuário
-        $balance = $user->transactions()->sum('amount');
+        // Calcula o saldo total das contas do usuário
+        $balance = $user->total_balance;
 
         return view('categories.index', [
             'groupedCategories' => $groupedCategories,

@@ -106,7 +106,7 @@ class TransactionController extends Controller
         return view('transactions.by_category', [ // Nova view para transações por categoria
             'category' => $category, // Passa a categoria para a view
             'transactions' => $transactions,
-            'balance' => $user->transactions()->sum('amount') // Saldo total do usuário
+            'balance' => $user->total_balance // Saldo total das contas do usuário
         ]);
     }
 }
