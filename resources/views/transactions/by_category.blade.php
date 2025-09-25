@@ -1,18 +1,22 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row justify-between items-center mb-8">
         <div class="flex items-center">
             <a href="{{ route('categories.index') }}" class="text-plume-blue-600 hover:text-plume-blue-700 dark:text-plume-blue-400 dark:hover:text-plume-blue-300 mr-4 transition duration-300 ease-in-out">
-                <i class="fas fa-arrow-left text-2xl"></i>
+                <i class="ti ti-arrow-left text-2xl"></i>
             </a>
             <h1 class="text-3xl font-bold text-plume-blue-600 dark:text-white">Transações de {{ $category->name }}</h1>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 mt-4 md:mt-0">
-            <a href="{{ route('transactions.create') }}" class="bg-plume-teal-500 hover:bg-plume-teal-600 text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out flex items-center justify-center shadow-md">
-                <i class="fas fa-plus mr-2"></i>Nova Transação
-            </a>
+            @if($category->type === 'expense')
+                <a href="{{ route('expenses.create') }}" class="bg-plume-red-500 hover:bg-plume-red-600 text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out flex items-center justify-center shadow-md">
+                    <i class="ti ti-plus mr-2"></i>Nova Despesa
+                </a>
+            @else
+                <a href="{{ route('incomes.create') }}" class="bg-plume-teal-500 hover:bg-plume-teal-600 text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out flex items-center justify-center shadow-md">
+                    <i class="ti ti-plus mr-2"></i>Nova Receita
+                </a>
+            @endif
         </div>
     </div>
 
@@ -57,7 +61,7 @@
                     @foreach($transactions as $transaction)
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                            {{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}
+                            {{ \Carbon\Carbon::parse($transaction->transaction_date)->format('d/m/Y') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                             {{ $transaction->description ?? 'Sem descrição' }}
@@ -79,13 +83,13 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <a href="{{ route('transactions.edit', $transaction) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:text-plume-blue-400 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out mr-3" title="Editar">
-                                <i class="fas fa-edit"></i>
+                                <i class="ti ti-edit"></i>
                             </a>
                             <form action="{{ route('transactions.destroy', $transaction) }}" method="POST" class="inline-block" onsubmit="return confirm('Tem certeza que deseja apagar esta transação?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-plume-red-500 hover:text-plume-red-700 dark:text-plume-red-400 dark:hover:text-plume-red-300 transition duration-300 ease-in-out" title="Apagar">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="ti ti-trash"></i>
                                 </button>
                             </form>
                         </td>
@@ -96,14 +100,20 @@
         </div>
         @else
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center border border-plume-blue-100 dark:border-gray-700">
-            <i class="fas fa-exchange-alt text-5xl text-plume-blue-500 mb-4"></i>
+            <i class="ti ti-exchange text-5xl text-plume-blue-500 mb-4"></i>
             <h3 class="text-2xl font-semibold text-gray-700 dark:text-white mb-3">Nenhuma transação encontrada para esta categoria</h3>
             <p class="text-gray-500 dark:text-gray-400 mb-6">Crie uma nova transação e associe-a a esta categoria.</p>
-            <a href="{{ route('transactions.create') }}" class="inline-block bg-plume-teal-500 hover:bg-plume-teal-600 text-white px-8 py-3 rounded-lg transition duration-300 ease-in-out shadow-md">
-                <i class="fas fa-plus mr-2"></i>Registrar Transação
-            </a>
+            @if($category->type === 'expense')
+                <a href="{{ route('expenses.create') }}" class="inline-block bg-plume-red-500 hover:bg-plume-red-600 text-white px-8 py-3 rounded-lg transition duration-300 ease-in-out shadow-md">
+                    <i class="ti ti-plus mr-2"></i>Registrar Despesa
+                </a>
+            @else
+                <a href="{{ route('incomes.create') }}" class="inline-block bg-plume-teal-500 hover:bg-plume-teal-600 text-white px-8 py-3 rounded-lg transition duration-300 ease-in-out shadow-md">
+                    <i class="ti ti-plus mr-2"></i>Registrar Receita
+                </a>
+            @endif
         </div>
         @endif
     </div>
 </div>
-@endsection
+</x-app-layout>

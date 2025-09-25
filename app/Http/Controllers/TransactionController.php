@@ -100,7 +100,7 @@ class TransactionController extends Controller
         $transactions = $user->transactions()
                              ->where('category_id', $category->id)
                              ->with('category') // Carrega a categoria relacionada
-                             ->orderBy('date', 'desc')
+                             ->orderBy('transaction_date', 'desc')
                              ->get();
 
         return view('transactions.by_category', [ // Nova view para transações por categoria
