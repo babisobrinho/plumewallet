@@ -424,8 +424,8 @@ class TransactionsController extends Controller
         // Calcula o saldo total atual das contas
         $totalBalance = $user->total_balance;
         
-        // Calcula o saldo progressivo (do mais antigo para o mais recente)
-        $runningBalance = 0;
+        // Calcula o saldo progressivo baseado no saldo atual da carteira
+        $currentWalletBalance = $user->total_balance;
         $transactionsWithBalance = collect();
         
         // Inverte a ordem para calcular o saldo progressivo do mais antigo para o mais recente
@@ -434,15 +434,22 @@ class TransactionsController extends Controller
             ['created_at', 'asc']
         ]);
         
-        foreach ($sortedTransactions as $transaction) {
-            $runningBalance += $transaction->amount;
+        // Calcula o saldo total das transações para fazer o ajuste
+        $totalTransactionsAmount = $transactions->sum('amount');
+        
+        // Inicia o saldo progressivo a partir do saldo atual da carteira
+        $runningBalance = $currentWalletBalance;
+        
+        foreach ($sortedTransactions->reverse() as $transaction) {
             $transactionsWithBalance->push([
                 'transaction' => $transaction,
                 'running_balance' => $runningBalance
             ]);
+            // Subtrai o valor da transação para mostrar o saldo anterior
+            $runningBalance -= $transaction->amount;
         }
         
-        // Reverte novamente para mostrar do mais recente para o mais antigo
+        // Reverte para mostrar do mais recente para o mais antigo
         $transactionsWithBalance = $transactionsWithBalance->reverse();
         
         // Agrupa por data para melhor visualização
