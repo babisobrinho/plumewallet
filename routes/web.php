@@ -106,21 +106,4 @@ Route::middleware([
     Route::get("/transactions/api/data",[TransactionsController::class, "apiData"])->name("transactions.api.data");
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    // Rota principal que redireciona para categories.index
-    Route::get('/', [CategoryController::class, 'index'])->name('dashboard');
-
-    // Rotas de Categorias (Resourceful para CRUD completo)
-    Route::resource('categories', CategoryController::class);
-
-    // Rotas de Transações (Resourceful para CRUD completo)
-    Route::resource('transactions', TransactionController::class); // <-- Esta linha cuida disso
-
-    Route::get('categories/{category}/transactions', [TransactionController::class, 'transactionsByCategory'])->name('categories.transactions');
-
-    // ... (suas rotas resource para categories e transactions)
-    Route::resource('categories', CategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-
-});
-
+// (rotas adicionais removidas durante resolução de conflito)
