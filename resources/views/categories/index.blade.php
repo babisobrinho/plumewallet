@@ -90,32 +90,32 @@
                                         </div>
                                     </div>
                                     <div class="flex justify-end mt-4 space-x-4 border-t pt-4 border-gray-200 dark:border-gray-700">
-                                        <a href="{{ route('categories.transactions', $category) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl">
-                                            <i class="fas fa-eye"></i>
+                                        <a href="{{ route('categories.transactions', $category) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl" title="Ver transações">
+                                            <i class="ti ti-eye"></i>
                                         </a>
                                         
                                         {{-- Botão de edição inteligente --}}
                                         @if($category->transactions_count > 0)
                                             @if(isset($item['transaction']))
-                                                <a href="{{ route('transactions.edit', $item['transaction']) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl">
-                                                    <i class="fas fa-edit"></i>
+                                                <a href="{{ route('transactions.edit', $item['transaction']) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl" title="Editar transação">
+                                                    <i class="ti ti-edit"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('transactions.edit', $category->transactions()->latest()->first()) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl">
-                                                    <i class="fas fa-edit"></i>
+                                                <a href="{{ route('transactions.edit', $category->transactions()->latest()->first()) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl" title="Editar transação">
+                                                    <i class="ti ti-edit"></i>
                                                 </a>
                                             @endif
                                         @else
-                                            <a href="{{ route('categories.edit', $category) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl">
-                                                <i class="fas fa-edit"></i>
+                                            <a href="{{ route('categories.edit', $category) }}" class="text-plume-blue-500 hover:text-plume-blue-700 dark:hover:text-plume-blue-300 transition duration-300 ease-in-out text-xl" title="Editar categoria">
+                                                <i class="ti ti-edit"></i>
                                             </a>
                                         @endif
                                         
                                         <form action="{{ route('categories.destroy', $category) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta categoria? Todas as transações associadas também serão removidas.')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-plume-red-500 hover:text-plume-red-700 dark:hover:text-plume-red-300 transition duration-300 ease-in-out text-xl">
-                                                <i class="fas fa-trash"></i>
+                                            <button type="submit" class="text-plume-red-500 hover:text-plume-red-700 dark:hover:text-plume-red-300 transition duration-300 ease-in-out text-xl" title="Apagar categoria">
+                                                <i class="ti ti-trash"></i>
                                             </button>
                                         </form>
                                     </div>

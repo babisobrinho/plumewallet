@@ -121,7 +121,7 @@ class CategoryController extends Controller
             ->withSum('transactions', 'amount')
             ->withCount('transactions')
             ->with(['transactions' => function($query) {
-                $query->orderBy('date', 'desc');
+                $query->orderBy('transaction_date', 'desc');
             }])
             ->get();
 
@@ -141,7 +141,7 @@ class CategoryController extends Controller
             foreach ($category->transactions as $transaction) {
                 $allCategoryOccurrences->push([
                     'category' => $category,
-                    'date' => \Carbon\Carbon::parse($transaction->date),
+                    'date' => \Carbon\Carbon::parse($transaction->transaction_date),
                     'is_creation' => false,
                     'transaction_amount' => $transaction->amount,
                     'transaction' => $transaction
