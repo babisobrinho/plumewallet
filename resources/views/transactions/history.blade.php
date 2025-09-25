@@ -135,7 +135,6 @@
                                                 </div>
                                                 
                                                 <div class="flex items-center space-x-4 mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                                    <span>{{ \Carbon\Carbon::parse($transaction->transaction_date)->format('H:i') }}</span>
                                                     @if($transaction->account)
                                                         <span><i class="ti ti-building-bank mr-1"></i>{{ $transaction->account->name }}</span>
                                                     @endif
