@@ -104,6 +104,9 @@ Route::middleware([
 
     // API para dados de transações
     Route::get("/transactions/api/data",[TransactionsController::class, "apiData"])->name("transactions.api.data");
+    
+    // Histórico de transações
+    Route::get("/transactions/history",[TransactionsController::class, "history"])->name("transactions.history");
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

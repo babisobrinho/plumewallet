@@ -406,4 +406,56 @@ class TransactionsController extends Controller
 
         return response()->json($data);
     }
+
+    /**
+     * Exibe o histórico de todas as transações com saldo progressivo
+     */
+    public function history()
+    {
+        $user = Auth::user();
+        
+        // Busca todas as transações do usuário ordenadas por data (mais recente primeiro)
+        $transactions = $user->transactions()
+            ->with(['category', 'account'])
+            ->orderBy('transaction_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Calcula o saldo total atual das contas
+        $totalBalance = $user->total_balance;
+        
+        // Calcula o saldo progressivo (do mais antigo para o mais recente)
+        $runningBalance = 0;
+        $transactionsWithBalance = collect();
+        
+        // Inverte a ordem para calcular o saldo progressivo do mais antigo para o mais recente
+        $sortedTransactions = $transactions->sortBy([
+            ['transaction_date', 'asc'],
+            ['created_at', 'asc']
+        ]);
+        
+        foreach ($sortedTransactions as $transaction) {
+            $runningBalance += $transaction->amount;
+            $transactionsWithBalance->push([
+                'transaction' => $transaction,
+                'running_balance' => $runningBalance
+            ]);
+        }
+        
+        // Reverte novamente para mostrar do mais recente para o mais antigo
+        $transactionsWithBalance = $transactionsWithBalance->reverse();
+        
+        // Agrupa por data para melhor visualização
+        $groupedTransactions = $transactionsWithBalance->groupBy(function ($item) {
+            return \Carbon\Carbon::parse($item['transaction']->transaction_date)->format('d/m/Y');
+        });
+
+        return view('transactions.history', [
+            'groupedTransactions' => $groupedTransactions,
+            'totalBalance' => $totalBalance,
+            'totalTransactions' => $transactions->count(),
+            'totalIncomes' => $transactions->where('transaction_type', 'income')->sum('amount'),
+            'totalExpenses' => $transactions->where('transaction_type', 'expense')->sum('amount')
+        ]);
+    }
 }

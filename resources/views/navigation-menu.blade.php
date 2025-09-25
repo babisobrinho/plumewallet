@@ -38,6 +38,10 @@
                         <x-nav-link href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.*')">
                             {{ __('Despesas') }}
                         </x-nav-link>
+
+                        <x-nav-link href="{{ route('transactions.history') }}" :active="request()->routeIs('transactions.history')">
+                            {{ __('Histórico') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -150,6 +154,10 @@
 
                     <x-responsive-nav-link href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.*')">
                         {{ __('Despesas') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link href="{{ route('transactions.history') }}" :active="request()->routeIs('transactions.history')">
+                        {{ __('Histórico') }}
                     </x-responsive-nav-link>
                 @endif
             </div>
