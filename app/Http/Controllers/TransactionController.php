@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+    use LogsActivity;
 
     public function create()
     {
@@ -38,6 +40,15 @@ class TransactionController extends Controller
         }
 
         $transaction = $user->transactions()->create($validated);
+
+        // Log de auditoria
+        $this->logAudit('created', $transaction, null, $transaction);
+        $this->logSystem('info', 'Nova transação criada', [
+            'transaction_id' => $transaction->id,
+            'amount' => $transaction->amount,
+            'type' => $transaction->type,
+            'category_id' => $transaction->category_id
+        ]);
 
         return redirect()
             ->route('categories.index') // Redireciona para o índice de categorias após salvar
@@ -73,7 +84,16 @@ class TransactionController extends Controller
             $validated['amount'] = -$validated['amount'];
         }
 
+        $oldValues = $transaction->toArray();
         $transaction->update($validated);
+
+        // Log de auditoria
+        $this->logAudit('updated', $transaction, $oldValues, $transaction);
+        $this->logSystem('info', 'Transação atualizada', [
+            'transaction_id' => $transaction->id,
+            'old_amount' => $oldValues['amount'],
+            'new_amount' => $transaction->amount
+        ]);
 
         return redirect()
             ->route('categories.index') // Redireciona para o índice de categorias após atualizar
@@ -84,7 +104,16 @@ class TransactionController extends Controller
     {
         $this->authorize('delete', $transaction); // Garante que o usuário pode deletar esta transação
 
+        $oldValues = $transaction->toArray();
         $transaction->delete();
+
+        // Log de auditoria
+        $this->logAudit('deleted', $transaction, $oldValues, null);
+        $this->logSystem('warning', 'Transação removida', [
+            'transaction_id' => $oldValues['id'],
+            'amount' => $oldValues['amount'],
+            'type' => $oldValues['type']
+        ]);
 
         return redirect()
             ->route('categories.index') // Redireciona para o índice de categorias após deletar

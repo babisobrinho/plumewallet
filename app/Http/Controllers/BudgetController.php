@@ -6,12 +6,14 @@ use App\Models\Budget;
 use App\Models\BudgetEnvelope;
 use App\Models\Category;
 use App\Models\Transaction;
+use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class BudgetController extends Controller
 {
+    use LogsActivity;
     /**
      * Display a listing of the resource.
      */
@@ -137,6 +139,16 @@ class BudgetController extends Controller
             $budget->calculateAvailable();
         }
         
+        // Log de auditoria
+        $this->logAudit('created', $budget, null, $budget);
+        $this->logSystem('info', 'Novo orçamento criado', [
+            'budget_id' => $budget->id,
+            'name' => $budget->name,
+            'start_date' => $budget->start_date,
+            'end_date' => $budget->end_date,
+            'envelopes_count' => count($request->envelopes ?? [])
+        ]);
+        
         return redirect()->route('budget.index')->with('success', 'Budget criado com sucesso!');
     }
 
@@ -231,6 +243,14 @@ class BudgetController extends Controller
             $budget->calculateAvailable();
         }
         
+        // Log de auditoria
+        $this->logAudit('updated', $budget, null, $budget);
+        $this->logSystem('info', 'Orçamento atualizado', [
+            'budget_id' => $budget->id,
+            'name' => $budget->name,
+            'envelopes_count' => count($request->envelopes ?? [])
+        ]);
+        
         return redirect()->route('budget.index')->with('success', 'Budget atualizado com sucesso!');
     }
 
@@ -241,7 +261,16 @@ class BudgetController extends Controller
     {
         $this->authorize('delete', $budget);
         
+        $oldValues = $budget->toArray();
         $budget->delete();
+        
+        // Log de auditoria
+        $this->logAudit('deleted', $budget, $oldValues, null);
+        $this->logSystem('warning', 'Orçamento removido', [
+            'budget_id' => $oldValues['id'],
+            'name' => $oldValues['name'],
+            'total_budgeted' => $oldValues['total_budgeted']
+        ]);
         
         return redirect()->route('budget.index')->with('success', 'Budget removido com sucesso!');
     }

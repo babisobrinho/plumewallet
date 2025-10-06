@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountType;
+use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
+    use LogsActivity;
     /**
      * Exibir lista de carteiras do utilizador
      */
@@ -64,10 +66,26 @@ class AccountController extends Controller
                 'is_active' => true
             ]);
 
+            // Log de auditoria
+            $this->logAudit('created', $account, null, $account);
+            $this->logSystem('info', 'Nova conta criada', [
+                'account_id' => $account->id,
+                'name' => $account->name,
+                'balance' => $account->balance,
+                'account_type_id' => $account->account_type_id
+            ]);
+
             return redirect()->route('accounts.index')
                 ->with('success', 'Carteira criada com sucesso!');
 
         } catch (\Exception $e) {
+            // Log de erro do sistema
+            $this->logSystem('error', 'Erro ao criar conta', [
+                'error' => $e->getMessage(),
+                'user_id' => Auth::id(),
+                'data' => $validated
+            ]);
+            
             return back()->withInput()
                 ->with('error', 'Erro ao criar carteira: ' . $e->getMessage());
         }
@@ -89,8 +107,17 @@ class AccountController extends Controller
     {
         $this->authorize('update', $account);
 
+        $oldValue = $account->is_balance_effective;
         $account->update([
             'is_balance_effective' => !$account->is_balance_effective
+        ]);
+
+        // Log de auditoria
+        $this->logAudit('updated', $account, ['is_balance_effective' => $oldValue], $account);
+        $this->logSystem('info', 'Status do saldo efetivo alterado', [
+            'account_id' => $account->id,
+            'old_value' => $oldValue,
+            'new_value' => $account->is_balance_effective
         ]);
 
         return back()->with('success',
@@ -127,6 +154,7 @@ class AccountController extends Controller
         ]);
 
         try {
+            $oldValues = $account->toArray();
             $account->update([
                 'name' => $validated['name'],
                 'account_type_id' => $validated['account_type_id'],
@@ -135,9 +163,24 @@ class AccountController extends Controller
                 'is_balance_effective' => $validated['is_balance_effective'] ?? $account->is_balance_effective
             ]);
 
+            // Log de auditoria
+            $this->logAudit('updated', $account, $oldValues, $account);
+            $this->logSystem('info', 'Conta atualizada', [
+                'account_id' => $account->id,
+                'old_balance' => $oldValues['balance'],
+                'new_balance' => $account->balance
+            ]);
+
             return redirect()->route('accounts.index')
                 ->with('success', 'Carteira atualizada com sucesso!');
         } catch (\Exception $e) {
+            // Log de erro do sistema
+            $this->logSystem('error', 'Erro ao atualizar conta', [
+                'error' => $e->getMessage(),
+                'account_id' => $account->id,
+                'data' => $validated
+            ]);
+            
             return back()->withInput()
                 ->with('error', 'Erro ao atualizar carteira: ' . $e->getMessage());
         }
@@ -149,7 +192,16 @@ class AccountController extends Controller
     {
         $this->authorize('delete', $account);
 
+        $oldValues = $account->toArray();
         $account->update(['is_active' => false]);
+
+        // Log de auditoria
+        $this->logAudit('deleted', $account, $oldValues, $account);
+        $this->logSystem('warning', 'Conta desativada', [
+            'account_id' => $account->id,
+            'name' => $account->name,
+            'balance' => $account->balance
+        ]);
 
         return redirect()->route('accounts.index')
             ->with('success', 'Carteira removida com sucesso!');
@@ -197,7 +249,16 @@ class AccountController extends Controller
         $this->authorize('update', $account);
 
         $wasActive = $account->is_active;
+        $oldValues = $account->toArray();
         $account->update(['is_active' => !$account->is_active]);
+
+        // Log de auditoria
+        $this->logAudit('updated', $account, $oldValues, $account);
+        $this->logSystem('info', 'Status da conta alterado', [
+            'account_id' => $account->id,
+            'old_status' => $wasActive,
+            'new_status' => $account->is_active
+        ]);
 
         $status = $account->is_active ? 'ativada' : 'desativada';
 

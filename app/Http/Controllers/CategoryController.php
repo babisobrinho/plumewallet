@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use App\Traits\LogsActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    use LogsActivity;
     // Categorias padrão que o usuário pode escolher ao criar uma nova categoria
     protected $defaultCategories = [
    
@@ -199,6 +201,15 @@ class CategoryController extends Controller
 
         $category = Auth::user()->categories()->create($validated);
 
+        // Log de auditoria
+        $this->logAudit('created', $category, null, $category);
+        $this->logSystem('info', 'Nova categoria criada', [
+            'category_id' => $category->id,
+            'name' => $category->name,
+            'type' => $category->type,
+            'color' => $category->color
+        ]);
+
         return redirect()
             ->route('categories.index')
             ->with('success', 'Categoria criada com sucesso!');
@@ -227,7 +238,16 @@ class CategoryController extends Controller
             'icon' => 'required|string|in:' . implode(',', array_merge($this->incomeIcons, $this->expenseIcons))
         ]);
 
+        $oldValues = $category->toArray();
         $category->update($validated);
+
+        // Log de auditoria
+        $this->logAudit('updated', $category, $oldValues, $category);
+        $this->logSystem('info', 'Categoria atualizada', [
+            'category_id' => $category->id,
+            'old_name' => $oldValues['name'],
+            'new_name' => $category->name
+        ]);
 
         return redirect()
             ->route('categories.index')
@@ -239,11 +259,26 @@ class CategoryController extends Controller
         $this->authorize('delete', $category);
 
         if ($category->transactions()->exists()) {
+            $this->logSystem('warning', 'Tentativa de exclusão de categoria com transações', [
+                'category_id' => $category->id,
+                'name' => $category->name,
+                'transactions_count' => $category->transactions()->count()
+            ]);
+            
             return back()
                 ->with('error', 'Não é possível excluir categoria com transações associadas. Remova as transações primeiro.');
         }
 
+        $oldValues = $category->toArray();
         $category->delete();
+
+        // Log de auditoria
+        $this->logAudit('deleted', $category, $oldValues, null);
+        $this->logSystem('warning', 'Categoria removida', [
+            'category_id' => $oldValues['id'],
+            'name' => $oldValues['name'],
+            'type' => $oldValues['type']
+        ]);
 
         return redirect()
             ->route('categories.index')
