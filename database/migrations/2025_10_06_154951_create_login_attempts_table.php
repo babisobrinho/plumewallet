@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('attempted_at');
             $table->string('country')->nullable();
             $table->string('city')->nullable();
+            $table->timestamps();
             
             $table->index(['email', 'attempted_at']);
             $table->index(['ip_address', 'attempted_at']);

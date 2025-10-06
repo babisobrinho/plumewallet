@@ -51,7 +51,7 @@ class DashboardController extends BaseBackofficeController
 
         // Tentativas de login recentes (apenas falhas)
         $recentFailedLogins = LoginAttempt::where('success', false)
-            ->latest()
+            ->orderBy('attempted_at', 'desc')
             ->take(10)
             ->get();
 
