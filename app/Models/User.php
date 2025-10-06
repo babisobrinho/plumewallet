@@ -32,6 +32,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'timezone',
+        'locale',
+        'last_login_at',
+        'last_login_ip',
+        'login_count',
+        'is_active',
+        'deactivated_at',
+        'deactivation_reason',
     ];
 
     /**
@@ -65,6 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login_at' => 'datetime',
+            'deactivated_at' => 'datetime',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -119,5 +130,57 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFormattedTotalBalanceAttribute(): string
     {
         return number_format($this->total_balance, 2, ',', '.') . '€';
+    }
+
+    /**
+     * Relações do Backoffice
+     */
+    
+    // Login attempts
+    public function loginAttempts()
+    {
+        return $this->hasMany(LoginAttempt::class);
+    }
+
+    // Blog posts authored
+    public function blogPosts()
+    {
+        return $this->hasMany(BlogPost::class, 'author_id');
+    }
+
+    // Support tickets created
+    public function supportTickets()
+    {
+        return $this->hasMany(SupportTicket::class);
+    }
+
+    // Support tickets assigned
+    public function assignedTickets()
+    {
+        return $this->hasMany(SupportTicket::class, 'assigned_agent_id');
+    }
+
+    // Ticket messages
+    public function ticketMessages()
+    {
+        return $this->hasMany(TicketMessage::class);
+    }
+
+    // System logs
+    public function systemLogs()
+    {
+        return $this->hasMany(SystemLog::class);
+    }
+
+    // Audit logs
+    public function auditLogs()
+    {
+        return $this->hasMany(AuditLog::class);
+    }
+
+    // Saved reports
+    public function savedReports()
+    {
+        return $this->hasMany(SavedReport::class);
     }
 }

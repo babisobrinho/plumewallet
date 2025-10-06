@@ -123,3 +123,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('categories/{category}/transactions', [TransactionController::class, 'transactionsByCategory'])->name('categories.transactions');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Rotas do Backoffice
+|--------------------------------------------------------------------------
+*/
+require __DIR__.'/backoffice.php';
+

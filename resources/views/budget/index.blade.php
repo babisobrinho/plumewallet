@@ -34,7 +34,7 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        🎯 Como Funciona o Sistema de Orçamento
+                        Como Funciona o Sistema de Orçamento
                     </h2>
                     <div class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
                         <p><strong>1.</strong> <strong>Receita:</strong> Todo dinheiro que entra no mês (salário, extras, etc.)</p>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                         <p class="text-sm text-blue-800 dark:text-blue-200">
-                            <strong>💡 Dica:</strong> Este sistema é baseado no método YNAB (You Need A Budget) e ajuda você a nunca gastar mais do que ganha!
+                            <strong>Dica:</strong> Este sistema é baseado no método YNAB (You Need A Budget) e ajuda você a nunca gastar mais do que ganha!
                         </p>
                     </div>
                 </div>
@@ -304,7 +304,7 @@
         <div class="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg p-6 mt-8">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
                 <i class="ti ti-lightbulb text-yellow-500 mr-2"></i>
-                💡 Dicas para Usar o Sistema
+                Dicas para Usar o Sistema
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300">
                 <div class="flex items-start">

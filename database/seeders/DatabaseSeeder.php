@@ -22,12 +22,17 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
             ]
         );
 
         // Se o usuário foi criado agora, cria o time pessoal
         if ($user->wasRecentlyCreated) {
-            $user->createPersonalTeam();
+            $user->ownedTeams()->create([
+                'name' => $user->name . "'s Team",
+                'personal_team' => true,
+            ]);
         }
 
         // Chama os seeders na ordem correta
