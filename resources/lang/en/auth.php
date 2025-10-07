@@ -1,0 +1,55 @@
+<?php
+
+return [
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
+    // Login Page
+    'login' => 'Login',
+    'login_title' => 'Login',
+    'login_subtitle' => 'Sign in to your account to continue',
+    'welcome_back' => 'Welcome back',
+    'welcome_back_subtitle' => 'Don\'t have an account yet? Join thousands of people who have already transformed their relationship with money.',
+    'create_account' => 'Create account',
+    'email_or_phone' => 'Email or phone',
+    'email_or_phone_placeholder' => 'Enter your email or phone',
+    'password_label' => 'Password',
+    'password_placeholder' => 'Enter your password',
+    'remember_me' => 'Remember me',
+    'forgot_password' => 'Forgot your password?',
+    'sign_in' => 'Sign In',
+    'or' => 'Or',
+    'terms_agreement' => 'By continuing, you agree to our',
+    'terms_of_service' => 'Terms of Service',
+    'and' => 'and',
+    'privacy_policy' => 'Privacy Policy',
+
+    // Register Page
+    'register' => 'Register',
+    'register_title' => 'Register',
+    'register_subtitle' => 'Create your account to get started',
+    'welcome' => 'Welcome!',
+    'welcome_subtitle' => 'Already have an account? Sign in and continue managing your finances intelligently.',
+    'sign_in_link' => 'Sign In',
+    'full_name' => 'Full name',
+    'full_name_placeholder' => 'Enter your full name',
+    'confirm_password' => 'Confirm password',
+    'confirm_password_placeholder' => 'Confirm your password',
+    'create_account_button' => 'Create account',
+    'terms_conditions' => 'By creating an account, you agree to our terms and conditions of use.',
+
+    // Validation Messages
+    'validation_errors' => 'Please correct the following errors:',
+    'name_required' => 'The name field is required.',
+    'email_required' => 'The email field is required.',
+    'email_invalid' => 'The email must be valid.',
+    'email_unique' => 'This email is already in use.',
+    'password_required' => 'The password field is required.',
+    'password_min' => 'The password must be at least :min characters.',
+    'password_confirmed' => 'The password confirmation does not match.',
+    'passwords_dont_match' => 'Passwords do not match!',
+    'agree_terms' => 'I agree to the',
+    'plume_wallet' => 'Plume Wallet',
+    'already_have_account' => 'Already have an account? Sign in and continue managing your finances intelligently.',
+];

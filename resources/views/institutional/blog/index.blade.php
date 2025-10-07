@@ -1,7 +1,7 @@
 @extends('institutional.layouts.app')
 
-@section('title', 'Blog')
-@section('description', 'Descubra dicas, tutoriais e insights sobre finanças pessoais no blog da Plume Wallet. Aprenda a gerenciar melhor seu dinheiro.')
+@section('title', __('institutional.blog_title'))
+@section('description', __('institutional.blog_subtitle'))
 
 @section('content')
 <!-- Breadcrumb -->

@@ -1,0 +1,242 @@
+<?php
+
+return [
+    // Navigation
+    'nav_home' => 'Home',
+    'nav_about' => 'About Us',
+    'nav_how_it_works' => 'How It Works',
+    'nav_faq' => 'FAQ',
+    'nav_blog' => 'Blog',
+    'nav_contact' => 'Contact',
+    'nav_login' => 'Login',
+    'nav_register' => 'Register',
+
+    // Landing Page
+    'landing_title' => 'Welcome to',
+    'landing_subtitle' => 'Register your expenses via WhatsApp and track everything clearly in an elegant and easy-to-use dashboard. No spreadsheets. No complications. Just the control you deserve.',
+    'get_started' => 'Get Started',
+    'learn_more' => 'Learn More',
+
+    // Control Your Finances Section
+    'control_finances_title' => 'Control your finances',
+    'control_finances_subtitle' => 'With your goals in mind',
+    'savings' => 'Savings',
+    'savings_description' => 'Track your expenses and identify savings opportunities.',
+    'dream_trips' => 'Dream trips',
+    'dream_trips_description' => 'Plan and achieve your dream trips with financial control.',
+    'dream_trips_link' => 'Learn more →',
+    'investments' => 'Investments',
+    'investments_description' => 'Monitor your investments and wealth growth.',
+
+    // Perfect Solution Section
+    'perfect_solution_title' => 'The perfect solution for your wallet',
+    'perfect_solution_subtitle' => 'Explaining about managing finances and such. A complete platform that adapts to your financial needs, whether you\'re a student, professional, or entrepreneur.',
+    'student' => 'Student',
+    'total_control' => 'Total control of your expenses',
+    'detailed_reports' => 'Detailed reports and insights',
+    'intuitive_interface' => 'Intuitive and modern interface',
+
+    // Testimonial Section
+    'testimonial_text' => 'Charts don\'t lie: everyone who used Plume Wallet approved the experience.',
+
+    // Easy to Start Section
+    'easy_start_title' => 'Easy to get started',
+    'easy_start_subtitle' => 'In just a few steps you\'ll be controlling your finances',
+    'step_1' => 'Step 1',
+    'step_2' => 'Step 2',
+    'choose_layout' => 'Choose your layout',
+    'choose_layout_description' => 'Customize the interface according to your preferences and needs.',
+    'register_number' => 'Register your number',
+    'register_number_description' => 'Connect your WhatsApp to start recording expenses easily.',
+    'register_expenses' => 'Record your expenses',
+    'register_expenses_description' => 'Start recording your expenses and income in a simple and fast way.',
+    'start_now' => 'Start now!',
+
+    // About Us Page
+    'about_title' => 'About Us',
+    'about_subtitle' => 'Learn about Plume Wallet\'s story and our mission to revolutionize personal financial control',
+    'our_story' => 'Our Story',
+    'the_beginning' => 'The Beginning',
+    'the_beginning_description' => 'Plume Wallet was born from the need to simplify personal financial control. We observed that many people struggled with complex spreadsheets and complicated apps to manage their finances.',
+    'growth' => 'Growth',
+    'growth_description' => 'With feedback from our first users, we developed a platform that combines simplicity with advanced features, always keeping the focus on user experience.',
+    'today' => 'Today',
+    'today_description' => 'We are a team dedicated to making financial control accessible to everyone, regardless of financial knowledge level.',
+    'our_mission' => 'Our Mission',
+    'mission_description' => 'Simplify personal financial control through intuitive and accessible technology.',
+    'our_vision' => 'Our Vision',
+    'vision_description' => 'To be the reference platform for personal financial management in Portugal.',
+    'our_values' => 'Our Values',
+    'simplicity' => 'Simplicity',
+    'simplicity_description' => 'We believe technology should be simple and intuitive.',
+    'transparency' => 'Transparency',
+    'transparency_description' => 'We always maintain transparency in our practices and communications.',
+    'innovation' => 'Innovation',
+    'innovation_description' => 'We continuously seek new ways to improve user experience.',
+    'meet_team' => 'Meet Our Team',
+    'ceo' => 'CEO & Founder',
+    'cto' => 'CTO & Co-founder',
+    'designer' => 'Lead Designer',
+    'developer' => 'Senior Developer',
+
+    // How It Works Page
+    'how_it_works_title' => 'How It Works',
+    'how_it_works_subtitle' => 'Discover how Plume Wallet can transform your financial management',
+    'step_by_step' => 'Step by Step',
+    'step_1_title' => 'Create your account',
+    'step_1_description' => 'Register for free and set up your profile in minutes.',
+    'step_2_title' => 'Set up your wallets',
+    'step_2_description' => 'Add your bank accounts and wallets to start tracking.',
+    'step_3_title' => 'Record your transactions',
+    'step_3_description' => 'Use WhatsApp or the web platform to record expenses and income.',
+    'step_4_title' => 'Track your progress',
+    'step_4_description' => 'View detailed reports and maintain total control.',
+    'features' => 'Features',
+    'whatsapp_integration' => 'WhatsApp Integration',
+    'whatsapp_integration_description' => 'Record expenses directly via WhatsApp quickly and easily.',
+    'smart_categories' => 'Smart Categories',
+    'smart_categories_description' => 'Automatically organize your transactions into relevant categories.',
+    'detailed_reports' => 'Detailed Reports',
+    'detailed_reports_description' => 'View charts and statistics to understand your spending patterns.',
+    'multi_currency' => 'Multi-Currency',
+    'multi_currency_description' => 'Support for different currencies and automatic conversion.',
+    'security' => 'Security',
+    'security_description' => 'Your data is protected with bank-level encryption.',
+    'mobile_app' => 'Mobile App',
+    'mobile_app_description' => 'Access your finances anywhere with our mobile app.',
+
+    // FAQ Page
+    'faq_title' => 'Frequently Asked Questions',
+    'faq_subtitle' => 'Find answers to the most common questions about Plume Wallet',
+    'search_faq' => 'Search questions...',
+    'no_results' => 'No questions found.',
+    'load_more' => 'Load more questions',
+
+    // Blog Page
+    'blog_title' => 'Blog',
+    'blog_subtitle' => 'Tips, news and insights about financial management',
+    'read_more' => 'Read more',
+    'published_on' => 'Published on',
+    'by' => 'by',
+    'no_posts' => 'No posts found.',
+    'categories' => 'Categories',
+    'all_categories' => 'All categories',
+
+    // Contact Page
+    'contact_title' => 'Contact',
+    'contact_subtitle' => 'Get in touch with us. We\'re here to help!',
+    'contact_info' => 'Contact Information',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'business_hours' => 'Business Hours',
+    'monday_friday' => 'Monday to Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'closed' => 'Closed',
+    'contact_form' => 'Contact Form',
+    'name' => 'Name',
+    'name_placeholder' => 'Your full name',
+    'email_placeholder' => 'your@email.com',
+    'phone_placeholder' => 'Your phone number',
+    'subject' => 'Subject',
+    'subject_placeholder' => 'Your message subject',
+    'message' => 'Message',
+    'message_placeholder' => 'Your message...',
+    'send_message' => 'Send Message',
+    'message_sent' => 'Message sent successfully! We\'ll get back to you soon.',
+    'required_field' => 'Required field',
+
+    // Additional translations for About Us page
+    'join_our_journey' => 'Join our journey',
+    'join_journey_description' => 'Be part of the personal financial control revolution. Start today to transform your relationship with money.',
+    'active_users' => 'Active users',
+    'customer_satisfaction' => 'Customer satisfaction',
+    'average_rating' => 'Average rating',
+
+    // Team member quotes
+    'ceo_quote' => 'We believe financial control should be simple and accessible to everyone.',
+    'cto_quote' => 'Technology should serve people, not complicate their lives.',
+    'designer_quote' => 'Design is not just how something looks, it\'s how it works.',
+
+    // Footer translations
+    'footer_description' => 'The complete solution to manage your personal finances with ease and security.',
+    'footer_product' => 'Product',
+    'footer_company' => 'Company',
+    'footer_legal' => 'Legal',
+    'footer_careers' => 'Careers',
+    'footer_privacy' => 'Privacy',
+    'footer_terms' => 'Terms',
+    'footer_security' => 'Security',
+    'footer_copyright' => 'All rights reserved.',
+
+    // How It Works page translations
+    'features_title' => 'Features that make a difference',
+    'features_subtitle' => 'Everything you need to control your finances',
+    
+    // Feature titles and descriptions
+    'feature_whatsapp_title' => 'WhatsApp Registration',
+    'feature_whatsapp_description' => 'Register expenses and income by sending simple messages on WhatsApp. Our AI automatically recognizes values and categories.',
+    'feature_dashboard_title' => 'Smart Dashboard',
+    'feature_dashboard_description' => 'Visualize all your financial data in an elegant and easy-to-use panel. Graphs, statistics and real-time insights.',
+    'feature_categorization_title' => 'Automatic Categorization',
+    'feature_categorization_description' => 'Our artificial intelligence automatically categorizes your expenses, facilitating the organization and analysis of your financial habits.',
+    'feature_reports_title' => 'Detailed Reports',
+    'feature_reports_description' => 'Receive monthly, quarterly and annual reports with in-depth analyses of your spending patterns and savings opportunities.',
+    'feature_alerts_title' => 'Smart Alerts',
+    'feature_alerts_description' => 'Receive personalized notifications about spending limits, financial goals and savings opportunities.',
+    'feature_security_title' => 'Total Security',
+    'feature_security_description' => 'Your data is protected with end-to-end encryption. Compliance with LGPD and international security standards.',
+    
+    // Demo section
+    'demo_title' => 'See how simple it is',
+    'demo_subtitle' => 'A quick demonstration of how to register an expense via WhatsApp',
+    'demo_step_1_title' => 'Send a message',
+    'demo_step_1_description' => 'Type something like: "I spent 25€ at the supermarket"',
+    'demo_step_2_title' => 'AI processes automatically',
+    'demo_step_2_description' => 'Our artificial intelligence extracts the value and identifies the category',
+    'demo_step_3_title' => 'Appears on dashboard',
+    'demo_step_3_description' => 'The expense is automatically registered on your panel',
+    
+    // WhatsApp mockup
+    'whatsapp_bot_name' => 'Plume Wallet Bot',
+    'whatsapp_message_example' => 'I spent 25€ at the supermarket',
+    'whatsapp_response_registered' => 'Registered: 25.00€ - Food',
+    'whatsapp_response_category' => 'Category: Supermarket',
+    'whatsapp_response_date' => 'Date: Today',
+    
+    // FAQ section
+    'faq_free_question' => 'Is it really free?',
+    'faq_free_answer' => 'Yes! Plume Wallet is completely free for personal use. We offer optional premium features for users who want advanced resources.',
+    'faq_security_question' => 'Is my data safe?',
+    'faq_security_answer' => 'Absolutely! We use end-to-end encryption and strictly follow LGPD. Your data is never shared with third parties.',
+    'faq_app_question' => 'Do I need to install any app?',
+    'faq_app_answer' => 'No! You can use Plume Wallet directly in your browser. WhatsApp is only used to register transactions, no need to install anything additional.',
+    'view_all_questions' => 'View all questions',
+    
+    // CTA section
+    'ready_to_start' => 'Ready to start?',
+    'join_thousands' => 'Join thousands of people who have already transformed their relationship with money',
+    'create_free_account' => 'Create free account',
+    'talk_to_support' => 'Talk to support',
+    
+    // Step features
+    'step_1_feature_1' => 'Quick and secure registration',
+    'step_1_feature_2' => 'Email verification',
+    'step_1_feature_3' => 'Personalized configuration',
+    'step_2_feature_1' => 'Secure and encrypted connection',
+    'step_2_feature_2' => 'Registration by message',
+    'step_2_feature_3' => 'Automatic recognition',
+    'step_3_feature_1' => 'Real-time dashboard',
+    'step_3_feature_2' => 'Automatic reports',
+    'step_3_feature_3' => 'Personalized insights',
+
+    // Contact page additional translations
+    'plume_is_where_you_are' => 'Plume is where you are!',
+    'be_part_of_story' => 'Be part of this story with just one click. Join thousands of people who have already transformed their relationship with money.',
+    'start' => 'Start',
+    'quick_question' => 'Have a quick question?',
+    'consult_faq' => 'Consult our frequently asked questions section to find immediate answers',
+    'view_faq' => 'View FAQ',
+    'sending' => 'Sending',
+];

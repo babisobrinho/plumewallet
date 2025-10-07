@@ -1,7 +1,7 @@
 @extends('institutional.layouts.app')
 
-@section('title', 'Página Inicial')
-@section('description', 'Bem-vindo ao Plume Wallet - Registe seus gastos pelo WhatsApp e acompanhe tudo com clareza num painel elegante e fácil de usar. Sem planilhas. Sem complicação.')
+@section('title', __('institutional.nav_home'))
+@section('description', __('institutional.landing_subtitle'))
 
 @section('content')
 <!-- Hero Section -->
@@ -9,17 +9,17 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                Bem-vindo ao <span class="text-gradient">Plume Wallet</span>
+                {{ __('institutional.landing_title') }} <span class="text-gradient">Plume Wallet</span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8">
-                Registe seus gastos pelo WhatsApp e acompanhe tudo com clareza num painel elegante e fácil de usar. Sem planilhas. Sem complicação. Só o controle que você merece.
+                {{ __('institutional.landing_subtitle') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="{{ route('register') }}" class="px-8 py-3 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors shadow-lg transform hover:scale-[1.02]">
-                    Começar agora
+                    {{ __('institutional.get_started') }}
                 </a>
                 <a href="{{ route('institutional.how-it-works') }}" class="px-8 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                    Saiba mais
+                    {{ __('institutional.learn_more') }}
                 </a>
             </div>
         </div>
@@ -37,10 +37,10 @@
 <section class="py-20 px-6 bg-white dark:bg-gray-800">
     <div class="max-w-7xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Controle suas finanças
+            {{ __('institutional.control_finances_title') }}
         </h2>
         <p class="text-xl text-gray-700 dark:text-gray-300 mb-12">
-            Com seus objetivos em mente
+            {{ __('institutional.control_finances_subtitle') }}
         </p>
         
         <!-- Carousel/Features -->
@@ -49,25 +49,25 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-piggy-bank text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Economia</h3>
-                <p class="text-gray-700 dark:text-gray-300">Acompanhe seus gastos e identifique oportunidades de economia.</p>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.savings') }}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ __('institutional.savings_description') }}</p>
             </div>
             
             <div class="bg-plume-50 dark:bg-plume-900/20 rounded-xl p-8 hover:shadow-lg transition-shadow border-2 border-plume-200 dark:border-plume-800">
                 <div class="w-16 h-16 bg-plume-200 dark:bg-plume-800 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-plane text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Viagens do sonho</h3>
-                <p class="text-gray-700 dark:text-gray-300 mb-4">Planeje e realize suas viagens dos sonhos com controle financeiro.</p>
-                <a href="#" class="text-plume-600 dark:text-plume-400 font-medium hover:underline">Saiba mais →</a>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.dream_trips') }}</h3>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">{{ __('institutional.dream_trips_description') }}</p>
+                <a href="#" class="text-plume-600 dark:text-plume-400 font-medium hover:underline">{{ __('institutional.dream_trips_link') }}</a>
             </div>
             
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-8 hover:shadow-lg transition-shadow">
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-chart-line text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Investimentos</h3>
-                <p class="text-gray-700 dark:text-gray-300">Monitore seus investimentos e crescimento patrimonial.</p>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.investments') }}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ __('institutional.investments_description') }}</p>
             </div>
         </div>
         

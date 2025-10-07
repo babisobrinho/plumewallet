@@ -1,7 +1,7 @@
 @extends('institutional.layouts.app')
 
-@section('title', 'Perguntas Frequentes')
-@section('description', 'Encontre respostas para as perguntas mais frequentes sobre o Plume Wallet. Tire suas dúvidas sobre funcionalidades, segurança e uso da plataforma.')
+@section('title', __('institutional.faq_title'))
+@section('description', __('institutional.faq_subtitle'))
 
 @section('content')
 <!-- Breadcrumb -->
@@ -9,10 +9,10 @@
     <div class="max-w-7xl mx-auto">
         <nav class="flex items-center space-x-2 text-sm">
             <a href="{{ route('institutional.index') }}" class="text-gray-600 dark:text-gray-400 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
-                Início
+                {{ __('institutional.nav_home') }}
             </a>
             <i class="ti ti-chevron-right text-gray-400"></i>
-            <span class="text-gray-900 dark:text-white font-medium">FAQ</span>
+            <span class="text-gray-900 dark:text-white font-medium">{{ __('institutional.faq_title') }}</span>
         </nav>
     </div>
 </section>
@@ -21,10 +21,10 @@
 <section class="py-16 px-6 bg-white dark:bg-gray-800">
     <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            Perguntas Frequentes
+            {{ __('institutional.faq_title') }}
         </h1>
         <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
-            Encontre respostas para as dúvidas mais comuns sobre o Plume Wallet
+            {{ __('institutional.faq_subtitle') }}
         </p>
         
         <!-- Search Bar -->
@@ -32,7 +32,7 @@
             <input 
                 type="text" 
                 id="faq-search" 
-                placeholder="Talvez já tenhamos a resposta que procura..." 
+                placeholder="{{ __('institutional.search_faq') }}" 
                 class="w-full px-6 py-4 pl-12 pr-12 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors"
             >
             <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -77,13 +77,13 @@
                         <i class="ti ti-help text-2xl text-gray-400"></i>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                        Nenhuma pergunta encontrada
+                        {{ __('institutional.no_results') }}
                     </h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-6">
-                        Ainda não temos perguntas frequentes cadastradas. Entre em contato conosco se tiver alguma dúvida.
+                        {{ __('institutional.contact_subtitle') }}
                     </p>
                     <a href="{{ route('institutional.contact') }}" class="inline-flex items-center px-6 py-3 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors">
-                        Entrar em contato
+                        {{ __('institutional.contact_title') }}
                     </a>
                 </div>
             @endforelse

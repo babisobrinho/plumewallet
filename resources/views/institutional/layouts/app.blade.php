@@ -56,7 +56,7 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
     
     <!-- Custom Styles -->
     <style>
@@ -86,10 +86,23 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 font-poppins">
-    <!-- Theme Toggle Button -->
-    <div class="fixed top-4 right-4 z-50">
+    <!-- Theme Toggle and Language Selector -->
+    <div class="fixed top-4 right-4 z-50 flex space-x-2">
+        <!-- Language Selector -->
+        <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" type="button" class="p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ strtoupper(app()->getLocale()) }}</span>
+            </button>
+            <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <a href="{{ route('language.switch', 'pt') }}" class="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">PT</a>
+                <a href="{{ route('language.switch', 'en') }}" class="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">EN</a>
+            </div>
+        </div>
+        
+        <!-- Theme Toggle Button -->
         <button id="theme-toggle" type="button" class="p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-            <i id="theme-icon" class="ti ti-moon text-gray-700 dark:text-gray-300"></i>
+            <i id="theme-icon" class="ti ti-sun text-gray-700 dark:text-gray-300 text-lg"></i>
+            <span id="theme-fallback" class="hidden text-gray-700 dark:text-gray-300 text-lg">☀️</span>
         </button>
     </div>
 
@@ -111,19 +124,19 @@
             
             <nav class="hidden md:flex items-center space-x-6">
                 <a href="{{ route('institutional.index') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.index') ? 'text-plume-600 dark:text-plume-400' : '' }}">
-                    Início
+                    {{ __('institutional.nav_home') }}
                 </a>
                 <a href="{{ route('institutional.about-us') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.about-us') ? 'text-plume-600 dark:text-plume-400' : '' }}">
-                    Sobre Nós
+                    {{ __('institutional.nav_about') }}
                 </a>
                 <a href="{{ route('institutional.how-it-works') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.how-it-works') ? 'text-plume-600 dark:text-plume-400' : '' }}">
-                    Como Funciona
+                    {{ __('institutional.nav_how_it_works') }}
                 </a>
                 <a href="{{ route('institutional.blog') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.blog*') ? 'text-plume-600 dark:text-plume-400' : '' }}">
-                    Blog
+                    {{ __('institutional.nav_blog') }}
                 </a>
                 <a href="{{ route('institutional.contact') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.contact') ? 'text-plume-600 dark:text-plume-400' : '' }}">
-                    Contacto
+                    {{ __('institutional.nav_contact') }}
                 </a>
             </nav>
 
@@ -131,16 +144,16 @@
                 @if (Route::has('login'))
                     @auth
                         <a href="{{ url('/dashboard') }}" class="px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
-                            Dashboard
+                            {{ __('common.dashboard') }}
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
-                            Entrar
+                            {{ __('institutional.nav_login') }}
                         </a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium bg-plume-600 dark:bg-plume-700 text-white rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors">
-                                Criar conta
+                                {{ __('institutional.nav_register') }}
                             </a>
                         @endif
                     @endauth
@@ -189,7 +202,7 @@
                         <span class="text-xl font-semibold text-gray-900 dark:text-white">Plume Wallet</span>
                     </div>
                     <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">
-                        A solução completa para gerenciar suas finanças pessoais com facilidade e segurança.
+                        {{ __('institutional.footer_description') }}
                     </p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -208,36 +221,36 @@
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Produto</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer_product') }}</h3>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('institutional.how-it-works') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Como Funciona</a></li>
-                        <li><a href="{{ route('institutional.faq') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">FAQ</a></li>
-                        <li><a href="{{ route('institutional.blog') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Blog</a></li>
+                        <li><a href="{{ route('institutional.how-it-works') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.nav_how_it_works') }}</a></li>
+                        <li><a href="{{ route('institutional.faq') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.faq_title') }}</a></li>
+                        <li><a href="{{ route('institutional.blog') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.nav_blog') }}</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Empresa</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer_company') }}</h3>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('institutional.about-us') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Sobre nós</a></li>
-                        <li><a href="{{ route('institutional.contact') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Contacto</a></li>
-                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Carreiras</a></li>
+                        <li><a href="{{ route('institutional.about-us') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.nav_about') }}</a></li>
+                        <li><a href="{{ route('institutional.contact') }}" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.nav_contact') }}</a></li>
+                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.footer_careers') }}</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Legal</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer_legal') }}</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Privacidade</a></li>
-                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Termos</a></li>
-                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">Segurança</a></li>
+                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.footer_privacy') }}</a></li>
+                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.footer_terms') }}</a></li>
+                        <li><a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors text-sm">{{ __('institutional.footer_security') }}</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-700 dark:text-gray-300 text-sm">
-                    © {{ date('Y') }} Plume Wallet by Plume. Todos os direitos reservados.
+                    © {{ date('Y') }} Plume Wallet by Plume. {{ __('institutional.footer_copyright') }}
                 </p>
                 <div class="flex space-x-4 mt-4 md:mt-0">
                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -260,33 +273,81 @@
     <!-- Scripts -->
     <script>
         // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const htmlElement = document.documentElement;
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeFallback = document.getElementById('theme-fallback');
+            const htmlElement = document.documentElement;
+
+            console.log('Theme toggle element:', themeToggle);
+            console.log('Theme icon element:', themeIcon);
+            
+            if (!themeToggle || !themeIcon) {
+                console.error('Theme toggle elements not found!');
+                return;
+            }
+
+            // Check if Tabler Icons are loaded
+            const testIcon = document.createElement('i');
+            testIcon.className = 'ti ti-sun';
+            document.body.appendChild(testIcon);
+            const iconLoaded = window.getComputedStyle(testIcon, ':before').content !== 'none';
+            document.body.removeChild(testIcon);
+            
+            console.log('Tabler Icons loaded:', iconLoaded);
+            
+            if (!iconLoaded) {
+                console.log('Using fallback Unicode icons');
+                themeIcon.style.display = 'none';
+                themeFallback.classList.remove('hidden');
+            }
 
         // Check for saved user preference or use system preference
         const savedTheme = localStorage.getItem('theme') || 
                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         
+        console.log('Saved theme:', savedTheme);
+        
         // Apply the saved theme
         if (savedTheme === 'dark') {
             htmlElement.classList.add('dark');
-            themeIcon.classList.remove('ti-moon');
-            themeIcon.classList.add('ti-sun');
+            if (iconLoaded) {
+                themeIcon.className = 'ti ti-sun text-gray-700 dark:text-gray-300 text-lg';
+            } else {
+                themeFallback.textContent = '☀️';
+            }
+            console.log('Applied dark theme, showing sun icon');
+        } else {
+            htmlElement.classList.remove('dark');
+            if (iconLoaded) {
+                themeIcon.className = 'ti ti-moon text-gray-700 dark:text-gray-300 text-lg';
+            } else {
+                themeFallback.textContent = '🌙';
+            }
+            console.log('Applied light theme, showing moon icon');
         }
 
         // Toggle theme on button click
         themeToggle.addEventListener('click', () => {
+            console.log('Theme toggle clicked');
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
-                themeIcon.classList.remove('ti-sun');
-                themeIcon.classList.add('ti-moon');
+                if (iconLoaded) {
+                    themeIcon.className = 'ti ti-moon text-gray-700 dark:text-gray-300 text-lg';
+                } else {
+                    themeFallback.textContent = '🌙';
+                }
+                console.log('Switched to light theme, showing moon icon');
             } else {
                 htmlElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
-                themeIcon.classList.remove('ti-moon');
-                themeIcon.classList.add('ti-sun');
+                if (iconLoaded) {
+                    themeIcon.className = 'ti ti-sun text-gray-700 dark:text-gray-300 text-lg';
+                } else {
+                    themeFallback.textContent = '☀️';
+                }
+                console.log('Switched to dark theme, showing sun icon');
             }
         });
 
@@ -305,6 +366,7 @@
                 mobileMenu.classList.add('hidden');
             });
         });
+        }); // End DOMContentLoaded
     </script>
 
     @stack('scripts')

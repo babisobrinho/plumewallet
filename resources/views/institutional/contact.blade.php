@@ -1,18 +1,17 @@
 @extends('institutional.layouts.app')
 
-@section('title', 'Contacto')
-@section('description', 'Entre em contato com a equipe da Plume Wallet. Estamos aqui para ajudar você com qualquer dúvida ou sugestão sobre nossa plataforma.')
+@section('title', __('institutional.contact_title'))
+@section('description', __('institutional.contact_subtitle'))
 
 @section('content')
 <!-- Hero Section -->
 <section class="py-20 px-6 bg-gradient-to-br from-plume-600 to-plume-800 dark:from-plume-800 dark:to-plume-900 text-white">
     <div class="max-w-7xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            Contacte-nos
+            {{ __('institutional.contact_title') }}
         </h1>
         <p class="text-xl text-plume-100 max-w-3xl mx-auto">
-            Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. 
-            Estamos aqui para ajudar você com qualquer questão sobre o Plume Wallet.
+            {{ __('institutional.contact_subtitle') }}
         </p>
     </div>
 </section>
@@ -26,9 +25,9 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mb-4">
                     <i class="ti ti-clock text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Horário de Atendimento</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.business_hours') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300">
-                    2ª a 6ª feira das 12h às 18h
+                    {{ __('institutional.monday_friday') }}: 12h às 18h
                 </p>
             </div>
             
@@ -37,7 +36,7 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mb-4">
                     <i class="ti ti-phone text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Telefone</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.phone') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300">
                     <a href="tel:+351987456890" class="hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
                         987 456 890
@@ -50,7 +49,7 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mb-4">
                     <i class="ti ti-mail text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('institutional.email') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300">
                     <a href="mailto:plume.wal@gmail.com" class="hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
                         plume.wal@gmail.com
@@ -66,10 +65,10 @@
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Como podemos ajudá-lo?
+                {{ __('institutional.contact_form') }}
             </h2>
             <p class="text-xl text-gray-700 dark:text-gray-300">
-                Envie-nos uma mensagem e responderemos o mais breve possível
+                {{ __('institutional.contact_subtitle') }}
             </p>
         </div>
         
@@ -87,7 +86,7 @@
                 <div class="flex items-start">
                     <i class="ti ti-alert-circle text-red-600 dark:text-red-400 mr-3 mt-0.5"></i>
                     <div>
-                        <p class="text-red-800 dark:text-red-200 font-medium mb-2">Por favor, corrija os seguintes erros:</p>
+                        <p class="text-red-800 dark:text-red-200 font-medium mb-2">{{ __('auth.validation_errors') }}</p>
                         <ul class="text-red-700 dark:text-red-300 text-sm space-y-1">
                             @foreach($errors->all() as $error)
                                 <li>• {{ $error }}</li>
@@ -105,7 +104,7 @@
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Email *
+                        {{ __('institutional.email') }} *
                     </label>
                     <input 
                         type="email" 
@@ -114,7 +113,7 @@
                         value="{{ old('email') }}"
                         required
                         class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors @error('email') border-red-500 @enderror"
-                        placeholder="seu@email.com"
+                        placeholder="{{ __('institutional.email_placeholder') }}"
                     >
                     @error('email')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -124,7 +123,7 @@
                 <!-- Nome Completo -->
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Nome completo *
+                        {{ __('institutional.name') }} *
                     </label>
                     <input 
                         type="text" 
@@ -133,7 +132,7 @@
                         value="{{ old('name') }}"
                         required
                         class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors @error('name') border-red-500 @enderror"
-                        placeholder="Seu nome completo"
+                        placeholder="{{ __('institutional.name_placeholder') }}"
                     >
                     @error('name')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -144,7 +143,7 @@
             <!-- Telefone -->
             <div class="mb-6">
                 <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Telefone
+                    {{ __('institutional.phone') }}
                 </label>
                 <input 
                     type="tel" 
@@ -152,7 +151,7 @@
                     name="phone" 
                     value="{{ old('phone') }}"
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors @error('phone') border-red-500 @enderror"
-                    placeholder="+351 987 654 321"
+                    placeholder="{{ __('institutional.phone_placeholder') }}"
                 >
                 @error('phone')
                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -162,7 +161,7 @@
             <!-- Assunto -->
             <div class="mb-6">
                 <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Assunto *
+                    {{ __('institutional.subject') }} *
                 </label>
                 <input 
                     type="text" 
@@ -171,7 +170,7 @@
                     value="{{ old('subject') }}"
                     required
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors @error('subject') border-red-500 @enderror"
-                    placeholder="Qual é o assunto da sua mensagem?"
+                    placeholder="{{ __('institutional.subject_placeholder') }}"
                 >
                 @error('subject')
                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -181,7 +180,7 @@
             <!-- Mensagem -->
             <div class="mb-8">
                 <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Mensagem *
+                    {{ __('institutional.message') }} *
                 </label>
                 <textarea 
                     id="message" 
@@ -189,7 +188,7 @@
                     rows="6"
                     required
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-plume-500 focus:border-transparent transition-colors resize-vertical @error('message') border-red-500 @enderror"
-                    placeholder="Descreva sua dúvida ou sugestão..."
+                    placeholder="{{ __('institutional.message_placeholder') }}"
                 >{{ old('message') }}</textarea>
                 @error('message')
                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -203,7 +202,7 @@
                     class="inline-flex items-center px-8 py-4 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors shadow-lg transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-plume-500 focus:ring-offset-2"
                 >
                     <i class="ti ti-send mr-2"></i>
-                    Enviar mensagem
+                    {{ __('institutional.send_message') }}
                 </button>
             </div>
         </form>
@@ -214,13 +213,13 @@
 <section class="py-20 px-6 bg-plume-600 dark:bg-plume-800 text-white">
     <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            A Plume está onde você está!
+            {{ __('institutional.plume_is_where_you_are') }}
         </h2>
         <p class="text-xl text-plume-100 mb-8">
-            Faça parte dessa história com apenas um clique. Junte-se a milhares de pessoas que já transformaram sua relação com o dinheiro.
+            {{ __('institutional.be_part_of_story') }}
         </p>
         <a href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-white text-plume-600 font-medium rounded-lg hover:bg-gray-100 transition-colors shadow-lg transform hover:scale-[1.02]">
-            Começar
+            {{ __('institutional.start') }}
             <i class="ti ti-arrow-right ml-2"></i>
         </a>
     </div>
@@ -230,13 +229,13 @@
 <section class="py-16 px-6 bg-gray-50 dark:bg-gray-900">
     <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Tem uma dúvida rápida?
+            {{ __('institutional.quick_question') }}
         </h2>
         <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
-            Consulte nossa seção de perguntas frequentes para encontrar respostas imediatas
+            {{ __('institutional.consult_faq') }}
         </p>
         <a href="{{ route('institutional.faq') }}" class="inline-flex items-center px-6 py-3 border-2 border-plume-600 dark:border-plume-400 text-plume-600 dark:text-plume-400 font-medium rounded-lg hover:bg-plume-600 dark:hover:bg-plume-400 hover:text-white transition-colors">
-            Ver FAQ
+            {{ __('institutional.view_faq') }}
             <i class="ti ti-arrow-right ml-2"></i>
         </a>
     </div>
@@ -253,7 +252,7 @@
         form.addEventListener('submit', function(e) {
             // Disable submit button to prevent double submission
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="ti ti-loader-2 animate-spin mr-2"></i>Enviando...';
+            submitButton.innerHTML = '<i class="ti ti-loader-2 animate-spin mr-2"></i>{{ __('institutional.sending') }}...';
         });
         
         // Phone number formatting

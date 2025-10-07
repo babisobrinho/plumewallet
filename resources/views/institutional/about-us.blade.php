@@ -1,17 +1,17 @@
 @extends('institutional.layouts.app')
 
-@section('title', 'Sobre Nós')
-@section('description', 'Conheça a história da Plume Wallet e nossa missão de simplificar o controle financeiro pessoal. Descubra nossa equipe e valores.')
+@section('title', __('institutional.about_title'))
+@section('description', __('institutional.about_subtitle'))
 
 @section('content')
 <!-- Hero Section -->
 <section class="py-20 px-6 bg-gradient-to-br from-plume-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
     <div class="max-w-7xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Sobre Nós
+            {{ __('institutional.about_title') }}
         </h1>
         <p class="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            Conheça a história da Plume Wallet e nossa missão de revolucionar o controle financeiro pessoal
+            {{ __('institutional.about_subtitle') }}
         </p>
     </div>
 </section>
@@ -21,7 +21,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Nossa História
+                {{ __('institutional.our_story') }}
             </h2>
         </div>
         
@@ -36,11 +36,9 @@
                 <div class="relative flex items-center">
                     <div class="w-1/2 pr-8 text-right">
                         <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">O Início</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.the_beginning') }}</h3>
                             <p class="text-gray-700 dark:text-gray-300">
-                                A Plume Wallet nasceu da necessidade de simplificar o controle financeiro pessoal. 
-                                Observamos que muitas pessoas lutavam com planilhas complexas e aplicativos complicados 
-                                para gerenciar suas finanças.
+                                {{ __('institutional.the_beginning_description') }}
                             </p>
                         </div>
                     </div>
@@ -62,11 +60,9 @@
                     <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-plume-600 dark:bg-plume-400 rounded-full border-4 border-white dark:border-gray-800"></div>
                     <div class="w-1/2 pl-8 text-left">
                         <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">O Crescimento</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.growth') }}</h3>
                             <p class="text-gray-700 dark:text-gray-300">
-                                Desenvolvemos uma solução inovadora que combina a simplicidade do WhatsApp com 
-                                um painel elegante e funcional. Nossa plataforma cresceu rapidamente, 
-                                ajudando milhares de usuários a organizarem suas finanças.
+                                {{ __('institutional.growth_description') }}
                             </p>
                         </div>
                     </div>
@@ -85,12 +81,12 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-mail text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Contacte-nos</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.contact_title') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-6">
-                    Tem alguma dúvida ou sugestão? Estamos aqui para ajudar você.
+                    {{ __('institutional.contact_subtitle') }}
                 </p>
                 <a href="{{ route('institutional.contact') }}" class="inline-flex items-center px-6 py-3 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors">
-                    Contactar
+                    {{ __('institutional.contact_title') }}
                 </a>
             </div>
             
@@ -99,12 +95,12 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-bulb text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">O que fazemos</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.our_mission') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-6">
-                    Simplificamos o controle financeiro pessoal com tecnologia inovadora e design intuitivo.
+                    {{ __('institutional.mission_description') }}
                 </p>
                 <a href="{{ route('institutional.how-it-works') }}" class="inline-flex items-center px-6 py-3 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors">
-                    Saiba mais
+                    {{ __('institutional.learn_more') }}
                 </a>
             </div>
             
@@ -113,12 +109,12 @@
                 <div class="w-16 h-16 bg-plume-100 dark:bg-plume-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="ti ti-help text-2xl text-plume-600 dark:text-plume-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Alguma dúvida?</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.faq_title') }}</h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-6">
-                    Consulte nossas perguntas frequentes para encontrar respostas rápidas.
+                    {{ __('institutional.faq_subtitle') }}
                 </p>
                 <a href="{{ route('institutional.faq') }}" class="inline-flex items-center px-6 py-3 bg-plume-600 dark:bg-plume-700 text-white font-medium rounded-lg hover:bg-plume-700 dark:hover:bg-plume-600 transition-colors">
-                    FAQ
+                    {{ __('institutional.faq_title') }}
                 </a>
             </div>
         </div>
@@ -130,10 +126,10 @@
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Nossa Equipe
+                {{ __('institutional.meet_team') }}
             </h2>
             <p class="text-xl text-gray-700 dark:text-gray-300">
-                Conheça as pessoas por trás da Plume Wallet
+                {{ __('institutional.about_subtitle') }}
             </p>
         </div>
         
@@ -144,9 +140,9 @@
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Membro da equipe" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">João Silva</h3>
-                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">CEO & Fundador</p>
+                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">{{ __('institutional.ceo') }}</p>
                 <blockquote class="text-gray-700 dark:text-gray-300 italic mb-4">
-                    "Acreditamos que o controle financeiro deve ser simples e acessível para todos."
+                    "{{ __('institutional.ceo_quote') }}"
                 </blockquote>
                 <div class="flex justify-center space-x-4">
                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -164,9 +160,9 @@
                     <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Membro da equipe" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Maria Santos</h3>
-                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">CTO & Co-fundadora</p>
+                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">{{ __('institutional.cto') }}</p>
                 <blockquote class="text-gray-700 dark:text-gray-300 italic mb-4">
-                    "Tecnologia deve servir às pessoas, não complicar suas vidas."
+                    "{{ __('institutional.cto_quote') }}"
                 </blockquote>
                 <div class="flex justify-center space-x-4">
                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -184,9 +180,9 @@
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Membro da equipe" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Pedro Costa</h3>
-                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">Head of Design</p>
+                <p class="text-plume-600 dark:text-plume-400 font-medium mb-4">{{ __('institutional.designer') }}</p>
                 <blockquote class="text-gray-700 dark:text-gray-300 italic mb-4">
-                    "Design não é apenas como algo parece, é como funciona."
+                    "{{ __('institutional.designer_quote') }}"
                 </blockquote>
                 <div class="flex justify-center space-x-4">
                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -207,19 +203,18 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                    Junte-se à nossa jornada
+                    {{ __('institutional.join_our_journey') }}
                 </h2>
                 <p class="text-xl text-plume-100 mb-8">
-                    Faça parte da revolução do controle financeiro pessoal. 
-                    Comece hoje mesmo a transformar sua relação com o dinheiro.
+                    {{ __('institutional.join_journey_description') }}
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="{{ route('register') }}" class="inline-flex items-center px-8 py-3 bg-white text-plume-600 font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                        Criar conta
+                        {{ __('institutional.nav_register') }}
                         <i class="ti ti-arrow-right ml-2"></i>
                     </a>
                     <a href="{{ route('login') }}" class="inline-flex items-center px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-plume-600 transition-colors">
-                        Entrar
+                        {{ __('institutional.nav_login') }}
                     </a>
                 </div>
             </div>
@@ -231,21 +226,21 @@
                             <i class="ti ti-users text-2xl text-plume-200"></i>
                             <div>
                                 <p class="text-2xl font-bold">10,000+</p>
-                                <p class="text-plume-200">Usuários ativos</p>
+                                <p class="text-plume-200">{{ __('institutional.active_users') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="ti ti-chart-line text-2xl text-plume-200"></i>
                             <div>
                                 <p class="text-2xl font-bold">95%</p>
-                                <p class="text-plume-200">Satisfação do cliente</p>
+                                <p class="text-plume-200">{{ __('institutional.customer_satisfaction') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="ti ti-star text-2xl text-plume-200"></i>
                             <div>
                                 <p class="text-2xl font-bold">4.8/5</p>
-                                <p class="text-plume-200">Avaliação média</p>
+                                <p class="text-plume-200">{{ __('institutional.average_rating') }}</p>
                             </div>
                         </div>
                     </div>

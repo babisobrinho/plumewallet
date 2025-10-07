@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,9 @@ Route::prefix('institutional')->name('institutional.')->group(function () {
     Route::get('/contacto', [App\Http\Controllers\InstitutionalController::class, 'contact'])->name('contact');
     Route::post('/contacto', [App\Http\Controllers\InstitutionalController::class, 'contactSubmit'])->name('contact.submit');
 });
+
+// Rota para trocar idioma
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 // Rota raiz redireciona para a página institucional
 Route::get("/", function () {

@@ -43,9 +43,7 @@
                         <p><strong>4.</strong> <strong>Resultado:</strong> Você sempre sabe quanto ainda pode gastar em cada categoria!</p>
                     </div>
                     <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                        <p class="text-sm text-blue-800 dark:text-blue-200">
-                            <strong>Dica:</strong> Este sistema é baseado no método YNAB (You Need A Budget) e ajuda você a nunca gastar mais do que ganha!
-                        </p>
+                        
                     </div>
                 </div>
             </div>
