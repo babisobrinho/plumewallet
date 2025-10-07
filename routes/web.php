@@ -14,8 +14,22 @@ use App\Http\Controllers\BudgetController;
 | Rotas Públicas
 |--------------------------------------------------------------------------
 */
+
+// Rotas Institucionais
+Route::prefix('institutional')->name('institutional.')->group(function () {
+    Route::get('/', [App\Http\Controllers\InstitutionalController::class, 'index'])->name('index');
+    Route::get('/sobre-nos', [App\Http\Controllers\InstitutionalController::class, 'aboutUs'])->name('about-us');
+    Route::get('/como-funciona', [App\Http\Controllers\InstitutionalController::class, 'howItWorks'])->name('how-it-works');
+    Route::get('/faq', [App\Http\Controllers\InstitutionalController::class, 'faq'])->name('faq');
+    Route::get('/blog', [App\Http\Controllers\InstitutionalController::class, 'blog'])->name('blog');
+    Route::get('/blog/{slug}', [App\Http\Controllers\InstitutionalController::class, 'blogShow'])->name('blog.show');
+    Route::get('/contacto', [App\Http\Controllers\InstitutionalController::class, 'contact'])->name('contact');
+    Route::post('/contacto', [App\Http\Controllers\InstitutionalController::class, 'contactSubmit'])->name('contact.submit');
+});
+
+// Rota raiz redireciona para a página institucional
 Route::get("/", function () {
-    return view("welcome");
+    return redirect()->route('institutional.index');
 });
 
 /*
