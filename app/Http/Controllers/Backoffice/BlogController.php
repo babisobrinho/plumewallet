@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backoffice;
 use App\Http\Controllers\Backoffice\BaseBackofficeController;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BlogController extends BaseBackofficeController
 {
@@ -60,6 +61,7 @@ class BlogController extends BaseBackofficeController
 
         $post = BlogPost::create([
             'title' => $request->title,
+            'slug' => $this->generateUniqueSlug($request->title),
             'content' => $request->content,
             'excerpt' => $request->excerpt,
             'status' => $request->status,
@@ -103,6 +105,7 @@ class BlogController extends BaseBackofficeController
 
         $post->update([
             'title' => $request->title,
+            'slug' => $this->generateUniqueSlug($request->title, $post->id),
             'content' => $request->content,
             'excerpt' => $request->excerpt,
             'status' => $request->status,
@@ -133,5 +136,26 @@ class BlogController extends BaseBackofficeController
     {
         $post->delete();
         return $this->redirectWithSuccess('backoffice.blog.posts.index', 'Post excluído com sucesso');
+    }
+
+    /**
+     * Gerar slug único baseado no título
+     */
+    private function generateUniqueSlug($title, $excludeId = null)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        while (BlogPost::where('slug', $slug)
+            ->when($excludeId, function ($query, $excludeId) {
+                return $query->where('id', '!=', $excludeId);
+            })
+            ->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }

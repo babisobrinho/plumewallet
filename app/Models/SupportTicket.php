@@ -49,7 +49,7 @@ class SupportTicket extends Model
 
     public function messages()
     {
-        return $this->hasMany(TicketMessage::class);
+        return $this->hasMany(TicketMessage::class, 'ticket_id');
     }
 
     public function attachments()

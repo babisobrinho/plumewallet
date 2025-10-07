@@ -52,9 +52,11 @@ class TeamsController extends BaseBackofficeController
 
         $team = Team::create([
             'name' => $request->name,
+            'user_id' => auth()->id(), // Campo obrigatório - dono da team
             'description' => $request->description,
             'max_members' => $request->max_members,
             'is_active' => $request->boolean('is_active', true),
+            'personal_team' => false, // Teams do backoffice não são pessoais
             'created_by' => auth()->id(),
         ]);
 

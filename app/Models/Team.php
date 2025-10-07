@@ -20,7 +20,13 @@ class Team extends JetstreamTeam
      */
     protected $fillable = [
         'name',
+        'user_id',
         'personal_team',
+        'description',
+        'is_active',
+        'max_members',
+        'settings',
+        'created_by',
     ];
 
     /**
@@ -43,6 +49,21 @@ class Team extends JetstreamTeam
     {
         return [
             'personal_team' => 'boolean',
+            'is_active' => 'boolean',
+            'settings' => 'array',
         ];
+    }
+
+    /**
+     * Relacionamentos
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
