@@ -14,6 +14,7 @@ use App\Http\Controllers\Backoffice\TicketCategoryController;
 use App\Http\Controllers\Backoffice\ReportsController;
 use App\Http\Controllers\Backoffice\LogsController;
 use App\Http\Controllers\Backoffice\TeamsController;
+use App\Http\Controllers\Backoffice\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,4 +92,14 @@ Route::prefix('backoffice')->name('backoffice.')->group(function () {
     // Gestão de Teams
     Route::resource('teams', TeamsController::class);
     Route::patch('teams/{team}/toggle-status', [TeamsController::class, 'toggleStatus'])->name('teams.toggle-status');
+    
+    // Perfil do Usuário
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'show'])->name('show');
+        Route::put('information', [ProfileController::class, 'updateProfileInformation'])->name('update-information');
+        Route::put('password', [ProfileController::class, 'updatePassword'])->name('update-password');
+        Route::put('preferences', [ProfileController::class, 'updatePreferences'])->name('update-preferences');
+        Route::delete('other-browser-sessions', [ProfileController::class, 'logoutOtherBrowserSessions'])->name('logout-other-browser-sessions');
+        Route::delete('account', [ProfileController::class, 'deleteAccount'])->name('delete-account');
+    });
 });

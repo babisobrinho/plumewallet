@@ -1,0 +1,452 @@
+@extends('backoffice.layouts.app')
+
+@section('title', 'Configurações da Conta')
+@section('subtitle', 'Faça a gestão das suas informações pessoais e segurança')
+
+@section('content')
+<div class="max-w-7xl mx-auto">
+    <!-- Layout em Dois Painéis -->
+    <div class="flex flex-col lg:flex-row gap-8">
+        
+        <!-- Painel de Navegação -->
+        <div class="lg:w-64 flex-shrink-0">
+            <!-- Avatar e Status -->
+            <div class="p-4 bg-white rounded-2xl shadow-sm border border-gray-100 mb-3">
+                <div class="flex flex-col items-center">
+                    <div class="relative mb-3">
+                        <div class="absolute -inset-1 rounded-full shadow"></div>
+                        <img class="relative h-20 w-20 rounded-full object-cover border-4 border-white" src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">{{ auth()->user()->name }}</h3>
+                    <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
+                    <div class="mt-2 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">
+                        Plano Premium
+                    </div>
+                </div>
+            </div>
+
+            <div class="sticky top-8 space-y-1 p-1 bg-gray-50 rounded-xl">
+                <a href="#dados-pessoais" class="flex items-center px-4 py-3 text-gray-600 hover:bg-white rounded-lg font-medium nav-link" data-section="dados-pessoais">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    Dados Pessoais
+                </a>
+                <a href="#preferencias" class="flex items-center px-4 py-3 text-gray-600 hover:bg-white rounded-lg font-medium nav-link" data-section="preferencias">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    Preferências
+                </a>
+                <a href="#seguranca" class="flex items-center px-4 py-3 text-gray-600 hover:bg-white rounded-lg font-medium nav-link" data-section="seguranca">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    Segurança
+                </a>
+                <a href="#atividade" class="flex items-center px-4 py-3 text-gray-600 hover:bg-white rounded-lg font-medium nav-link" data-section="atividade">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Atividade
+                </a>
+                <a href="#encerrar-conta" class="flex items-center px-4 py-3 text-gray-600 hover:bg-white rounded-lg font-medium nav-link" data-section="encerrar-conta">
+                    <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Encerrar Conta
+                </a>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="flex-1 space-y-6">
+            <!-- Seção: Informações do Perfil -->
+            <div id="dados-pessoais" class="section bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <svg class="h-5 w-5 inline-block mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        Dados Pessoais
+                    </h2>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        Ativo
+                    </span>
+                </div>
+                <div class="p-6">
+                    @if (Laravel\Fortify\Features::canUpdateProfileInformation())
+                        <form method="POST" action="{{ route('backoffice.profile.update-information') }}">
+                            @csrf
+                            @method('PUT')
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                                    <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                           required autocomplete="name">
+                                    @error('name')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                           required autocomplete="email">
+                                    @error('email')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="flex justify-end">
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition">
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Seção: Preferências -->
+            <div id="preferencias" class="section bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                <div class="px-6 py-5 border-b border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <svg class="h-5 w-5 inline-block mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Preferências
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <form method="POST" action="{{ route('backoffice.profile.update-preferences') }}">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="space-y-6">
+                            <!-- Configuração de WhatsApp -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex-1">
+                                    <h3 class="text-base font-medium text-gray-900">Número de WhatsApp</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Adicione seu número para receber notificações importantes.
+                                    </p>
+                                </div>
+                                <div class="w-1/2 sm:w-64">
+                                    <input type="tel" name="whatsapp_number" 
+                                           class="block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                           placeholder="(00) 00000-0000" 
+                                           value="{{ old('whatsapp_number', auth()->user()->whatsapp_number ?? '(+351) 912 345 678') }}">
+                                    @error('whatsapp_number')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <!-- Configuração de Tema -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex-1">
+                                    <h3 class="text-base font-medium text-gray-900">Aparência</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Escolha entre tema claro ou escuro.
+                                    </p>
+                                </div>
+                                <div class="w-1/2 sm:w-64">
+                                    <select name="theme" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                                        <option value="light" {{ old('theme', auth()->user()->theme_preference ?? 'dark') === 'light' ? 'selected' : '' }}>Tema Claro</option>
+                                        <option value="dark" {{ old('theme', auth()->user()->theme_preference ?? 'dark') === 'dark' ? 'selected' : '' }}>Tema Escuro</option>
+                                        <option value="system" {{ old('theme', auth()->user()->theme_preference ?? 'dark') === 'system' ? 'selected' : '' }}>Seguir sistema</option>
+                                    </select>
+                                    @error('theme')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <!-- Botão de Salvar -->
+                            <div class="flex justify-end pt-4">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition">
+                                    Salvar Preferências
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Seção: Segurança -->
+            <div id="seguranca" class="section bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                <div class="px-6 py-5 border-b border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <svg class="h-5 w-5 inline-block mr-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        Segurança da Conta
+                    </h2>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    <!-- Atualização de Senha -->
+                    @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
+                        <div class="p-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h3 class="text-base font-medium text-gray-900">Alterar Senha</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Certifique-se de que sua conta esteja usando uma senha longa e aleatória para se manter seguro.
+                                    </p>
+                                </div>
+                                <div class="ml-4 flex-shrink-0">
+                                    <span class="h-8 w-8 bg-amber-100 rounded-full flex items-center justify-center">
+                                        <svg class="h-4 w-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <form method="POST" action="{{ route('backoffice.profile.update-password') }}">
+                                    @csrf
+                                    @method('PUT')
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="current_password" class="block text-sm font-medium text-gray-700">Senha Atual</label>
+                                            <input type="password" name="current_password" id="current_password" 
+                                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                                   required autocomplete="current-password">
+                                            @error('current_password')
+                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
+                                        <div>
+                                            <label for="password" class="block text-sm font-medium text-gray-700">Nova Senha</label>
+                                            <input type="password" name="password" id="password" 
+                                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                                   required autocomplete="new-password">
+                                            @error('password')
+                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
+                                        <div>
+                                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirmar Nova Senha</label>
+                                            <input type="password" name="password_confirmation" id="password_confirmation" 
+                                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                                   required autocomplete="new-password">
+                                        </div>
+
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition">
+                                                Atualizar Senha
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Sessões de Navegador -->
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">Sessões Ativas</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Gerencie e encerre suas sessões ativas em outros navegadores e dispositivos.
+                                </p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0">
+                                <span class="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <svg class="h-4 w-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <form method="POST" action="{{ route('backoffice.profile.logout-other-browser-sessions') }}">
+                                @csrf
+                                @method('DELETE')
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="password_sessions" class="block text-sm font-medium text-gray-700">Senha</label>
+                                        <input type="password" name="password" id="password_sessions" 
+                                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500" 
+                                               required autocomplete="current-password">
+                                        @error('password')
+                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div class="flex justify-end">
+                                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                                            Encerrar Outras Sessões
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção: Atividade da Conta -->
+            <div id="atividade" class="section bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                <div class="px-6 py-5 border-b border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <svg class="h-5 w-5 inline-block mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Atividade Recente
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <!-- Item de Atividade -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-3">
+                                <div class="h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg class="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <p class="text-sm font-medium text-gray-900">
+                                    Login realizado com sucesso
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    Hoje às 14:32 • São Paulo, SP (IP: 189.45.210.63)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Item de Atividade -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-3">
+                                <div class="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <p class="text-sm font-medium text-gray-900">
+                                    Senha alterada
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    2 dias atrás • Dispositivo desconhecido
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Item de Atividade -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-3">
+                                <div class="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <svg class="h-4 w-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <p class="text-sm font-medium text-gray-900">
+                                    Email de verificação enviado
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    1 semana atrás • email@exemplo.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button class="text-sm font-medium text-purple-600 hover:text-purple-500">
+                            Ver histórico completo de atividades →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção: Encerrar Conta -->
+            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+                <div id="encerrar-conta" class="section bg-white rounded-xl shadow-sm overflow-hidden border border-red-100">
+                    <div class="px-6 py-5 border-b border-red-100 bg-red-50">
+                        <h2 class="text-lg font-semibold text-gray-900">
+                            <svg class="h-5 w-5 inline-block mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            Encerrar Conta
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <form method="POST" action="{{ route('backoffice.profile.delete-account') }}">
+                            @csrf
+                            @method('DELETE')
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="password_delete" class="block text-sm font-medium text-gray-700">Senha</label>
+                                    <input type="password" name="password" id="password_delete" 
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" 
+                                           required autocomplete="current-password">
+                                    @error('password')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="flex justify-end">
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                                        Excluir Conta
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+<!-- Script para ativar links conforme rolagem -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function activateLink() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('bg-white', 'text-purple-600');
+                link.classList.add('text-gray-600');
+                
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.remove('text-gray-600');
+                    link.classList.add('bg-white', 'text-purple-600');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', activateLink);
+        activateLink(); // Ativar o link inicial
+    });
+</script>
+@endsection
