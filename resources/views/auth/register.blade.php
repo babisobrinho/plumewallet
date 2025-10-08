@@ -51,7 +51,7 @@
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 font-poppins min-h-screen flex items-center justify-center">
     <!-- Language Selector and Theme Toggle -->
-    <div class="fixed top-4 right-4 z-50 flex space-x-2">
+    <div class="fixed top-20 right-4 z-30 flex space-x-2">
         <!-- Language Selector -->
         <div class="relative" x-data="{ open: false }">
             <button @click="open = !open" type="button" class="p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">

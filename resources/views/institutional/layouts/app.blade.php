@@ -87,7 +87,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 font-poppins">
     <!-- Theme Toggle and Language Selector -->
-    <div class="fixed top-4 right-4 z-50 flex space-x-2">
+    <div class="fixed top-20 right-4 z-30 flex space-x-2">
         <!-- Language Selector -->
         <div class="relative" x-data="{ open: false }">
             <button @click="open = !open" type="button" class="p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Navigation -->
-    <header class="w-full py-4 px-6 border-b border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg sticky top-0 z-40">
+    <header class="w-full py-4 px-6 border-b border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg sticky top-0 z-50">
         <div class="flex items-center justify-between max-w-7xl mx-auto">
             <div class="flex items-center">
                 <a href="{{ route('institutional.index') }}" class="text-2xl font-semibold text-gray-900 dark:text-white hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
@@ -138,14 +138,17 @@
                 <a href="{{ route('institutional.contact') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('institutional.contact') ? 'text-plume-600 dark:text-plume-400' : '' }}">
                     {{ __('institutional.nav_contact') }}
                 </a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors {{ request()->routeIs('dashboard') ? 'text-plume-600 dark:text-plume-400' : '' }}">
+                        {{ __('common.dashboard') }}
+                    </a>
+                @endauth
             </nav>
 
             <div class="flex items-center space-x-4">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
-                            {{ __('common.dashboard') }}
-                        </a>
+                        <!-- Dashboard moved to main menu -->
                     @else
                         <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
                             {{ __('institutional.nav_login') }}
@@ -184,6 +187,11 @@
                 <a href="{{ route('institutional.contact') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
                     Contacto
                 </a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-plume-600 dark:hover:text-plume-400 transition-colors">
+                        {{ __('common.dashboard') }}
+                    </a>
+                @endauth
             </div>
         </div>
     </header>

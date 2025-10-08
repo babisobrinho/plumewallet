@@ -129,9 +129,6 @@ Route::middleware([
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    // Rota principal que redireciona para categories.index
-    Route::get('/', [CategoryController::class, 'index'])->name('dashboard');
-
     // Rotas de Categorias (Resourceful para CRUD completo)
     Route::resource('categories', CategoryController::class);
 
