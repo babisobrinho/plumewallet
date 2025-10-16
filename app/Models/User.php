@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_active',
         'deactivated_at',
         'deactivation_reason',
+        'onboarding_completed',
     ];
 
     /**
@@ -182,5 +183,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function savedReports()
     {
         return $this->hasMany(SavedReport::class);
+    }
+
+    // Onboarding responses
+    public function onboardingResponses()
+    {
+        return $this->hasMany(UserOnboardingResponse::class);
+    }
+
+    // Check if user has completed onboarding
+    public function hasCompletedOnboarding()
+    {
+        return $this->onboarding_completed;
     }
 }

@@ -9,12 +9,23 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\OnboardingController;
 
 /*
 |--------------------------------------------------------------------------
 | Rotas Públicas
 |--------------------------------------------------------------------------
 */
+
+// Rota de teste para verificar se o sistema está funcionando
+Route::get('/test-onboarding', function () {
+    return 'Sistema funcionando! Utilizador: ' . (auth()->check() ? auth()->user()->name : 'Não autenticado');
+});
+
+// Rota de teste POST para verificar CSRF
+Route::post('/test-post', function () {
+    return response()->json(['success' => true, 'message' => 'POST funcionando!']);
+});
 
 // Rotas Institucionais
 Route::prefix('institutional')->name('institutional.')->group(function () {
@@ -67,6 +78,16 @@ Route::middleware([
     config("jetstream.auth_session"),
     "verified"
 ])->group(function () {
+    // Rotas de Onboarding
+    Route::prefix('onboarding')->name('onboarding.')->group(function () {
+        Route::get('/', [OnboardingController::class, 'show'])->name('welcome');
+        Route::get('/questionnaire', [OnboardingController::class, 'questionnaire'])->name('questionnaire');
+        Route::post('/process-answers', [OnboardingController::class, 'processAnswers'])->name('process-answers');
+        Route::get('/preview', [OnboardingController::class, 'preview'])->name('preview');
+        Route::post('/apply-template', [OnboardingController::class, 'applyTemplate'])->name('apply-template');
+        Route::post('/quick-setup', [OnboardingController::class, 'quickSetup'])->name('quick-setup');
+    });
+
     // Dashboard
     Route::get("/dashboard", function () {
         return view("dashboard");

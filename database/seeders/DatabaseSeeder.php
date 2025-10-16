@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
         // Chama os seeders na ordem correta
         $this->call([
             AccountTypesSeeder::class,
+            OnboardingTemplateSeeder::class,
             BlogCategorySeeder::class,
             BlogPostSeeder::class,
             FaqSeeder::class,
