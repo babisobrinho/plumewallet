@@ -11,10 +11,11 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasRoleTypes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, HasRoles;
+    use HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, HasRoles, HasRoleTypes;
     use Notifiable, TwoFactorAuthenticatable;
 
     /**

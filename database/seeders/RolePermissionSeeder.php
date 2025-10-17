@@ -31,7 +31,7 @@ class RolePermissionSeeder extends Seeder
      */
     private function createPermissions(): void
     {
-        $permissionGroups = PermissionGroup::all();
+        $permissionGroups = PermissionGroup::values();
         $operations = ['create', 'read', 'update', 'destroy'];
 
         foreach ($permissionGroups as $group) {

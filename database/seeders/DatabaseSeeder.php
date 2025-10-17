@@ -19,8 +19,16 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->call([
+            // User's data
             RolePermissionSeeder::class,
             UserSeeder::class,
+
+            // User's financial data
+            CategoryGroupSeeder::class,
+            TransactionCategorySeeder::class,
+            AccountSeeder::class,
+            PayeeSeeder::class,
+            TransactionSeeder::class,
         ]);
 
         // Reabilitar verificação de chaves estrangeiras
