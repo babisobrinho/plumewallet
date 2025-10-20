@@ -118,7 +118,7 @@
                         Cancelar
                     </a>
                     <x-button class="ml-4">
-                        <x-icon name="user-plus" class="w-4 h-4 mr-2" />
+                        <i class="ti ti-user-plus w-4 h-4 mr-2"></i>
                         Criar Utilizador
                     </x-button>
                 </div>

@@ -13,7 +13,7 @@
                    class="group flex items-center px-3 py-2 text-sm font-medium rounded-md
                    {{ request()->routeIs('backoffice.dashboard.show') ? 'bg-blue-600 text-white' :
                     'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-gray-800' }}">
-                    <x-icon name="home" class="mr-3 h-5 w-5" />
+                    <i class="ti ti-home mr-3 h-5 w-5"></i>
                     Dashboard
                 </a>
             </div>
@@ -27,7 +27,7 @@
                    class="group flex items-center px-3 py-2 text-sm font-medium rounded-md
                    {{ request()->routeIs('backoffice.users.*') ? 'bg-blue-600 text-white' :
                     'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-gray-800' }}">
-                    <x-icon name="users" class="mr-3 h-5 w-5" />
+                    <i class="ti ti-users mr-3 h-5 w-5"></i>
                     Utilizadores
                 </a>
             </div>

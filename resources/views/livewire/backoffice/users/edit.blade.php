@@ -118,7 +118,7 @@
                         Cancelar
                     </a>
                     <x-button class="ml-4">
-                        <x-icon name="pencil" class="w-4 h-4 mr-2" />
+                        <i class="ti ti-pencil w-4 h-4 mr-2"></i>
                         Atualizar Utilizador
                     </x-button>
                 </div>

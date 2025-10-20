@@ -24,10 +24,7 @@
                                     class="group inline-flex items-center hover:text-gray-700 dark:hover:text-gray-200"
                                 >
                                     {{ $column['label'] }}
-                                    <x-icon 
-                                        name="arrow-up-down" 
-                                        class="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100" 
-                                    />
+                                    <i class="ti ti-arrows-up-down w-4 h-4 ml-1 opacity-0 group-hover:opacity-100"></i>
                                 </button>
                             @else
                                 {{ $column['label'] }}
@@ -63,12 +60,12 @@
                                         @case('boolean')
                                             @if($item[$column['key']])
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                                    <x-icon name="check-circle" class="w-3 h-3 mr-1" />
+                                                    <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
                                                     Sim
                                                 </span>
                                             @else
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                                    <x-icon name="x-circle" class="w-3 h-3 mr-1" />
+                                                    <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
                                                     Não
                                                 </span>
                                             @endif
@@ -105,7 +102,7 @@
                                                 class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md {{ $action['class'] }} focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $action['focusClass'] ?? 'focus:ring-blue-500' }}"
                                             >
                                                 @if(isset($action['icon']))
-                                                    <x-icon name="{{ $action['icon'] }}" class="w-4 h-4 mr-1" />
+                                                    <i class="ti ti-{{ $action['icon'] }} w-4 h-4 mr-1"></i>
                                                 @endif
                                                 {{ $action['label'] }}
                                             </button>
@@ -115,7 +112,7 @@
                                                     @click="open = !open"
                                                     class="inline-flex items-center p-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                 >
-                                                    <x-icon name="cog-6-tooth" class="w-4 h-4" />
+                                                    <i class="ti ti-settings w-4 h-4"></i>
                                                 </button>
                                                 
                                                 <div 
@@ -137,7 +134,7 @@
                                                                 class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                                                             >
                                                                 @if(isset($itemAction['icon']))
-                                                                    <x-icon name="{{ $itemAction['icon'] }}" class="w-4 h-4 mr-2 inline" />
+                                                                    <i class="ti ti-{{ $itemAction['icon'] }} w-4 h-4 mr-2 inline"></i>
                                                                 @endif
                                                                 {{ $itemAction['label'] }}
                                                             </button>
@@ -155,7 +152,7 @@
                     <tr>
                         <td colspan="{{ count($columns) + (count($actions) > 0 ? 1 : 0) }}" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
                             <div class="flex flex-col items-center">
-                                <x-icon name="document-text" class="w-12 h-12 text-gray-400 mb-4" />
+                                <i class="ti ti-file-text w-12 h-12 text-gray-400 mb-4"></i>
                                 <p class="text-lg font-medium">{{ $emptyMessage }}</p>
                             </div>
                         </td>

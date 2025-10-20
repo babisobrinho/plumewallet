@@ -20,14 +20,14 @@
                     href="{{ route('backoffice.users.edit', $user) }}" 
                     class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150"
                 >
-                    <x-icon name="pencil" class="w-4 h-4 mr-2" />
+                    <i class="ti ti-pencil w-4 h-4 mr-2"></i>
                     Editar
                 </a>
                 <a 
                     href="{{ route('backoffice.users.index') }}" 
                     class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-400 dark:hover:bg-gray-500 focus:bg-gray-400 dark:focus:bg-gray-500 active:bg-gray-500 dark:active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
                 >
-                    <x-icon name="arrow-left" class="w-4 h-4 mr-2" />
+                    <i class="ti ti-arrow-left w-4 h-4 mr-2"></i>
                     Voltar
                 </a>
             </div>
@@ -59,12 +59,12 @@
                                 <dd class="mt-1">
                                     @if($user->email_verified_at)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            <x-icon name="check-circle" class="w-3 h-3 mr-1" />
+                                            <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
                                             Ativo
                                         </span>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                            <x-icon name="x-circle" class="w-3 h-3 mr-1" />
+                                            <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
                                             Inativo
                                         </span>
                                     @endif
@@ -115,7 +115,7 @@
                                 <dd class="mt-1">
                                     @if($user->email_verified_at)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            <x-icon name="check-circle" class="w-3 h-3 mr-1" />
+                                            <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
                                             Sim
                                         </span>
                                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -123,7 +123,7 @@
                                         </p>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                            <x-icon name="x-circle" class="w-3 h-3 mr-1" />
+                                            <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
                                             Não
                                         </span>
                                     @endif
@@ -144,7 +144,7 @@
                                 href="{{ route('backoffice.users.edit', $user) }}" 
                                 class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
                             >
-                                <x-icon name="pencil" class="w-4 h-4 inline mr-2" />
+                                <i class="ti ti-pencil w-4 h-4 inline mr-2"></i>
                                 Editar Utilizador
                             </a>
                             @if($user->id !== auth()->id())
@@ -153,7 +153,7 @@
                                     wire:confirm="Tem certeza que deseja eliminar este utilizador?"
                                     class="block w-full bg-red-600 text-white text-center py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
                                 >
-                                    <x-icon name="trash" class="w-4 h-4 inline mr-2" />
+                                    <i class="ti ti-trash w-4 h-4 inline mr-2"></i>
                                     Eliminar Utilizador
                                 </button>
                             @endif

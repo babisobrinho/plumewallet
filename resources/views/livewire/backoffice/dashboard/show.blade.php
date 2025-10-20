@@ -15,7 +15,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="users" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                                <i class="ti ti-users w-6 h-6 text-blue-600 dark:text-blue-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -36,7 +36,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="check-circle" class="w-6 h-6 text-green-600 dark:text-green-400" />
+                                <i class="ti ti-circle-check w-6 h-6 text-green-600 dark:text-green-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -57,7 +57,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="chart-bar" class="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+                                <i class="ti ti-chart-bar w-6 h-6 text-yellow-600 dark:text-yellow-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -78,7 +78,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="document-text" class="w-6 h-6 text-red-600 dark:text-red-400" />
+                                <i class="ti ti-file-text w-6 h-6 text-red-600 dark:text-red-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -99,7 +99,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="ticket" class="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                                <i class="ti ti-ticket w-6 h-6 text-purple-600 dark:text-purple-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -120,7 +120,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center">
-                                <x-icon name="document-text" class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                                <i class="ti ti-file-text w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
                             </div>
                         </div>
                         <div class="ml-3 flex-1">
@@ -150,7 +150,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
-                                    <x-icon name="users" class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                    <i class="ti ti-users w-4 h-4 text-blue-600 dark:text-blue-400"></i>
                                 </div>
                                 <span class="text-sm text-gray-600 dark:text-gray-400">Novos utilizadores (7 dias)</span>
                             </div>
@@ -159,7 +159,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-3">
-                                    <x-icon name="check-circle" class="w-4 h-4 text-green-600 dark:text-green-400" />
+                                    <i class="ti ti-circle-check w-4 h-4 text-green-600 dark:text-green-400"></i>
                                 </div>
                                 <span class="text-sm text-gray-600 dark:text-gray-400">Utilizadores verificados</span>
                             </div>
@@ -181,7 +181,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-3">
-                                    <x-icon name="ticket" class="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                                    <i class="ti ti-ticket w-4 h-4 text-purple-600 dark:text-purple-400"></i>
                                 </div>
                                 <span class="text-sm text-gray-600 dark:text-gray-400">Tickets em aberto</span>
                             </div>
@@ -190,7 +190,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center mr-3">
-                                    <x-icon name="chart-bar" class="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                                    <i class="ti ti-chart-bar w-4 h-4 text-yellow-600 dark:text-yellow-400"></i>
                                 </div>
                                 <span class="text-sm text-gray-600 dark:text-gray-400">Novas transações (7 dias)</span>
                             </div>
