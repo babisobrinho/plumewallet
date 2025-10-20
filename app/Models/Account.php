@@ -48,4 +48,38 @@ class Account extends Model
     {
         return $query->where('is_closed', true);
     }
+
+    /**
+     * Scope for credit accounts (credit cards, line of credit)
+     */
+    public function scopeCredit($query)
+    {
+        $creditTypes = AccountType::getGroup('credit');
+        return $query->whereIn('type', array_map(fn($type) => $type->value, $creditTypes));
+    }
+
+    /**
+     * Scope for cash accounts (checking, savings, cash)
+     */
+    public function scopeCash($query)
+    {
+        $cashTypes = AccountType::getGroup('cash');
+        return $query->whereIn('type', array_map(fn($type) => $type->value, $cashTypes));
+    }
+
+    /**
+     * Check if this account is a credit account
+     */
+    public function isCreditAccount(): bool
+    {
+        return $this->type->belongsToGroup('credit');
+    }
+
+    /**
+     * Check if this account is a cash account
+     */
+    public function isCashAccount(): bool
+    {
+        return $this->type->belongsToGroup('cash');
+    }
 }

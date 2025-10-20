@@ -27,6 +27,7 @@ class CategoryGroupSeeder extends Seeder
         }
 
         $defaultGroups = [
+            'Credit Card Payments',
             'Essential Expenses',
             'Non-Essential Expenses',
             'Income',

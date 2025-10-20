@@ -29,6 +29,11 @@ class TransactionCategorySeeder extends Seeder
         }
 
         $defaultCategories = [
+            'Credit Card Payments' => [
+                ['name' => 'american express', 'assigned_amount' => 0.00],
+                ['name' => 'Visa Credit Card', 'assigned_amount' => 0.00],
+                ['name' => 'MasterCard', 'assigned_amount' => 0.00],
+            ],
             'Essential Expenses' => [
                 ['name' => 'Housing', 'assigned_amount' => 1500.00],
                 ['name' => 'Transportation', 'assigned_amount' => 400.00],
