@@ -19,6 +19,7 @@ class Table extends Component
     public $showNewRow = false;
     public $editingId = null;
     public $editingField = null;
+    public $editValue = '';
 
     protected $rules = [
         'newTransaction.account_id' => 'required|exists:accounts,id',
@@ -101,20 +102,41 @@ class Table extends Component
 
     public function startEdit($id, $field)
     {
+        $transaction = Transaction::find($id);
+        if (!$transaction) return;
+        
         $this->editingId = $id;
         $this->editingField = $field;
+        
+        // Set the current value for editing
+        switch ($field) {
+            case 'date':
+                $this->editValue = $transaction->date->format('Y-m-d');
+                break;
+            case 'description':
+                $this->editValue = $transaction->description;
+                break;
+            case 'category_id':
+                $this->editValue = $transaction->category_id;
+                break;
+            case 'amount':
+                $this->editValue = $transaction->amount;
+                break;
+        }
     }
 
-    public function saveEdit($value)
+    public function saveEdit($value = null)
     {
         if ($this->editingId && $this->editingField) {
             $transaction = Transaction::find($this->editingId);
 
             if ($transaction) {
+                $valueToSave = $value ?? $this->editValue;
+                
                 // Handle amount changes - update account balance
                 if ($this->editingField === 'amount') {
                     $oldAmount = $transaction->amount;
-                    $newAmount = (float) $value;
+                    $newAmount = (float) $valueToSave;
 
                     DB::transaction(function () use ($transaction, $newAmount, $oldAmount) {
                         $transaction->update(['amount' => $newAmount]);
@@ -125,7 +147,7 @@ class Table extends Component
                         $account->save();
                     });
                 } else {
-                    $transaction->update([$this->editingField => $value]);
+                    $transaction->update([$this->editingField => $valueToSave]);
                 }
             }
         }
@@ -138,6 +160,26 @@ class Table extends Component
     {
         $this->editingId = null;
         $this->editingField = null;
+        $this->editValue = '';
+    }
+
+    public function getClearedBalance()
+    {
+        return $this->transactions
+            ->where('is_cleared', true)
+            ->sum('amount');
+    }
+
+    public function getUnclearedBalance()
+    {
+        return $this->transactions
+            ->where('is_cleared', false)
+            ->sum('amount');
+    }
+
+    public function getWorkingBalance()
+    {
+        return $this->getClearedBalance() + $this->getUnclearedBalance();
     }
 
     public function toggleCleared($id)
