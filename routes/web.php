@@ -1,7 +1,13 @@
 <?php
 
+use App\Livewire\App\Dashboard\Show as AppDashboardShow;
+use App\Livewire\App\Profile\Show as AppProfileShow;
+use App\Livewire\App\Transactions\Index as AppTransactionsIndex;
+use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
+use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use Illuminate\Support\Facades\Route;
 
+// Guest Users
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -10,20 +16,36 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'role_type:client',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('livewire.client.dashboard');
-    })->name('dashboard');
-});
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-    'role_type:staff',
-])->prefix('backoffice')->name('backoffice.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('livewire.backoffice.dashboard');
-    })->name('dashboard');
+    // Client Users
+    Route::middleware('role_type:client')->name('app.')->group(function () {
+        // Dashboard
+        Route::prefix('dashboard')->name('dashboard.')->group(function () {
+            Route::get('/', AppDashboardShow::class)->name('show');
+        });
+
+        // Client User Profile
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', AppProfileShow::class)->name('show');
+        });
+
+        // Financial Transactions
+        Route::prefix('transactions')->name('transactions.')->group(function () {
+            Route::get('/', AppTransactionsIndex::class)->name('index');
+        });
+    });
+
+    // Staff Users
+    Route::middleware('role_type:staff')->prefix('backoffice')->name('backoffice.')->group(function () {
+        // Dashboard
+        Route::prefix('dashboard')->name('dashboard.')->group(function () {
+            Route::get('/', BackofficeDashboardShow::class)->name('show');
+        });
+
+        // Staff User Profile
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', BackofficeProfileShow::class)->name('show');
+        });
+    });
 });

@@ -18,7 +18,7 @@ trait HasEnumBasicMethods
     public static function labels(): array
     {
         return array_reduce(self::cases(), function ($carry, $case) {
-            $carry[$case->value] = __('enum.' . $case->value);
+            $carry[$case->value] = __('enums.' . $case->value);
             return $carry;
         }, []);
     }
@@ -28,7 +28,7 @@ trait HasEnumBasicMethods
      */
     public static function label(self $type): string
     {
-        return __('enum.' . $type->value);
+        return __('enums.' . $type->value);
     }
 
     /**

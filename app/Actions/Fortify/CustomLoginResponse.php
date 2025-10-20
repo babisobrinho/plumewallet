@@ -23,12 +23,12 @@ class CustomLoginResponse implements LoginResponseContract
 
         // Check if user has staff role
         if ($user->hasRoleType(RoleType::STAFF->value)) {
-            return redirect()->route('backoffice.dashboard');
+            return redirect()->route('backoffice.dashboard.show');
         }
 
         // Check if user has client role type
         if ($user->hasRoleType(RoleType::CLIENT->value)) {
-            return redirect()->route('dashboard');
+            return redirect()->route('app.dashboard.show');
         }
 
         // Default redirect for any other role types

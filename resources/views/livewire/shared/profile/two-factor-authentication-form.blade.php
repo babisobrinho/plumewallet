@@ -7,6 +7,16 @@
         {{ __('Add additional security to your account using two factor authentication.') }}
     </x-slot>
 
+    <x-slot name="aside">
+        <x-icon-chip
+            icon='
+                <svg class="h-4 w-4 text-gray-600 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M11.998 2l.118 .007l.059 .008l.061 .013l.111 .034a.993 .993 0 0 1 .217 .112l.104 .082l.255 .218a11 11 0 0 0 7.189 2.537l.342 -.01a1 1 0 0 1 1.005 .717a13 13 0 0 1 -9.208 16.25a1 1 0 0 1 -.502 0a13 13 0 0 1 -9.209 -16.25a1 1 0 0 1 1.005 -.717a11 11 0 0 0 7.531 -2.527l.263 -.225l.096 -.075a.993 .993 0 0 1 .217 -.112l.112 -.034a.97 .97 0 0 1 .119 -.021l.115 -.007zm3.71 7.293a1 1 0 0 0 -1.415 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+                </svg>
+        '/>
+    </x-slot>
+
     <x-slot name="content">
         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             @if ($this->enabled)
@@ -38,13 +48,18 @@
                     </p>
                 </div>
 
-                <div class="mt-4 p-2 inline-block bg-white">
-                    {!! $this->user->twoFactorQrCodeSvg() !!}
+                <div class="mt-4 p-4 inline-block bg-white rounded-lg border">
+                    <div class="text-center text-sm text-gray-600 mb-2">
+                        {{ __('QR Code Placeholder') }}
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded text-center">
+                        <p class="text-xs text-gray-500">{{ __('In a real implementation, a QR code would be displayed here.') }}</p>
+                    </div>
                 </div>
 
                 <div class="mt-4 max-w-xl text-sm text-gray-600 dark:text-gray-400">
                     <p class="font-semibold">
-                        {{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}
+                        {{ __('Setup Key') }}: {{ $this->enabled && $this->user->two_factor_secret ? decrypt($this->user->two_factor_secret) : 'N/A' }}
                     </p>
                 </div>
 
@@ -53,8 +68,8 @@
                         <x-label for="code" value="{{ __('Code') }}" />
 
                         <x-input id="code" type="text" name="code" class="block mt-1 w-1/2" inputmode="numeric" autofocus autocomplete="one-time-code"
-                            wire:model="code"
-                            wire:keydown.enter="confirmTwoFactorAuthentication" />
+                                 wire:model="code"
+                                 wire:keydown.enter="confirmTwoFactorAuthentication" />
 
                         <x-input-error for="code" class="mt-2" />
                     </div>
@@ -69,9 +84,13 @@
                 </div>
 
                 <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 dark:bg-gray-900 dark:text-gray-100 rounded-lg">
-                    @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
-                        <div>{{ $code }}</div>
-                    @endforeach
+                    @if ($this->enabled && $this->user->two_factor_recovery_codes)
+                        @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
+                            <div>{{ $code }}</div>
+                        @endforeach
+                    @else
+                        <div class="text-center text-gray-500">{{ __('No recovery codes generated.') }}</div>
+                    @endif
                 </div>
             @endif
         @endif
@@ -117,7 +136,6 @@
                         </x-danger-button>
                     </x-confirms-password>
                 @endif
-
             @endif
         </div>
     </x-slot>
