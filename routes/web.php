@@ -7,11 +7,17 @@ use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
 use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
+use App\Livewire\Institutional\Homepage\Show as InstitutionalHomepageShow;
 use Illuminate\Support\Facades\Route;
 
-// Guest Users
+// Institutional Routes (Public)
+Route::prefix('institutional')->name('institutional.')->group(function () {
+    Route::get('/', InstitutionalHomepageShow::class)->name('homepage.show');
+});
+
+// Root route redirects to institutional homepage
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('institutional.homepage.show');
 })->name('welcome');
 
 Route::middleware([

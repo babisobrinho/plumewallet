@@ -4,18 +4,22 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                @auth
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
-                        <x-application-mark class="block h-9 w-auto" />
-                    </a>
+                    @auth
+                        <a href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
+                            <x-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @else
+                        <a href="{{ route('institutional.homepage.show') }}">
+                            <x-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @endauth
                 </div>
-                @endauth
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @guest
-                        <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+                        <x-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
                             {{ __('common.navigation.home') }}
                         </x-nav-link>
                     @endguest

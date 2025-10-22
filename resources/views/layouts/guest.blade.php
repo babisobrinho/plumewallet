@@ -18,7 +18,7 @@
         @livewireStyles
     </head>
     <body>
-        <x-navbar-partial />
+        <x-institutional-navbar />
 
         <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
             {{ $slot }}
