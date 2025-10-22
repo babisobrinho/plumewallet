@@ -37,39 +37,39 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <!-- Plume Wallet Column -->
                         <div class="md:col-span-1">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Plume Wallet</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.plume_wallet') }}</h3>
                             <p class="text-gray-600 dark:text-gray-400 text-sm">
-                                A solução completa para gerenciar suas finanças pessoais com facilidade e segurança.
+                                {{ __('institutional.footer.description') }}
                             </p>
                         </div>
 
                         <!-- Produto Column -->
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Produto</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.product') }}</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Como Funciona</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Perguntas Frequentes</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Blog</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.how_it_works') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.faq') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.blog') }}</a></li>
                             </ul>
                         </div>
 
                         <!-- Empresa Column -->
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Empresa</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.company') }}</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Sobre Nós</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Contacto</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Carreiras</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.about_us') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.contact') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.careers') }}</a></li>
                             </ul>
                         </div>
 
                         <!-- Legal Column -->
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Legal</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.legal') }}</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Privacidade</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Termos</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Segurança</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.privacy') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.terms') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.security') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     <!-- Separator Line -->
                     <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8">
                         <p class="text-center text-gray-600 dark:text-gray-400 text-sm">
-                            © 2025 Plume Wallet by Plume. Todos os direitos reservados.
+                            {{ __('institutional.footer.copyright') }}
                         </p>
                     </div>
                 </div>

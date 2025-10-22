@@ -3,102 +3,84 @@
 return [
     'navigation' => [
         'home' => 'Home',
-        'about' => 'About',
-        'features' => 'Features',
-        'contact' => 'Contact',
         'log_in' => 'Log In',
         'register' => 'Register',
-        'account' => 'Account',
         'dashboard' => 'Dashboard',
-        'profile' => 'Profile',
-        'log_out' => 'Log Out',
     ],
 
     'hero' => [
-        'title' => 'Never worry about money again.',
-        'subtitle' => 'Manage your finances intelligently. Transform your relationship with money today.',
-        'get_started' => 'Start Free Trial',
+        'title' => 'Control your finances',
+        'subtitle' => 'With your goals in mind',
+        'get_started' => 'Get Started',
         'learn_more' => 'Learn More',
-        'no_credit_card' => 'It\'s easy! No credit card required.',
+        'no_credit_card' => 'No credit card required • Free trial • Cancel anytime',
     ],
 
     'features' => [
-        'title' => 'Key Features',
-        'subtitle' => 'Discover how our platform can revolutionize your financial management',
-        'budget' => [
-            'title' => 'Budget Control',
-            'description' => 'Create and manage personalized budgets to achieve your financial goals.',
+        'title' => 'Control your finances',
+        'subtitle' => 'With your goals in mind',
+        'savings' => [
+            'title' => 'Savings',
+            'description' => 'Track your expenses and identify savings opportunities.',
         ],
-        'transactions' => [
-            'title' => 'Transaction Management',
-            'description' => 'Organize all your income and expenses in one place with automatic categorization.',
+        'dream_trips' => [
+            'title' => 'Dream trips',
+            'description' => 'Plan and realize your dream trips with financial control.',
+            'link' => 'Learn more →',
         ],
-        'analytics' => [
-            'title' => 'Detailed Analytics',
-            'description' => 'View reports and charts to better understand your financial habits.',
+        'investments' => [
+            'title' => 'Investments',
+            'description' => 'Monitor your investments and asset growth.',
         ],
     ],
 
-    'about' => [
-        'title' => 'Why choose our platform?',
-        'description' => 'We are specialists in personal financial management, offering a complete and intuitive solution to help you take total control of your finances.',
-        'feature1' => 'Intuitive and easy-to-use interface',
-        'feature2' => 'Guaranteed security and privacy',
-        'feature3' => 'Detailed reports and valuable insights',
-        'tagline' => 'Your journey to financial freedom starts here',
-        'get_started' => 'Get Started',
+    'solution' => [
+        'title' => 'The perfect solution for your wallet',
+        'description' => 'Explaining about managing finances and such. A complete platform that adapts to your financial needs, whether you are a student, professional or entrepreneur.',
+        'features' => [
+            'total_control' => 'Total control of your expenses',
+            'detailed_reports' => 'Detailed reports and insights',
+            'intuitive_interface' => 'Intuitive and modern interface',
+        ],
     ],
 
-    'cta' => [
-        'title' => 'Ready to transform your finances?',
-        'subtitle' => 'Join thousands of users who are already in control of their finances. Create your free account today.',
-        'register_now' => 'Register Now',
-        'login' => 'Log In',
+    'testimonial' => [
+        'text' => 'The charts don\'t lie: everyone who used Plume Wallet approved the experience.',
     ],
 
-    'how_it_works' => [
-        'title' => 'How PlumeWallet works',
+    'steps' => [
+        'title' => 'It\'s easy to get started',
+        'subtitle' => 'In just a few steps you will be controlling your finances',
         'step1' => [
-            'title' => '1. Add your transactions',
-            'description' => 'Import or manually add your income and expenses',
+            'title' => 'Choose your layout',
+            'description' => 'Customize the interface according to your preferences and needs.',
         ],
         'step2' => [
-            'title' => '2. Categorize your expenses',
-            'description' => 'Organize your finances in personalized categories',
+            'title' => 'Register your number',
+            'description' => 'Connect your WhatsApp to start registering expenses easily.',
         ],
         'step3' => [
-            'title' => '3. View your reports',
-            'description' => 'Track your financial evolution with detailed charts',
+            'title' => 'Register your expenses',
+            'description' => 'Start registering your expenses and income simply and quickly.',
         ],
-    ],
-
-    'mockup' => [
-        'new_transactions' => '4 New Transactions',
-        'review' => 'Review',
-        'ready_to_assign' => 'Ready to Assign',
-        'assign' => 'Assign',
-        'top_priorities' => 'Top Priorities',
-        'groceries' => 'Groceries',
-        'date_nights' => 'Date Nights',
-        'dining_out' => 'Dining Out',
-        'month_summary' => 'This Month\'s Summary',
-        'assets' => 'Assets',
-        'underfunded' => 'Underfunded',
-        'home' => 'Home',
-        'reports' => 'Reports',
-        'accounts' => 'Accounts',
-        'more' => 'More',
+        'cta' => 'Start now!',
     ],
 
     'footer' => [
-        'description' => 'The most complete platform for personal financial management. Transform your relationship with money and achieve your financial goals.',
-        'useful_links' => 'Useful Links',
-        'about' => 'About Us',
+        'plume_wallet' => 'Plume Wallet',
+        'description' => 'The complete solution to manage your personal finances with ease and security.',
+        'product' => 'Product',
+        'how_it_works' => 'How It Works',
+        'faq' => 'FAQ',
+        'blog' => 'Blog',
+        'company' => 'Company',
+        'about_us' => 'About Us',
         'contact' => 'Contact',
-        'support' => 'Support',
+        'careers' => 'Careers',
         'legal' => 'Legal',
-        'terms' => 'Terms of Use',
-        'privacy' => 'Privacy Policy',
-        'rights_reserved' => 'All rights reserved.',
+        'privacy' => 'Privacy',
+        'terms' => 'Terms',
+        'security' => 'Security',
+        'copyright' => '© 2025 Plume Wallet by Plume. All rights reserved.',
     ],
 ];

@@ -3,102 +3,84 @@
 return [
     'navigation' => [
         'home' => 'Início',
-        'about' => 'Sobre',
-        'features' => 'Funcionalidades',
-        'contact' => 'Contato',
         'log_in' => 'Entrar',
         'register' => 'Registrar',
-        'account' => 'Conta',
-        'dashboard' => 'Painel',
-        'profile' => 'Perfil',
-        'log_out' => 'Sair',
+        'dashboard' => 'Dashboard',
     ],
 
     'hero' => [
-        'title' => 'Nunca mais se preocupe com dinheiro.',
-        'subtitle' => 'Gerencie suas finanças de forma inteligente. Transforme sua relação com o dinheiro hoje mesmo.',
-        'get_started' => 'Começar Teste Gratuito',
+        'title' => 'Controle suas finanças',
+        'subtitle' => 'Com seus objetivos em mente',
+        'get_started' => 'Começar Agora',
         'learn_more' => 'Saiba Mais',
-        'no_credit_card' => 'É fácil! Não é necessário cartão de crédito.',
+        'no_credit_card' => 'Sem cartão de crédito • Teste gratuito • Cancelamento a qualquer momento',
     ],
 
     'features' => [
-        'title' => 'Funcionalidades Principais',
-        'subtitle' => 'Descubra como nossa plataforma pode revolucionar sua gestão financeira',
-        'budget' => [
-            'title' => 'Controle de Orçamento',
-            'description' => 'Crie e gerencie orçamentos personalizados para alcançar seus objetivos financeiros.',
+        'title' => 'Controle suas finanças',
+        'subtitle' => 'Com seus objetivos em mente',
+        'savings' => [
+            'title' => 'Economia',
+            'description' => 'Acompanhe seus gastos e identifique oportunidades de economia.',
         ],
-        'transactions' => [
-            'title' => 'Gestão de Transações',
-            'description' => 'Organize todas suas receitas e despesas em um só lugar com categorização automática.',
+        'dream_trips' => [
+            'title' => 'Viagens do sonho',
+            'description' => 'Planeje e realize suas viagens dos sonhos com controle financeiro.',
+            'link' => 'Saiba mais →',
         ],
-        'analytics' => [
-            'title' => 'Análises Detalhadas',
-            'description' => 'Visualize relatórios e gráficos para entender melhor seus hábitos financeiros.',
+        'investments' => [
+            'title' => 'Investimentos',
+            'description' => 'Monitore seus investimentos e crescimento patrimonial.',
         ],
     ],
 
-    'about' => [
-        'title' => 'Por que escolher nossa plataforma?',
-        'description' => 'Somos especialistas em gestão financeira pessoal, oferecendo uma solução completa e intuitiva para ajudar você a tomar controle total das suas finanças.',
-        'feature1' => 'Interface intuitiva e fácil de usar',
-        'feature2' => 'Segurança e privacidade garantidas',
-        'feature3' => 'Relatórios detalhados e insights valiosos',
-        'tagline' => 'Sua jornada para a liberdade financeira começa aqui',
-        'get_started' => 'Começar Agora',
+    'solution' => [
+        'title' => 'A solução perfeita para a tua carteira',
+        'description' => 'Explicando sobre administrar finanças e tals. Uma plataforma completa que se adapta às suas necessidades financeiras, seja você estudante, profissional ou empresário.',
+        'features' => [
+            'total_control' => 'Controle total dos seus gastos',
+            'detailed_reports' => 'Relatórios detalhados e insights',
+            'intuitive_interface' => 'Interface intuitiva e moderna',
+        ],
     ],
 
-    'cta' => [
-        'title' => 'Pronto para transformar suas finanças?',
-        'subtitle' => 'Junte-se a milhares de usuários que já estão no controle de suas finanças. Crie sua conta gratuita hoje mesmo.',
-        'register_now' => 'Registrar Agora',
-        'login' => 'Fazer Login',
+    'testimonial' => [
+        'text' => 'Os gráficos não mentem: todos os que utilizaram a Plume Wallet aprovaram a experiência.',
     ],
 
-    'how_it_works' => [
-        'title' => 'Como o PlumeWallet funciona',
+    'steps' => [
+        'title' => 'É fácil de começar',
+        'subtitle' => 'Em apenas alguns passos você estará controlando suas finanças',
         'step1' => [
-            'title' => '1. Adicione suas transações',
-            'description' => 'Importe ou adicione manualmente suas receitas e despesas',
+            'title' => 'Escolher seu layout',
+            'description' => 'Personalize a interface conforme suas preferências e necessidades.',
         ],
         'step2' => [
-            'title' => '2. Categorize seus gastos',
-            'description' => 'Organize suas finanças em categorias personalizadas',
+            'title' => 'Cadastre seu número',
+            'description' => 'Conecte seu WhatsApp para começar a registrar gastos facilmente.',
         ],
         'step3' => [
-            'title' => '3. Veja seus relatórios',
-            'description' => 'Acompanhe sua evolução financeira com gráficos detalhados',
+            'title' => 'Registre seus gastos',
+            'description' => 'Comece a registrar seus gastos e receitas de forma simples e rápida.',
         ],
-    ],
-
-    'mockup' => [
-        'new_transactions' => '4 Novas Transações',
-        'review' => 'Revisar',
-        'ready_to_assign' => 'Pronto para Atribuir',
-        'assign' => 'Atribuir',
-        'top_priorities' => 'Principais Prioridades',
-        'groceries' => 'Supermercado',
-        'date_nights' => 'Encontros',
-        'dining_out' => 'Restaurantes',
-        'month_summary' => 'Resumo do Mês',
-        'assets' => 'Ativos',
-        'underfunded' => 'Subfinanciado',
-        'home' => 'Início',
-        'reports' => 'Relatórios',
-        'accounts' => 'Contas',
-        'more' => 'Mais',
+        'cta' => 'Comece já!',
     ],
 
     'footer' => [
-        'description' => 'A plataforma mais completa para gestão financeira pessoal. Transforme sua relação com o dinheiro e alcance seus objetivos financeiros.',
-        'useful_links' => 'Links Úteis',
-        'about' => 'Sobre Nós',
-        'contact' => 'Contato',
-        'support' => 'Suporte',
+        'plume_wallet' => 'Plume Wallet',
+        'description' => 'A solução completa para gerenciar suas finanças pessoais com facilidade e segurança.',
+        'product' => 'Produto',
+        'how_it_works' => 'Como Funciona',
+        'faq' => 'Perguntas Frequentes',
+        'blog' => 'Blog',
+        'company' => 'Empresa',
+        'about_us' => 'Sobre Nós',
+        'contact' => 'Contacto',
+        'careers' => 'Carreiras',
         'legal' => 'Legal',
-        'terms' => 'Termos de Uso',
-        'privacy' => 'Política de Privacidade',
-        'rights_reserved' => 'Todos os direitos reservados.',
+        'privacy' => 'Privacidade',
+        'terms' => 'Termos',
+        'security' => 'Segurança',
+        'copyright' => '© 2025 Plume Wallet by Plume. Todos os direitos reservados.',
     ],
 ];
