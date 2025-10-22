@@ -29,6 +29,10 @@ class DataTable extends Component
         'page' => ['except' => 1],
     ];
 
+    protected $listeners = [
+        'refreshTable' => '$refresh',
+    ];
+
     public function mount($model, $tableColumns = [], $tableActions = [], $filterOptions = [], $sortBy = 'created_at', $sortDirection = 'desc', $perPage = 15)
     {
         $this->model = $model;

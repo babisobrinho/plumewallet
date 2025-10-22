@@ -130,6 +130,8 @@ class Index extends Component
 
         $roles = \Spatie\Permission\Models\Role::where('type', $this->modalRoleType)->get();
         
+        Log::info('Available roles for type ' . $this->modalRoleType . ':', $roles->pluck('name')->toArray());
+        
         return $roles->mapWithKeys(function ($role) {
             return [$role->name => $role->name];
         })->toArray();
@@ -241,6 +243,17 @@ class Index extends Component
 
     public function saveUser()
     {
+        Log::info('Form data before validation:', [
+            'modalName' => $this->modalName,
+            'modalEmail' => $this->modalEmail,
+            'modalPhoneNumber' => $this->modalPhoneNumber,
+            'modalRoleType' => $this->modalRoleType,
+            'modalRole' => $this->modalRole,
+            'modalPassword' => $this->modalPassword ? '***' : 'empty',
+            'modalPasswordConfirmation' => $this->modalPasswordConfirmation ? '***' : 'empty',
+            'isEditing' => $this->isEditing
+        ]);
+
         $this->validate([
             'modalName' => ['required', 'string', 'max:255'],
             'modalEmail' => ['required', 'string', 'email', 'max:255'],
@@ -276,7 +289,9 @@ class Index extends Component
             'email' => $this->modalEmail,
             'role' => $this->modalRole,
             'role_type' => $this->modalRoleType,
-            'password_length' => strlen($this->modalPassword)
+            'password_length' => strlen($this->modalPassword),
+            'password_confirmation_length' => strlen($this->modalPasswordConfirmation),
+            'passwords_match' => $this->modalPassword === $this->modalPasswordConfirmation
         ]);
 
         if ($this->modalRoleType === 'client') {
@@ -295,19 +310,22 @@ class Index extends Component
                 'name' => $this->modalName,
                 'email' => $this->modalEmail,
                 'password' => $this->modalPassword,
-                'terms' => false,
+                'password_confirmation' => $this->modalPasswordConfirmation,
+                'terms' => true,
             ]);
 
             $user->update([
                 'phone_number' => $this->modalPhoneNumber,
-                'email_verified_at' => now(),
+                // Don't set email_verified_at - let user verify email
             ]);
 
-            if ($this->modalRole !== 'regular') {
-                $user->syncRoles([$this->modalRole]);
-            }
+            // Always assign the selected role, even if it's 'regular'
+            $user->syncRoles([$this->modalRole]);
 
-            Log::info('Client user created with ID: ' . $user->id);
+            // Send email verification
+            $user->sendEmailVerificationNotification();
+
+            Log::info('Client user created with ID: ' . $user->id . ' and role: ' . $this->modalRole);
             session()->flash('message', __('users.messages.user_created'));
         } catch (\Exception $e) {
             Log::error('Client user creation failed: ' . $e->getMessage());
@@ -323,11 +341,15 @@ class Index extends Component
                 'email' => $this->modalEmail,
                 'phone_number' => $this->modalPhoneNumber,
                 'password' => \Illuminate\Support\Facades\Hash::make($this->modalPassword),
-                'email_verified_at' => now(),
+                // Don't set email_verified_at - let user verify email
             ]);
 
             $user->assignRole($this->modalRole);
 
+            // Send email verification
+            $user->sendEmailVerificationNotification();
+
+            Log::info('Staff user created with ID: ' . $user->id . ' and role: ' . $this->modalRole);
             session()->flash('message', __('users.messages.user_created'));
         } catch (\Exception $e) {
             Log::error('Staff user creation failed: ' . $e->getMessage());
