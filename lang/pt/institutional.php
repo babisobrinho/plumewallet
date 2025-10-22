@@ -14,6 +14,7 @@ return [
         'get_started' => 'Começar Agora',
         'learn_more' => 'Saiba Mais',
         'no_credit_card' => 'Sem cartão de crédito • Teste gratuito • Cancelamento a qualquer momento',
+        'image_alt' => 'Finanças pessoais',
     ],
 
     'welcome' => [
@@ -55,6 +56,8 @@ return [
     'solution' => [
         'title' => 'A solução perfeita para a tua carteira',
         'description' => 'Explicando sobre administrar finanças e tals. Uma plataforma completa que se adapta às suas necessidades financeiras, seja você estudante, profissional ou empresário.',
+        'image_alt' => 'Dashboard PlumeWallet',
+        'user_type' => 'Estudante',
         'features' => [
             'total_control' => 'Controle total dos seus gastos',
             'detailed_reports' => 'Relatórios detalhados e insights',
@@ -72,10 +75,12 @@ return [
         'step1' => [
             'title' => 'Escolher seu layout',
             'description' => 'Personalize a interface conforme suas preferências e necessidades.',
+            'label' => 'Passo 1',
         ],
         'step2' => [
             'title' => 'Cadastre seu número',
             'description' => 'Conecte seu WhatsApp para começar a registrar gastos facilmente.',
+            'label' => 'Passo 2',
         ],
         'step3' => [
             'title' => 'Registre seus gastos',
