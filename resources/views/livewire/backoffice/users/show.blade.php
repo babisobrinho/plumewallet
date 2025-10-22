@@ -43,39 +43,39 @@
                         </h3>
                         <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Nome Completo</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.full_name') }}</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->name }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.email') }}</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->email }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Telefone</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.phone') }}</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->phone_number ?: 'Não informado' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.status') }}</dt>
                                 <dd class="mt-1">
                                     @if($user->email_verified_at)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                             <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
-                                            Ativo
+                                            {{ __('enums.status.active') }}
                                         </span>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
                                             <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
-                                            Inativo
+                                            {{ __('enums.status.inactive') }}
                                         </span>
                                     @endif
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Registado em</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.registered_at') }}</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->created_at->format('d/m/Y H:i') }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Última atualização</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.last_updated') }}</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->updated_at->format('d/m/Y H:i') }}</dd>
                             </div>
                         </dl>
@@ -92,7 +92,7 @@
                         </h3>
                         <dl class="space-y-4">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Tipo de Utilizador</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.user_type') }}</dt>
                                 <dd class="mt-1">
                                     @php
                                         $role = $user->roles->first();
@@ -111,20 +111,20 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email Verificado</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.email_verified') }}</dt>
                                 <dd class="mt-1">
                                     @if($user->email_verified_at)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                             <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
-                                            Sim
+                                            {{ __('common.terms.yes') }}
                                         </span>
                                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                            Verificado em {{ $user->email_verified_at->format('d/m/Y H:i') }}
+                                            {{ __('users.form.verified_on') }} {{ $user->email_verified_at->format('d/m/Y H:i') }}
                                         </p>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
                                             <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
-                                            Não
+                                            {{ __('common.terms.no') }}
                                         </span>
                                     @endif
                                 </dd>
@@ -145,7 +145,7 @@
                                 class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
                             >
                                 <i class="ti ti-pencil w-4 h-4 inline mr-2"></i>
-                                Editar Utilizador
+                                {{ __('common.buttons.edit') }} {{ __('common.navigation.users') }}
                             </a>
                             @if($user->id !== auth()->id())
                                 <button 
@@ -154,7 +154,7 @@
                                     class="block w-full bg-red-600 text-white text-center py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
                                 >
                                     <i class="ti ti-trash w-4 h-4 inline mr-2"></i>
-                                    Eliminar Utilizador
+                                    {{ __('common.buttons.delete') }} {{ __('common.navigation.users') }}
                                 </button>
                             @endif
                         </div>

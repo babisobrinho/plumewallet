@@ -14,7 +14,7 @@
 
     <!-- Main Header -->
     <div class="px-6 py-6 border-b border-gray-200">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">All Accounts</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ __('common.transactions.all_accounts') }}</h1>
         
         <!-- Balance Summary -->
         <div class="grid grid-cols-3 gap-8 mb-6">
@@ -22,19 +22,19 @@
                 <div class="text-2xl font-bold text-gray-900">
                     {{ $this->getClearedBalance() < 0 ? '-' : '' }}${{ number_format(abs($this->getClearedBalance()), 2) }}
                 </div>
-                <div class="text-sm text-gray-500 mt-1">Cleared Balance</div>
+                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.cleared_balance') }}</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-gray-900">
                     {{ $this->getUnclearedBalance() < 0 ? '-' : '+' }}${{ number_format(abs($this->getUnclearedBalance()), 2) }}
                 </div>
-                <div class="text-sm text-gray-500 mt-1">Uncleared Balance</div>
+                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.uncleared_balance') }}</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-gray-900">
                     {{ $this->getWorkingBalance() < 0 ? '-' : '' }}${{ number_format(abs($this->getWorkingBalance()), 2) }}
                 </div>
-                <div class="text-sm text-gray-500 mt-1">Working Balance</div>
+                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.working_balance') }}</div>
             </div>
         </div>
 
@@ -46,38 +46,38 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    <span>Add Transaction</span>
+                    <span>{{ __('common.transactions.add_transaction') }}</span>
                 </button>
                 
                 <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
-                    <span>File Import</span>
+                    <span>{{ __('common.transactions.file_import') }}</span>
                 </button>
                 
                 <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
                     </svg>
-                    <span>Undo</span>
+                    <span>{{ __('common.transactions.undo') }}</span>
                 </button>
                 
                 <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10h7a8 8 0 018 8v2M13 10l-6 6m6-6l-6-6"></path>
                     </svg>
-                    <span>Redo</span>
+                    <span>{{ __('common.transactions.redo') }}</span>
                 </button>
             </div>
             
             <div class="flex items-center space-x-4">
                 <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option>View</option>
+                    <option>{{ __('common.transactions.view') }}</option>
                 </select>
                 
                 <div class="relative">
-                    <input type="text" placeholder="Search All Accounts" 
+                    <input type="text" placeholder="{{ __('common.search.placeholder') }}" 
                            class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -137,7 +137,7 @@
                         <td class="px-4 py-3">
                             <select wire:model="newTransaction.category_id"
                                     class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                                <option value="">Select Category</option>
+                                <option value="">{{ __('common.buttons.select_category') }}</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->group->name }}: {{ $category->name }}</option>
                                 @endforeach
@@ -158,9 +158,9 @@
                         <td class="px-4 py-3 text-center">
                             <div class="flex items-center justify-center space-x-2">
                                 <button wire:click="saveNewTransaction"
-                                        class="text-green-600 hover:text-green-800 text-sm font-medium">Save</button>
+                                        class="text-green-600 hover:text-green-800 text-sm font-medium">{{ __('common.buttons.save') }}</button>
                                 <button wire:click="cancelNewTransaction"
-                                        class="text-gray-600 hover:text-gray-800 text-sm font-medium">Cancel</button>
+                                        class="text-gray-600 hover:text-gray-800 text-sm font-medium">{{ __('common.buttons.cancel') }}</button>
                             </div>
                         </td>
                     </tr>

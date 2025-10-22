@@ -26,7 +26,7 @@
                 {{ __('common.buttons.update') }}
             </x-button>
             <x-action-message class="me-3" on="saved">
-                {{ __('common.terms.saved') }}
+                {{ __('profile.saved') }}
             </x-action-message>
         </div>
     </x-slot>

@@ -6,8 +6,6 @@ use App\Livewire\App\Transactions\Index as AppTransactionsIndex;
 use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
 use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
-use App\Livewire\Backoffice\Users\Create as BackofficeUsersCreate;
-use App\Livewire\Backoffice\Users\Edit as BackofficeUsersEdit;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
 use Illuminate\Support\Facades\Route;
 
@@ -55,9 +53,7 @@ Route::middleware([
         // Users Management
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', BackofficeUsersIndex::class)->name('index');
-            Route::get('/create', BackofficeUsersCreate::class)->name('create');
             Route::get('/{user}', BackofficeUsersShow::class)->name('show');
-            Route::get('/{user}/edit', BackofficeUsersEdit::class)->name('edit');
         });
     });
 });

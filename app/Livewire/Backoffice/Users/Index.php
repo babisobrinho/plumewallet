@@ -4,135 +4,61 @@ namespace App\Livewire\Backoffice\Users;
 
 use App\Models\User;
 use App\Enums\RoleType;
+use App\Actions\Fortify\CreateNewUser;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 #[Layout('layouts.backoffice')]
 class Index extends Component
 {
-    use WithPagination;
+    // Modal properties only - no more table/filter logic
+    public $showModal = false;
+    public $isEditing = false;
+    public $editingUser = null;
+    
+    // Modal form fields
+    public $modalName = '';
+    public $modalEmail = '';
+    public $modalPhoneNumber = '';
+    public $modalPassword = '';
+    public $modalPasswordConfirmation = '';
+    public $modalRoleType = '';
+    public $modalRole = '';
 
-    public $search = '';
-    public $statusFilter = '';
-    public $roleFilter = '';
-    public $sortBy = 'created_at';
-    public $sortDirection = 'desc';
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'statusFilter' => ['except' => ''],
-        'roleFilter' => ['except' => ''],
-        'sortBy' => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
+    protected $listeners = [
+        'refreshTable' => '$refresh',
     ];
-
+    
     public function mount()
     {
-        // Verificar permissões
         $this->authorize('users_read');
-    }
-
-    public function updatedSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatedStatusFilter()
-    {
-        $this->resetPage();
-    }
-
-    public function updatedRoleFilter()
-    {
-        $this->resetPage();
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortBy === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $field;
-            $this->sortDirection = 'asc';
-        }
-    }
-
-    public function clearFilters()
-    {
-        $this->search = '';
-        $this->statusFilter = '';
-        $this->roleFilter = '';
-        $this->sortBy = 'created_at';
-        $this->sortDirection = 'desc';
-        $this->resetPage();
-    }
-
-    public function getUsersProperty()
-    {
-        $query = User::query();
-
-        // Aplicar filtros
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('email', 'like', '%' . $this->search . '%');
-            });
-        }
-
-        if ($this->statusFilter) {
-            if ($this->statusFilter === 'active') {
-                $query->whereNotNull('email_verified_at');
-            } elseif ($this->statusFilter === 'inactive') {
-                $query->whereNull('email_verified_at');
-            }
-        }
-
-        if ($this->roleFilter) {
-            $query->whereHas('roles', function ($q) {
-                $q->where('type', $this->roleFilter);
-            });
-        }
-
-        // Aplicar ordenação
-        $query->orderBy($this->sortBy, $this->sortDirection);
-
-        return $query->paginate(15);
     }
 
     public function getFilterOptionsProperty()
     {
         return [
             [
-                'label' => 'Status',
+                'key' => 'status',
+                'label' => __('common.labels.status'),
                 'type' => 'select',
-                'model' => 'statusFilter',
-                'placeholder' => 'Todos os status',
+                'placeholder' => __('users.filters.all_status'),
                 'options' => [
-                    'active' => 'Ativo',
-                    'inactive' => 'Inativo',
+                    'active' => __('enums.status.active'),
+                    'inactive' => __('enums.status.inactive'),
                 ]
             ],
             [
-                'label' => 'Tipo de Utilizador',
+                'key' => 'role',
+                'label' => __('users.filters.user_type'),
                 'type' => 'select',
-                'model' => 'roleFilter',
-                'placeholder' => 'Todos os tipos',
+                'placeholder' => __('users.filters.all_types'),
                 'options' => [
-                    'staff' => 'Staff',
-                    'client' => 'Cliente',
+                    'staff' => __('enums.role_type.staff'),
+                    'client' => __('enums.role_type.client'),
                 ]
             ]
-        ];
-    }
-
-    public function getSortOptionsProperty()
-    {
-        return [
-            ['field' => 'name', 'label' => 'Nome'],
-            ['field' => 'email', 'label' => 'Email'],
-            ['field' => 'created_at', 'label' => 'Data de Registo'],
-            ['field' => 'email_verified_at', 'label' => 'Data de Verificação'],
         ];
     }
 
@@ -141,27 +67,29 @@ class Index extends Component
         return [
             [
                 'key' => 'name',
-                'label' => 'Nome',
+                'label' => __('common.labels.name'),
                 'sortable' => true,
             ],
             [
                 'key' => 'email',
-                'label' => 'Email',
+                'label' => __('common.labels.email'),
                 'sortable' => true,
             ],
             [
                 'key' => 'roles',
-                'label' => 'Tipo',
+                'label' => __('common.labels.type'),
                 'component' => 'livewire.backoffice.users.partials.role-badge',
+                'sortable' => false,
             ],
             [
                 'key' => 'email_verified_at',
-                'label' => 'Status',
+                'label' => __('common.labels.verified'),
                 'format' => 'boolean',
+                'sortable' => true,
             ],
             [
                 'key' => 'created_at',
-                'label' => 'Registado em',
+                'label' => __('common.labels.registered_at'),
                 'format' => 'datetime',
                 'sortable' => true,
             ],
@@ -175,24 +103,66 @@ class Index extends Component
                 'type' => 'dropdown',
                 'items' => [
                     [
-                        'label' => 'Ver Detalhes',
+                        'label' => __('common.buttons.view'),
                         'icon' => 'eye',
                         'method' => 'viewUser',
                     ],
                     [
-                        'label' => 'Editar',
+                        'label' => __('common.buttons.edit'),
                         'icon' => 'pencil',
                         'method' => 'editUser',
                     ],
                     [
-                        'label' => 'Eliminar',
+                        'label' => __('common.buttons.delete'),
                         'icon' => 'trash',
                         'method' => 'deleteUser',
-                        'condition' => fn($user) => $user->id !== auth()->id(),
                     ],
                 ]
             ]
         ];
+    }
+
+    public function getRoleOptionsProperty()
+    {
+        if (!$this->modalRoleType) {
+            return [];
+        }
+
+        $roles = \Spatie\Permission\Models\Role::where('type', $this->modalRoleType)->get();
+        
+        return $roles->mapWithKeys(function ($role) {
+            return [$role->name => $role->name];
+        })->toArray();
+    }
+
+    // Metric properties
+    public function getTotalUsersProperty()
+    {
+        return User::count();
+    }
+
+    public function getActiveUsersProperty()
+    {
+        return User::whereNotNull('email_verified_at')->count();
+    }
+
+    public function getStaffUsersProperty()
+    {
+        return User::whereHas('roles', function($query) {
+            $query->where('type', 'staff');
+        })->count();
+    }
+
+    public function getClientUsersProperty()
+    {
+        return User::whereHas('roles', function($query) {
+            $query->where('type', 'client');
+        })->count();
+    }
+
+    public function updatedModalRoleType()
+    {
+        $this->modalRole = '';
     }
 
     public function viewUser($userId)
@@ -202,29 +172,203 @@ class Index extends Component
 
     public function editUser($userId)
     {
-        return redirect()->route('backoffice.users.edit', $userId);
+        $this->authorize('users_update');
+        
+        $this->isEditing = true;
+        $this->editingUser = User::findOrFail($userId);
+        $this->loadUserData();
+        $this->showModal = true;
+    }
+
+    public function createUser()
+    {
+        $this->authorize('users_create');
+        
+        $this->isEditing = false;
+        $this->editingUser = null;
+        $this->resetModalForm();
+        $this->showModal = true;
     }
 
     public function deleteUser($userId)
     {
         $user = User::findOrFail($userId);
         
-        // Verificar permissões
+        // Prevent users from deleting themselves
+        if ($user->id === Auth::id()) {
+            session()->flash('error', __('users.messages.cannot_delete_self'));
+            return;
+        }
+        
         $this->authorize('users_destroy');
         
         $user->delete();
         
-        session()->flash('message', 'Utilizador eliminado com sucesso.');
+        session()->flash('message', __('users.messages.user_deleted'));
+        $this->dispatch('refreshTable');
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->resetModalForm();
+        $this->editingUser = null;
+        $this->isEditing = false;
+    }
+
+    public function resetModalForm()
+    {
+        $this->modalName = '';
+        $this->modalEmail = '';
+        $this->modalPhoneNumber = '';
+        $this->modalPassword = '';
+        $this->modalPasswordConfirmation = '';
+        $this->modalRoleType = '';
+        $this->modalRole = '';
+        $this->resetErrorBag();
+    }
+
+    public function loadUserData()
+    {
+        $this->modalName = $this->editingUser->name;
+        $this->modalEmail = $this->editingUser->email;
+        $this->modalPhoneNumber = $this->editingUser->phone_number;
+        
+        $role = $this->editingUser->roles->first();
+        $this->modalRoleType = $role ? $role->type : 'client';
+        $this->modalRole = $role ? $role->name : '';
+    }
+
+    public function saveUser()
+    {
+        $this->validate([
+            'modalName' => ['required', 'string', 'max:255'],
+            'modalEmail' => ['required', 'string', 'email', 'max:255'],
+            'modalPhoneNumber' => ['nullable', 'string', 'max:20'],
+            'modalRoleType' => ['required', 'in:staff,client'],
+            'modalRole' => ['required', 'string'],
+        ]);
+
+        if ($this->isEditing) {
+            $this->validate([
+                'modalEmail' => ['unique:users,email,' . $this->editingUser->id],
+                'modalPassword' => ['nullable', \Illuminate\Validation\Rules\Password::defaults()],
+                'modalPasswordConfirmation' => ['nullable', 'same:modalPassword'],
+            ]);
+            $this->updateUser();
+        } else {
+            $this->validate([
+                'modalEmail' => ['unique:users,email'],
+                'modalPassword' => ['required', \Illuminate\Validation\Rules\Password::defaults()],
+                'modalPasswordConfirmation' => ['required', 'same:modalPassword'],
+            ]);
+            $this->createUserData();
+        }
+
+        $this->closeModal();
+        $this->dispatch('refreshTable');
+    }
+
+    public function createUserData()
+    {
+        Log::info('Creating user with data:', [
+            'name' => $this->modalName,
+            'email' => $this->modalEmail,
+            'role' => $this->modalRole,
+            'role_type' => $this->modalRoleType,
+            'password_length' => strlen($this->modalPassword)
+        ]);
+
+        if ($this->modalRoleType === 'client') {
+            $this->createClientUser();
+        } else {
+            $this->createStaffUser();
+        }
+    }
+
+    private function createClientUser()
+    {
+        try {
+            $fortifyAction = new CreateNewUser();
+            
+            $user = $fortifyAction->create([
+                'name' => $this->modalName,
+                'email' => $this->modalEmail,
+                'password' => $this->modalPassword,
+                'terms' => false,
+            ]);
+
+            $user->update([
+                'phone_number' => $this->modalPhoneNumber,
+                'email_verified_at' => now(),
+            ]);
+
+            if ($this->modalRole !== 'regular') {
+                $user->syncRoles([$this->modalRole]);
+            }
+
+            Log::info('Client user created with ID: ' . $user->id);
+            session()->flash('message', __('users.messages.user_created'));
+        } catch (\Exception $e) {
+            Log::error('Client user creation failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to create client user: ' . $e->getMessage());
+        }
+    }
+
+    private function createStaffUser()
+    {
+        try {
+            $user = User::create([
+                'name' => $this->modalName,
+                'email' => $this->modalEmail,
+                'phone_number' => $this->modalPhoneNumber,
+                'password' => \Illuminate\Support\Facades\Hash::make($this->modalPassword),
+                'email_verified_at' => now(),
+            ]);
+
+            $user->assignRole($this->modalRole);
+
+            session()->flash('message', __('users.messages.user_created'));
+        } catch (\Exception $e) {
+            Log::error('Staff user creation failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to create staff user: ' . $e->getMessage());
+        }
+    }
+
+    public function updateUser()
+    {
+        $updateData = [
+            'name' => $this->modalName,
+            'email' => $this->modalEmail,
+            'phone_number' => $this->modalPhoneNumber,
+        ];
+
+        if ($this->modalPassword) {
+            $updateData['password'] = \Illuminate\Support\Facades\Hash::make($this->modalPassword);
+        }
+
+        $this->editingUser->update($updateData);
+
+        $currentRole = $this->editingUser->roles->first();
+        
+        if (!$currentRole || $currentRole->name !== $this->modalRole) {
+            $this->editingUser->syncRoles([$this->modalRole]);
+        }
+
+        session()->flash('message', __('users.messages.user_updated'));
     }
 
     public function render()
     {
         return view('livewire.backoffice.users.index', [
-            'users' => $this->users,
             'filterOptions' => $this->filterOptions,
-            'sortOptions' => $this->sortOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,
+            'roleOptions' => $this->roleOptions,
+            'totalUsers' => $this->totalUsers,
+            'activeUsers' => $this->activeUsers,
+            'staffUsers' => $this->staffUsers,
+            'clientUsers' => $this->clientUsers,
         ]);
     }
 }

@@ -38,20 +38,20 @@
 
         <!-- Filters -->
         <div class="flex items-center space-x-2 mb-3">
-            <button class="px-3 py-1 text-sm bg-blue-500 text-white rounded-full">All</button>
-            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">Underfunded</button>
-            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">Overfunded</button>
-            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">Money Available</button>
-            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">Snoozed</button>
-            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">férias</button>
+            <button class="px-3 py-1 text-sm bg-blue-500 text-white rounded-full">{{ __('common.terms.all') }}</button>
+            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">{{ __('common.budget.underfunded') }}</button>
+            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">{{ __('common.budget.overfunded') }}</button>
+            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">{{ __('common.budget.money_available') }}</button>
+            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">{{ __('common.budget.snoozed') }}</button>
+            <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full">{{ __('common.budget.vacation') }}</button>
         </div>
 
         <!-- Actions -->
         <div class="flex items-center space-x-4 text-sm">
             <button class="text-blue-600 hover:text-blue-800 font-medium">+ Category Group</button>
-            <button class="text-gray-600 hover:text-gray-800">Undo</button>
-            <button class="text-gray-600 hover:text-gray-800">Redo</button>
-            <button class="text-gray-600 hover:text-gray-800">Recent Moves</button>
+            <button class="text-gray-600 hover:text-gray-800">{{ __('common.transactions.undo') }}</button>
+            <button class="text-gray-600 hover:text-gray-800">{{ __('common.transactions.redo') }}</button>
+            <button class="text-gray-600 hover:text-gray-800">{{ __('common.transactions.recent_moves') }}</button>
         </div>
     </div>
 

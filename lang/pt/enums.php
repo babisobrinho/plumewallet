@@ -17,6 +17,10 @@ return [
         'staff' => 'Staff',
         'client' => 'Cliente',
     ],
+    'status' => [
+        'active' => 'Ativo',
+        'inactive' => 'Inativo',
+    ],
     'permission_group' => [
         'config' => 'Configuração',
         'users' => 'Utilizadores',

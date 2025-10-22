@@ -11,7 +11,7 @@
             <div id="personal-data" class="section bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
                 <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Dados Pessoais
+                        {{ __('profile.personal_data') }}
                     </h2>
                     @role('tester')
                     <span class="inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-1 bg-amber-100 text-amber-600 dark:bg-amber-600 dark:text-amber-100">
@@ -20,7 +20,7 @@
                                 <path d="M17 13l4 0" /><path d="M12 20l0 -6" /><path d="M4 19l3.35 -2" /><path d="M20 19l-3.35 -2" /><path d="M4 7l3.75 2.4" /><path d="M20 7l-3.75 2.4" />
                             </svg>
                             <span class="text-xs font-semibold">
-                                QA
+                                {{ __('profile.qa') }}
                             </span>
                         </span>
                     @endrole
@@ -35,10 +35,13 @@
             <div id="preferences" class="section bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
                 <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Preferências
+                        {{ __('profile.preferences') }}
                     </h2>
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-gray-800">
+                    <div class="p-6">
+                        @livewire('shared.profile.update-language-form')
+                    </div>
                     <div class="p-6">
                         @livewire('shared.profile.update-appearence-form')
                     </div>
@@ -48,7 +51,7 @@
             <div id="security" class="section bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
                 <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Segurança
+                        {{ __('profile.security') }}
                     </h2>
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-gray-800">
