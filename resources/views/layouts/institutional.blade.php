@@ -38,7 +38,7 @@
                         <!-- Plume Wallet Column -->
                         <div class="md:col-span-1">
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.plume_wallet') }}</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                                 {{ __('institutional.footer.description') }}
                             </p>
                         </div>
@@ -46,30 +46,30 @@
                         <!-- Produto Column -->
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.product') }}</h3>
-                            <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.how_it_works') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.faq') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.blog') }}</a></li>
+                            <ul class="space-y-3">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.how_it_works') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.faq') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.blog') }}</a></li>
                             </ul>
                         </div>
 
                         <!-- Empresa Column -->
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.company') }}</h3>
-                            <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.about_us') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.contact') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.careers') }}</a></li>
+                            <ul class="space-y-3">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.about_us') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.contact') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.careers') }}</a></li>
                             </ul>
                         </div>
 
                         <!-- Legal Column -->
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ __('institutional.footer.legal') }}</h3>
-                            <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.privacy') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.terms') }}</a></li>
-                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">{{ __('institutional.footer.security') }}</a></li>
+                            <ul class="space-y-3">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.privacy') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.terms') }}</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">{{ __('institutional.footer.security') }}</a></li>
                             </ul>
                         </div>
                     </div>

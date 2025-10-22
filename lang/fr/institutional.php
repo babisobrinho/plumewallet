@@ -16,6 +16,24 @@ return [
         'no_credit_card' => 'Aucune carte de crédit requise • Essai gratuit • Annulation à tout moment',
     ],
 
+    'welcome' => [
+        'title' => 'Bienvenue chez PlumeWallet',
+        'subtitle' => 'La plateforme la plus complète et intuitive pour gérer vos finances personnelles. Transformez votre relation avec l\'argent et atteignez vos objectifs financiers avec facilité et sécurité.',
+        'feature1' => [
+            'title' => 'Sécurité Totale',
+            'description' => 'Vos données sont protégées par un chiffrement de niveau bancaire et des protocoles de sécurité avancés.',
+        ],
+        'feature2' => [
+            'title' => 'Accès Mobile',
+            'description' => 'Gérez vos finances n\'importe où, n\'importe quand, directement depuis votre smartphone.',
+        ],
+        'feature3' => [
+            'title' => 'Analyses Intelligentes',
+            'description' => 'Recevez des insights personnalisés et des rapports détaillés sur vos habitudes financières.',
+        ],
+        'call_to_action' => 'Rejoignez des milliers d\'utilisateurs qui ont déjà transformé leur vie financière avec PlumeWallet. Commencez votre voyage vers la liberté financière dès aujourd\'hui !',
+    ],
+
     'features' => [
         'title' => 'Contrôlez vos finances',
         'subtitle' => 'Avec vos objectifs en tête',

@@ -16,6 +16,24 @@ return [
         'no_credit_card' => 'No credit card required • Free trial • Cancel anytime',
     ],
 
+    'welcome' => [
+        'title' => 'Welcome to PlumeWallet',
+        'subtitle' => 'The most complete and intuitive platform for managing your personal finances. Transform your relationship with money and achieve your financial goals with ease and security.',
+        'feature1' => [
+            'title' => 'Total Security',
+            'description' => 'Your data is protected with bank-level encryption and advanced security protocols.',
+        ],
+        'feature2' => [
+            'title' => 'Mobile Access',
+            'description' => 'Manage your finances anywhere, anytime, directly from your smartphone.',
+        ],
+        'feature3' => [
+            'title' => 'Smart Analytics',
+            'description' => 'Receive personalized insights and detailed reports about your financial habits.',
+        ],
+        'call_to_action' => 'Join thousands of users who have already transformed their financial lives with PlumeWallet. Start your journey towards financial freedom today!',
+    ],
+
     'features' => [
         'title' => 'Control your finances',
         'subtitle' => 'With your goals in mind',
