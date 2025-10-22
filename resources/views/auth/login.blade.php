@@ -17,8 +17,8 @@
     <div class="min-h-screen flex">
 <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
 <div class="flex-1 bg-gray-800 relative flex items-center justify-center">
-    <!-- Triângulo com clip-path -->
-    <div class="absolute left-0 top-0 w-full h-full bg-gray-100" style="clip-path: polygon(0 0, 60% 50%, 0 100%)"></div>
+    <!-- Triângulo GRANDE -->
+    <div class="absolute left-0 top-0 w-full h-full bg-gray-100" style="clip-path: polygon(0 0, 80% 50%, 0 100%)"></div>
     
     <!-- Conteúdo Centralizado -->
     <div class="relative z-10 text-center text-white px-8">
