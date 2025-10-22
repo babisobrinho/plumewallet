@@ -15,22 +15,20 @@
     <x-institutional-navbar />
     
     <div class="min-h-screen flex">
-        <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
-        <div class="flex-1 bg-gray-800 relative flex items-center justify-center">
-            <!-- Seta Diagonal -->
-            <div class="absolute right-0 top-0 w-full h-full">
-                <div class="absolute right-0 top-0 w-0 h-0 border-t-[50vh] border-b-[50vh] border-l-[30vw] border-t-transparent border-b-transparent border-l-gray-100"></div>
-            </div>
-            
-            <!-- Conteúdo Centralizado -->
-            <div class="relative z-10 text-center text-white">
-                <h2 class="text-4xl font-bold mb-4">{{ __('auth.login.welcome_title') }}</h2>
-                <p class="text-lg mb-8">{{ __('auth.login.welcome_subtitle') }}</p>
-                <a href="{{ route('register') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
-                    {{ __('auth.login.create_account_button') }}
-                </a>
-            </div>
-        </div>
+<!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
+<div class="flex-1 bg-gray-800 relative flex items-center justify-center">
+    <!-- Triângulo com clip-path -->
+    <div class="absolute left-0 top-0 w-full h-full bg-gray-100" style="clip-path: polygon(0 0, 60% 50%, 0 100%)"></div>
+    
+    <!-- Conteúdo Centralizado -->
+    <div class="relative z-10 text-center text-white px-8">
+        <h2 class="text-4xl font-bold mb-4">{{ __('auth.login.welcome_title') }}</h2>
+        <p class="text-lg mb-8">{{ __('auth.login.welcome_subtitle') }}</p>
+        <a href="{{ route('register') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
+            {{ __('auth.login.create_account_button') }}
+        </a>
+    </div>
+</div>
         
         <!-- Lado Direito - Formulário de Login -->
         <div class="flex-1 bg-gray-100 flex items-center justify-center p-8">

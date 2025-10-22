@@ -15,24 +15,21 @@
     <x-institutional-navbar />
     
     <div class="min-h-screen flex">
-        <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
-        <div class="flex-1 bg-gray-800 relative flex items-center justify-center">
-            <!-- Seta Diagonal -->
-            <div class="absolute right-0 top-0 w-full h-full">
-                <div class="absolute right-0 top-0 w-0 h-0 border-t-[50vh] border-b-[50vh] border-l-[30vw] border-t-transparent border-b-transparent border-l-gray-100"></div>
-            </div>
-            
-            <!-- Conteúdo Centralizado -->
-            <div class="relative z-10 text-center text-white">
-                <h2 class="text-4xl font-bold mb-4">{{ __('auth.register.welcome_title') }}</h2>
-                <h3 class="text-2xl font-semibold mb-6">{{ __('auth.register.welcome_subtitle') }}</h3>
-                <p class="text-lg mb-8">{{ __('auth.register.welcome_text') }}</p>
-                <a href="{{ route('login') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
-                    {{ __('auth.register.login_button') }}
-                </a>
-            </div>
-        </div>
-        
+      <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
+<div class="flex-1 bg-gray-800 relative flex items-center justify-center">
+    <!-- Triângulo saindo da direita com clip-path -->
+    <div class="absolute right-0 top-0 w-full h-full bg-gray-100" style="clip-path: polygon(100% 0, 100% 100%, 40% 50%)"></div>
+    
+    <!-- Conteúdo Centralizado -->
+    <div class="relative z-10 text-center text-white px-8">
+        <h2 class="text-4xl font-bold mb-4">{{ __('auth.register.welcome_title') }}</h2>
+        <h3 class="text-2xl font-semibold mb-6">{{ __('auth.register.welcome_subtitle') }}</h3>
+        <p class="text-lg mb-8">{{ __('auth.register.welcome_text') }}</p>
+        <a href="{{ route('login') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
+            {{ __('auth.register.login_button') }}
+        </a>
+    </div>
+</div>
         <!-- Lado Direito - Formulário de Registro -->
         <div class="flex-1 bg-gray-100 flex items-center justify-center p-8">
             <div class="w-full max-w-md">
