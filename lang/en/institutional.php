@@ -72,14 +72,17 @@ return [
         'step1' => [
             'title' => 'Choose your layout',
             'description' => 'Customize the interface according to your preferences and needs.',
+            'label' => 'Step 1',
         ],
         'step2' => [
             'title' => 'Register your number',
             'description' => 'Connect your WhatsApp to start registering expenses easily.',
+            'label' => 'Step 2',
         ],
         'step3' => [
             'title' => 'Register your expenses',
             'description' => 'Start registering your expenses and income simply and quickly.',
+            'label' => 'Step 3',
         ],
         'cta' => 'Start now!',
     ],
