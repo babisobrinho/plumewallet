@@ -1,60 +1,96 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+</head>
+<body class="min-h-screen bg-gray-900">
+    <!-- Navbar -->
+    <x-institutional-navbar />
+    
+    <div class="min-h-screen flex">
+        <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
+        <div class="flex-1 bg-gray-800 relative flex items-center justify-center">
+            <!-- Seta Diagonal -->
+            <div class="absolute right-0 top-0 w-full h-full">
+                <div class="absolute right-0 top-0 w-0 h-0 border-t-[50vh] border-b-[50vh] border-l-[30vw] border-t-transparent border-b-transparent border-l-gray-100"></div>
             </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+            
+            <!-- Conteúdo Centralizado -->
+            <div class="relative z-10 text-center text-white">
+                <h2 class="text-4xl font-bold mb-4">{{ __('auth.register.welcome_title') }}</h2>
+                <h3 class="text-2xl font-semibold mb-6">{{ __('auth.register.welcome_subtitle') }}</h3>
+                <p class="text-lg mb-8">{{ __('auth.register.welcome_text') }}</p>
+                <a href="{{ route('login') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
+                    {{ __('auth.register.login_button') }}
                 </a>
-
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
             </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+        </div>
+        
+        <!-- Lado Direito - Formulário de Registro -->
+        <div class="flex-1 bg-gray-100 flex items-center justify-center p-8">
+            <div class="w-full max-w-md">
+                <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">{{ __('auth.register.title') }}</h1>
+                
+                <x-validation-errors class="mb-4" />
+                
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">{{ __('auth.register.name_label') }}</label>
+                        <input id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __('auth.register.email_label') }}</label>
+                        <input id="email" type="email" name="email" :value="old('email')" required autocomplete="username" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">{{ __('auth.register.password_label') }}</label>
+                        <input id="password" type="password" name="password" required autocomplete="new-password" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent">
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gray-300 text-gray-900 font-semibold py-3 px-4 rounded-lg hover:bg-gray-400 transition-colors">
+                        {{ __('auth.register.button') }}
+                    </button>
+                </form>
+                
+                <!-- Separador Or -->
+                <div class="flex items-center my-6">
+                    <div class="flex-1 border-t border-gray-300"></div>
+                    <span class="px-4 text-sm text-gray-500">{{ __('auth.register.or') }}</span>
+                    <div class="flex-1 border-t border-gray-300"></div>
+                </div>
+                
+                <!-- Social Login -->
+                <div class="flex justify-center space-x-4 mb-6">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <i class="ti ti-brand-google text-gray-600"></i>
+                    </div>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <i class="ti ti-brand-facebook text-gray-600"></i>
+                    </div>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <i class="ti ti-brand-twitter text-gray-600"></i>
+                    </div>
+                </div>
+                
+                <p class="text-xs text-gray-500 text-center">{{ __('auth.register.social_text') }}</p>
+            </div>
+        </div>
+    </div>
+    
+    @livewireScripts
+</body>
+</html>
