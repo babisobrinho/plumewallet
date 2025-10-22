@@ -52,7 +52,7 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-8">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                                <i class="ti ti-shield-check w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                <i class="ti ti-shield w-6 h-6 text-green-600 dark:text-green-400"></i>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.welcome.feature1.title') }}</h3>
@@ -72,7 +72,7 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-8">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                <i class="ti ti-chart-line w-6 h-6 text-purple-600 dark:text-purple-400"></i>
+                                <i class="ti ti-chart-pie w-6 h-6 text-purple-600 dark:text-purple-400"></i>
                             </div>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.welcome.feature3.title') }}</h3>
@@ -105,7 +105,7 @@
                 <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-8">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
-                            <i class="ti ti-piggy-bank w-6 h-6 text-yellow-600 dark:text-yellow-400"></i>
+                            <i class="ti ti-wallet w-6 h-6 text-yellow-600 dark:text-yellow-400"></i>
                         </div>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.features.savings.title') }}</h3>
@@ -126,7 +126,7 @@
                 <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-8">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                            <i class="ti ti-chart-line w-6 h-6 text-red-600 dark:text-red-400"></i>
+                            <i class="ti ti-chart-bar w-6 h-6 text-red-600 dark:text-red-400"></i>
                         </div>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ __('institutional.features.investments.title') }}</h3>
@@ -251,7 +251,7 @@
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-center">{{ __('institutional.steps.step1.label') }}</h3>
                         </div>
                         
-                        <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl p-8 ml-8">
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl p-8 mb-4">
                             <div class="w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="ti ti-phone w-8 h-8 text-white"></i>
                             </div>
