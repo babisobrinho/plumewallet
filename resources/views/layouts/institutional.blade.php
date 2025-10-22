@@ -33,19 +33,51 @@
 
             <!-- Footer -->
             <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-                <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <div class="flex justify-center mb-4">
-                            <div class="flex items-center gap-2">
-                                <x-application-mark class="h-8 w-8" />
-                                <span class="text-lg font-bold text-gray-900 dark:text-white">PlumeWallet</span>
-                            </div>
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <!-- Plume Wallet Column -->
+                        <div class="md:col-span-1">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Plume Wallet</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                A solução completa para gerenciar suas finanças pessoais com facilidade e segurança.
+                            </p>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                            {{ __('institutional.footer.description') }}
-                        </p>
+
+                        <!-- Produto Column -->
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Produto</h3>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Como Funciona</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Perguntas Frequentes</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Blog</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Empresa Column -->
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Empresa</h3>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Sobre Nós</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Contacto</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Carreiras</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Legal Column -->
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Legal</h3>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Privacidade</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Termos</a></li>
+                                <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm">Segurança</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Separator Line -->
+                    <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8">
                         <p class="text-center text-gray-600 dark:text-gray-400 text-sm">
-                            &copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('institutional.footer.rights_reserved') }}
+                            © 2025 Plume Wallet by Plume. Todos os direitos reservados.
                         </p>
                     </div>
                 </div>
