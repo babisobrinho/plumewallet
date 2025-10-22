@@ -16,6 +16,7 @@ class DataTable extends Component
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 15;
+    public $page = 1;
 
     // Filter properties
     public $search = '';
