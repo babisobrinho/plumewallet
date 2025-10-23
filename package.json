@@ -19,6 +19,7 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
-        "@tabler/icons-webfont": "^3.35.0"
+        "@tabler/icons-webfont": "^3.35.0",
+        "alpinejs": "^3.15.0"
     }
 }

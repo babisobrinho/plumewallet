@@ -1,19 +1,26 @@
 <div>
     <!-- Hero Section - Com forma geométrica igual ao wireframe -->
     <section class="min-h-screen bg-gray-100 flex items-center relative overflow-hidden">
-        <!-- Triângulo geométrico - Forma igual ao segundo print -->
+        <!-- Forma geométrica de seta começando do topo -->
         <div class="absolute top-0 right-0 w-3/4 h-full bg-gray-800 z-0" 
-             style="clip-path: polygon(40% 0, 100% 0, 100% 100%, 0% 100%);"></div>
+        style="clip-path: polygon(0% 0, 100% 0, 100% 100%, 30% 100%);"></div>
         
         <div class="max-w-7xl mx-auto px-6 py-20 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
                 <!-- Lado Esquerdo - Conteúdo -->
                 <div class="text-gray-900">
+                    <!-- Texto "Welcome to Plume" adicionado aqui -->
+                    <div class="mb-4">
+                        <span class="text-xl md:text-2xl font-semibold text-gray-700">
+                            Welcome to Plume
+                        </span>
+                    </div>
+                    
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                        Bem-vindo ao Plume Wallet
+                        {{ __('institutional.hero.title') }}
                     </h1>
                     <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-                        Registe seus gastos pelo WhatsApp e acompanhe tudo com clareza num painel elegante e fácil de usar. Sem planilhas. Sem complicação. Só o controle que você merece.
+                        {{ __('institutional.hero.subtitle') }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         @guest
@@ -61,9 +68,9 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-20 px-6 bg-gray-50">
-        <div class="max-w-7xl mx-auto text-center">
+    <!-- Features Section - Carrossel funcional como no wireframe -->
+    <section class="py-20 px-6 bg-gray-100">
+        <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {{ __('institutional.features.title') }}
             </h2>
@@ -71,37 +78,88 @@
                 {{ __('institutional.features.subtitle') }}
             </p>
             
-            <!-- Features Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-200 p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                            <i class="ti ti-wallet text-yellow-600" style="font-size: 3rem !important;"></i>
+            <!-- Carrossel Container -->
+            <div class="relative" x-data="carousel()">
+                <!-- Cards Container -->
+                <div class="relative h-96 flex items-center justify-center">
+                    <!-- Card 1 - Economia Inteligente (ESQUERDA) -->
+                    <div class="absolute left-0 w-72 bg-white rounded-xl shadow-lg opacity-70 transform scale-90 transition-all duration-300 cursor-pointer z-20"
+                         :class="currentSlide === 0 ? 'bg-gray-800 z-30 scale-100 opacity-100' : ''"
+                         @click="goToSlide(0)">
+                        <div class="p-6 text-center">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                                <i class="ti ti-piggy-bank text-green-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Economia Inteligente</h3>
+                            <p class="text-gray-600 text-xs">Identifique oportunidades de poupança</p>
                         </div>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('institutional.features.savings.title') }}</h3>
-                    <p class="text-gray-600">{{ __('institutional.features.savings.description') }}</p>
+                    
+                    <!-- Card 2 - Viagens do Sonho (CENTRO - ATIVO) -->
+                    <div class="absolute w-96 bg-gray-800 rounded-xl shadow-2xl z-30 cursor-pointer transition-all duration-300"
+                         :class="currentSlide === 1 ? 'bg-gray-800 z-30' : 'bg-white opacity-70 scale-90 z-20'"
+                         @click="goToSlide(1)">
+                        <div class="p-8 text-white text-left h-full flex flex-col">
+                            <!-- Título Principal -->
+                            <div>
+                                <h1 class="text-2xl font-bold mb-2">Controle suas finanças</h1>
+                                <p class="text-gray-300 text-sm mb-6">Com seus objetivos em mente</p>
+                                
+                                <!-- Linha divisória -->
+                                <div class="border-t border-gray-600 mb-6"></div>
+                                
+                                <!-- Seção Dream trips -->
+                                <h2 class="text-xl font-semibold mb-3">Viagens do sonho</h2>
+                                <p class="text-gray-300 text-sm mb-6">Plan and realize your dream trips with financial control.</p>
+                            </div>
+                            
+                            <!-- Botão no final -->
+                            <div class="mt-auto flex justify-end">
+                                <button class="inline-flex items-center px-6 py-3 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-100 transition-colors">
+                                    Saiba mais
+                                    <i class="ti ti-arrow-right w-4 h-4 ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 - Investimentos (DIREITA) -->
+                    <div class="absolute right-0 w-72 bg-white rounded-xl shadow-lg opacity-70 transform scale-90 transition-all duration-300 cursor-pointer z-20"
+                         :class="currentSlide === 2 ? 'bg-gray-800 z-30 scale-100 opacity-100' : ''"
+                         @click="goToSlide(2)">
+                        <div class="p-6 text-center">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                                <i class="ti ti-chart-bar text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">{{ __('institutional.features.investments.title') }}</h3>
+                            <p class="text-gray-600 text-xs">{{ __('institutional.features.investments.description') }}</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="bg-white overflow-hidden shadow-sm rounded-xl border-2 border-teal-500 p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                            <i class="ti ti-plane text-teal-600" style="font-size: 3rem !important;"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('institutional.features.dream_trips.title') }}</h3>
-                    <p class="text-gray-600 mb-4">{{ __('institutional.features.dream_trips.description') }}</p>
-                    <a href="#" class="text-teal-600 font-medium hover:underline">{{ __('institutional.features.dream_trips.link') }}</a>
+                <!-- Indicadores do Carrossel -->
+                <div class="flex justify-center items-center mt-12 space-x-2">
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentSlide === 0 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToSlide(0)"></button>
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentSlide === 1 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToSlide(1)"></button>
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentSlide === 2 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToSlide(2)"></button>
                 </div>
                 
-                <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-200 p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                            <i class="ti ti-chart-bar text-red-600" style="font-size: 3rem !important;"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('institutional.features.investments.title') }}</h3>
-                    <p class="text-gray-600">{{ __('institutional.features.investments.description') }}</p>
+                <!-- Botões de navegação -->
+                <div class="flex justify-center items-center mt-6 space-x-4">
+                    <button class="p-3 rounded-full bg-gray-800 shadow-lg hover:bg-gray-700 transition-colors"
+                            @click="previousSlide()">
+                        <i class="ti ti-chevron-left text-white text-lg"></i>
+                    </button>
+                    <button class="p-3 rounded-full bg-gray-800 shadow-lg hover:bg-gray-700 transition-colors"
+                            @click="nextSlide()">
+                        <i class="ti ti-chevron-right text-white text-lg"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -183,3 +241,28 @@
         </div>
     </section>
 </div>
+
+@once
+@push('scripts')
+<script>
+    function carousel() {
+        return {
+            currentSlide: 1, // Começa no slide do meio (Viagens do Sonho)
+            totalSlides: 3,
+            
+            goToSlide(slideIndex) {
+                this.currentSlide = slideIndex;
+            },
+            
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+            },
+            
+            previousSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+            }
+        }
+    }
+</script>
+@endpush
+@endonce
