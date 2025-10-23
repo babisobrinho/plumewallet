@@ -79,25 +79,43 @@
             </p>
             
             <!-- Carrossel Container -->
-            <div class="relative" x-data="carousel()">
+            <div class="relative" 
+                 x-data="{ 
+                     currentSlide: 1,
+                     goToSlide(slide) { this.currentSlide = slide; },
+                     nextSlide() { this.currentSlide = (this.currentSlide + 1) % 3; },
+                     previousSlide() { this.currentSlide = (this.currentSlide - 1 + 3) % 3; }
+                 }">
                 <!-- Cards Container -->
-                <div class="relative h-96 flex items-center justify-center">
-                    <!-- Card 1 - Economia Inteligente (ESQUERDA) -->
-                    <div class="absolute left-0 w-72 bg-white rounded-xl shadow-lg opacity-70 transform scale-90 transition-all duration-300 cursor-pointer z-20"
-                         :class="currentSlide === 0 ? 'bg-gray-800 z-30 scale-100 opacity-100' : ''"
+                <div class="relative h-96 flex items-center justify-center overflow-hidden">
+                    <!-- Card 1 - Economia Inteligente -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentSlide === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
                          @click="goToSlide(0)">
-                        <div class="p-6 text-center">
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                                <i class="ti ti-piggy-bank text-green-600 text-xl"></i>
+                        <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 0 ? 'text-white' : 'text-gray-700'">
+                            <!-- Título Principal -->
+                            <div>
+                                <h1 class="text-2xl font-bold mb-2">Economia Inteligente</h1>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">Identifique oportunidades de poupança</p>
+                                
+                                <!-- Linha divisória -->
+                                <div class="border-t mb-6" :class="currentSlide === 0 ? 'border-gray-600' : 'border-gray-300'"></div>
+                                
+                                <!-- Seção de conteúdo -->
+                                <h2 class="text-xl font-semibold mb-3">Poupança Automática</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">Configure metas de poupança e veja seu dinheiro crescer automaticamente.</p>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Economia Inteligente</h3>
-                            <p class="text-gray-600 text-xs">Identifique oportunidades de poupança</p>
+                            
+                            <!-- Botão no final -->
+                            <div class="mt-auto flex justify-end">
+                                
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Card 2 - Viagens do Sonho (CENTRO - ATIVO) -->
-                    <div class="absolute w-96 bg-gray-800 rounded-xl shadow-2xl z-30 cursor-pointer transition-all duration-300"
-                         :class="currentSlide === 1 ? 'bg-gray-800 z-30' : 'bg-white opacity-70 scale-90 z-20'"
+                    <!-- Card 2 - Viagens do Sonho (CENTRO) -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentSlide === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
                          @click="goToSlide(1)">
                         <div class="p-8 text-white text-left h-full flex flex-col">
                             <!-- Título Principal -->
@@ -115,24 +133,33 @@
                             
                             <!-- Botão no final -->
                             <div class="mt-auto flex justify-end">
-                                <button class="inline-flex items-center px-6 py-3 bg-white text-gray-800 font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                                    Saiba mais
-                                    <i class="ti ti-arrow-right w-4 h-4 ml-2"></i>
-                                </button>
+                              
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Card 3 - Investimentos (DIREITA) -->
-                    <div class="absolute right-0 w-72 bg-white rounded-xl shadow-lg opacity-70 transform scale-90 transition-all duration-300 cursor-pointer z-20"
-                         :class="currentSlide === 2 ? 'bg-gray-800 z-30 scale-100 opacity-100' : ''"
+                    <!-- Card 3 - Investimentos -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentSlide === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg opacity-90 z-20'"
                          @click="goToSlide(2)">
-                        <div class="p-6 text-center">
-                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                                <i class="ti ti-chart-bar text-red-600 text-xl"></i>
+                        <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 2 ? 'text-white' : 'text-gray-700'">
+                            <!-- Título Principal -->
+                            <div>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.investments.title') }}</h1>
+                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.investments.description') }}</p>
+                                
+                                <!-- Linha divisória -->
+                                <div class="border-t mb-6" :class="currentSlide === 2 ? 'border-gray-600' : 'border-gray-300'"></div>
+                                
+                                <!-- Seção de conteúdo -->
+                                <h2 class="text-xl font-semibold mb-3">Crescimento Inteligente</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">Invista seu dinheiro de forma inteligente e veja seus rendimentos crescerem.</p>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-700 mb-2">{{ __('institutional.features.investments.title') }}</h3>
-                            <p class="text-gray-600 text-xs">{{ __('institutional.features.investments.description') }}</p>
+                            
+                            <!-- Botão no final -->
+                            <div class="mt-auto flex justify-end">
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -245,24 +272,8 @@
 @once
 @push('scripts')
 <script>
-    function carousel() {
-        return {
-            currentSlide: 1, // Começa no slide do meio (Viagens do Sonho)
-            totalSlides: 3,
-            
-            goToSlide(slideIndex) {
-                this.currentSlide = slideIndex;
-            },
-            
-            nextSlide() {
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-            },
-            
-            previousSlide() {
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-            }
-        }
-    }
+    // Carrossel agora está definido inline no x-data
+    console.log('Carrossel carregado com Alpine.js inline');
 </script>
 @endpush
 @endonce
