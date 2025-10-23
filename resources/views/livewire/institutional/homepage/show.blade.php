@@ -267,6 +267,239 @@
             </div>
         </div>
     </section>
+
+    <!-- Seção de Perfis Financeiros -->
+    <section class="bg-gray-100 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Título da Seção -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    A solução perfeita para a tua carteira
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Explicando sobre administrar finanças e tals
+                </p>
+            </div>
+
+            <!-- Carrossel de Perfis -->
+            <div class="relative" 
+                 x-data="{ 
+                     currentProfile: 0,
+                     profiles: [
+                         {
+                             title: 'Família',
+                             subtitle: 'Gestão financeira familiar',
+                             income: ['Salário Cônjuge 1', 'Salário Cônjuge 2', 'Outros Rendimentos'],
+                             expenses: ['Habitação', 'Utilidades', 'Alimentação', 'Transporte', 'Educação (crianças)', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento Familiar', 'Cuidados Infantis'],
+                             accounts: ['Conta Conjunta', 'Poupança Familiar'],
+                             icon: 'ti ti-users',
+                             color: 'bg-blue-600'
+                         },
+                         {
+                             title: 'Estudante',
+                             subtitle: 'Gestão financeira para estudantes',
+                             income: ['Bolsa de Estudos', 'Trabalho Part-time', 'Apoio Familiar', 'Outros Rendimentos'],
+                             expenses: ['Propinas', 'Material Escolar', 'Transporte', 'Alimentação', 'Alojamento', 'Entretenimento', 'Saúde'],
+                             accounts: ['Carteira Principal', 'Conta Bancária'],
+                             icon: 'ti ti-school',
+                             color: 'bg-green-600'
+                         },
+                         {
+                             title: 'Profissional Empregado',
+                             subtitle: 'Organização financeira profissional',
+                             income: ['Salário', 'Prémios/Bónus', 'Outros Rendimentos'],
+                             expenses: ['Habitação (renda/empréstimo)', 'Utilidades (água, luz, gás)', 'Telecomunicações', 'Alimentação', 'Transporte', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento', 'Vestuário'],
+                             accounts: ['Conta Corrente', 'Poupança', 'Carteira'],
+                             icon: 'ti ti-briefcase',
+                             color: 'bg-purple-600'
+                         }
+                     ],
+                     nextProfile() { this.currentProfile = (this.currentProfile + 1) % this.profiles.length; },
+                     previousProfile() { this.currentProfile = (this.currentProfile - 1 + this.profiles.length) % this.profiles.length; },
+                     goToProfile(index) { this.currentProfile = index; }
+                 }">
+                
+                <!-- Cards Container -->
+                <div class="relative h-96 flex items-center justify-center overflow-hidden">
+                    <!-- Card 1 - Família -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentProfile === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         @click="goToProfile(0)">
+                        <div class="p-8 text-left h-full flex flex-col">
+                            <!-- Header do Card -->
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="ti ti-users text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900">Família</h3>
+                                    <p class="text-sm text-gray-600">Gestão financeira familiar</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Conteúdo do Card -->
+                            <div class="flex-1">
+                                <!-- Receitas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário Cônjuge 1</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário Cônjuge 2</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Outros</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Despesas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Habitação</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Educação</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Cuidados</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Conjunta</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Poupança</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 - Estudante (CENTRO) -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentProfile === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         @click="goToProfile(1)">
+                        <div class="p-8 text-left h-full flex flex-col">
+                            <!-- Header do Card -->
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="ti ti-school text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900">Estudante</h3>
+                                    <p class="text-sm text-gray-600">Gestão financeira para estudantes</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Conteúdo do Card -->
+                            <div class="flex-1">
+                                <!-- Receitas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Bolsa de Estudos</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Trabalho Part-time</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Apoio Familiar</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Despesas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Propinas</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Material Escolar</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Alojamento</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Carteira Principal</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Bancária</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 - Profissional Empregado -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentProfile === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         @click="goToProfile(2)">
+                        <div class="p-8 text-left h-full flex flex-col">
+                            <!-- Header do Card -->
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="ti ti-briefcase text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900">Profissional Empregado</h3>
+                                    <p class="text-sm text-gray-600">Organização financeira profissional</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Conteúdo do Card -->
+                            <div class="flex-1">
+                                <!-- Receitas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Prémios/Bónus</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Outros</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Despesas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Habitação</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Utilidades</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Seguros</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Corrente</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Poupança</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Carteira</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores -->
+                <div class="flex justify-center mt-8 space-x-2">
+                    <template x-for="(profile, index) in profiles" :key="index">
+                        <button @click="goToProfile(index)"
+                                class="w-3 h-3 rounded-full transition-colors"
+                                :class="currentProfile === index ? 'bg-teal-600' : 'bg-gray-300'">
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Botões de Navegação -->
+                <button @click="previousProfile()" 
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg transition-colors">
+                    <i class="ti ti-chevron-left text-xl"></i>
+                </button>
+                <button @click="nextProfile()" 
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg transition-colors">
+                    <i class="ti ti-chevron-right text-xl"></i>
+                </button>
+
+                <!-- Botão CTA -->
+                <div class="text-center mt-12">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 @once
