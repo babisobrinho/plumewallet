@@ -212,7 +212,7 @@
                     <div class="bg-gradient-to-r from-teal-50 to-teal-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
                             <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mr-6">
-                                <span class="text-white text-2xl font-bold">1</span>
+                                <i class="ti ti-user-plus text-white text-2xl"></i>
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step1.title') }}</h3>
@@ -225,7 +225,7 @@
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
                             <div class="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center mr-6">
-                                <i class="ti ti-phone text-white text-2xl"></i>
+                                <i class="ti ti-wallet text-white text-2xl"></i>
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step2.title') }}</h3>
@@ -238,7 +238,7 @@
                     <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
                             <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-6">
-                                <i class="ti ti-chart-line text-white text-2xl"></i>
+                                <i class="ti ti-trending-up text-white text-2xl"></i>
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step3.title') }}</h3>

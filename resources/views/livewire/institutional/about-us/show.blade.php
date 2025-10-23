@@ -147,7 +147,7 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
     <!-- Seção Nossa Equipa -->
     <section id="equipa" class="py-20 px-6 bg-gray-100">
         <div class="max-w-6xl mx-auto">
