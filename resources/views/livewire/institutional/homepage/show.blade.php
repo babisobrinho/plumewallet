@@ -192,77 +192,68 @@
         </div>
     </section>
 
-    <!-- Steps Section -->
-    <section class="py-20 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
+ <!-- Seção Como Funciona -->
+ <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Título da Seção -->
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ __('institutional.steps.title') }}
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    É fácil começar
                 </h2>
-                <p class="text-xl text-gray-700">
-                    {{ __('institutional.steps.subtitle') }}
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Em apenas alguns passos você estará controlando suas finanças
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <!-- Step illustrations -->
-                    <div class="relative">
-                        <div class="bg-teal-100 rounded-2xl p-8 mb-4">
-                            <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="ti ti-layout text-white" style="font-size: 3.5rem !important;"></i>
+
+            <!-- Cards de Steps Centralizados -->
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6 mb-12">
+                    <!-- Step 1 -->
+                    <div class="bg-gradient-to-r from-teal-50 to-teal-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mr-6">
+                                <span class="text-white text-2xl font-bold">1</span>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-900 text-center">{{ __('institutional.steps.step1.label') }}</h3>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Escolha seu perfil</h3>
+                                <p class="text-gray-600">Selecione o perfil que melhor se adequa à sua situação financeira</p>
+                            </div>
                         </div>
-                        
-                        <div class="bg-gray-100 rounded-2xl p-8 mb-4">
-                            <div class="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="ti ti-phone text-white" style="font-size: 3.5rem !important;"></i>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center mr-6">
+                                <i class="ti ti-phone text-white text-2xl"></i>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-900 text-center">{{ __('institutional.steps.step2.label') }}</h3>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Configure sua conta</h3>
+                                <p class="text-gray-600">Adicione suas informações e conecte suas contas bancárias</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-6">
+                                <i class="ti ti-chart-line text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Comece a controlar</h3>
+                                <p class="text-gray-600">Registre suas receitas e despesas para ter controle total</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="text-white font-semibold text-sm">1</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('institutional.steps.step1.title') }}</h3>
-                                <p class="text-gray-700">{{ __('institutional.steps.step1.description') }}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="text-white font-semibold text-sm">2</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('institutional.steps.step2.title') }}</h3>
-                                <p class="text-gray-700">{{ __('institutional.steps.step2.description') }}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="text-white font-semibold text-sm">3</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('institutional.steps.step3.title') }}</h3>
-                                <p class="text-gray-700">{{ __('institutional.steps.step3.description') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8">
-                        <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors shadow-lg">
-                            {{ __('institutional.steps.cta') }}
-                            <i class="ti ti-arrow-right w-4 h-4 ml-2"></i>
-                        </x-link>
-                    </div>
+
+                <!-- Botão CTA Centralizado -->
+                <div class="text-center">
+                    <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-bold text-lg rounded-lg hover:bg-teal-700 transition-colors shadow-lg">
+                        COMEÇAR AGORA
+                        <i class="ti ti-arrow-right w-5 h-5 ml-2"></i>
+                    </x-link>
                 </div>
             </div>
         </div>
@@ -500,6 +491,8 @@
             </div>
         </div>
     </section>
+
+   
 </div>
 
 @once
