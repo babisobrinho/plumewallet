@@ -29,4 +29,19 @@ return [
         'statistics' => 'Statistics',
         'qa' => 'QA',
     ],
+    'post_status' => [
+        'draft' => 'Draft',
+        'published' => 'Published',
+        'archived' => 'Archived',
+    ],
+    'faq_category' => [
+        'general' => 'General',
+        'account' => 'Account',
+        'transactions' => 'Transactions',
+        'security' => 'Security',
+        'billing' => 'Billing',
+        'technical' => 'Technical',
+        'features' => 'Features',
+        'support' => 'Support',
+    ],
 ];

@@ -7,6 +7,8 @@ use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
 use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
+use App\Livewire\Backoffice\Blog\Index as BackofficeBlogIndex;
+use App\Livewire\Backoffice\Faq\Index as BackofficeFaqIndex;
 use Illuminate\Support\Facades\Route;
 
 // Guest Users
@@ -54,6 +56,16 @@ Route::middleware([
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', BackofficeUsersIndex::class)->name('index');
             Route::get('/{user}', BackofficeUsersShow::class)->name('show');
+        });
+
+        // Blog Management
+        Route::prefix('blog')->name('blog.')->group(function () {
+            Route::get('/', BackofficeBlogIndex::class)->name('index');
+        });
+
+        // FAQ Management
+        Route::prefix('faq')->name('faq.')->group(function () {
+            Route::get('/', BackofficeFaqIndex::class)->name('index');
         });
     });
 });

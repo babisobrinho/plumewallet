@@ -14,4 +14,6 @@ enum PermissionGroup: string
     case REPORTS = 'reports';
     case STATISTICS = 'statistics';
     case QA = 'qa';
+    case BLOG = 'blog';
+    case FAQ = 'faq';
 }

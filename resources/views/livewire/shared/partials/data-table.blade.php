@@ -221,7 +221,7 @@
                                                         <div class="py-1">
                                                             @foreach($action['items'] as $itemAction)
                                                                 <button 
-                                                                    wire:click="{{ $itemAction['method'] }}({{ $item['id'] }})"
+                                                                    wire:click="{{ $this->getGenericMethod($itemAction['method']) }}({{ $item['id'] }})"
                                                                     @click="open = false"
                                                                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                                                                 >

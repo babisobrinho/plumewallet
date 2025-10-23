@@ -130,6 +130,49 @@ class DataTable extends Component
         $this->resetPage();
     }
 
+    // Generic action methods that emit events to parent component
+    public function editItem($id)
+    {
+        $this->dispatch('editItem', $id);
+    }
+
+    public function deleteItem($id)
+    {
+        $this->dispatch('deleteItem', $id);
+    }
+
+    public function viewItem($id)
+    {
+        $this->dispatch('viewItem', $id);
+    }
+
+    public function toggleFeatured($id)
+    {
+        $this->dispatch('toggleFeatured', $id);
+    }
+
+    public function toggleStatus($id)
+    {
+        $this->dispatch('toggleStatus', $id);
+    }
+
+    public function getGenericMethod($method)
+    {
+        $methodMap = [
+            'editPost' => 'editItem',
+            'editUser' => 'editItem',
+            'editFaq' => 'editItem',
+            'deletePost' => 'deleteItem',
+            'deleteUser' => 'deleteItem',
+            'deleteFaq' => 'deleteItem',
+            'viewUser' => 'viewItem',
+            'toggleFeatured' => 'toggleFeatured',
+            'toggleStatus' => 'toggleStatus',
+        ];
+
+        return $methodMap[$method] ?? $method;
+    }
+
     public function render()
     {
         return view('livewire.shared.partials.data-table', [

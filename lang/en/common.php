@@ -60,6 +60,8 @@ return [
         'required' => 'Required',
         'loading' => 'Loading...',
         'all' => 'All',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
     ],
 
 
@@ -122,7 +124,10 @@ return [
         'no_team' => 'No Team',
         'main' => 'MAIN',
         'management' => 'MANAGEMENT',
+        'content_management' => 'CONTENT MANAGEMENT',
         'users' => 'Users',
+        'blog' => 'Blog',
+        'faq' => 'FAQ',
         'backoffice' => 'Backoffice',
     ],
 ];

@@ -120,7 +120,7 @@ class RolePermissionSeeder extends Seeder
 
             'editor' => array_filter($allPermissions, function ($permission) {
                 // Editor can read all, create/update specific groups, no destroy
-                $allowedGroups = ['users', 'reports', 'statistics', 'qa'];
+                $allowedGroups = ['users', 'reports', 'statistics', 'qa', 'blog', 'faq'];
                 return $this->hasPermissionForGroups($permission, $allowedGroups, ['read', 'create', 'update']);
             }),
 
