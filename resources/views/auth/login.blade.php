@@ -10,30 +10,30 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="min-h-screen bg-gray-900">
+<body class="min-h-screen bg-gray-100 font-sans antialiased">
     <!-- Navbar -->
     <x-institutional-navbar />
     
     <div class="min-h-screen flex">
-<!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
-<div class="flex-1 bg-gray-800 relative flex items-center justify-center">
-    <!-- Triângulo GRANDE -->
-    <div class="absolute left-0 top-0 w-full h-full bg-gray-100" style="clip-path: polygon(0 0, 80% 50%, 0 100%)"></div>
-    
-    <!-- Conteúdo Centralizado -->
-    <div class="relative z-10 text-center text-white px-8">
-        <h2 class="text-4xl font-bold mb-4">{{ __('auth.login.welcome_title') }}</h2>
-        <p class="text-lg mb-8">{{ __('auth.login.welcome_subtitle') }}</p>
-        <a href="{{ route('register') }}" class="inline-block bg-gray-300 text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-400 transition-colors">
-            {{ __('auth.login.create_account_button') }}
-        </a>
-    </div>
-</div>
+        <!-- Lado Esquerdo - Bem-Vindo com Seta Diagonal -->
+        <div class="flex-1 bg-gray-800 relative flex items-center justify-center p-8">
+            <!-- Triângulo diagonal para a direita -->
+            <div class="absolute inset-0 bg-gray-300" style="clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);"></div>
+            
+            <!-- Conteúdo Centralizado -->
+            <div class="relative z-10 text-center text-gray-900 px-8">
+                <h2 class="text-4xl font-bold mb-4">Bem-Vindo de volta</h2>
+                <p class="text-lg mb-8">Ainda não tem uma conta?</p>
+                <a href="{{ route('register') }}" class="inline-block bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-700 transition-colors">
+                    Criar conta
+                </a>
+            </div>
+        </div>
         
         <!-- Lado Direito - Formulário de Login -->
         <div class="flex-1 bg-gray-100 flex items-center justify-center p-8">
             <div class="w-full max-w-md">
-                <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">{{ __('auth.login.title') }}</h1>
+                <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Login</h1>
                 
                 <x-validation-errors class="mb-4" />
                 
@@ -47,26 +47,26 @@
                     @csrf
                     
                     <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __('auth.login.email_label') }}</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Login, emails ou bla</label>
                         <input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent">
                     </div>
                     
                     <div class="mb-6">
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">{{ __('auth.login.password_label') }}</label>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                         <input id="password" type="password" name="password" required autocomplete="current-password" 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent">
                     </div>
                     
                     <button type="submit" class="w-full bg-gray-300 text-gray-900 font-semibold py-3 px-4 rounded-lg hover:bg-gray-400 transition-colors">
-                        {{ __('auth.login.button') }}
+                        Log in
                     </button>
                 </form>
                 
                 <!-- Separador Or -->
                 <div class="flex items-center my-6">
                     <div class="flex-1 border-t border-gray-300"></div>
-                    <span class="px-4 text-sm text-gray-500">{{ __('auth.login.or') }}</span>
+                    <span class="px-4 text-sm text-gray-500">Or</span>
                     <div class="flex-1 border-t border-gray-300"></div>
                 </div>
                 
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 
-                <p class="text-xs text-gray-500 text-center">{{ __('auth.login.social_text') }}</p>
+                <p class="text-xs text-gray-500 text-center">sla coisa que normalmente se coloca aqui</p>
             </div>
         </div>
     </div>
