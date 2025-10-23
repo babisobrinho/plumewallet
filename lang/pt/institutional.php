@@ -128,6 +128,66 @@ return [
         'accounts' => 'Contas:',
     ],
 
+    'about_us' => [
+        'hero' => [
+            'title' => 'Sobre Nós',
+            'subtitle' => 'Somos uma equipa apaixonada por tecnologia e inovação financeira, dedicada a criar soluções que simplificam a gestão do dinheiro e transformam a forma como as pessoas interagem com as suas finanças.',
+            'description' => 'Acreditamos que o trabalho em equipa é fundamental para o sucesso. Cada membro da nossa equipa traz competências únicas e uma visão diferente, permitindo-nos criar uma plataforma robusta e intuitiva que serve verdadeiramente as necessidades dos nossos utilizadores.',
+            'meet_team' => 'Conhecer a Equipa',
+            'our_history' => 'A Nossa História',
+        ],
+        'history' => [
+            'title' => 'Nossa História',
+            'beginning' => [
+                'title' => 'O Início',
+                'description' => 'Tudo começou com uma visão simples: tornar a gestão financeira acessível a todos. Reconhecemos que muitas pessoas lutam para manter o controlo das suas finanças pessoais, e decidimos criar uma solução que fosse intuitiva e poderosa.',
+                'icon_label' => 'Ideia Inicial',
+            ],
+            'development' => [
+                'title' => 'Desenvolvimento',
+                'description' => 'Durante meses de desenvolvimento intensivo, trabalhamos incansavelmente para criar uma plataforma que combinasse funcionalidades avançadas com uma interface simples. Cada linha de código foi escrita com o utilizador em mente.',
+                'icon_label' => 'Desenvolvimento',
+            ],
+            'launch' => [
+                'title' => 'Lançamento',
+                'description' => 'O lançamento do PlumeWallet marcou um marco importante na nossa jornada. Vimos os nossos utilizadores a adoptar rapidamente a plataforma e a beneficiar das funcionalidades que desenvolvemos com tanto cuidado e dedicação.',
+                'icon_label' => 'Lançamento',
+            ],
+        ],
+        'team' => [
+            'title' => 'Nossa Equipa',
+            'lenice' => [
+                'name' => 'Lenice Soares',
+                'description' => 'Apaixonada por tecnologia e desenvolvimento. Focada em PHP, Laravel, Python e JavaScript, sempre em busca de novos desafios e aprendizagens.',
+            ],
+            'babi' => [
+                'name' => 'Babi Sobrinho',
+                'description' => 'Desenvolvedora Full-stack apaixonada por criar experiências intuitivas e amigáveis. Especializada em PHP, Laravel, JavaScript e TailwindCSS, com foco em desenvolvimento web e multimédia.',
+            ],
+            'rebeca' => [
+                'name' => 'Rebeca Santos',
+                'description' => 'Desenvolvedora em formação, focada em JavaScript, HTML, CSS e Python. Sempre em busca de novos conhecimentos e experiências no mundo da programação e desenvolvimento web.',
+            ],
+        ],
+        'footer' => [
+            'contact_us' => [
+                'title' => 'Contacte-nos',
+                'description' => 'Tem alguma questão ou sugestão? Estamos aqui para ajudar e ouvir o que tem a dizer sobre a nossa plataforma.',
+                'button' => 'Contactar',
+            ],
+            'what_we_do' => [
+                'title' => 'O que fazemos',
+                'description' => 'Desenvolvemos soluções financeiras inovadoras que simplificam a gestão do dinheiro e ajudam os utilizadores a alcançar os seus objetivos financeiros.',
+                'button' => 'Página Inicial',
+            ],
+            'any_questions' => [
+                'title' => 'Alguma dúvida',
+                'description' => 'Consulte as nossas perguntas frequentes para encontrar respostas rápidas às suas questões mais comuns sobre a plataforma.',
+                'button' => 'FAQs',
+            ],
+        ],
+    ],
+
     'footer' => [
         'plume_wallet' => 'Plume Wallet',
         'description' => 'A solução completa para gerenciar suas finanças pessoais com facilidade e segurança.',

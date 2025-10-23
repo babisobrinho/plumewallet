@@ -125,6 +125,66 @@ return [
         'accounts' => 'Accounts:',
     ],
 
+    'about_us' => [
+        'hero' => [
+            'title' => 'About Us',
+            'subtitle' => 'We are a team passionate about technology and financial innovation, dedicated to creating solutions that simplify money management and transform how people interact with their finances.',
+            'description' => 'We believe that teamwork is fundamental to success. Each member of our team brings unique skills and a different vision, allowing us to create a robust and intuitive platform that truly serves our users\' needs.',
+            'meet_team' => 'Meet the Team',
+            'our_history' => 'Our History',
+        ],
+        'history' => [
+            'title' => 'Our History',
+            'beginning' => [
+                'title' => 'The Beginning',
+                'description' => 'It all started with a simple vision: to make financial management accessible to everyone. We recognized that many people struggle to maintain control of their personal finances, and we decided to create a solution that was intuitive and powerful.',
+                'icon_label' => 'Initial Idea',
+            ],
+            'development' => [
+                'title' => 'Development',
+                'description' => 'During months of intensive development, we worked tirelessly to create a platform that combined advanced features with a simple interface. Every line of code was written with the user in mind.',
+                'icon_label' => 'Development',
+            ],
+            'launch' => [
+                'title' => 'Launch',
+                'description' => 'The launch of PlumeWallet marked an important milestone in our journey. We saw our users quickly adopt the platform and benefit from the features we developed with such care and dedication.',
+                'icon_label' => 'Launch',
+            ],
+        ],
+        'team' => [
+            'title' => 'Our Team',
+            'lenice' => [
+                'name' => 'Lenice Soares',
+                'description' => 'Passionate about technology and development. Focused on PHP, Laravel, Python and JavaScript, always seeking new challenges and learning opportunities.',
+            ],
+            'babi' => [
+                'name' => 'Babi Sobrinho',
+                'description' => 'Full-stack developer passionate about creating intuitive and friendly experiences. Specialized in PHP, Laravel, JavaScript and TailwindCSS, with focus on web development and multimedia.',
+            ],
+            'rebeca' => [
+                'name' => 'Rebeca Santos',
+                'description' => 'Developer in training, focused on JavaScript, HTML, CSS and Python. Always seeking new knowledge and experiences in the world of programming and web development.',
+            ],
+        ],
+        'footer' => [
+            'contact_us' => [
+                'title' => 'Contact Us',
+                'description' => 'Have any questions or suggestions? We are here to help and listen to what you have to say about our platform.',
+                'button' => 'Contact',
+            ],
+            'what_we_do' => [
+                'title' => 'What We Do',
+                'description' => 'We develop innovative financial solutions that simplify money management and help users achieve their financial goals.',
+                'button' => 'Homepage',
+            ],
+            'any_questions' => [
+                'title' => 'Any Questions',
+                'description' => 'Check our frequently asked questions to find quick answers to your most common questions about the platform.',
+                'button' => 'FAQs',
+            ],
+        ],
+    ],
+
     'footer' => [
         'plume_wallet' => 'Plume Wallet',
         'description' => 'The complete solution to manage your personal finances with ease and security.',

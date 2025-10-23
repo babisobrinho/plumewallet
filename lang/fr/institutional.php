@@ -125,6 +125,66 @@ return [
         'accounts' => 'Comptes:',
     ],
 
+    'about_us' => [
+        'hero' => [
+            'title' => 'À Propos',
+            'subtitle' => 'Nous sommes une équipe passionnée par la technologie et l\'innovation financière, dédiée à créer des solutions qui simplifient la gestion de l\'argent et transforment la façon dont les gens interagissent avec leurs finances.',
+            'description' => 'Nous croyons que le travail d\'équipe est fondamental pour le succès. Chaque membre de notre équipe apporte des compétences uniques et une vision différente, nous permettant de créer une plateforme robuste et intuitive qui sert vraiment les besoins de nos utilisateurs.',
+            'meet_team' => 'Rencontrer l\'Équipe',
+            'our_history' => 'Notre Histoire',
+        ],
+        'history' => [
+            'title' => 'Notre Histoire',
+            'beginning' => [
+                'title' => 'Le Début',
+                'description' => 'Tout a commencé avec une vision simple : rendre la gestion financière accessible à tous. Nous avons reconnu que beaucoup de gens luttent pour maintenir le contrôle de leurs finances personnelles, et nous avons décidé de créer une solution qui soit intuitive et puissante.',
+                'icon_label' => 'Idée Initiale',
+            ],
+            'development' => [
+                'title' => 'Développement',
+                'description' => 'Pendant des mois de développement intensif, nous avons travaillé sans relâche pour créer une plateforme qui combinait des fonctionnalités avancées avec une interface simple. Chaque ligne de code a été écrite avec l\'utilisateur à l\'esprit.',
+                'icon_label' => 'Développement',
+            ],
+            'launch' => [
+                'title' => 'Lancement',
+                'description' => 'Le lancement de PlumeWallet a marqué une étape importante dans notre parcours. Nous avons vu nos utilisateurs adopter rapidement la plateforme et bénéficier des fonctionnalités que nous avons développées avec tant de soin et de dévouement.',
+                'icon_label' => 'Lancement',
+            ],
+        ],
+        'team' => [
+            'title' => 'Notre Équipe',
+            'lenice' => [
+                'name' => 'Lenice Soares',
+                'description' => 'Passionnée par la technologie et le développement. Concentrée sur PHP, Laravel, Python et JavaScript, toujours à la recherche de nouveaux défis et opportunités d\'apprentissage.',
+            ],
+            'babi' => [
+                'name' => 'Babi Sobrinho',
+                'description' => 'Développeuse Full-stack passionnée par la création d\'expériences intuitives et conviviales. Spécialisée en PHP, Laravel, JavaScript et TailwindCSS, avec un focus sur le développement web et multimédia.',
+            ],
+            'rebeca' => [
+                'name' => 'Rebeca Santos',
+                'description' => 'Développeuse en formation, concentrée sur JavaScript, HTML, CSS et Python. Toujours à la recherche de nouvelles connaissances et expériences dans le monde de la programmation et du développement web.',
+            ],
+        ],
+        'footer' => [
+            'contact_us' => [
+                'title' => 'Contactez-nous',
+                'description' => 'Avez-vous des questions ou des suggestions ? Nous sommes là pour vous aider et écouter ce que vous avez à dire sur notre plateforme.',
+                'button' => 'Contacter',
+            ],
+            'what_we_do' => [
+                'title' => 'Ce que nous faisons',
+                'description' => 'Nous développons des solutions financières innovantes qui simplifient la gestion de l\'argent et aident les utilisateurs à atteindre leurs objectifs financiers.',
+                'button' => 'Page d\'Accueil',
+            ],
+            'any_questions' => [
+                'title' => 'Des questions',
+                'description' => 'Consultez nos questions fréquemment posées pour trouver des réponses rapides à vos questions les plus courantes sur la plateforme.',
+                'button' => 'FAQ',
+            ],
+        ],
+    ],
+
     'footer' => [
         'plume_wallet' => 'Plume Wallet',
         'description' => 'La solution complète pour gérer vos finances personnelles avec facilité et sécurité.',
