@@ -8,11 +8,13 @@ use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
 use App\Livewire\Institutional\Homepage\Show as InstitutionalHomepageShow;
+use App\Livewire\Institutional\AboutUs\Show as InstitutionalAboutUsShow;
 use Illuminate\Support\Facades\Route;
 
 // Institutional Routes (Public)
 Route::prefix('institutional')->name('institutional.')->group(function () {
     Route::get('/', InstitutionalHomepageShow::class)->name('homepage.show');
+    Route::get('/about-us', InstitutionalAboutUsShow::class)->name('about-us.show');
 });
 
 // Root route redirects to institutional homepage

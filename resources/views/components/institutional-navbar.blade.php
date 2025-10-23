@@ -17,6 +17,9 @@
                         <x-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
                             {{ __('institutional.navigation.home') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('institutional.about-us.show') }}" :active="request()->routeIs('institutional.about-us.show')">
+                            Sobre Nós
+                        </x-nav-link>
                     @endguest
                 </div>
             </div>
@@ -100,6 +103,9 @@
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
                     {{ __('institutional.navigation.home') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('institutional.about-us.show') }}" :active="request()->routeIs('institutional.about-us.show')">
+                    Sobre Nós
                 </x-responsive-nav-link>
             </div>
         @endguest
