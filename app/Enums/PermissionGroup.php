@@ -16,4 +16,6 @@ enum PermissionGroup: string
     case QA = 'qa';
     case BLOG = 'blog';
     case FAQ = 'faq';
+    case LOGS = 'logs';
+    case LOGIN_ATTEMPTS = 'login_attempts';
 }

@@ -125,9 +125,12 @@ return [
         'main' => 'MAIN',
         'management' => 'MANAGEMENT',
         'content_management' => 'CONTENT MANAGEMENT',
+        'monitoring_logs' => 'MONITORING & LOGS',
         'users' => 'Users',
         'blog' => 'Blog',
         'faq' => 'FAQ',
+        'logs' => 'Logs',
+        'login_attempts' => 'Login Attempts',
         'backoffice' => 'Backoffice',
     ],
 ];

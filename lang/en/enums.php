@@ -44,4 +44,26 @@ return [
         'features' => 'Features',
         'support' => 'Support',
     ],
+
+    'log_type' => [
+        'system' => 'System',
+        'audit' => 'Audit',
+        'api' => 'API',
+        'login' => 'Login',
+    ],
+
+    'log_level' => [
+        'debug' => 'Debug',
+        'info' => 'Info',
+        'warning' => 'Warning',
+        'error' => 'Error',
+        'critical' => 'Critical',
+    ],
+
+    'login_attempt_status' => [
+        'success' => 'Success',
+        'failed' => 'Failed',
+        'blocked' => 'Blocked',
+        'suspicious' => 'Suspicious',
+    ],
 ];

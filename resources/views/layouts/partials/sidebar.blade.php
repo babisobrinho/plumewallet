@@ -53,5 +53,26 @@
                 </a>
             </div>
         </div>
+
+        <!-- MONITORIZAÇÃO E LOGS Section -->
+        <div class="px-4 mb-4">
+            <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('common.navigation.monitoring_logs') }}</h3>
+            <div class="space-y-1">
+                <a href="{{ route('backoffice.logs.index') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium rounded-md
+                   {{ request()->routeIs('backoffice.logs.*') ? 'bg-blue-600 text-white' :
+                    'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-gray-800' }}">
+                    <i class="ti ti-file-text mr-3 h-5 w-5"></i>
+                    {{ __('common.navigation.logs') }}
+                </a>
+                <a href="{{ route('backoffice.login-attempts.index') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium rounded-md
+                   {{ request()->routeIs('backoffice.login-attempts.*') ? 'bg-blue-600 text-white' :
+                    'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-gray-800' }}">
+                    <i class="ti ti-login mr-3 h-5 w-5"></i>
+                    {{ __('common.navigation.login_attempts') }}
+                </a>
+            </div>
+        </div>
     </nav>
 </div>

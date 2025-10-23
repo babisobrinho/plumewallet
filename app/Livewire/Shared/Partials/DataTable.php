@@ -62,13 +62,36 @@ class DataTable extends Component
         // Apply search
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('email', 'like', '%' . $this->search . '%');
+                // Different search fields based on model
+                switch ($this->model) {
+                    case 'User':
+                        $q->where('name', 'like', '%' . $this->search . '%')
+                          ->orWhere('email', 'like', '%' . $this->search . '%');
+                        break;
+                    case 'SystemLog':
+                        $q->where('message', 'like', '%' . $this->search . '%');
+                        break;
+                    case 'LoginAttempt':
+                        $q->where('email', 'like', '%' . $this->search . '%')
+                          ->orWhere('ip_address', 'like', '%' . $this->search . '%');
+                        break;
+                    case 'Post':
+                        $q->where('title', 'like', '%' . $this->search . '%')
+                          ->orWhere('content', 'like', '%' . $this->search . '%');
+                        break;
+                    case 'Faq':
+                        $q->where('question', 'like', '%' . $this->search . '%')
+                          ->orWhere('answer', 'like', '%' . $this->search . '%');
+                        break;
+                    default:
+                        $q->where('name', 'like', '%' . $this->search . '%')
+                          ->orWhere('email', 'like', '%' . $this->search . '%');
+                }
             });
         }
 
         // Apply filters based on model
-        if ($this->model === 'user') {
+        if ($this->model === 'User') {
             $this->applyUserFilters($query);
         }
 
