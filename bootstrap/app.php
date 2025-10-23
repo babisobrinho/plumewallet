@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\SetUserLanguage::class,
         ]);
         
+        // Middleware para capturar tentativas de login
+        $middleware->web(append: [
+            \App\Http\Middleware\LogLoginAttempts::class,
+        ]);
+        
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
