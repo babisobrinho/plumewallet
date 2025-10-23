@@ -9,10 +9,11 @@ return [
     ],
 
     'hero' => [
+        'welcome' => 'Welcome to Plume',
         'title' => 'Control your finances',
         'subtitle' => 'With your goals in mind',
-        'get_started' => 'Get Started',
-        'learn_more' => 'Learn More',
+        'get_started' => 'GET STARTED',
+        'learn_more' => 'LEARN MORE',
         'no_credit_card' => 'No credit card required • Free trial • Cancel anytime',
     ],
 
@@ -37,18 +38,23 @@ return [
     'features' => [
         'title' => 'Control your finances',
         'subtitle' => 'With your goals in mind',
-        'savings' => [
-            'title' => 'Savings',
-            'description' => 'Track your expenses and identify savings opportunities.',
+        'smart_savings' => [
+            'title' => 'Smart Savings',
+            'subtitle' => 'Identify savings opportunities',
+            'section_title' => 'Automatic Savings',
+            'description' => 'Set savings goals and watch your money grow automatically.',
         ],
         'dream_trips' => [
-            'title' => 'Dream trips',
+            'title' => 'Control your finances',
+            'subtitle' => 'With your goals in mind',
+            'section_title' => 'Dream trips',
             'description' => 'Plan and realize your dream trips with financial control.',
-            'link' => 'Learn more →',
         ],
         'investments' => [
             'title' => 'Investments',
             'description' => 'Monitor your investments and asset growth.',
+            'section_title' => 'Smart Growth',
+            'section_description' => 'Invest your money intelligently and watch your returns grow.',
         ],
     ],
 
@@ -70,21 +76,53 @@ return [
         'title' => 'It\'s easy to get started',
         'subtitle' => 'In just a few steps you will be controlling your finances',
         'step1' => [
-            'title' => 'Choose your layout',
-            'description' => 'Customize the interface according to your preferences and needs.',
+            'title' => 'Choose your profile',
+            'description' => 'Select the profile that best fits your financial situation',
             'label' => 'Step 1',
         ],
         'step2' => [
-            'title' => 'Register your number',
-            'description' => 'Connect your WhatsApp to start registering expenses easily.',
+            'title' => 'Configure your account',
+            'description' => 'Add your information and connect your bank accounts',
             'label' => 'Step 2',
         ],
         'step3' => [
-            'title' => 'Register your expenses',
-            'description' => 'Start registering your expenses and income simply and quickly.',
+            'title' => 'Start controlling',
+            'description' => 'Register your income and expenses for total control',
             'label' => 'Step 3',
         ],
-        'cta' => 'Start now!',
+        'cta' => 'START NOW',
+    ],
+
+    'profiles' => [
+        'title' => 'The perfect solution for your wallet',
+        'subtitle' => 'Explaining about managing finances and such',
+        'family' => [
+            'title' => 'Family',
+            'subtitle' => 'Family financial management',
+            'income' => ['Spouse 1 Salary', 'Spouse 2 Salary', 'Other Income'],
+            'expenses' => ['Housing', 'Utilities', 'Food', 'Transport', 'Children\'s Education', 'Health', 'Insurance', 'Savings', 'Family Entertainment', 'Childcare'],
+            'accounts' => ['Joint Account', 'Family Savings'],
+        ],
+        'student' => [
+            'title' => 'Student',
+            'subtitle' => 'Financial management for students',
+            'income' => ['Scholarship', 'Part-time Work', 'Family Support', 'Other Income'],
+            'expenses' => ['Tuition', 'School Materials', 'Transport', 'Food', 'Accommodation', 'Entertainment', 'Health'],
+            'accounts' => ['Main Wallet', 'Bank Account'],
+        ],
+        'professional' => [
+            'title' => 'Employed Professional',
+            'subtitle' => 'Professional financial organization',
+            'income' => ['Salary', 'Bonuses', 'Other Income'],
+            'expenses' => ['Housing (rent/mortgage)', 'Utilities (water, electricity, gas)', 'Telecommunications', 'Food', 'Transport', 'Health', 'Insurance', 'Savings', 'Entertainment', 'Clothing'],
+            'accounts' => ['Current Account', 'Savings', 'Wallet'],
+        ],
+    ],
+
+    'common' => [
+        'income' => 'Income:',
+        'expenses' => 'Expenses:',
+        'accounts' => 'Accounts:',
     ],
 
     'footer' => [

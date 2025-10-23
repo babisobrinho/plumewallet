@@ -9,10 +9,11 @@ return [
     ],
 
     'hero' => [
+        'welcome' => 'Bienvenue chez Plume',
         'title' => 'Contrôlez vos finances',
         'subtitle' => 'Avec vos objectifs en tête',
-        'get_started' => 'Commencer',
-        'learn_more' => 'En savoir plus',
+        'get_started' => 'COMMENCER',
+        'learn_more' => 'EN SAVOIR PLUS',
         'no_credit_card' => 'Aucune carte de crédit requise • Essai gratuit • Annulation à tout moment',
     ],
 
@@ -37,18 +38,23 @@ return [
     'features' => [
         'title' => 'Contrôlez vos finances',
         'subtitle' => 'Avec vos objectifs en tête',
-        'savings' => [
-            'title' => 'Économies',
-            'description' => 'Suivez vos dépenses et identifiez les opportunités d\'économies.',
+        'smart_savings' => [
+            'title' => 'Économie Intelligente',
+            'subtitle' => 'Identifiez les opportunités d\'épargne',
+            'section_title' => 'Épargne Automatique',
+            'description' => 'Définissez des objectifs d\'épargne et regardez votre argent croître automatiquement.',
         ],
         'dream_trips' => [
-            'title' => 'Voyages de rêve',
+            'title' => 'Contrôlez vos finances',
+            'subtitle' => 'Avec vos objectifs en tête',
+            'section_title' => 'Voyages de rêve',
             'description' => 'Planifiez et réalisez vos voyages de rêve avec un contrôle financier.',
-            'link' => 'En savoir plus →',
         ],
         'investments' => [
             'title' => 'Investissements',
             'description' => 'Surveillez vos investissements et la croissance de votre patrimoine.',
+            'section_title' => 'Croissance Intelligente',
+            'section_description' => 'Investissez votre argent intelligemment et regardez vos rendements croître.',
         ],
     ],
 
@@ -70,18 +76,53 @@ return [
         'title' => 'C\'est facile de commencer',
         'subtitle' => 'En quelques étapes seulement, vous contrôlerez vos finances',
         'step1' => [
-            'title' => 'Choisissez votre mise en page',
-            'description' => 'Personnalisez l\'interface selon vos préférences et besoins.',
+            'title' => 'Choisissez votre profil',
+            'description' => 'Sélectionnez le profil qui correspond le mieux à votre situation financière',
+            'label' => 'Étape 1',
         ],
         'step2' => [
-            'title' => 'Enregistrez votre numéro',
-            'description' => 'Connectez votre WhatsApp pour commencer à enregistrer facilement vos dépenses.',
+            'title' => 'Configurez votre compte',
+            'description' => 'Ajoutez vos informations et connectez vos comptes bancaires',
+            'label' => 'Étape 2',
         ],
         'step3' => [
-            'title' => 'Enregistrez vos dépenses',
-            'description' => 'Commencez à enregistrer vos dépenses et revenus de manière simple et rapide.',
+            'title' => 'Commencez à contrôler',
+            'description' => 'Enregistrez vos revenus et dépenses pour un contrôle total',
+            'label' => 'Étape 3',
         ],
-        'cta' => 'Commencez maintenant !',
+        'cta' => 'COMMENCER MAINTENANT',
+    ],
+
+    'profiles' => [
+        'title' => 'La solution parfaite pour votre portefeuille',
+        'subtitle' => 'Explication sur la gestion des finances et autres',
+        'family' => [
+            'title' => 'Famille',
+            'subtitle' => 'Gestion financière familiale',
+            'income' => ['Salaire Conjoint 1', 'Salaire Conjoint 2', 'Autres Revenus'],
+            'expenses' => ['Logement', 'Services publics', 'Alimentation', 'Transport', 'Éducation (enfants)', 'Santé', 'Assurances', 'Épargne', 'Divertissement familial', 'Garde d\'enfants'],
+            'accounts' => ['Compte Joint', 'Épargne Familiale'],
+        ],
+        'student' => [
+            'title' => 'Étudiant',
+            'subtitle' => 'Gestion financière pour étudiants',
+            'income' => ['Bourse d\'études', 'Travail à temps partiel', 'Soutien familial', 'Autres Revenus'],
+            'expenses' => ['Frais de scolarité', 'Matériel scolaire', 'Transport', 'Alimentation', 'Hébergement', 'Divertissement', 'Santé'],
+            'accounts' => ['Portefeuille Principal', 'Compte Bancaire'],
+        ],
+        'professional' => [
+            'title' => 'Professionnel Salarié',
+            'subtitle' => 'Organisation financière professionnelle',
+            'income' => ['Salaire', 'Primes/Bonus', 'Autres Revenus'],
+            'expenses' => ['Logement (loyer/hypothèque)', 'Services publics (eau, électricité, gaz)', 'Télécommunications', 'Alimentation', 'Transport', 'Santé', 'Assurances', 'Épargne', 'Divertissement', 'Vêtements'],
+            'accounts' => ['Compte Courant', 'Épargne', 'Portefeuille'],
+        ],
+    ],
+
+    'common' => [
+        'income' => 'Revenus:',
+        'expenses' => 'Dépenses:',
+        'accounts' => 'Comptes:',
     ],
 
     'footer' => [

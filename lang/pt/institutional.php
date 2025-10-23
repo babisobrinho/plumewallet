@@ -9,10 +9,11 @@ return [
     ],
 
     'hero' => [
+        'welcome' => 'Bem-vindo ao Plume',
         'title' => 'Controle suas finanças',
         'subtitle' => 'Com seus objetivos em mente',
-        'get_started' => 'Começar Agora',
-        'learn_more' => 'Saiba Mais',
+        'get_started' => 'COMEÇAR AGORA',
+        'learn_more' => 'SAIBA MAIS',
         'no_credit_card' => 'Sem cartão de crédito • Teste gratuito • Cancelamento a qualquer momento',
         'image_alt' => 'Finanças pessoais',
     ],
@@ -38,18 +39,23 @@ return [
     'features' => [
         'title' => 'Controle suas finanças',
         'subtitle' => 'Com seus objetivos em mente',
-        'savings' => [
-            'title' => 'Economia',
-            'description' => 'Acompanhe seus gastos e identifique oportunidades de economia.',
+        'smart_savings' => [
+            'title' => 'Economia Inteligente',
+            'subtitle' => 'Identifique oportunidades de poupança',
+            'section_title' => 'Poupança Automática',
+            'description' => 'Configure metas de poupança e veja seu dinheiro crescer automaticamente.',
         ],
         'dream_trips' => [
-            'title' => 'Viagens do sonho',
+            'title' => 'Controle suas finanças',
+            'subtitle' => 'Com seus objetivos em mente',
+            'section_title' => 'Viagens do sonho',
             'description' => 'Planeje e realize suas viagens dos sonhos com controle financeiro.',
-            'link' => 'Saiba mais →',
         ],
         'investments' => [
             'title' => 'Investimentos',
             'description' => 'Monitore seus investimentos e crescimento patrimonial.',
+            'section_title' => 'Crescimento Inteligente',
+            'section_description' => 'Invista seu dinheiro de forma inteligente e veja seus rendimentos crescerem.',
         ],
     ],
 
@@ -70,23 +76,56 @@ return [
     ],
 
     'steps' => [
-        'title' => 'É fácil de começar',
+        'title' => 'É fácil começar',
         'subtitle' => 'Em apenas alguns passos você estará controlando suas finanças',
         'step1' => [
-            'title' => 'Escolher seu layout',
-            'description' => 'Personalize a interface conforme suas preferências e necessidades.',
+            'title' => 'Escolha seu perfil',
+            'description' => 'Selecione o perfil que melhor se adequa à sua situação financeira',
             'label' => 'Passo 1',
         ],
         'step2' => [
-            'title' => 'Cadastre seu número',
-            'description' => 'Conecte seu WhatsApp para começar a registrar gastos facilmente.',
+            'title' => 'Configure sua conta',
+            'description' => 'Adicione suas informações e conecte suas contas bancárias',
             'label' => 'Passo 2',
         ],
         'step3' => [
-            'title' => 'Registre seus gastos',
-            'description' => 'Comece a registrar seus gastos e receitas de forma simples e rápida.',
+            'title' => 'Comece a controlar',
+            'description' => 'Registre suas receitas e despesas para ter controle total',
+            'label' => 'Passo 3',
         ],
-        'cta' => 'Comece já!',
+        'cta' => 'COMEÇAR AGORA',
+    ],
+
+    'profiles' => [
+        'title' => 'A solução perfeita para a tua carteira',
+        'subtitle' => 'Explicando sobre administrar finanças e tals',
+        'family' => [
+            'title' => 'Família',
+            'subtitle' => 'Gestão financeira familiar',
+            'income' => ['Salário Cônjuge 1', 'Salário Cônjuge 2', 'Outros Rendimentos'],
+            'expenses' => ['Habitação', 'Utilidades', 'Alimentação', 'Transporte', 'Educação (crianças)', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento Familiar', 'Cuidados Infantis'],
+            'accounts' => ['Conta Conjunta', 'Poupança Familiar'],
+        ],
+        'student' => [
+            'title' => 'Estudante',
+            'subtitle' => 'Gestão financeira para estudantes',
+            'income' => ['Bolsa de Estudos', 'Trabalho Part-time', 'Apoio Familiar', 'Outros Rendimentos'],
+            'expenses' => ['Propinas', 'Material Escolar', 'Transporte', 'Alimentação', 'Alojamento', 'Entretenimento', 'Saúde'],
+            'accounts' => ['Carteira Principal', 'Conta Bancária'],
+        ],
+        'professional' => [
+            'title' => 'Profissional Empregado',
+            'subtitle' => 'Organização financeira profissional',
+            'income' => ['Salário', 'Prémios/Bónus', 'Outros Rendimentos'],
+            'expenses' => ['Habitação (renda/empréstimo)', 'Utilidades (água, luz, gás)', 'Telecomunicações', 'Alimentação', 'Transporte', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento', 'Vestuário'],
+            'accounts' => ['Conta Corrente', 'Poupança', 'Carteira'],
+        ],
+    ],
+
+    'common' => [
+        'income' => 'Receitas:',
+        'expenses' => 'Despesas:',
+        'accounts' => 'Contas:',
     ],
 
     'footer' => [

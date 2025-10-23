@@ -12,7 +12,7 @@
                     <!-- Texto "Welcome to Plume" adicionado aqui -->
                     <div class="mb-4">
                         <span class="text-xl md:text-2xl font-semibold text-gray-700">
-                            Welcome to Plume
+                            {{ __('institutional.hero.welcome') }}
                         </span>
                     </div>
                     
@@ -26,11 +26,11 @@
                         @guest
                             <x-link href="{{ route('register') }}" 
                                    class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
-                                GET STARTED
+                                {{ __('institutional.hero.get_started') }}
                             </x-link>
                             <x-link href="{{ route('login') }}" 
                                    class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
-                                LEARN MORE
+                                {{ __('institutional.hero.learn_more') }}
                             </x-link>
                         @else
                             <x-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" 
@@ -95,15 +95,15 @@
                         <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 0 ? 'text-white' : 'text-gray-700'">
                             <!-- Título Principal -->
                             <div>
-                                <h1 class="text-2xl font-bold mb-2">Economia Inteligente</h1>
-                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">Identifique oportunidades de poupança</p>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.smart_savings.title') }}</h1>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.smart_savings.subtitle') }}</p>
                                 
                                 <!-- Linha divisória -->
                                 <div class="border-t mb-6" :class="currentSlide === 0 ? 'border-gray-600' : 'border-gray-300'"></div>
                                 
                                 <!-- Seção de conteúdo -->
-                                <h2 class="text-xl font-semibold mb-3">Poupança Automática</h2>
-                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">Configure metas de poupança e veja seu dinheiro crescer automaticamente.</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.smart_savings.section_title') }}</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.smart_savings.description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -120,15 +120,15 @@
                         <div class="p-8 text-white text-left h-full flex flex-col">
                             <!-- Título Principal -->
                             <div>
-                                <h1 class="text-2xl font-bold mb-2">Controle suas finanças</h1>
-                                <p class="text-gray-300 text-sm mb-6">Com seus objetivos em mente</p>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.dream_trips.title') }}</h1>
+                                <p class="text-gray-300 text-sm mb-6">{{ __('institutional.features.dream_trips.subtitle') }}</p>
                                 
                                 <!-- Linha divisória -->
                                 <div class="border-t border-gray-600 mb-6"></div>
                                 
                                 <!-- Seção Dream trips -->
-                                <h2 class="text-xl font-semibold mb-3">Viagens do sonho</h2>
-                                <p class="text-gray-300 text-sm mb-6">Plan and realize your dream trips with financial control.</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.dream_trips.section_title') }}</h2>
+                                <p class="text-gray-300 text-sm mb-6">{{ __('institutional.features.dream_trips.description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -152,8 +152,8 @@
                                 <div class="border-t mb-6" :class="currentSlide === 2 ? 'border-gray-600' : 'border-gray-300'"></div>
                                 
                                 <!-- Seção de conteúdo -->
-                                <h2 class="text-xl font-semibold mb-3">Crescimento Inteligente</h2>
-                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">Invista seu dinheiro de forma inteligente e veja seus rendimentos crescerem.</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.investments.section_title') }}</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.investments.section_description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -198,10 +198,10 @@
             <!-- Título da Seção -->
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    É fácil começar
+                    {{ __('institutional.steps.title') }}
                 </h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                    Em apenas alguns passos você estará controlando suas finanças
+                    {{ __('institutional.steps.subtitle') }}
                 </p>
             </div>
 
@@ -215,8 +215,8 @@
                                 <span class="text-white text-2xl font-bold">1</span>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Escolha seu perfil</h3>
-                                <p class="text-gray-600">Selecione o perfil que melhor se adequa à sua situação financeira</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step1.title') }}</h3>
+                                <p class="text-gray-600">{{ __('institutional.steps.step1.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -228,8 +228,8 @@
                                 <i class="ti ti-phone text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Configure sua conta</h3>
-                                <p class="text-gray-600">Adicione suas informações e conecte suas contas bancárias</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step2.title') }}</h3>
+                                <p class="text-gray-600">{{ __('institutional.steps.step2.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -241,8 +241,8 @@
                                 <i class="ti ti-chart-line text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Comece a controlar</h3>
-                                <p class="text-gray-600">Registre suas receitas e despesas para ter controle total</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step3.title') }}</h3>
+                                <p class="text-gray-600">{{ __('institutional.steps.step3.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                 <!-- Botão CTA Centralizado -->
                 <div class="text-center">
                     <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-bold text-lg rounded-lg hover:bg-teal-700 transition-colors shadow-lg">
-                        COMEÇAR AGORA
+                        {{ __('institutional.steps.cta') }}
                         <i class="ti ti-arrow-right w-5 h-5 ml-2"></i>
                     </x-link>
                 </div>
@@ -265,107 +265,28 @@
             <!-- Título da Seção -->
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    A solução perfeita para a tua carteira
+                    {{ __('institutional.profiles.title') }}
                 </h2>
                 <p class="text-gray-600 text-lg">
-                    Explicando sobre administrar finanças e tals
+                    {{ __('institutional.profiles.subtitle') }}
                 </p>
             </div>
 
             <!-- Carrossel de Perfis -->
             <div class="relative" 
                  x-data="{ 
-                     currentProfile: 0,
-                     profiles: [
-                         {
-                             title: 'Família',
-                             subtitle: 'Gestão financeira familiar',
-                             income: ['Salário Cônjuge 1', 'Salário Cônjuge 2', 'Outros Rendimentos'],
-                             expenses: ['Habitação', 'Utilidades', 'Alimentação', 'Transporte', 'Educação (crianças)', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento Familiar', 'Cuidados Infantis'],
-                             accounts: ['Conta Conjunta', 'Poupança Familiar'],
-                             icon: 'ti ti-users',
-                             color: 'bg-blue-600'
-                         },
-                         {
-                             title: 'Estudante',
-                             subtitle: 'Gestão financeira para estudantes',
-                             income: ['Bolsa de Estudos', 'Trabalho Part-time', 'Apoio Familiar', 'Outros Rendimentos'],
-                             expenses: ['Propinas', 'Material Escolar', 'Transporte', 'Alimentação', 'Alojamento', 'Entretenimento', 'Saúde'],
-                             accounts: ['Carteira Principal', 'Conta Bancária'],
-                             icon: 'ti ti-school',
-                             color: 'bg-green-600'
-                         },
-                         {
-                             title: 'Profissional Empregado',
-                             subtitle: 'Organização financeira profissional',
-                             income: ['Salário', 'Prémios/Bónus', 'Outros Rendimentos'],
-                             expenses: ['Habitação (renda/empréstimo)', 'Utilidades (água, luz, gás)', 'Telecomunicações', 'Alimentação', 'Transporte', 'Saúde', 'Seguros', 'Poupanças', 'Entretenimento', 'Vestuário'],
-                             accounts: ['Conta Corrente', 'Poupança', 'Carteira'],
-                             icon: 'ti ti-briefcase',
-                             color: 'bg-purple-600'
-                         }
-                     ],
-                     nextProfile() { this.currentProfile = (this.currentProfile + 1) % this.profiles.length; },
-                     previousProfile() { this.currentProfile = (this.currentProfile - 1 + this.profiles.length) % this.profiles.length; },
-                     goToProfile(index) { this.currentProfile = index; }
+                     currentProfile: 1,
+                     goToProfile(profile) { this.currentProfile = profile; },
+                     nextProfile() { this.currentProfile = (this.currentProfile + 1) % 3; },
+                     previousProfile() { this.currentProfile = (this.currentProfile - 1 + 3) % 3; }
                  }">
                 
                 <!-- Cards Container -->
                 <div class="relative h-96 flex items-center justify-center overflow-hidden">
-                    <!-- Card 1 - Família -->
+                    <!-- Card 1 - Estudante -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
                          :class="currentProfile === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
                          @click="goToProfile(0)">
-                        <div class="p-8 text-left h-full flex flex-col">
-                            <!-- Header do Card -->
-                            <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-                                    <i class="ti ti-users text-white text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-900">Família</h3>
-                                    <p class="text-sm text-gray-600">Gestão financeira familiar</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Conteúdo do Card -->
-                            <div class="flex-1">
-                                <!-- Receitas -->
-                                <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário Cônjuge 1</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário Cônjuge 2</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Outros</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Despesas -->
-                                <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Habitação</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Educação</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Cuidados</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Contas -->
-                                <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Conjunta</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Poupança</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 - Estudante (CENTRO) -->
-                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentProfile === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
-                         @click="goToProfile(1)">
                         <div class="p-8 text-left h-full flex flex-col">
                             <!-- Header do Card -->
                             <div class="flex items-center mb-6">
@@ -373,8 +294,8 @@
                                     <i class="ti ti-school text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">Estudante</h3>
-                                    <p class="text-sm text-gray-600">Gestão financeira para estudantes</p>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.student.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.student.subtitle') }}</p>
                                 </div>
                             </div>
                             
@@ -382,30 +303,80 @@
                             <div class="flex-1">
                                 <!-- Receitas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Bolsa de Estudos</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Trabalho Part-time</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Apoio Familiar</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Despesas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Propinas</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Material Escolar</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Alojamento</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Contas -->
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Carteira Principal</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Bancária</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.student.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.student.accounts.1') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 - Família (CENTRO) -->
+                    <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
+                         :class="currentProfile === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         @click="goToProfile(1)">
+                        <div class="p-8 text-left h-full flex flex-col">
+                            <!-- Header do Card -->
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="ti ti-users text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.family.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.family.subtitle') }}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Conteúdo do Card -->
+                            <div class="flex-1">
+                                <!-- Receitas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.2') }}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Despesas -->
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.2') }}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.family.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.family.accounts.1') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -423,8 +394,8 @@
                                     <i class="ti ti-briefcase text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">Profissional Empregado</h3>
-                                    <p class="text-sm text-gray-600">Organização financeira profissional</p>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.professional.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.professional.subtitle') }}</p>
                                 </div>
                             </div>
                             
@@ -432,31 +403,31 @@
                             <div class="flex-1">
                                 <!-- Receitas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Receitas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Salário</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Prémios/Bónus</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Outros</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Despesas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Despesas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Habitação</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Utilidades</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">Seguros</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Contas -->
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Contas:</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Conta Corrente</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Poupança</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Carteira</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.1') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.2') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -464,29 +435,29 @@
                     </div>
                 </div>
 
-                <!-- Indicadores -->
-                <div class="flex justify-center mt-8 space-x-2">
-                    <template x-for="(profile, index) in profiles" :key="index">
-                        <button @click="goToProfile(index)"
-                                class="w-3 h-3 rounded-full transition-colors"
-                                :class="currentProfile === index ? 'bg-teal-600' : 'bg-gray-300'">
-                        </button>
-                    </template>
+                <!-- Indicadores do Carrossel -->
+                <div class="flex justify-center items-center mt-12 space-x-2">
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentProfile === 0 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToProfile(0)"></button>
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentProfile === 1 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToProfile(1)"></button>
+                    <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
+                            :class="currentProfile === 2 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            @click="goToProfile(2)"></button>
                 </div>
 
-                <!-- Botões de Navegação -->
-                <button @click="previousProfile()" 
-                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg transition-colors">
-                    <i class="ti ti-chevron-left text-xl"></i>
-                </button>
-                <button @click="nextProfile()" 
-                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg transition-colors">
-                    <i class="ti ti-chevron-right text-xl"></i>
-                </button>
-
-                <!-- Botão CTA -->
-                <div class="text-center mt-12">
-                    
+                <!-- Botões de navegação -->
+                <div class="flex justify-center items-center mt-6 space-x-4">
+                    <button class="p-3 rounded-full bg-teal-600 shadow-lg hover:bg-teal-700 transition-colors"
+                            @click="previousProfile()">
+                        <i class="ti ti-chevron-left text-white text-lg"></i>
+                    </button>
+                    <button class="p-3 rounded-full bg-teal-600 shadow-lg hover:bg-teal-700 transition-colors"
+                            @click="nextProfile()">
+                        <i class="ti ti-chevron-right text-white text-lg"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -498,8 +469,52 @@
 @once
 @push('scripts')
 <script>
-    // Carrossel agora está definido inline no x-data
-    console.log('Carrossel carregado com Alpine.js inline');
+    function profileCarousel() {
+        return {
+            currentProfile: 0,
+            profiles: [
+                {
+                    title: '{{ __('institutional.profiles.student.title') }}',
+                    subtitle: '{{ __('institutional.profiles.student.subtitle') }}',
+                    income: @json(__('institutional.profiles.student.income')),
+                    expenses: @json(__('institutional.profiles.student.expenses')),
+                    accounts: @json(__('institutional.profiles.student.accounts')),
+                    icon: 'ti ti-school',
+                    color: 'bg-green-600'
+                },
+                {
+                    title: '{{ __('institutional.profiles.family.title') }}',
+                    subtitle: '{{ __('institutional.profiles.family.subtitle') }}',
+                    income: @json(__('institutional.profiles.family.income')),
+                    expenses: @json(__('institutional.profiles.family.expenses')),
+                    accounts: @json(__('institutional.profiles.family.accounts')),
+                    icon: 'ti ti-users',
+                    color: 'bg-blue-600'
+                },
+                {
+                    title: '{{ __('institutional.profiles.professional.title') }}',
+                    subtitle: '{{ __('institutional.profiles.professional.subtitle') }}',
+                    income: @json(__('institutional.profiles.professional.income')),
+                    expenses: @json(__('institutional.profiles.professional.expenses')),
+                    accounts: @json(__('institutional.profiles.professional.accounts')),
+                    icon: 'ti ti-briefcase',
+                    color: 'bg-purple-600'
+                }
+            ],
+            nextProfile() { 
+                this.currentProfile = (this.currentProfile + 1) % this.profiles.length; 
+            },
+            previousProfile() { 
+                this.currentProfile = (this.currentProfile - 1 + this.profiles.length) % this.profiles.length; 
+            },
+            goToProfile(index) { 
+                this.currentProfile = index; 
+            },
+            init() {
+                console.log('Profile carousel initialized:', this.profiles);
+            }
+        }
+    }
 </script>
 @endpush
 @endonce
