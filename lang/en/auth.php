@@ -8,29 +8,28 @@ return [
     // Login page
     'login' => [
         'title' => 'Login',
-        'email_label' => 'Login, emails ou bla',
+        'email_label' => 'E-mail',
         'password_label' => 'Password',
         'button' => 'Log in',
         'or' => 'Or',
-        'social_text' => 'sla coisa que normalmente se coloca aqui',
-        'welcome_title' => 'Bem-Vindo de volta',
-        'welcome_subtitle' => 'Ainda não tem uma conta?',
-        'create_account_button' => 'Criar conta',
+        'social_text' => '',
+        'welcome_title' => 'Welcome back!',
+        'welcome_subtitle' => 'Don\'t have an account yet?',
+        'create_account_button' => 'Create account',
     ],
     
     // Register page
     'register' => [
-        'title' => 'Sing up',
+        'title' => 'Sign up',
         'name_label' => 'Full name',
-        'email_label' => 'Login, emails ou bla',
+        'email_label' => 'E-mail',
         'password_label' => 'Password',
-        'button' => 'sing up',
+        'button' => 'Sign up',
         'or' => 'Or',
-        'social_text' => 'sla coisa que normalmente se coloca aqui',
-        'welcome_title' => 'Bem-Vindo!',
+        'social_text' => '',
+        'welcome_title' => 'Welcome!',
         'welcome_subtitle' => 'A Plume',
-        'welcome_text' => 'Já tem uma conta?',
-        'login_button' => 'Entrar',
+        'welcome_text' => 'Already have an account?',
+        'login_button' => 'Login',
     ],
 ];
-
