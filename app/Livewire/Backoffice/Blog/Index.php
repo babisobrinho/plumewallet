@@ -110,8 +110,9 @@ class Index extends Component
                 'class' => 'w-1/6',
             ],
             [
-                'key' => 'author.name',
+                'key' => 'author',
                 'label' => __('blog.table.author'),
+                'component' => 'livewire.backoffice.blog.partials.author-name',
                 'sortable' => false,
                 'class' => 'w-1/6',
             ],
