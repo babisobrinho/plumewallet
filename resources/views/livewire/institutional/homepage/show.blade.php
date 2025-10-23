@@ -22,7 +22,7 @@
                                 GET STARTED
                             </x-link>
                             <x-link href="{{ route('login') }}" 
-                                   class="inline-flex items-center px-8 py-4 bg-white text-gray-800 font-bold rounded-lg hover:bg-gray-100 transition-colors border border-gray-300">
+                                   class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
                                 LEARN MORE
                             </x-link>
                         @else
