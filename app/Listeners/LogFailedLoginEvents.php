@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Models\LoginAttempt;
 use App\Enums\LoginAttemptStatus;
+use App\Services\LoggingService;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +23,17 @@ class LogFailedLoginEvents
      */
     public function handle(Failed $event)
     {
-        $this->logLoginAttempt($event->credentials['email'] ?? 'unknown', LoginAttemptStatus::FAILED, null, 'Invalid credentials');
+        $email = $event->credentials['email'] ?? 'unknown';
+        $this->logLoginAttempt($email, LoginAttemptStatus::FAILED, null, 'Invalid credentials');
+        
+        // Log to system logs
+        LoggingService::loginAttempt($email, false, 'Invalid credentials');
+        LoggingService::security("Failed login attempt", [
+            'email' => $email,
+            'ip_address' => $this->request->ip(),
+            'user_agent' => $this->request->userAgent(),
+            'reason' => 'Invalid credentials'
+        ]);
     }
 
     /**

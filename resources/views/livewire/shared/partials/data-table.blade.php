@@ -320,7 +320,7 @@
                             <td colspan="{{ count($tableColumns) + (count($tableActions) > 0 ? 1 : 0) }}" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
                                 <div class="flex flex-col items-center">
                                     <i class="ti ti-file-text w-12 h-12 text-gray-400 mb-4"></i>
-                                    <p class="text-lg font-medium">{{ __('users.no_users_found') }}</p>
+                                    <p class="text-lg font-medium">{{ __('common.messages.no_data_found') }}</p>
                                 </div>
                             </td>
                         </tr>

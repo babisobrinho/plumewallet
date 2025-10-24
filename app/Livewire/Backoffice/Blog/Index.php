@@ -7,6 +7,7 @@ use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\Models\User;
 use App\Enums\PostStatus;
+use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -246,7 +247,17 @@ class Index extends Component
         $this->authorize('blog_delete');
         
         $post = Post::findOrFail($postId);
+        $postTitle = $post->title;
         $post->delete();
+        
+        // Log the deletion
+        LoggingService::deleted('Blog Post', [
+            'post_id' => $postId,
+            'title' => $postTitle,
+            'author_id' => $post->author_id,
+            'status' => $post->status->value,
+            'is_featured' => $post->is_featured
+        ]);
         
         $this->dispatch('refreshTable');
         session()->flash('message', __('blog.messages.deleted_successfully'));
@@ -257,7 +268,17 @@ class Index extends Component
         $this->authorize('blog_update');
         
         $post = Post::findOrFail($postId);
+        $wasFeatured = $post->is_featured;
         $post->update(['is_featured' => !$post->is_featured]);
+        
+        // Log the featured status change
+        LoggingService::userActivity("Blog post featured status changed: {$post->title}", [
+            'post_id' => $post->id,
+            'title' => $post->title,
+            'was_featured' => $wasFeatured,
+            'is_featured' => !$wasFeatured,
+            'user_id' => Auth::id(),
+        ]);
         
         $this->dispatch('refreshTable');
         session()->flash('message', __('blog.messages.featured_toggled'));
@@ -308,6 +329,16 @@ class Index extends Component
             $post->tags()->sync($this->modalTags);
         }
 
+        // Log blog post creation
+        LoggingService::created('Blog Post', [
+            'post_id' => $post->id,
+            'title' => $this->modalTitle,
+            'status' => $this->modalStatus,
+            'is_featured' => $this->modalIsFeatured,
+            'author_id' => Auth::id(),
+            'category_id' => $this->modalCategoryId,
+        ]);
+
         session()->flash('message', __('blog.messages.created_successfully'));
     }
 
@@ -331,6 +362,16 @@ class Index extends Component
         if (!empty($this->modalTags)) {
             $this->editingPost->tags()->sync($this->modalTags);
         }
+
+        // Log blog post update
+        LoggingService::updated('Blog Post', [
+            'post_id' => $this->editingPost->id,
+            'title' => $this->modalTitle,
+            'status' => $this->modalStatus,
+            'is_featured' => $this->modalIsFeatured,
+            'author_id' => Auth::id(),
+            'category_id' => $this->modalCategoryId,
+        ]);
 
         session()->flash('message', __('blog.messages.updated_successfully'));
     }

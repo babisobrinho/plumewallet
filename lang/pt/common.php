@@ -51,6 +51,7 @@ return [
             'delete' => 'Tem a certeza que quer eliminar este :item?',
             'leave_page' => 'Tem alterações não guardadas. Tem a certeza que quer sair?',
         ],
+        'no_data_found' => 'Nenhum dado encontrado',
     ],
 
     'terms' => [

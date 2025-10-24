@@ -18,7 +18,7 @@ trait HasEnumBasicMethods
     public static function labels(): array
     {
         return array_reduce(self::cases(), function ($carry, $case) {
-            $carry[$case->value] = __('enums.' . $case->value);
+            $carry[$case->value] = self::getTranslationKey($case);
             return $carry;
         }, []);
     }
@@ -28,7 +28,7 @@ trait HasEnumBasicMethods
      */
     public static function label(self $type): string
     {
-        return __('enums.' . $type->value);
+        return self::getTranslationKey($type);
     }
 
     /**
@@ -37,9 +37,23 @@ trait HasEnumBasicMethods
     public static function options(): array
     {
         return array_reduce(self::cases(), function ($carry, $case) {
-            $carry[$case->value] = self::label($case);
+            $carry[$case->value] = self::getTranslationKey($case);
             return $carry;
         }, []);
+    }
+
+    /**
+     * Get the translation key for an enum case
+     */
+    private static function getTranslationKey(self $case): string
+    {
+        // Get the enum class name (e.g., LogType, LogLevel)
+        $className = class_basename(static::class);
+        
+        // Convert to snake_case and get the translation key
+        $enumKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $className));
+        
+        return __("enums.{$enumKey}.{$case->value}");
     }
 
     /**

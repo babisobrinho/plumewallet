@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Models\LoginAttempt;
 use App\Enums\LoginAttemptStatus;
+use App\Services\LoggingService;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -23,6 +24,15 @@ class LogAuthenticationEvents
     public function handle(Login $event)
     {
         $this->logLoginAttempt($event->user->email, LoginAttemptStatus::SUCCESS, $event->user->id);
+        
+        // Log to system logs
+        LoggingService::loginAttempt($event->user->email, true);
+        LoggingService::userActivity("User logged in successfully", [
+            'user_id' => $event->user->id,
+            'user_email' => $event->user->email,
+            'ip_address' => $this->request->ip(),
+            'user_agent' => $this->request->userAgent()
+        ]);
     }
 
     /**

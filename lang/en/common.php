@@ -51,6 +51,7 @@ return [
             'delete' => 'Are you sure you want to delete this :item?',
             'leave_page' => 'You have unsaved changes. Are you sure you want to leave?',
         ],
+        'no_data_found' => 'No data found',
     ],
 
     'terms' => [

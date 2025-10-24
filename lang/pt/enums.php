@@ -29,4 +29,38 @@ return [
         'statistics' => 'Estatísticas',
         'qa' => 'QA',
     ],
+    'post_status' => [
+        'draft' => 'Rascunho',
+        'published' => 'Publicado',
+        'archived' => 'Arquivado',
+    ],
+    'faq_category' => [
+        'general' => 'Geral',
+        'account' => 'Conta',
+        'transactions' => 'Transações',
+        'security' => 'Segurança',
+        'billing' => 'Faturação',
+        'technical' => 'Técnico',
+        'features' => 'Funcionalidades',
+        'support' => 'Suporte',
+    ],
+    'log_type' => [
+        'system' => 'Sistema',
+        'audit' => 'Auditoria',
+        'api' => 'API',
+        'login' => 'Login',
+    ],
+    'log_level' => [
+        'debug' => 'Debug',
+        'info' => 'Informação',
+        'warning' => 'Aviso',
+        'error' => 'Erro',
+        'critical' => 'Crítico',
+    ],
+    'login_attempt_status' => [
+        'success' => 'Sucesso',
+        'failed' => 'Falhou',
+        'blocked' => 'Bloqueado',
+        'suspicious' => 'Suspeito',
+    ],
 ];

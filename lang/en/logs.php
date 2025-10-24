@@ -1,52 +1,52 @@
 <?php
 
 return [
-    'title' => 'Logs do Sistema',
-    'subtitle' => 'Monitore e analise os logs do sistema',
+    'title' => 'System Logs',
+    'subtitle' => 'Monitor and analyze system logs',
 
     'metrics' => [
-        'total_logs' => 'Total de Logs',
-        'system_logs' => 'Logs do Sistema',
-        'audit_logs' => 'Logs de Auditoria',
-        'api_logs' => 'Logs da API',
-        'error_logs' => 'Logs de Erro',
-        'warning_logs' => 'Logs de Aviso',
-        'info_logs' => 'Logs de Informação',
-        'recent_logs' => 'Logs Recentes (24h)',
+        'total_logs' => 'Total Logs',
+        'system_logs' => 'System Logs',
+        'audit_logs' => 'Audit Logs',
+        'api_logs' => 'API Logs',
+        'error_logs' => 'Error Logs',
+        'warning_logs' => 'Warning Logs',
+        'info_logs' => 'Info Logs',
+        'recent_logs' => 'Recent Logs (24h)',
     ],
 
     'table' => [
-        'type' => 'Tipo',
-        'level' => 'Nível',
-        'message' => 'Mensagem',
-        'user' => 'Utilizador',
-        'ip_address' => 'Endereço IP',
-        'created_at' => 'Criado em',
+        'type' => 'Type',
+        'level' => 'Level',
+        'message' => 'Message',
+        'user' => 'User',
+        'ip_address' => 'IP Address',
+        'created_at' => 'Created At',
     ],
 
     'filters' => [
-        'type' => 'Tipo de Log',
-        'level' => 'Nível',
-        'user' => 'Utilizador',
+        'type' => 'Log Type',
+        'level' => 'Level',
+        'user' => 'User',
     ],
 
     'form' => [
-        'type' => 'Tipo',
-        'level' => 'Nível',
-        'message' => 'Mensagem',
-        'context' => 'Contexto',
-        'ip_address' => 'Endereço IP',
-        'method' => 'Método',
+        'type' => 'Type',
+        'level' => 'Level',
+        'message' => 'Message',
+        'context' => 'Context',
+        'ip_address' => 'IP Address',
+        'method' => 'Method',
         'url' => 'URL',
         'user_agent' => 'User Agent',
     ],
 
     'details' => [
-        'title' => 'Detalhes do Log',
-        'description' => 'Visualize informações detalhadas sobre este log',
+        'title' => 'Log Details',
+        'description' => 'View detailed information about this log',
     ],
 
     'messages' => [
-        'deleted_successfully' => 'Log eliminado com sucesso',
+        'deleted_successfully' => 'Log deleted successfully',
     ],
 ];

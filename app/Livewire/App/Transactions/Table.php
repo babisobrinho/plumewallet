@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Payee;
 use App\Models\Transaction;
 use App\Models\TransactionCategory;
+use App\Services\LoggingService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -86,6 +87,16 @@ class Table extends Component
             $account = Account::find($this->newTransaction['account_id']);
             $account->balance += $this->newTransaction['amount'];
             $account->save();
+            
+            // Log transaction creation
+            LoggingService::created('Transaction', [
+                'transaction_id' => $transaction->id,
+                'account_id' => $this->newTransaction['account_id'],
+                'amount' => $this->newTransaction['amount'],
+                'description' => $this->newTransaction['description'],
+                'date' => $this->newTransaction['date'],
+                'category_id' => $this->newTransaction['category_id']
+            ]);
         });
 
         $this->loadData();
@@ -194,6 +205,17 @@ class Table extends Component
     public function deleteTransaction($id)
     {
         $transaction = Transaction::find($id);
+        
+        if ($transaction) {
+            // Log transaction deletion
+            LoggingService::deleted('Transaction', [
+                'transaction_id' => $transaction->id,
+                'account_id' => $transaction->account_id,
+                'amount' => $transaction->amount,
+                'description' => $transaction->description,
+                'date' => $transaction->date
+            ]);
+        }
         if ($transaction) {
             DB::transaction(function () use ($transaction) {
                 // Update account balance before deleting

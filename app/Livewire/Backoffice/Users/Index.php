@@ -5,6 +5,7 @@ namespace App\Livewire\Backoffice\Users;
 use App\Models\User;
 use App\Enums\RoleType;
 use App\Actions\Fortify\CreateNewUser;
+use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
@@ -204,7 +205,17 @@ class Index extends Component
         
         $this->authorize('users_destroy');
         
+        $userName = $user->name;
+        $userEmail = $user->email;
         $user->delete();
+        
+        // Log user deletion
+        LoggingService::deleted('User', [
+            'user_id' => $user->id,
+            'name' => $userName,
+            'email' => $userEmail,
+            'deleted_by' => Auth::id()
+        ]);
         
         session()->flash('message', __('users.messages.user_deleted'));
         $this->dispatch('refreshTable');
@@ -326,6 +337,17 @@ class Index extends Component
             $user->sendEmailVerificationNotification();
 
             Log::info('Client user created with ID: ' . $user->id . ' and role: ' . $this->modalRole);
+            
+            // Log user creation
+            LoggingService::created('User', [
+                'user_id' => $user->id,
+                'name' => $this->modalName,
+                'email' => $this->modalEmail,
+                'role' => $this->modalRole,
+                'role_type' => $this->modalRoleType,
+                'created_by' => Auth::id()
+            ]);
+            
             session()->flash('message', __('users.messages.user_created'));
         } catch (\Exception $e) {
             Log::error('Client user creation failed: ' . $e->getMessage());
@@ -350,6 +372,17 @@ class Index extends Component
             $user->sendEmailVerificationNotification();
 
             Log::info('Staff user created with ID: ' . $user->id . ' and role: ' . $this->modalRole);
+            
+            // Log user creation
+            LoggingService::created('User', [
+                'user_id' => $user->id,
+                'name' => $this->modalName,
+                'email' => $this->modalEmail,
+                'role' => $this->modalRole,
+                'role_type' => $this->modalRoleType,
+                'created_by' => Auth::id()
+            ]);
+            
             session()->flash('message', __('users.messages.user_created'));
         } catch (\Exception $e) {
             Log::error('Staff user creation failed: ' . $e->getMessage());
@@ -369,6 +402,12 @@ class Index extends Component
             $updateData['password'] = \Illuminate\Support\Facades\Hash::make($this->modalPassword);
         }
 
+        $oldData = [
+            'name' => $this->editingUser->name,
+            'email' => $this->editingUser->email,
+            'phone_number' => $this->editingUser->phone_number,
+        ];
+        
         $this->editingUser->update($updateData);
 
         $currentRole = $this->editingUser->roles->first();
@@ -376,6 +415,15 @@ class Index extends Component
         if (!$currentRole || $currentRole->name !== $this->modalRole) {
             $this->editingUser->syncRoles([$this->modalRole]);
         }
+
+        // Log user update
+        LoggingService::updated('User', [
+            'user_id' => $this->editingUser->id,
+            'name' => $this->modalName,
+            'email' => $this->modalEmail,
+            'role' => $this->modalRole,
+            'updated_by' => Auth::id()
+        ], $oldData);
 
         session()->flash('message', __('users.messages.user_updated'));
     }

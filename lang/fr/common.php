@@ -51,6 +51,7 @@ return [
             'delete' => 'Êtes-vous sûr de vouloir supprimer cet :item ?',
             'leave_page' => 'Vous avez des modifications non sauvegardées. Êtes-vous sûr de vouloir quitter ?',
         ],
+        'no_data_found' => 'Aucune donnée trouvée',
     ],
 
     'terms' => [
