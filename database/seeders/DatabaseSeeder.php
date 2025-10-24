@@ -29,6 +29,9 @@ class DatabaseSeeder extends Seeder
             AccountSeeder::class,
             PayeeSeeder::class,
             TransactionSeeder::class,
+
+            // Blog and FAQ content
+            BlogAndFaqSeeder::class,
         ]);
 
         // Reabilitar verificação de chaves estrangeiras

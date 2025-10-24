@@ -49,6 +49,54 @@
     z-index: 9999 !important;
 }
 
+/* Text ellipsis for table cells */
+.table-responsive .text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px; /* Adjust as needed */
+}
+
+/* Title column specific styling */
+.table-responsive .title-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px; /* Adjust based on your needs */
+    min-width: 150px;
+    display: block;
+}
+
+/* General ellipsis styling for any column */
+.table-responsive .ellipsis-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+    min-width: 100px;
+}
+
+/* Responsive title column */
+@media (max-width: 768px) {
+    .table-responsive .title-cell {
+        max-width: 200px;
+    }
+    
+    .table-responsive .ellipsis-cell {
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 640px) {
+    .table-responsive .title-cell {
+        max-width: 150px;
+    }
+    
+    .table-responsive .ellipsis-cell {
+        max-width: 120px;
+    }
+}
+
 /* Override any parent overflow that might clip dropdowns */
 .table-responsive {
     overflow: visible !important;

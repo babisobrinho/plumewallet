@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Faq;
 use App\Enums\FaqCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FaqSeeder extends Seeder
@@ -14,129 +13,232 @@ class FaqSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create FAQs for each category
+        $this->createGeneralFaqs();
+        $this->createAccountFaqs();
+        $this->createTransactionFaqs();
+        $this->createSecurityFaqs();
+        $this->createBillingFaqs();
+        $this->createTechnicalFaqs();
+        $this->createFeatureFaqs();
+        $this->createSupportFaqs();
+
+        // Create some random FAQs
+        Faq::factory()
+            ->count(20)
+            ->create();
+    }
+
+    private function createGeneralFaqs(): void
+    {
         $faqs = [
-            // General
             [
-                'question' => 'O que é o Plumewallet?',
-                'answer' => 'O Plumewallet é uma plataforma de gestão financeira pessoal que permite controlar suas receitas, despesas e investimentos de forma simples e eficiente.',
+                'question' => 'What is this platform about?',
+                'answer' => '<p>Our platform is a comprehensive financial management tool designed to help you track expenses, manage budgets, and gain insights into your financial habits. It provides a secure and user-friendly environment for managing your personal or business finances.</p>',
                 'category' => FaqCategory::GENERAL,
                 'order' => 1,
+                'is_active' => true,
             ],
             [
-                'question' => 'Como posso começar a usar a plataforma?',
-                'answer' => 'Para começar, você precisa criar uma conta gratuita, verificar seu email e configurar suas primeiras contas financeiras. O sistema oferece um tutorial interativo para guiá-lo.',
+                'question' => 'How do I get started?',
+                'answer' => '<p>Getting started is easy! Simply create an account, verify your email, and you\'ll be guided through a quick setup process. You can start by adding your first account or importing existing financial data.</p>',
                 'category' => FaqCategory::GENERAL,
                 'order' => 2,
-            ],
-
-            // Account
-            [
-                'question' => 'Como posso alterar meus dados pessoais?',
-                'answer' => 'Você pode alterar seus dados pessoais acessando o menu "Perfil" e clicando em "Editar Perfil". Lá você pode atualizar nome, email, telefone e outras informações.',
-                'category' => FaqCategory::ACCOUNT,
-                'order' => 1,
+                'is_active' => true,
             ],
             [
-                'question' => 'Posso ter múltiplas contas na plataforma?',
-                'answer' => 'Sim, você pode criar múltiplas contas para diferentes finalidades, como conta pessoal, conta empresarial, etc. Cada conta mantém seus dados separados.',
-                'category' => FaqCategory::ACCOUNT,
-                'order' => 2,
-            ],
-
-            // Transactions
-            [
-                'question' => 'Como adicionar uma nova transação?',
-                'answer' => 'Para adicionar uma transação, vá para a seção "Transações" e clique no botão "Nova Transação". Preencha os dados necessários como valor, descrição, categoria e data.',
-                'category' => FaqCategory::TRANSACTIONS,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Posso importar transações de um arquivo?',
-                'answer' => 'Sim, você pode importar transações através de arquivos CSV ou Excel. Acesse "Transações" > "Importar" e siga as instruções na tela.',
-                'category' => FaqCategory::TRANSACTIONS,
-                'order' => 2,
-            ],
-
-            // Security
-            [
-                'question' => 'Meus dados estão seguros?',
-                'answer' => 'Sim, utilizamos criptografia de ponta a ponta e seguimos as melhores práticas de segurança. Seus dados são armazenados em servidores seguros e nunca são compartilhados com terceiros.',
-                'category' => FaqCategory::SECURITY,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Como posso ativar a autenticação de dois fatores?',
-                'answer' => 'Para ativar a autenticação de dois fatores, vá em "Perfil" > "Segurança" e siga as instruções para configurar um aplicativo autenticador.',
-                'category' => FaqCategory::SECURITY,
-                'order' => 2,
-            ],
-
-            // Billing
-            [
-                'question' => 'Quais são os planos disponíveis?',
-                'answer' => 'Oferecemos um plano gratuito com funcionalidades básicas e planos premium com recursos avançados. Consulte nossa página de preços para mais detalhes.',
-                'category' => FaqCategory::BILLING,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Como cancelar minha assinatura?',
-                'answer' => 'Você pode cancelar sua assinatura a qualquer momento acessando "Perfil" > "Assinatura" > "Cancelar Assinatura". O cancelamento é efetivo no final do período atual.',
-                'category' => FaqCategory::BILLING,
-                'order' => 2,
-            ],
-
-            // Technical
-            [
-                'question' => 'A plataforma funciona em dispositivos móveis?',
-                'answer' => 'Sim, nossa plataforma é totalmente responsiva e funciona perfeitamente em smartphones e tablets através do navegador web.',
-                'category' => FaqCategory::TECHNICAL,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Quais navegadores são suportados?',
-                'answer' => 'Suportamos os principais navegadores modernos: Chrome, Firefox, Safari e Edge. Recomendamos sempre usar a versão mais recente.',
-                'category' => FaqCategory::TECHNICAL,
-                'order' => 2,
-            ],
-
-            // Features
-            [
-                'question' => 'Posso criar relatórios personalizados?',
-                'answer' => 'Sim, você pode criar relatórios personalizados com diferentes filtros e períodos. Acesse "Relatórios" para explorar as opções disponíveis.',
-                'category' => FaqCategory::FEATURES,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Existe integração com bancos?',
-                'answer' => 'Atualmente não oferecemos integração direta com bancos por questões de segurança. Você pode importar extratos manualmente ou usar nossa API.',
-                'category' => FaqCategory::FEATURES,
-                'order' => 2,
-            ],
-
-            // Support
-            [
-                'question' => 'Como posso entrar em contato com o suporte?',
-                'answer' => 'Você pode entrar em contato através do chat online, email de suporte ou formulário de contato. Nossa equipe responde em até 24 horas.',
-                'category' => FaqCategory::SUPPORT,
-                'order' => 1,
-            ],
-            [
-                'question' => 'Existe documentação da API?',
-                'answer' => 'Sim, temos documentação completa da API disponível para desenvolvedores. Acesse nossa seção de desenvolvedores para mais informações.',
-                'category' => FaqCategory::SUPPORT,
-                'order' => 2,
+                'question' => 'Is this service free?',
+                'answer' => '<p>We offer both free and premium plans. The free plan includes basic features for personal use, while our premium plans offer advanced features, priority support, and enhanced security options.</p>',
+                'category' => FaqCategory::GENERAL,
+                'order' => 3,
+                'is_active' => true,
             ],
         ];
 
         foreach ($faqs as $faq) {
-            Faq::create([
-                'question' => $faq['question'],
-                'answer' => $faq['answer'],
-                'category' => $faq['category'],
-                'order' => $faq['order'],
+            Faq::create($faq);
+        }
+    }
+
+    private function createAccountFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'How do I create an account?',
+                'answer' => '<p>Creating an account is simple. Click the "Sign Up" button, enter your email address and password, then verify your email address. You\'ll receive a confirmation email with a verification link.</p>',
+                'category' => FaqCategory::ACCOUNT,
+                'order' => 1,
                 'is_active' => true,
-                'view_count' => rand(5, 100),
-            ]);
+            ],
+            [
+                'question' => 'How do I reset my password?',
+                'answer' => '<p>If you\'ve forgotten your password, click "Forgot Password" on the login page. Enter your email address and we\'ll send you a secure link to reset your password.</p>',
+                'category' => FaqCategory::ACCOUNT,
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'Can I change my email address?',
+                'answer' => '<p>Yes, you can change your email address in your account settings. You\'ll need to verify the new email address before the change takes effect.</p>',
+                'category' => FaqCategory::ACCOUNT,
+                'order' => 3,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createTransactionFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'How do I add a transaction?',
+                'answer' => '<p>Adding transactions is easy. Go to the Transactions page and click "Add Transaction". Fill in the details like amount, description, category, and date. You can also set up recurring transactions for regular expenses.</p>',
+                'category' => FaqCategory::TRANSACTIONS,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'Can I edit past transactions?',
+                'answer' => '<p>Yes, you can edit any transaction by clicking on it in the transaction list. This is useful for correcting mistakes or updating transaction details.</p>',
+                'category' => FaqCategory::TRANSACTIONS,
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'How do I categorize transactions?',
+                'answer' => '<p>Transactions can be categorized using our predefined categories or custom categories you create. Categories help you organize and analyze your spending patterns.</p>',
+                'category' => FaqCategory::TRANSACTIONS,
+                'order' => 3,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createSecurityFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'How is my data protected?',
+                'answer' => '<p>Your data is protected with bank-level encryption, secure servers, and regular security audits. We use industry-standard security practices to ensure your financial information remains safe.</p>',
+                'category' => FaqCategory::SECURITY,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'What security measures are in place?',
+                'answer' => '<p>We implement multiple security layers including SSL encryption, two-factor authentication, regular security updates, and monitoring for suspicious activity.</p>',
+                'category' => FaqCategory::SECURITY,
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createBillingFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'How does billing work?',
+                'answer' => '<p>Billing is handled securely through our payment partners. You can choose monthly or annual billing cycles, and all payments are processed securely with automatic renewals.</p>',
+                'category' => FaqCategory::BILLING,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'What payment methods are accepted?',
+                'answer' => '<p>We accept all major credit cards, PayPal, and bank transfers. All payments are processed securely through our trusted payment partners.</p>',
+                'category' => FaqCategory::BILLING,
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createTechnicalFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'What are the system requirements?',
+                'answer' => '<p>Our platform works on all modern browsers and devices. For the best experience, we recommend using the latest version of Chrome, Firefox, Safari, or Edge.</p>',
+                'category' => FaqCategory::TECHNICAL,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'How do I troubleshoot issues?',
+                'answer' => '<p>If you\'re experiencing issues, try clearing your browser cache, disabling browser extensions, or using a different browser. You can also contact our support team for assistance.</p>',
+                'category' => FaqCategory::TECHNICAL,
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createFeatureFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'What features are available?',
+                'answer' => '<p>Our platform includes transaction tracking, budget management, reporting tools, goal setting, data export, and much more. Premium users get access to advanced features and priority support.</p>',
+                'category' => FaqCategory::FEATURES,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'How do I use the dashboard?',
+                'answer' => '<p>The dashboard provides an overview of your financial situation. You can customize it to show the information most important to you, including account balances, recent transactions, and budget progress.</p>',
+                'category' => FaqCategory::FEATURES,
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
+    }
+
+    private function createSupportFaqs(): void
+    {
+        $faqs = [
+            [
+                'question' => 'How do I get help?',
+                'answer' => '<p>You can get help through our support center, email support, or live chat. Premium users get priority support with faster response times.</p>',
+                'category' => FaqCategory::SUPPORT,
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'question' => 'What support options are available?',
+                'answer' => '<p>We offer multiple support channels including email, live chat, phone support for premium users, and a comprehensive knowledge base with tutorials and guides.</p>',
+                'category' => FaqCategory::SUPPORT,
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
         }
     }
 }

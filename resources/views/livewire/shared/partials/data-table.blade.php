@@ -160,9 +160,13 @@
                     @forelse($data as $item)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             @foreach($tableColumns as $column)
-                                <td class="px-6 py-4 whitespace-nowrap text-sm {{ $column['cellClass'] ?? 'text-gray-900 dark:text-gray-100' }}">
+                                <td class="px-6 py-4 text-sm {{ $column['cellClass'] ?? 'text-gray-900 dark:text-gray-100' }} {{ isset($column['ellipsis']) && $column['ellipsis'] ? 'title-cell' : (isset($column['key']) && $column['key'] === 'title' ? 'title-cell' : 'whitespace-nowrap') }}">
                                     @if(isset($column['component']))
                                         @include($column['component'], ['item' => $item])
+                                    @elseif(isset($column['key']) && $column['key'] === 'title' && isset($item[$column['key']]))
+                                        <div class="title-cell" title="{{ $item[$column['key']] }}">
+                                            {{ $item[$column['key']] }}
+                                        </div>
                                     @elseif(isset($column['format']))
                                         @switch($column['format'])
                                             @case('date')

@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PostCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class PostCategorySeeder extends Seeder
 {
@@ -14,42 +12,83 @@ class PostCategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Create some predefined categories
         $categories = [
             [
-                'name' => 'Tecnologia',
-                'description' => 'Artigos sobre tecnologia e inovação',
+                'name' => 'Technology',
+                'slug' => 'technology',
+                'description' => 'Latest technology trends, innovations, and digital transformation insights.',
                 'color' => '#3B82F6',
+                'is_active' => true,
             ],
             [
-                'name' => 'Finanças',
-                'description' => 'Dicas e informações sobre gestão financeira',
+                'name' => 'Business',
+                'slug' => 'business',
+                'description' => 'Business strategies, entrepreneurship, and professional development.',
                 'color' => '#10B981',
+                'is_active' => true,
             ],
             [
-                'name' => 'Tutoriais',
-                'description' => 'Guias passo a passo e tutoriais',
+                'name' => 'Finance',
+                'slug' => 'finance',
+                'description' => 'Financial planning, investment strategies, and money management tips.',
                 'color' => '#F59E0B',
+                'is_active' => true,
             ],
             [
-                'name' => 'Notícias',
-                'description' => 'Últimas notícias e atualizações',
-                'color' => '#EF4444',
+                'name' => 'Lifestyle',
+                'slug' => 'lifestyle',
+                'description' => 'Life tips, wellness, and personal development content.',
+                'color' => '#EC4899',
+                'is_active' => true,
             ],
             [
-                'name' => 'Dicas',
-                'description' => 'Dicas úteis e conselhos práticos',
+                'name' => 'Tutorials',
+                'slug' => 'tutorials',
+                'description' => 'Step-by-step guides and how-to articles.',
                 'color' => '#8B5CF6',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'News',
+                'slug' => 'news',
+                'description' => 'Latest news and updates from the industry.',
+                'color' => '#EF4444',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Reviews',
+                'slug' => 'reviews',
+                'description' => 'Product reviews, service evaluations, and recommendations.',
+                'color' => '#06B6D4',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Opinion',
+                'slug' => 'opinion',
+                'description' => 'Editorial content, opinions, and thought leadership.',
+                'color' => '#84CC16',
+                'is_active' => true,
             ],
         ];
 
         foreach ($categories as $category) {
-            PostCategory::create([
-                'name' => $category['name'],
-                'slug' => Str::slug($category['name']),
-                'description' => $category['description'],
-                'color' => $category['color'],
-                'is_active' => true,
-            ]);
+            PostCategory::firstOrCreate(
+                ['slug' => $category['slug']],
+                $category
+            );
+        }
+
+        // Create additional random categories only if we don't have many
+        if (PostCategory::count() < 10) {
+            try {
+                PostCategory::factory()
+                    ->count(7)
+                    ->create();
+            } catch (\Exception $e) {
+                // If there are still conflicts, just skip
+                $this->command->warn('Some categories could not be created due to conflicts. Continuing...');
+            }
         }
     }
 }
