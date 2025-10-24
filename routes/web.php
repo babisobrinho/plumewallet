@@ -11,11 +11,19 @@ use App\Livewire\Backoffice\Blog\Index as BackofficeBlogIndex;
 use App\Livewire\Backoffice\Faq\Index as BackofficeFaqIndex;
 use App\Livewire\Backoffice\Logs\Index as BackofficeLogsIndex;
 use App\Livewire\Backoffice\LoginAttempts\Index as BackofficeLoginAttemptsIndex;
+use App\Livewire\Institutional\Homepage\Show as InstitutionalHomepageShow;
+use App\Livewire\Institutional\AboutUs\Show as InstitutionalAboutUsShow;
 use Illuminate\Support\Facades\Route;
 
-// Guest Users
+// Institutional Routes (Public)
+Route::prefix('institutional')->name('institutional.')->group(function () {
+    Route::get('/', InstitutionalHomepageShow::class)->name('homepage.show');
+    Route::get('/about-us', InstitutionalAboutUsShow::class)->name('about-us.show');
+});
+
+// Root route redirects to institutional homepage
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('institutional.homepage.show');
 })->name('welcome');
 
 // Email verification for different account

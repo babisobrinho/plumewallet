@@ -14,7 +14,32 @@ return [
     'log_in_matching_account' => 'Se connecter avec le compte qui correspond à l\'email que vous essayez de vérifier',
     'click_verification_link_again' => 'Cliquer à nouveau sur le lien de vérification',
     'please_login_to_verify' => 'Veuillez vous connecter pour vérifier votre adresse email.',
+
+    // Login page
+    'login' => [
+        'title' => 'Connexion',
+        'email_label' => 'E-mail',
+        'password_label' => 'Mot de passe',
+        'button' => 'Se connecter',
+        'or' => 'Ou',
+        'social_text' => '',
+        'welcome_title' => 'Bon retour !',
+        'welcome_subtitle' => 'Vous n\'avez pas encore de compte ?',
+        'create_account_button' => 'Créer un compte',
+    ],
+
+    // Register page
+    'register' => [
+        'title' => 'S\'inscrire',
+        'name_label' => 'Nom complet',
+        'email_label' => 'E-mail',
+        'password_label' => 'Mot de passe',
+        'button' => 'S\'inscrire',
+        'or' => 'Ou',
+        'social_text' => '',
+        'welcome_title' => 'Bienvenue !',
+        'welcome_subtitle' => 'A Plume',
+        'welcome_text' => 'Vous avez déjà un compte ?',
+        'login_button' => 'Se connecter',
+    ],
 ];
-
-
-

@@ -14,5 +14,32 @@ return [
     'log_in_matching_account' => 'Log in with the account that matches the email you\'re trying to verify',
     'click_verification_link_again' => 'Click the verification link again',
     'please_login_to_verify' => 'Please log in to verify your email address.',
-];
 
+    // Login page
+    'login' => [
+        'title' => 'Login',
+        'email_label' => 'E-mail',
+        'password_label' => 'Password',
+        'button' => 'Log in',
+        'or' => 'Or',
+        'social_text' => '',
+        'welcome_title' => 'Welcome back!',
+        'welcome_subtitle' => 'Don\'t have an account yet?',
+        'create_account_button' => 'Create account',
+    ],
+
+    // Register page
+    'register' => [
+        'title' => 'Sign up',
+        'name_label' => 'Full name',
+        'email_label' => 'E-mail',
+        'password_label' => 'Password',
+        'button' => 'Sign up',
+        'or' => 'Or',
+        'social_text' => '',
+        'welcome_title' => 'Welcome!',
+        'welcome_subtitle' => 'A Plume',
+        'welcome_text' => 'Already have an account?',
+        'login_button' => 'Login',
+    ],
+];
