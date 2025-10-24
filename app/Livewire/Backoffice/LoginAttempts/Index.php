@@ -187,21 +187,6 @@ class Index extends Component
     }
 
     // Metric properties
-    public function getTotalAttemptsProperty()
-    {
-        return LoginAttempt::count();
-    }
-
-    public function getSuccessfulAttemptsProperty()
-    {
-        return LoginAttempt::successful()->count();
-    }
-
-    public function getFailedAttemptsProperty()
-    {
-        return LoginAttempt::failed()->count();
-    }
-
     public function getSuspiciousAttemptsProperty()
     {
         return LoginAttempt::suspicious()->count();
@@ -215,11 +200,6 @@ class Index extends Component
     public function getRecentAttemptsProperty()
     {
         return LoginAttempt::recent(24)->count();
-    }
-
-    public function getUniqueIpsProperty()
-    {
-        return LoginAttempt::distinct('ip_address')->count('ip_address');
     }
 
     public function viewAttempt($attemptId)
@@ -333,13 +313,9 @@ class Index extends Component
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,
-            'totalAttempts' => $this->totalAttempts,
-            'successfulAttempts' => $this->successfulAttempts,
-            'failedAttempts' => $this->failedAttempts,
             'suspiciousAttempts' => $this->suspiciousAttempts,
             'blockedAttempts' => $this->blockedAttempts,
             'recentAttempts' => $this->recentAttempts,
-            'uniqueIps' => $this->uniqueIps,
         ]);
     }
 }

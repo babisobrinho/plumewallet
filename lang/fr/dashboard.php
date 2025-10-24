@@ -14,6 +14,11 @@ return [
         'recent_users' => 'Nouveaux utilisateurs (7 jours)',
         'recent_transactions' => 'Nouvelles transactions (7 jours)',
         'verified_users' => 'Utilisateurs vérifiés',
+        'total_attempts' => 'Total des tentatives de connexion',
+        'successful_attempts' => 'Tentatives réussies',
+        'failed_attempts' => 'Tentatives échouées',
+        'unique_ips' => 'IPs uniques',
+        'security_score' => 'Score de sécurité',
     ],
     'sections' => [
         'recent_users' => 'Utilisateurs récents',

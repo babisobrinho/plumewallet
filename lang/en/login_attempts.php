@@ -1,61 +1,58 @@
 <?php
 
 return [
-    'title' => 'Tentativas de Login',
-    'subtitle' => 'Monitore e analise as tentativas de login',
+    'title' => 'Login Attempts',
+    'subtitle' => 'Monitor and analyze login attempts',
 
     'metrics' => [
-        'total_attempts' => 'Total de Tentativas',
-        'successful_attempts' => 'Tentativas Bem-sucedidas',
-        'failed_attempts' => 'Tentativas Falhadas',
-        'suspicious_attempts' => 'Tentativas Suspeitas',
-        'blocked_attempts' => 'Tentativas Bloqueadas',
-        'recent_attempts' => 'Tentativas Recentes (24h)',
-        'unique_ips' => 'IPs Únicos',
+        'recent_attempts' => 'Recent Attempts (24h)',
+        'suspicious_attempts' => 'Suspicious Attempts',
+        'blocked_attempts' => 'Blocked Attempts',
+        'security_score' => 'Security Score',
     ],
 
     'table' => [
         'email' => 'Email',
-        'ip_address' => 'Endereço IP',
+        'ip_address' => 'IP Address',
         'status' => 'Status',
-        'country' => 'País',
-        'city' => 'Cidade',
-        'suspicious' => 'Suspeito',
-        'attempted_at' => 'Tentado em',
+        'country' => 'Country',
+        'city' => 'City',
+        'suspicious' => 'Suspicious',
+        'attempted_at' => 'Attempted At',
     ],
 
     'filters' => [
         'status' => 'Status',
-        'country' => 'País',
-        'suspicious' => 'Suspeito',
+        'country' => 'Country',
+        'suspicious' => 'Suspicious',
     ],
 
     'form' => [
         'email' => 'Email',
-        'ip_address' => 'Endereço IP',
+        'ip_address' => 'IP Address',
         'status' => 'Status',
-        'failure_reason' => 'Motivo da Falha',
-        'attempted_at' => 'Tentado em',
-        'country' => 'País',
-        'city' => 'Cidade',
-        'is_suspicious' => 'É Suspeito',
-        'blocked_until' => 'Bloqueado até',
+        'failure_reason' => 'Failure Reason',
+        'attempted_at' => 'Attempted At',
+        'country' => 'Country',
+        'city' => 'City',
+        'is_suspicious' => 'Is Suspicious',
+        'blocked_until' => 'Blocked Until',
         'user_agent' => 'User Agent',
     ],
 
     'details' => [
-        'title' => 'Detalhes da Tentativa',
-        'description' => 'Visualize informações detalhadas sobre esta tentativa de login',
+        'title' => 'Attempt Details',
+        'description' => 'View detailed information about this login attempt',
     ],
 
     'actions' => [
-        'block_ip' => 'Bloquear IP',
-        'unblock_ip' => 'Desbloquear IP',
+        'block_ip' => 'Block IP',
+        'unblock_ip' => 'Unblock IP',
     ],
 
     'messages' => [
-        'deleted_successfully' => 'Tentativa eliminada com sucesso',
-        'ip_blocked' => 'IP bloqueado com sucesso',
-        'ip_unblocked' => 'IP desbloqueado com sucesso',
+        'deleted_successfully' => 'Attempt deleted successfully',
+        'ip_blocked' => 'IP blocked successfully',
+        'ip_unblocked' => 'IP unblocked successfully',
     ],
 ];

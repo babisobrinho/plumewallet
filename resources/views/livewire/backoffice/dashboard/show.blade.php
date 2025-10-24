@@ -8,7 +8,7 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Métricas Principais -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <x-metric-card 
                 :title="__('dashboard.metrics.total_users')"
                 :value="number_format($totalUsers)"
@@ -43,11 +43,35 @@
                 icon="ti ti-ticket"
                 color="purple"
             />
+        </div>
+
+        <!-- Security Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <x-metric-card 
+                :title="__('dashboard.metrics.total_attempts')"
+                :value="number_format($totalAttempts)"
+                icon="ti ti-login"
+                color="blue"
+            />
 
             <x-metric-card 
-                :title="__('dashboard.metrics.published_posts')"
-                value="0"
-                icon="ti ti-file-text"
+                :title="__('dashboard.metrics.successful_attempts')"
+                :value="number_format($successfulAttempts)"
+                icon="ti ti-check-circle"
+                color="green"
+            />
+
+            <x-metric-card 
+                :title="__('dashboard.metrics.failed_attempts')"
+                :value="number_format($failedAttempts)"
+                icon="ti ti-x-circle"
+                color="red"
+            />
+
+            <x-metric-card 
+                :title="__('dashboard.metrics.unique_ips')"
+                :value="number_format($uniqueIps)"
+                icon="ti ti-world"
                 color="indigo"
             />
         </div>

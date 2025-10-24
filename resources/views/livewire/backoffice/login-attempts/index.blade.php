@@ -10,24 +10,10 @@
         <!-- Login Attempt Metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <x-metric-card 
-                :title="__('login_attempts.metrics.total_attempts')"
-                :value="number_format($totalAttempts)"
-                icon="ti ti-login"
+                :title="__('login_attempts.metrics.recent_attempts')"
+                :value="number_format($recentAttempts)"
+                icon="ti ti-clock"
                 color="blue"
-            />
-
-            <x-metric-card 
-                :title="__('login_attempts.metrics.successful_attempts')"
-                :value="number_format($successfulAttempts)"
-                icon="ti ti-check"
-                color="green"
-            />
-
-            <x-metric-card 
-                :title="__('login_attempts.metrics.failed_attempts')"
-                :value="number_format($failedAttempts)"
-                icon="ti ti-x"
-                color="red"
             />
 
             <x-metric-card 
@@ -36,29 +22,12 @@
                 icon="ti ti-alert-triangle"
                 color="orange"
             />
-        </div>
 
-        <!-- Additional Metrics -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <x-metric-card 
                 :title="__('login_attempts.metrics.blocked_attempts')"
                 :value="number_format($blockedAttempts)"
                 icon="ti ti-shield-x"
-                color="gray"
-            />
-
-            <x-metric-card 
-                :title="__('login_attempts.metrics.recent_attempts')"
-                :value="number_format($recentAttempts)"
-                icon="ti ti-clock"
-                color="blue"
-            />
-
-            <x-metric-card 
-                :title="__('login_attempts.metrics.unique_ips')"
-                :value="number_format($uniqueIps)"
-                icon="ti ti-world"
-                color="purple"
+                color="red"
             />
 
             <x-metric-card 

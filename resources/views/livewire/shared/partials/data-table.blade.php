@@ -1,7 +1,7 @@
 <div>
     <!-- Filter Bar -->
-    <div class="bg-white dark:bg-gray-800">
-        <div class="py-4">
+    <div class="shadow-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <div class="px-6 py-4">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <!-- Search -->
                 <div class="flex-1 max-w-md">
@@ -93,7 +93,7 @@
     </div>
 
     <!-- Data Table -->
-    <div class=" shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mt-4">
+    <div class="shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mt-4">
         <!-- Table -->
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

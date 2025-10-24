@@ -5,6 +5,7 @@ namespace App\Livewire\Backoffice\Dashboard;
 use App\Models\User;
 use App\Models\Transaction;
 use App\Models\Account;
+use App\Models\LoginAttempt;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -17,6 +18,12 @@ class Show extends Component
     public $totalAccounts;
     public $recentUsers;
     public $recentTransactions;
+    
+    // Login attempt metrics
+    public $totalAttempts;
+    public $successfulAttempts;
+    public $failedAttempts;
+    public $uniqueIps;
 
     public function mount()
     {
@@ -42,6 +49,12 @@ class Show extends Component
         
         // Transações recentes (últimos 7 dias)
         $this->recentTransactions = Transaction::where('created_at', '>=', now()->subDays(7))->count();
+        
+        // Login attempt metrics
+        $this->totalAttempts = LoginAttempt::count();
+        $this->successfulAttempts = LoginAttempt::successful()->count();
+        $this->failedAttempts = LoginAttempt::failed()->count();
+        $this->uniqueIps = LoginAttempt::distinct('ip_address')->count('ip_address');
     }
 
     public function render()
