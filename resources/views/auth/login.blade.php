@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-base-layout>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -45,4 +45,4 @@
             </div>
         </form>
     </x-authentication-card>
-</x-app-layout>
+</x-base-layout>

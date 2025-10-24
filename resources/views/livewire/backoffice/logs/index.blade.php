@@ -10,9 +10,9 @@
         <!-- Log Metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <x-metric-card 
-                :title="__('logs.metrics.total_logs')"
-                :value="number_format($totalLogs)"
-                icon="ti ti-file-text"
+                :title="__('logs.metrics.recent_logs')"
+                :value="number_format($recentLogs)"
+                icon="ti ti-clock"
                 color="blue"
             />
 
@@ -35,37 +35,6 @@
                 :value="number_format($apiLogs)"
                 icon="ti ti-api"
                 color="indigo"
-            />
-        </div>
-
-        <!-- Additional Metrics -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <x-metric-card 
-                :title="__('logs.metrics.error_logs')"
-                :value="number_format($errorLogs)"
-                icon="ti ti-alert-circle"
-                color="red"
-            />
-
-            <x-metric-card 
-                :title="__('logs.metrics.warning_logs')"
-                :value="number_format($warningLogs)"
-                icon="ti ti-alert-triangle"
-                color="yellow"
-            />
-
-            <x-metric-card 
-                :title="__('logs.metrics.info_logs')"
-                :value="number_format($infoLogs)"
-                icon="ti ti-info-circle"
-                color="blue"
-            />
-
-            <x-metric-card 
-                :title="__('logs.metrics.recent_logs')"
-                :value="number_format($recentLogs)"
-                icon="ti ti-clock"
-                color="green"
             />
         </div>
 

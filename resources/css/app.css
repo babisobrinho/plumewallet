@@ -7,3 +7,72 @@
 [x-cloak] {
     display: none;
 }
+
+/* Table responsive styles */
+.table-responsive {
+    overflow: visible;
+    -webkit-overflow-scrolling: touch;
+    min-height: 0;
+}
+
+/* For tables with few items, ensure no unnecessary scrolling */
+.table-responsive table {
+    width: 100%;
+    min-width: auto;
+}
+
+/* Ensure actions column doesn't cause overflow */
+.table-responsive .actions-cell {
+    white-space: nowrap;
+    width: 1%;
+    min-width: 120px; /* Ensure actions have enough space */
+}
+
+/* Ensure dropdown menus are visible and properly positioned */
+.table-responsive .relative {
+    position: relative;
+}
+
+.table-responsive .absolute {
+    position: absolute;
+    z-index: 50;
+}
+
+/* Only apply horizontal scroll when table content actually overflows */
+.table-responsive.has-overflow {
+    overflow-x: auto;
+}
+
+/* Ensure dropdowns are always visible */
+.table-responsive .absolute {
+    position: absolute !important;
+    z-index: 9999 !important;
+}
+
+/* Override any parent overflow that might clip dropdowns */
+.table-responsive {
+    overflow: visible !important;
+}
+
+/* Ensure the table container allows dropdowns to extend */
+.table-responsive:has(.absolute) {
+    overflow: visible !important;
+}
+
+/* Dropdown menu improvements */
+.table-responsive .absolute {
+    min-width: 12rem;
+    max-width: calc(100vw - 2rem);
+    width: auto;
+}
+
+/* Ensure dropdown buttons don't wrap text */
+.table-responsive .absolute button {
+    white-space: nowrap;
+    overflow: visible;
+}
+
+/* Make dropdown content fit properly */
+.table-responsive .absolute .py-1 {
+    min-width: 100%;
+}

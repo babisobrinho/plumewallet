@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 @auth
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
+                    <a href="{{ Auth::user() ? (Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show')) : route('welcome') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>

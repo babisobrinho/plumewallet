@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Email verification for different account
+Route::get('/email/verification/different-account', function () {
+    return view('auth.email-verification-different-account');
+})->name('email.verification.different-account');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

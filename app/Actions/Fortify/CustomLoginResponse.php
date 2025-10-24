@@ -32,6 +32,7 @@ class CustomLoginResponse implements LoginResponseContract
         }
 
         // Default redirect for any other role types
-        return redirect()->intended(config('fortify.home', '/dashboard'));
+        return redirect()->intended(config('fortify.home', '/'));
     }
+
 }

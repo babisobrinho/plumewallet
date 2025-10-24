@@ -30,7 +30,7 @@ class LogLoginAttempts
      */
     private function isLoginAttempt(Request $request): bool
     {
-        return $request->is('login') && 
+        return $request->routeIs('login.store') && 
                $request->isMethod('post') && 
                $request->has('email');
     }

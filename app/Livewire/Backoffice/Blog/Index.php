@@ -154,6 +154,7 @@ class Index extends Component
                         'label' => __('blog.actions.toggle_featured'),
                         'method' => 'toggleFeatured',
                         'icon' => 'star',
+                        'dynamic' => true, // This will be handled dynamically in the view
                     ],
                     [
                         'label' => __('common.buttons.delete'),

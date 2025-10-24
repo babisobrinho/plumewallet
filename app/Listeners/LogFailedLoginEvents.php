@@ -4,11 +4,11 @@ namespace App\Listeners;
 
 use App\Models\LoginAttempt;
 use App\Enums\LoginAttemptStatus;
-use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class LogAuthenticationEvents
+class LogFailedLoginEvents
 {
     protected $request;
 
@@ -18,11 +18,11 @@ class LogAuthenticationEvents
     }
 
     /**
-     * Handle successful login events
+     * Handle failed login events
      */
-    public function handle(Login $event)
+    public function handle(Failed $event)
     {
-        $this->logLoginAttempt($event->user->email, LoginAttemptStatus::SUCCESS, $event->user->id);
+        $this->logLoginAttempt($event->credentials['email'] ?? 'unknown', LoginAttemptStatus::FAILED, null, 'Invalid credentials');
     }
 
     /**

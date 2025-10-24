@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\LogAuthenticationEvents;
+use App\Listeners\LogFailedLoginEvents;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
@@ -17,19 +18,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Attempting::class => [
-            LogAuthenticationEvents::class,
-        ],
-        
         Failed::class => [
-            LogAuthenticationEvents::class,
+            LogFailedLoginEvents::class,
         ],
         
         Login::class => [
-            LogAuthenticationEvents::class,
-        ],
-        
-        Logout::class => [
             LogAuthenticationEvents::class,
         ],
     ];

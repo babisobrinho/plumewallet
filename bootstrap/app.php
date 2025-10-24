@@ -21,6 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\LogLoginAttempts::class,
         ]);
         
+        // Middleware para interceptar verificação de email
+        $middleware->web(append: [
+            \App\Http\Middleware\EmailVerificationMiddleware::class,
+        ]);
+        
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,

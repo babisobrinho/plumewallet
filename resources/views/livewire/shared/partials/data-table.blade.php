@@ -93,9 +93,30 @@
     </div>
 
     <!-- Data Table -->
-    <div class="shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mt-4">
+    <div class="shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg mt-4" style="overflow: visible;">
         <!-- Table -->
-        <div class="overflow-x-auto">
+        <div class="table-responsive" x-data="{ 
+            hasOverflow: false,
+            checkOverflow() {
+                const container = $el;
+                const table = container.querySelector('table');
+                if (table) {
+                    const needsScroll = container.scrollWidth > container.clientWidth;
+                    this.hasOverflow = needsScroll;
+                    if (needsScroll) {
+                        container.classList.add('has-overflow');
+                    } else {
+                        container.classList.remove('has-overflow');
+                    }
+                }
+            }
+        }" x-init="
+            $nextTick(() => {
+                checkOverflow();
+                // Re-check on window resize
+                window.addEventListener('resize', checkOverflow);
+            })
+        " @resize.window="checkOverflow()">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-900">
                     <tr>
@@ -185,11 +206,11 @@
                             @endforeach
                             
                             @if(count($tableActions) > 0)
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium actions-cell">
                                     <div class="flex items-center justify-end space-x-2">
                                         @foreach($tableActions as $action)
                                             @if($action['type'] === 'button')
-                                                <button 
+                                                <button
                                                     wire:click="{{ $action['method'] }}({{ $item['id'] }})"
                                                     class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md {{ $action['class'] }} focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $action['focusClass'] ?? 'focus:ring-blue-500' }}"
                                                 >
@@ -216,20 +237,74 @@
                                                         x-transition:leave="transition ease-in duration-75"
                                                         x-transition:leave-start="transform opacity-100 scale-100"
                                                         x-transition:leave-end="transform opacity-0 scale-95"
-                                                        class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-600"
+                                                        class="absolute right-0 mt-2 bg-white dark:bg-gray-700 rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600"
+                                                        style="min-width: 12rem; max-width: calc(100vw - 2rem); position: absolute !important; white-space: nowrap;"
+                                                        x-init="
+                                                            $nextTick(() => {
+                                                                const rect = $el.getBoundingClientRect();
+                                                                const viewportWidth = window.innerWidth;
+                                                                const viewportHeight = window.innerHeight;
+                                                                
+                                                                // Adjust horizontal position if needed
+                                                                if (rect.right > viewportWidth - 10) {
+                                                                    $el.style.right = 'auto';
+                                                                    $el.style.left = '0';
+                                                                }
+                                                                
+                                                                // Adjust vertical position if needed
+                                                                if (rect.bottom > viewportHeight - 10) {
+                                                                    $el.style.top = 'auto';
+                                                                    $el.style.bottom = '100%';
+                                                                    $el.style.marginBottom = '0.5rem';
+                                                                    $el.style.marginTop = '0';
+                                                                }
+                                                            })
+                                                        "
                                                     >
                                                         <div class="py-1">
                                                             @foreach($action['items'] as $itemAction)
-                                                                <button 
-                                                                    wire:click="{{ $this->getGenericMethod($itemAction['method']) }}({{ $item['id'] }})"
-                                                                    @click="open = false"
-                                                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
-                                                                >
-                                                                    @if(isset($itemAction['icon']))
-                                                                        <i class="ti ti-{{ $itemAction['icon'] }} w-4 h-4 mr-2 inline"></i>
+                                                                @if(isset($itemAction['dynamic']) && $itemAction['dynamic'])
+                                                                    {{-- Dynamic action based on item properties --}}
+                                                                    @if($itemAction['method'] === 'toggleFeatured')
+                                                                        <button 
+                                                                            wire:click="{{ $this->getGenericMethod($itemAction['method']) }}({{ $item['id'] }})"
+                                                                            @click="open = false"
+                                                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 whitespace-nowrap"
+                                                                        >
+                                                                            @if($item['is_featured'])
+                                                                                <i class="ti ti-star-filled w-4 h-4 mr-2 inline text-yellow-500"></i>
+                                                                                {{ __('blog.actions.remove_from_highlights') }}
+                                                                            @else
+                                                                                <i class="ti ti-star w-4 h-4 mr-2 inline"></i>
+                                                                                {{ __('blog.actions.highlight') }}
+                                                                            @endif
+                                                                        </button>
+                                                                    @else
+                                                                        {{-- Fallback for other dynamic actions --}}
+                                                                        <button 
+                                                                            wire:click="{{ $this->getGenericMethod($itemAction['method']) }}({{ $item['id'] }})"
+                                                                            @click="open = false"
+                                                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 whitespace-nowrap"
+                                                                        >
+                                                                            @if(isset($itemAction['icon']))
+                                                                                <i class="ti ti-{{ $itemAction['icon'] }} w-4 h-4 mr-2 inline"></i>
+                                                                            @endif
+                                                                            {{ $itemAction['label'] }}
+                                                                        </button>
                                                                     @endif
-                                                                    {{ $itemAction['label'] }}
-                                                                </button>
+                                                                @else
+                                                                    {{-- Static action --}}
+                                                                    <button 
+                                                                        wire:click="{{ $this->getGenericMethod($itemAction['method']) }}({{ $item['id'] }})"
+                                                                        @click="open = false"
+                                                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 whitespace-nowrap"
+                                                                    >
+                                                                        @if(isset($itemAction['icon']))
+                                                                            <i class="ti ti-{{ $itemAction['icon'] }} w-4 h-4 mr-2 inline"></i>
+                                                                        @endif
+                                                                        {{ $itemAction['label'] }}
+                                                                    </button>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
