@@ -10,7 +10,7 @@
                             <x-application-mark class="block h-9 w-auto" />
                         </a>
                     @else
-                        <a href="{{ route('institutional.homepage.show') }}">
+                        <a href="{{ route('homepage.show') }}">
                             <x-application-mark class="block h-9 w-auto" />
                         </a>
                     @endauth
@@ -19,8 +19,11 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @guest
-                        <x-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
+                        <x-nav-link href="{{ route('homepage.show') }}" :active="request()->routeIs('homepage.show')">
                             {{ __('common.navigation.home') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('how-it-works.show') }}" :active="request()->routeIs('how-it-works.show')">
+                            {{ __('guest.footer.how_it_works') }}
                         </x-nav-link>
                     @endguest
                     @auth
@@ -173,6 +176,23 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        @guest
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link
+                    href="{{ route('homepage.show') }}"
+                    :active="request()->routeIs('homepage.show')"
+                >
+                    {{ __('common.navigation.home') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link
+                    href="{{ route('how-it-works.show') }}"
+                    :active="request()->routeIs('how-it-works.show')"
+                >
+                    {{ __('guest.footer.how_it_works') }}
+                </x-responsive-nav-link>
+            </div>
+        @endguest
+
         @auth
             <div class="pt-2 pb-3 space-y-1">
                 @if(Auth::user()->isStaff())

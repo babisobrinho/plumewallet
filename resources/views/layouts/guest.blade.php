@@ -2,11 +2,22 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('layouts.partials.head')
 <body>
-    <x-navbar-partial />
+    <x-banner />
 
-    <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
-        {{ $slot }}
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <!-- Navigation -->
+        @include('layouts.partials.guest-navbar')
+
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
+
+        <!-- Footer -->
+        @include('layouts.partials.guest-footer')
     </div>
+
+    @stack('modals')
 
     @livewireScripts
 </body>

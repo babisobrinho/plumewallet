@@ -12,30 +12,30 @@
                     <!-- Texto "Welcome to Plume" adicionado aqui -->
                     <div class="mb-4">
                         <span class="text-xl md:text-2xl font-semibold text-gray-700">
-                            {{ __('institutional.hero.welcome') }}
+                            {{ __('guest.hero.welcome') }}
                         </span>
                     </div>
                     
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                        {{ __('institutional.hero.title') }}
+                        {{ __('guest.hero.title') }}
                     </h1>
                     <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-                        {{ __('institutional.hero.subtitle') }}
+                        {{ __('guest.hero.subtitle') }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         @guest
                             <x-link href="{{ route('register') }}" 
                                    class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
-                                {{ __('institutional.hero.get_started') }}
+                                {{ __('guest.hero.get_started') }}
                             </x-link>
                             <x-link href="{{ route('login') }}" 
                                    class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
-                                {{ __('institutional.hero.learn_more') }}
+                                {{ __('guest.hero.learn_more') }}
                             </x-link>
                         @else
                             <x-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" 
                                    class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
-                                {{ __('institutional.navigation.dashboard') }}
+                                {{ __('guest.navigation.dashboard') }}
                             </x-link>
                         @endguest
                     </div>
@@ -53,16 +53,16 @@
     <section class="py-20 px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-                {{ __('institutional.welcome.title') }}
+                {{ __('guest.welcome.title') }}
             </h2>
             <p class="text-xl text-gray-700 mb-12 leading-relaxed">
-                {{ __('institutional.welcome.subtitle') }}
+                {{ __('guest.welcome.subtitle') }}
             </p>
             
             <!-- Call to Action Simples -->
             <div class="bg-gray-100 rounded-2xl p-8">
                 <p class="text-lg text-gray-800 font-medium">
-                    {{ __('institutional.welcome.call_to_action') }}
+                    {{ __('guest.welcome.call_to_action') }}
                 </p>
             </div>
         </div>
@@ -72,10 +72,10 @@
     <section class="py-20 px-6 bg-gray-100">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {{ __('institutional.features.title') }}
+                {{ __('guest.features.title') }}
             </h2>
             <p class="text-xl text-gray-700 mb-12">
-                {{ __('institutional.features.subtitle') }}
+                {{ __('guest.features.subtitle') }}
             </p>
             
             <!-- Carrossel Container -->
@@ -95,15 +95,15 @@
                         <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 0 ? 'text-white' : 'text-gray-700'">
                             <!-- Título Principal -->
                             <div>
-                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.smart_savings.title') }}</h1>
-                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.smart_savings.subtitle') }}</p>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('guest.features.smart_savings.title') }}</h1>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('guest.features.smart_savings.subtitle') }}</p>
                                 
                                 <!-- Linha divisória -->
                                 <div class="border-t mb-6" :class="currentSlide === 0 ? 'border-gray-600' : 'border-gray-300'"></div>
                                 
                                 <!-- Seção de conteúdo -->
-                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.smart_savings.section_title') }}</h2>
-                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.smart_savings.description') }}</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('guest.features.smart_savings.section_title') }}</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 0 ? 'text-gray-300' : 'text-gray-600'">{{ __('guest.features.smart_savings.description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -120,15 +120,15 @@
                         <div class="p-8 text-white text-left h-full flex flex-col">
                             <!-- Título Principal -->
                             <div>
-                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.dream_trips.title') }}</h1>
-                                <p class="text-gray-300 text-sm mb-6">{{ __('institutional.features.dream_trips.subtitle') }}</p>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('guest.features.dream_trips.title') }}</h1>
+                                <p class="text-gray-300 text-sm mb-6">{{ __('guest.features.dream_trips.subtitle') }}</p>
                                 
                                 <!-- Linha divisória -->
                                 <div class="border-t border-gray-600 mb-6"></div>
                                 
                                 <!-- Seção Dream trips -->
-                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.dream_trips.section_title') }}</h2>
-                                <p class="text-gray-300 text-sm mb-6">{{ __('institutional.features.dream_trips.description') }}</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('guest.features.dream_trips.section_title') }}</h2>
+                                <p class="text-gray-300 text-sm mb-6">{{ __('guest.features.dream_trips.description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -145,15 +145,15 @@
                         <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 2 ? 'text-white' : 'text-gray-700'">
                             <!-- Título Principal -->
                             <div>
-                                <h1 class="text-2xl font-bold mb-2">{{ __('institutional.features.investments.title') }}</h1>
-                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.investments.description') }}</p>
+                                <h1 class="text-2xl font-bold mb-2">{{ __('guest.features.investments.title') }}</h1>
+                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('guest.features.investments.description') }}</p>
                                 
                                 <!-- Linha divisória -->
                                 <div class="border-t mb-6" :class="currentSlide === 2 ? 'border-gray-600' : 'border-gray-300'"></div>
                                 
                                 <!-- Seção de conteúdo -->
-                                <h2 class="text-xl font-semibold mb-3">{{ __('institutional.features.investments.section_title') }}</h2>
-                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('institutional.features.investments.section_description') }}</p>
+                                <h2 class="text-xl font-semibold mb-3">{{ __('guest.features.investments.section_title') }}</h2>
+                                <p class="text-sm mb-6" :class="currentSlide === 2 ? 'text-gray-300' : 'text-gray-600'">{{ __('guest.features.investments.section_description') }}</p>
                             </div>
                             
                             <!-- Botão no final -->
@@ -198,10 +198,10 @@
             <!-- Título da Seção -->
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    {{ __('institutional.steps.title') }}
+                    {{ __('guest.steps.title') }}
                 </h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                    {{ __('institutional.steps.subtitle') }}
+                    {{ __('guest.steps.subtitle') }}
                 </p>
             </div>
 
@@ -215,8 +215,8 @@
                                 <i class="ti ti-user-plus text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step1.title') }}</h3>
-                                <p class="text-gray-600">{{ __('institutional.steps.step1.description') }}</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('guest.steps.step1.title') }}</h3>
+                                <p class="text-gray-600">{{ __('guest.steps.step1.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -228,8 +228,8 @@
                                 <i class="ti ti-wallet text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step2.title') }}</h3>
-                                <p class="text-gray-600">{{ __('institutional.steps.step2.description') }}</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('guest.steps.step2.title') }}</h3>
+                                <p class="text-gray-600">{{ __('guest.steps.step2.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -241,8 +241,8 @@
                                 <i class="ti ti-trending-up text-white text-2xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('institutional.steps.step3.title') }}</h3>
-                                <p class="text-gray-600">{{ __('institutional.steps.step3.description') }}</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ __('guest.steps.step3.title') }}</h3>
+                                <p class="text-gray-600">{{ __('guest.steps.step3.description') }}</p>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                 <!-- Botão CTA Centralizado -->
                 <div class="text-center">
                     <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-bold text-lg rounded-lg hover:bg-teal-700 transition-colors shadow-lg">
-                        {{ __('institutional.steps.cta') }}
+                        {{ __('guest.steps.cta') }}
                         <i class="ti ti-arrow-right w-5 h-5 ml-2"></i>
                     </x-link>
                 </div>
@@ -265,10 +265,10 @@
             <!-- Título da Seção -->
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    {{ __('institutional.profiles.title') }}
+                    {{ __('guest.profiles.title') }}
                 </h2>
                 <p class="text-gray-600 text-lg">
-                    {{ __('institutional.profiles.subtitle') }}
+                    {{ __('guest.profiles.subtitle') }}
                 </p>
             </div>
 
@@ -294,8 +294,8 @@
                                     <i class="ti ti-school text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.student.title') }}</h3>
-                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.student.subtitle') }}</p>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('guest.profiles.student.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('guest.profiles.student.subtitle') }}</p>
                                 </div>
                             </div>
                             
@@ -303,30 +303,30 @@
                             <div class="flex-1">
                                 <!-- Receitas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.income') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.0') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.1') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.student.income.2') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.student.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.student.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.student.income.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Despesas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.expenses') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.0') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.1') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.student.expenses.2') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.student.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.student.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.student.expenses.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Contas -->
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.accounts') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.student.accounts.0') }}</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.student.accounts.1') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.student.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.student.accounts.1') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -344,8 +344,8 @@
                                     <i class="ti ti-users text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.family.title') }}</h3>
-                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.family.subtitle') }}</p>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('guest.profiles.family.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('guest.profiles.family.subtitle') }}</p>
                                 </div>
                             </div>
                             
@@ -353,30 +353,30 @@
                             <div class="flex-1">
                                 <!-- Receitas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.income') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.0') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.1') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.family.income.2') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.family.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.family.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.family.income.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Despesas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.expenses') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.0') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.1') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.family.expenses.2') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.family.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.family.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.family.expenses.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Contas -->
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.accounts') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.family.accounts.0') }}</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.family.accounts.1') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.family.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.family.accounts.1') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -394,8 +394,8 @@
                                     <i class="ti ti-briefcase text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">{{ __('institutional.profiles.professional.title') }}</h3>
-                                    <p class="text-sm text-gray-600">{{ __('institutional.profiles.professional.subtitle') }}</p>
+                                    <h3 class="text-xl font-bold text-gray-900">{{ __('guest.profiles.professional.title') }}</h3>
+                                    <p class="text-sm text-gray-600">{{ __('guest.profiles.professional.subtitle') }}</p>
                                 </div>
                             </div>
                             
@@ -403,31 +403,31 @@
                             <div class="flex-1">
                                 <!-- Receitas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.income') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.income') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.0') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.1') }}</span>
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('institutional.profiles.professional.income.2') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.professional.income.0') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.professional.income.1') }}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">{{ __('guest.profiles.professional.income.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Despesas -->
                                 <div class="mb-4">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.expenses') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.expenses') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.0') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.1') }}</span>
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('institutional.profiles.professional.expenses.2') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.professional.expenses.0') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.professional.expenses.1') }}</span>
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded">{{ __('guest.profiles.professional.expenses.2') }}</span>
                                     </div>
                                 </div>
                                 
                                 <!-- Contas -->
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('institutional.common.accounts') }}</h4>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('guest.common.accounts') }}</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.0') }}</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.1') }}</span>
-                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('institutional.profiles.professional.accounts.2') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.professional.accounts.0') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.professional.accounts.1') }}</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{{ __('guest.profiles.professional.accounts.2') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -474,29 +474,29 @@
             currentProfile: 0,
             profiles: [
                 {
-                    title: '{{ __('institutional.profiles.student.title') }}',
-                    subtitle: '{{ __('institutional.profiles.student.subtitle') }}',
-                    income: @json(__('institutional.profiles.student.income')),
-                    expenses: @json(__('institutional.profiles.student.expenses')),
-                    accounts: @json(__('institutional.profiles.student.accounts')),
+                    title: '{{ __('guest.profiles.student.title') }}',
+                    subtitle: '{{ __('guest.profiles.student.subtitle') }}',
+                    income: @json(__('guest.profiles.student.income')),
+                    expenses: @json(__('guest.profiles.student.expenses')),
+                    accounts: @json(__('guest.profiles.student.accounts')),
                     icon: 'ti ti-school',
                     color: 'bg-green-600'
                 },
                 {
-                    title: '{{ __('institutional.profiles.family.title') }}',
-                    subtitle: '{{ __('institutional.profiles.family.subtitle') }}',
-                    income: @json(__('institutional.profiles.family.income')),
-                    expenses: @json(__('institutional.profiles.family.expenses')),
-                    accounts: @json(__('institutional.profiles.family.accounts')),
+                    title: '{{ __('guest.profiles.family.title') }}',
+                    subtitle: '{{ __('guest.profiles.family.subtitle') }}',
+                    income: @json(__('guest.profiles.family.income')),
+                    expenses: @json(__('guest.profiles.family.expenses')),
+                    accounts: @json(__('guest.profiles.family.accounts')),
                     icon: 'ti ti-users',
                     color: 'bg-blue-600'
                 },
                 {
-                    title: '{{ __('institutional.profiles.professional.title') }}',
-                    subtitle: '{{ __('institutional.profiles.professional.subtitle') }}',
-                    income: @json(__('institutional.profiles.professional.income')),
-                    expenses: @json(__('institutional.profiles.professional.expenses')),
-                    accounts: @json(__('institutional.profiles.professional.accounts')),
+                    title: '{{ __('guest.profiles.professional.title') }}',
+                    subtitle: '{{ __('guest.profiles.professional.subtitle') }}',
+                    income: @json(__('guest.profiles.professional.income')),
+                    expenses: @json(__('guest.profiles.professional.expenses')),
+                    accounts: @json(__('guest.profiles.professional.accounts')),
                     icon: 'ti ti-briefcase',
                     color: 'bg-purple-600'
                 }

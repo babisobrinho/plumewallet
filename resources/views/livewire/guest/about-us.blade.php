@@ -6,7 +6,7 @@
             <!-- Título da Seção -->
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    {{ __('institutional.about_us.history.title') }}
+                    {{ __('guest.about_us.history.title') }}
                 </h2>
             </div>
 
@@ -17,18 +17,13 @@
                 
                 <!-- Item 1 - O Início -->
                 <div class="relative mb-20">
-                    <!-- Linha horizontal esquerda -->
-                    <div class="absolute left-0 right-1/2 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    <!-- Linha horizontal direita -->
-                    <div class="absolute left-1/2 right-0 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    
                     <div class="flex items-center">
                         <!-- Texto à esquerda -->
                         <div class="w-1/2 pr-8">
                             <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.history.beginning.title') }}</h3>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.beginning.title') }}</h3>
                                 <p class="text-gray-600 leading-relaxed">
-                                    {{ __('institutional.about_us.history.beginning.description') }}
+                                    {{ __('guest.about_us.history.beginning.description') }}
                                 </p>
                             </div>
                         </div>
@@ -40,7 +35,7 @@
                         <div class="w-1/2 pl-8">
                             <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
                                 <i class="ti ti-bulb text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('institutional.about_us.history.beginning.icon_label') }}</p>
+                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.beginning.icon_label') }}</p>
                             </div>
                         </div>
                     </div>
@@ -48,17 +43,12 @@
 
                 <!-- Item 2 - Desenvolvimento -->
                 <div class="relative mb-20">
-                    <!-- Linha horizontal esquerda -->
-                    <div class="absolute left-0 right-1/2 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    <!-- Linha horizontal direita -->
-                    <div class="absolute left-1/2 right-0 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    
                     <div class="flex items-center">
                         <!-- Ícone à esquerda -->
                         <div class="w-1/2 pr-8">
                             <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
                                 <i class="ti ti-code text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('institutional.about_us.history.development.icon_label') }}</p>
+                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.development.icon_label') }}</p>
                             </div>
                         </div>
                         
@@ -68,9 +58,9 @@
                         <!-- Texto à direita -->
                         <div class="w-1/2 pl-8">
                             <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.history.development.title') }}</h3>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.development.title') }}</h3>
                                 <p class="text-gray-600 leading-relaxed">
-                                    {{ __('institutional.about_us.history.development.description') }}
+                                    {{ __('guest.about_us.history.development.description') }}
                                 </p>
                             </div>
                         </div>
@@ -79,18 +69,13 @@
 
                 <!-- Item 3 - Lançamento -->
                 <div class="relative mb-20">
-                    <!-- Linha horizontal esquerda -->
-                    <div class="absolute left-0 right-1/2 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    <!-- Linha horizontal direita -->
-                    <div class="absolute left-1/2 right-0 h-0.5 bg-gray-800 top-1/2 transform -translate-y-1/2"></div>
-                    
                     <div class="flex items-center">
                         <!-- Texto à esquerda -->
                         <div class="w-1/2 pr-8">
                             <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.history.launch.title') }}</h3>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.launch.title') }}</h3>
                                 <p class="text-gray-600 leading-relaxed">
-                                    {{ __('institutional.about_us.history.launch.description') }}
+                                    {{ __('guest.about_us.history.launch.description') }}
                                 </p>
                             </div>
                         </div>
@@ -102,7 +87,7 @@
                         <div class="w-1/2 pl-8">
                             <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
                                 <i class="ti ti-rocket text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('institutional.about_us.history.launch.icon_label') }}</p>
+                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.launch.icon_label') }}</p>
                             </div>
                         </div>
                     </div>
@@ -115,34 +100,34 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Coluna 1 - Contact us -->
                 <div class="text-center md:text-left">
-                    <h3 class="text-xl font-bold text-white mb-4">{{ __('institutional.about_us.footer.contact_us.title') }}</h3>
+                    <h3 class="text-xl font-bold text-white mb-4">{{ __('guest.about_us.footer.contact_us.title') }}</h3>
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        {{ __('institutional.about_us.footer.contact_us.description') }}
+                        {{ __('guest.about_us.footer.contact_us.description') }}
                     </p>
                     <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
-                        {{ __('institutional.about_us.footer.contact_us.button') }}
+                        {{ __('guest.about_us.footer.contact_us.button') }}
                     </button>
                 </div>
 
                 <!-- Coluna 2 - O que fazemos -->
                 <div class="text-center md:text-left">
-                    <h3 class="text-xl font-bold text-white mb-4">{{ __('institutional.about_us.footer.what_we_do.title') }}</h3>
+                    <h3 class="text-xl font-bold text-white mb-4">{{ __('guest.about_us.footer.what_we_do.title') }}</h3>
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        {{ __('institutional.about_us.footer.what_we_do.description') }}
+                        {{ __('guest.about_us.footer.what_we_do.description') }}
                     </p>
                     <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
-                        {{ __('institutional.about_us.footer.what_we_do.button') }}
+                        {{ __('guest.about_us.footer.what_we_do.button') }}
                     </button>
                 </div>
 
                 <!-- Coluna 3 - Alguma dúvida -->
                 <div class="text-center md:text-left">
-                    <h3 class="text-xl font-bold text-white mb-4">{{ __('institutional.about_us.footer.any_questions.title') }}</h3>
+                    <h3 class="text-xl font-bold text-white mb-4">{{ __('guest.about_us.footer.any_questions.title') }}</h3>
                     <p class="text-gray-300 mb-6 leading-relaxed">
-                        {{ __('institutional.about_us.footer.any_questions.description') }}
+                        {{ __('guest.about_us.footer.any_questions.description') }}
                     </p>
                     <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
-                        {{ __('institutional.about_us.footer.any_questions.button') }}
+                        {{ __('guest.about_us.footer.any_questions.button') }}
                     </button>
                 </div>
             </div>
@@ -154,7 +139,7 @@
             <!-- Título da Seção -->
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    {{ __('institutional.about_us.team.title') }}
+                    {{ __('guest.about_us.team.title') }}
                 </h2>
             </div>
 
@@ -168,9 +153,9 @@
                              alt="Babi Sobrinho" 
                              class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-gray-200">
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.team.babi.name') }}</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.team.babi.name') }}</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">
-                        {{ __('institutional.about_us.team.babi.description') }}
+                        {{ __('guest.about_us.team.babi.description') }}
                     </p>
                     <div class="flex justify-center space-x-4">
                         <a href="https://github.com/babisobrinho" target="_blank" 
@@ -191,9 +176,9 @@
                              alt="Lenice Soares" 
                              class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-gray-200">
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.team.lenice.name') }}</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.team.lenice.name') }}</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">
-                        {{ __('institutional.about_us.team.lenice.description') }}
+                        {{ __('guest.about_us.team.lenice.description') }}
                     </p>
                     <div class="flex justify-center space-x-4">
                         <a href="https://github.com/lenicesoaares" target="_blank" 
@@ -214,9 +199,9 @@
                              alt="Rebeca Santos" 
                              class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-gray-200">
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('institutional.about_us.team.rebeca.name') }}</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.team.rebeca.name') }}</h3>
                     <p class="text-gray-600 leading-relaxed mb-6">
-                        {{ __('institutional.about_us.team.rebeca.description') }}
+                        {{ __('guest.about_us.team.rebeca.description') }}
                     </p>
                     <div class="flex justify-center space-x-4">
                         <a href="https://github.com/RebecaSantosb" target="_blank" 

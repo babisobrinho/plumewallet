@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('institutional.homepage.show') }}" class="flex items-center gap-3">
+                    <a href="{{ route('homepage.show') }}" class="flex items-center gap-3">
                         <x-application-mark class="h-8 w-8" />
                         <span class="text-xl font-bold text-gray-900 dark:text-white">PlumeWallet</span>
                     </a>
@@ -13,14 +13,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    @guest
-                        <x-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
-                            {{ __('institutional.navigation.home') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('institutional.about-us.show') }}" :active="request()->routeIs('institutional.about-us.show')">
-                            {{ __('institutional.footer.about_us') }}
-                        </x-nav-link>
-                    @endguest
+                    <x-nav-link href="{{ route('homepage.show') }}" :active="request()->routeIs('homepage.show')">
+                        {{ __('guest.navigation.home') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('how-it-works.show') }}" :active="request()->routeIs('how-it-works.show')">
+                        {{ __('guest.footer.how_it_works') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('about-us.show') }}" :active="request()->routeIs('about-us.show')">
+                        {{ __('guest.footer.about_us') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -48,15 +49,15 @@
                             <x-slot name="content">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('institutional.navigation.account') }}
+                                    {{ __('guest.navigation.account') }}
                                 </div>
 
                                 <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
-                                    {{ __('institutional.navigation.dashboard') }}
+                                    {{ __('guest.navigation.dashboard') }}
                                 </x-dropdown-link>
 
                                 <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}">
-                                    {{ __('institutional.navigation.profile') }}
+                                    {{ __('guest.navigation.profile') }}
                                 </x-dropdown-link>
 
                                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
@@ -67,7 +68,7 @@
 
                                     <x-dropdown-link href="{{ route('logout') }}"
                                              @click.prevent="$root.submit();">
-                                        {{ __('institutional.navigation.log_out') }}
+                                        {{ __('guest.navigation.log_out') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
@@ -77,10 +78,10 @@
 
                 @guest
                     <x-link href="{{ route('login') }}" class="me-2">
-                        {{ __('institutional.navigation.log_in') }}
+                        {{ __('guest.navigation.log_in') }}
                     </x-link>
                     <x-link href="{{ route('register') }}" class="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white">
-                        {{ __('institutional.navigation.register') }}
+                        {{ __('guest.navigation.register') }}
                     </x-link>
                 @endguest
             </div>
@@ -101,11 +102,14 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         @guest
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link href="{{ route('institutional.homepage.show') }}" :active="request()->routeIs('institutional.homepage.show')">
-                    {{ __('institutional.navigation.home') }}
+                <x-responsive-nav-link href="{{ route('homepage.show') }}" :active="request()->routeIs('homepage.show')">
+                    {{ __('guest.navigation.home') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('institutional.about-us.show') }}" :active="request()->routeIs('institutional.about-us.show')">
-                    {{ __('institutional.footer.about_us') }}
+                <x-responsive-nav-link href="{{ route('how-it-works.show') }}" :active="request()->routeIs('how-it-works.show')">
+                    {{ __('guest.footer.how_it_works') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('about-us.show') }}" :active="request()->routeIs('about-us.show')">
+                    {{ __('guest.footer.about_us') }}
                 </x-responsive-nav-link>
             </div>
         @endguest
@@ -129,11 +133,11 @@
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
                     <x-responsive-nav-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" :active="false">
-                        {{ __('institutional.navigation.dashboard') }}
+                        {{ __('guest.navigation.dashboard') }}
                     </x-responsive-nav-link>
 
                     <x-responsive-nav-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}" :active="false">
-                        {{ __('institutional.navigation.profile') }}
+                        {{ __('guest.navigation.profile') }}
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->
@@ -141,7 +145,7 @@
                         @csrf
                         <x-responsive-nav-link href="{{ route('logout') }}"
                                        @click.prevent="$root.submit();">
-                            {{ __('institutional.navigation.log_out') }}
+                            {{ __('guest.navigation.log_out') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>
@@ -152,10 +156,10 @@
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="px-4 space-y-2">
                     <x-link href="{{ route('login') }}" class="block text-center">
-                        {{ __('institutional.navigation.log_in') }}
+                        {{ __('guest.navigation.log_in') }}
                     </x-link>
                     <x-link href="{{ route('register') }}" class="block text-center bg-indigo-600 hover:bg-indigo-700 text-white">
-                        {{ __('institutional.navigation.register') }}
+                        {{ __('guest.navigation.register') }}
                     </x-link>
                 </div>
             </div>

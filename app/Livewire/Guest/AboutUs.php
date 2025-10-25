@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Institutional\AboutUs;
+namespace App\Livewire\Guest;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
-#[Layout('layouts.institutional')]
-class Show extends Component
+#[Layout('layouts.guest')]
+class AboutUs extends Component
 {
     /**
      * Get the view / contents that represent the component.
      */
     public function render()
     {
-        return view('livewire.institutional.about-us.show');
+        return view('livewire.guest.about-us');
     }
 }

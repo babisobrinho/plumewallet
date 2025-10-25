@@ -11,20 +11,19 @@ use App\Livewire\Backoffice\Blog\Index as BackofficeBlogIndex;
 use App\Livewire\Backoffice\Faq\Index as BackofficeFaqIndex;
 use App\Livewire\Backoffice\Logs\Index as BackofficeLogsIndex;
 use App\Livewire\Backoffice\LoginAttempts\Index as BackofficeLoginAttemptsIndex;
-use App\Livewire\Institutional\Homepage\Show as InstitutionalHomepageShow;
-use App\Livewire\Institutional\AboutUs\Show as InstitutionalAboutUsShow;
+use App\Livewire\Guest\Homepage as GuestHomepage;
+use App\Livewire\Guest\AboutUs as GuestAboutUs;
+use App\Livewire\Guest\HowItWorks as GuestHowItWorks;
+use App\Livewire\Guest\Faqs as GuestFaqs;
+use App\Livewire\Guest\Contact as GuestContact;
 use Illuminate\Support\Facades\Route;
 
-// Institutional Routes (Public)
-Route::prefix('institutional')->name('institutional.')->group(function () {
-    Route::get('/', InstitutionalHomepageShow::class)->name('homepage.show');
-    Route::get('/about-us', InstitutionalAboutUsShow::class)->name('about-us.show');
-});
-
-// Root route redirects to institutional homepage
-Route::get('/', function () {
-    return redirect()->route('institutional.homepage.show');
-})->name('welcome');
+// Guest Routes (Public)
+Route::get('/', GuestHomepage::class)->name('homepage.show');
+Route::get('/about-us', GuestAboutUs::class)->name('about-us.show');
+Route::get('/how-it-works', GuestHowItWorks::class)->name('how-it-works.show');
+Route::get('/faqs', GuestFaqs::class)->name('faqs.show');
+Route::get('/contact', GuestContact::class)->name('contact.show');
 
 // Email verification for different account
 Route::get('/email/verification/different-account', function () {

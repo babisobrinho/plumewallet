@@ -185,6 +185,120 @@ return [
         ],
     ],
 
+    'how_it_works' => [
+        'title' => 'How It Works',
+        'subtitle' => 'Discover how easy it is to start managing your finances with PlumeWallet',
+        'main_title' => 'Get Started in 3 Simple Steps',
+        'main_description' => 'Creating an account and starting to save is completely free. No hidden fees, no credit card required.',
+        'step1' => [
+            'title' => 'Create Your Account',
+            'description' => 'Sign up for free in just a few minutes. No credit card required.',
+        ],
+        'step2' => [
+            'title' => 'Start Saving',
+            'description' => 'Set your financial goals and start tracking your progress immediately.',
+        ],
+        'step3' => [
+            'title' => 'Track Your Progress',
+            'description' => 'Monitor your savings and watch your financial goals become reality.',
+        ],
+        'cta' => [
+            'title' => 'Ready to Start Your Financial Journey?',
+            'description' => 'Join thousands of users who are already managing their finances with PlumeWallet.',
+            'create_account' => 'Create Free Account',
+            'view_faqs' => 'View FAQs',
+        ],
+        'benefits' => [
+            'title' => 'Why Choose PlumeWallet?',
+            'secure' => [
+                'title' => 'Bank-Level Security',
+                'description' => 'Your data is protected with advanced encryption and security protocols.',
+            ],
+            'easy' => [
+                'title' => 'Easy to Use',
+                'description' => 'Intuitive interface designed for users of all experience levels.',
+            ],
+            'mobile' => [
+                'title' => 'Mobile Access',
+                'description' => 'Manage your finances anywhere, anytime, from any device.',
+            ],
+            'free' => [
+                'title' => 'Completely Free',
+                'description' => 'No hidden fees, no premium subscriptions required.',
+            ],
+        ],
+    ],
+
+    'faqs' => [
+        'title' => 'Frequently Asked Questions',
+        'subtitle' => 'Find answers to the most common questions about PlumeWallet',
+        'search_placeholder' => 'Search for questions...',
+        'filter_by_category' => 'Filter by Category',
+        'categories' => [
+            'general' => 'General',
+            'account' => 'Account',
+            'transactions' => 'Transactions',
+            'security' => 'Security',
+            'billing' => 'Billing',
+            'technical' => 'Technical',
+            'features' => 'Features',
+            'support' => 'Support',
+        ],
+        'no_results' => [
+            'title' => 'No FAQs Found',
+            'description' => 'We couldn\'t find any FAQs matching your search. Try different keywords or browse by category.',
+            'clear_search' => 'Clear Search',
+        ],
+        'contact' => [
+            'title' => 'Still Have Questions?',
+            'description' => 'Can\'t find what you\'re looking for? We\'re here to help!',
+            'how_it_works' => 'How It Works',
+            'contact_us' => 'Contact Us',
+        ],
+    ],
+
+    'contact' => [
+        'title' => 'Contact Us',
+        'subtitle' => 'Get in touch with us. We\'d love to hear from you and answer any questions you may have.',
+        'hours' => [
+            'title' => 'Operating Hours',
+            'description' => 'Monday to Friday, 9 AM to 6 PM',
+        ],
+        'phone' => [
+            'title' => 'Phone',
+            'number' => '+351 987 456 680',
+        ],
+        'email' => [
+            'title' => 'Email',
+            'address' => 'contact@plume.pt',
+        ],
+        'form' => [
+            'title' => 'How can we help you?',
+            'email' => 'Email',
+            'email_placeholder' => 'your.email@example.com',
+            'phone' => 'Phone',
+            'phone_placeholder' => '+351 987 456 680',
+            'name' => 'Full Name (Optional)',
+            'name_placeholder' => 'Your full name',
+            'message' => 'Message',
+            'message_placeholder' => 'Tell us how we can help you...',
+            'submit' => 'Send',
+            'sending' => 'Sending...',
+            'success' => [
+                'title' => 'Message Sent Successfully!',
+                'message' => 'Thank you for contacting us. We\'ll get back to you as soon as possible.',
+            ],
+            'error' => [
+                'title' => 'Error Sending Message',
+            ],
+        ],
+        'cta' => [
+            'title' => 'Plume is where you are!',
+            'subtitle' => 'Be part of this initiative with just one click.',
+            'button' => 'Get Started',
+        ],
+    ],
+
     'footer' => [
         'plume_wallet' => 'Plume Wallet',
         'description' => 'The complete solution to manage your personal finances with ease and security.',

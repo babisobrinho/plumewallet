@@ -4,12 +4,12 @@
 <body class="font-sans antialiased">
     <x-banner />
 
-    <div class="flex min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div class="flex bg-gray-100 dark:bg-gray-800">
         <!-- Sidebar -->
-        <x-sidebar-partial />
+        @include('layouts.partials.backoffice-sidebar')
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col min-h-screen justify-between">
             <!-- Header -->
             <header class="bg-white dark:bg-gray-900 shadow">
                 @if (isset($header))
@@ -18,9 +18,12 @@
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-1">
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            @include('layouts.partials.backoffice-footer')
         </div>
 
         @stack('modals')
