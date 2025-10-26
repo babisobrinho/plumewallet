@@ -21,29 +21,38 @@ class Faqs extends Component
     public function updatedSelectedCategory()
     {
         $this->reset('search');
+        \Log::info('FAQ Category updated to: ' . $this->selectedCategory);
     }
 
     public function updatedSearch()
     {
         $this->reset('selectedCategory');
+        \Log::info('FAQ Search updated to: ' . $this->search);
     }
 
     public function getFaqsProperty()
     {
+        \Log::info('Getting FAQs with category: ' . $this->selectedCategory . ' and search: ' . $this->search);
+        
         $query = Faq::active()->ordered();
 
         if ($this->selectedCategory) {
+            \Log::info('Applying category filter: ' . $this->selectedCategory);
             $query->byCategory(FaqCategory::from($this->selectedCategory));
         }
 
         if ($this->search) {
+            \Log::info('Applying search filter: ' . $this->search);
             $query->where(function ($q) {
                 $q->where('question', 'like', '%' . $this->search . '%')
                   ->orWhere('answer', 'like', '%' . $this->search . '%');
             });
         }
 
-        return $query->get();
+        $result = $query->get();
+        \Log::info('FAQs count: ' . $result->count());
+        
+        return $result;
     }
 
     public function getCategoriesProperty()

@@ -22,6 +22,9 @@
                     <x-nav-link href="{{ route('about-us.show') }}" :active="request()->routeIs('about-us.show')">
                         {{ __('guest.footer.about_us') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('blog.index') }}" :active="request()->routeIs('blog.*')">
+                        {{ __('guest.blog.title') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -110,6 +113,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="{{ route('about-us.show') }}" :active="request()->routeIs('about-us.show')">
                     {{ __('guest.footer.about_us') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('blog.index') }}" :active="request()->routeIs('blog.*')">
+                    {{ __('guest.blog.title') }}
                 </x-responsive-nav-link>
             </div>
         @endguest

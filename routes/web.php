@@ -18,6 +18,11 @@ use App\Livewire\Guest\AboutUs as GuestAboutUs;
 use App\Livewire\Guest\HowItWorks as GuestHowItWorks;
 use App\Livewire\Guest\Faqs as GuestFaqs;
 use App\Livewire\Guest\Contact as GuestContact;
+use App\Livewire\Guest\Privacy as GuestPrivacy;
+use App\Livewire\Guest\Terms as GuestTerms;
+use App\Livewire\Guest\Security as GuestSecurity;
+use App\Livewire\Guest\Blog as GuestBlog;
+use App\Livewire\Guest\BlogPost as GuestBlogPost;
 use Illuminate\Support\Facades\Route;
 
 // Guest Routes (Public)
@@ -26,6 +31,13 @@ Route::get('/about-us', GuestAboutUs::class)->name('about-us.show');
 Route::get('/how-it-works', GuestHowItWorks::class)->name('how-it-works.show');
 Route::get('/faqs', GuestFaqs::class)->name('faqs.show');
 Route::get('/contact', GuestContact::class)->name('contact.show');
+Route::get('/privacy', GuestPrivacy::class)->name('privacy.show');
+Route::get('/terms', GuestTerms::class)->name('terms-of-service.show');
+Route::get('/security', GuestSecurity::class)->name('security.show');
+
+// Blog Routes
+Route::get('/blog', GuestBlog::class)->name('blog.index');
+Route::get('/blog/{post:slug}', GuestBlogPost::class)->name('blog.post');
 
 // Email verification for different account
 Route::get('/email/verification/different-account', function () {

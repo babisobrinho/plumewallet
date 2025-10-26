@@ -18,7 +18,7 @@
                 <ul class="space-y-3">
                     <li><a href="{{ route('how-it-works.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.how_it_works') }}</a></li>
                     <li><a href="{{ route('faqs.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.faq') }}</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.blog') }}</a></li>
+                    <li><a href="{{ route('blog.index') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.blog') }}</a></li>
                 </ul>
             </div>
 
@@ -28,7 +28,6 @@
                 <ul class="space-y-3">
                     <li><a href="{{ route('about-us.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.about_us') }}</a></li>
                     <li><a href="{{ route('contact.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.contact') }}</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.careers') }}</a></li>
                 </ul>
             </div>
 
@@ -36,9 +35,9 @@
             <div>
                 <h3 class="text-lg font-bold text-white mb-4">{{ __('guest.footer.legal') }}</h3>
                 <ul class="space-y-3">
-                    <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.privacy') }}</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.terms') }}</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.security') }}</a></li>
+                    <li><a href="{{ route('privacy.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.privacy') }}</a></li>
+                    <li><a href="{{ route('terms-of-service.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.terms') }}</a></li>
+                    <li><a href="{{ route('security.show') }}" class="text-gray-300 hover:text-white text-sm transition-colors">{{ __('guest.footer.security') }}</a></li>
                 </ul>
             </div>
         </div>

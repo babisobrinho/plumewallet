@@ -58,4 +58,36 @@ trait HasEnumStylingMethods
             ($style['dark_bg_color'] ?? 'dark:bg-gray-700') . ' ' .
             ($style['dark_text_color'] ?? 'dark:text-gray-200');
     }
+
+    /**
+     * Get the light background color class
+     */
+    public function getLightBgColor(): string
+    {
+        return self::styles()[$this->value]['light_bg_color'] ?? 'bg-gray-200';
+    }
+
+    /**
+     * Get the light text color class
+     */
+    public function getLightTextColor(): string
+    {
+        return self::styles()[$this->value]['light_text_color'] ?? 'text-gray-700';
+    }
+
+    /**
+     * Get the dark background color class
+     */
+    public function getDarkBgColor(): string
+    {
+        return self::styles()[$this->value]['dark_bg_color'] ?? 'dark:bg-gray-700';
+    }
+
+    /**
+     * Get the dark text color class
+     */
+    public function getDarkTextColor(): string
+    {
+        return self::styles()[$this->value]['dark_text_color'] ?? 'dark:text-gray-200';
+    }
 }

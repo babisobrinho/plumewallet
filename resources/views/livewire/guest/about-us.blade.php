@@ -13,29 +13,29 @@
             <!-- Timeline -->
             <div class="relative">
                 <!-- Linha central vertical -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-2 h-full bg-gray-800"></div>
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-2 h-full bg-gray-800"></div>
                 
                 <!-- Item 1 - O Início -->
                 <div class="relative mb-20">
-                    <div class="flex items-center">
+                    <div class="flex flex-col md:flex-row items-center">
                         <!-- Texto à esquerda -->
-                        <div class="w-1/2 pr-8">
-                            <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.beginning.title') }}</h3>
-                                <p class="text-gray-600 leading-relaxed">
+                        <div class="w-full md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                            <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg border border-gray-100 min-h-48 flex flex-col justify-center">
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.beginning.title') }}</h3>
+                                <p class="text-sm md:text-base text-gray-600 leading-relaxed">
                                     {{ __('guest.about_us.history.beginning.description') }}
                                 </p>
                             </div>
                         </div>
                         
                         <!-- Marcador da timeline -->
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
                         
                         <!-- Ícone à direita -->
-                        <div class="w-1/2 pl-8">
-                            <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
-                                <i class="ti ti-bulb text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.beginning.icon_label') }}</p>
+                        <div class="w-full md:w-1/2 md:pl-8">
+                            <div class="bg-gray-800 rounded-xl min-h-48 flex flex-col items-center justify-center shadow-lg">
+                                <i class="ti ti-bulb text-white text-5xl md:text-6xl mb-3"></i>
+                                <p class="text-white text-xs md:text-sm font-medium text-center px-4">{{ __('guest.about_us.history.beginning.icon_label') }}</p>
                             </div>
                         </div>
                     </div>
@@ -43,23 +43,23 @@
 
                 <!-- Item 2 - Desenvolvimento -->
                 <div class="relative mb-20">
-                    <div class="flex items-center">
-                        <!-- Ícone à esquerda -->
-                        <div class="w-1/2 pr-8">
-                            <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
-                                <i class="ti ti-code text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.development.icon_label') }}</p>
+                    <div class="flex flex-col md:flex-row items-center">
+                        <!-- Ícone à esquerda - segundo no mobile (embaixo) -->
+                        <div class="w-full md:w-1/2 md:pr-8 order-2 md:order-1">
+                            <div class="bg-gray-800 rounded-xl min-h-48 flex flex-col items-center justify-center shadow-lg">
+                                <i class="ti ti-code text-white text-5xl md:text-6xl mb-3"></i>
+                                <p class="text-white text-xs md:text-sm font-medium text-center px-4">{{ __('guest.about_us.history.development.icon_label') }}</p>
                             </div>
                         </div>
                         
                         <!-- Marcador da timeline -->
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
                         
-                        <!-- Texto à direita -->
-                        <div class="w-1/2 pl-8">
-                            <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.development.title') }}</h3>
-                                <p class="text-gray-600 leading-relaxed">
+                        <!-- Texto à direita - primeiro no mobile (em cima) -->
+                        <div class="w-full md:w-1/2 mb-8 md:mb-0 md:pl-8 order-1 md:order-2">
+                            <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg border border-gray-100 min-h-48 flex flex-col justify-center">
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.development.title') }}</h3>
+                                <p class="text-sm md:text-base text-gray-600 leading-relaxed">
                                     {{ __('guest.about_us.history.development.description') }}
                                 </p>
                             </div>
@@ -69,25 +69,25 @@
 
                 <!-- Item 3 - Lançamento -->
                 <div class="relative mb-20">
-                    <div class="flex items-center">
+                    <div class="flex flex-col md:flex-row items-center">
                         <!-- Texto à esquerda -->
-                        <div class="w-1/2 pr-8">
-                            <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-48 flex flex-col justify-center">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.launch.title') }}</h3>
-                                <p class="text-gray-600 leading-relaxed">
+                        <div class="w-full md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                            <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg border border-gray-100 min-h-48 flex flex-col justify-center">
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ __('guest.about_us.history.launch.title') }}</h3>
+                                <p class="text-sm md:text-base text-gray-600 leading-relaxed">
                                     {{ __('guest.about_us.history.launch.description') }}
                                 </p>
                             </div>
                         </div>
                         
                         <!-- Marcador da timeline -->
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white rounded-full border-4 border-gray-800 z-10"></div>
                         
                         <!-- Ícone à direita -->
-                        <div class="w-1/2 pl-8">
-                            <div class="bg-gray-800 rounded-xl h-48 flex flex-col items-center justify-center shadow-lg">
-                                <i class="ti ti-rocket text-white text-6xl mb-3"></i>
-                                <p class="text-white text-sm font-medium text-center">{{ __('guest.about_us.history.launch.icon_label') }}</p>
+                        <div class="w-full md:w-1/2 md:pl-8">
+                            <div class="bg-gray-800 rounded-xl min-h-48 flex flex-col items-center justify-center shadow-lg">
+                                <i class="ti ti-rocket text-white text-5xl md:text-6xl mb-3"></i>
+                                <p class="text-white text-xs md:text-sm font-medium text-center px-4">{{ __('guest.about_us.history.launch.icon_label') }}</p>
                             </div>
                         </div>
                     </div>
@@ -104,9 +104,9 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.contact_us.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('contact.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.contact_us.button') }}
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Coluna 2 - O que fazemos -->
@@ -115,9 +115,9 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.what_we_do.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('homepage.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.what_we_do.button') }}
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Coluna 3 - Alguma dúvida -->
@@ -126,9 +126,9 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.any_questions.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('faqs.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.any_questions.button') }}
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
