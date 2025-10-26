@@ -67,6 +67,11 @@ return [
         'suspicious' => 'Suspicious',
     ],
 
+    'payee_status' => [
+        'listed' => 'Listed',
+        'unlisted' => 'Unlisted',
+    ],
+
     'post_category' => [
         'technology' => 'Technology',
         'business' => 'Business',

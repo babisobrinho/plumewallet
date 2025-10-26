@@ -1,166 +1,386 @@
-<div class="bg-white min-h-screen">
-    <!-- Notification Bar -->
-    <div class="bg-purple-600 text-white px-4 py-2 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div class="w-full py-4 sm:py-8">
+        <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
+            <!-- Sidebar -->
+            <div class="lg:w-64 flex-shrink-0 px-4 sm:px-4 lg:px-6">
+                <!-- Account Summary Card -->
+                <div class="p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-xs border border-gray-100 dark:border-gray-700 mb-3">
+                    <div class="flex flex-col items-center">
+                        <div class="relative mb-3">
+                            <div class="h-20 w-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800">
+                                <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
             </svg>
-            <span class="text-sm font-medium">{{ $transactions->where('category_id', null)->count() }} new transaction to approve or categorize.</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ __('common.transactions.accounts') }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ trans_choice('common.transactions.accounts_count', $accounts->count(), ['count' => $accounts->count()]) }} • ${{ number_format($this->getWorkingBalance(), 2) }} total</p>
+                    </div>
         </div>
-        <button class="bg-purple-700 hover:bg-purple-800 px-3 py-1 rounded text-sm font-medium transition-colors">
-            View
+
+                <!-- Create Account Button -->
+                <div class="mb-3">
+                    <button wire:click="openAccountModal" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl flex items-center justify-center space-x-2 transition-colors font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span>{{ __('common.buttons.new') }} {{ __('common.transactions.account') }}</span>
         </button>
     </div>
 
-    <!-- Main Header -->
-    <div class="px-6 py-6 border-b border-gray-200">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ __('common.transactions.all_accounts') }}</h1>
-        
-        <!-- Balance Summary -->
-        <div class="grid grid-cols-3 gap-8 mb-6">
-            <div class="text-center">
-                <div class="text-2xl font-bold text-gray-900">
-                    {{ $this->getClearedBalance() < 0 ? '-' : '' }}${{ number_format(abs($this->getClearedBalance()), 2) }}
+                <!-- Navigation Menu -->
+                <div class="sticky top-8 space-y-1 p-1 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                    <!-- All Accounts Option -->
+                    <button wire:click="showAllAccounts" 
+                            class="w-full flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-700 rounded-lg font-medium transition-colors {{ $selectedAccountId === null ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400' : '' }}">
+                        <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span class="font-medium">{{ __('common.transactions.all_accounts') }}</span>
+                    </button>
+
+                    <!-- Individual Accounts -->
+                    @foreach($accounts as $account)
+                        <button wire:click="selectAccount({{ $account->id }})" 
+                                class="w-full flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-700 rounded-lg font-medium transition-colors {{ $selectedAccountId === $account->id ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400' : '' }}">
+                            <div class="h-5 w-5 mr-3 flex items-center justify-center">
+                                @if($account->type->value === 'checking')
+                                    <svg class="h-5 w-5 {{ $account->isCreditAccount() ? 'text-red-500' : 'text-green-500' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"></path>
+                                    </svg>
+                                @elseif($account->type->value === 'savings')
+                                    <svg class="h-5 w-5 {{ $account->isCreditAccount() ? 'text-red-500' : 'text-green-500' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                @elseif($account->type->value === 'credit_card')
+                                    <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"></path>
+                                    </svg>
+                                @else
+                                    <svg class="h-5 w-5 {{ $account->isCreditAccount() ? 'text-red-500' : 'text-green-500' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                                    </svg>
+                                @endif
+                            </div>
+                            <span class="font-medium">{{ $account->name }}</span>
+                        </button>
+                    @endforeach
                 </div>
-                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.cleared_balance') }}</div>
             </div>
-            <div class="text-center">
-                <div class="text-2xl font-bold text-gray-900">
-                    {{ $this->getUnclearedBalance() < 0 ? '-' : '+' }}${{ number_format(abs($this->getUnclearedBalance()), 2) }}
+
+            <!-- Main Content -->
+            <div class="flex-1 space-y-4 sm:space-y-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 px-4 sm:px-4 lg:px-6">
+                    <!-- Header -->
+                    <div class="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100 dark:border-gray-700">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                            <div class="flex-1 min-w-0">
+                                <h1 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+                                    @if($selectedAccountId)
+                                        {{ $accounts->where('id', $selectedAccountId)->first()->name ?? __('common.transactions.account') }} {{ __('common.transactions.title') }}
+                                    @else
+                                        {{ __('common.transactions.all_accounts') }}
+                                    @endif
+                                </h1>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    {{ trans_choice('common.transactions.accounts_count', $transactions->count(), ['count' => $transactions->count()]) }} • 
+                                    {{ __('common.transactions.working_balance') }}: ${{ number_format($this->getWorkingBalance(), 2) }}
+                                </p>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 flex-shrink-0">
+                                <button wire:click="addRow" 
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    <span>{{ __('common.transactions.add_transaction') }}</span>
+                                </button>
+                                
+                                <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span>{{ __('common.transactions.file_import') }}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Bar -->
+                    @if($transactions->where('category_id', null)->count() > 0)
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        <strong>{{ $transactions->where('category_id', null)->count() }}</strong> transactions need to be categorized.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+    <!-- Data Validation Messages -->
+    @if($accounts->isEmpty())
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <div class="flex">
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        No accounts found. Please create an account first.
+                    </p>
                 </div>
-                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.uncleared_balance') }}</div>
-            </div>
-            <div class="text-center">
-                <div class="text-2xl font-bold text-gray-900">
-                    {{ $this->getWorkingBalance() < 0 ? '-' : '' }}${{ number_format(abs($this->getWorkingBalance()), 2) }}
-                </div>
-                <div class="text-sm text-gray-500 mt-1">{{ __('common.transactions.working_balance') }}</div>
             </div>
         </div>
+    @endif
 
-        <!-- Action Bar -->
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <button wire:click="addRow" 
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    <span>{{ __('common.transactions.add_transaction') }}</span>
-                </button>
-                
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span>{{ __('common.transactions.file_import') }}</span>
-                </button>
-                
-                <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
-                    </svg>
-                    <span>{{ __('common.transactions.undo') }}</span>
-                </button>
-                
-                <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10h7a8 8 0 018 8v2M13 10l-6 6m6-6l-6-6"></path>
-                    </svg>
-                    <span>{{ __('common.transactions.redo') }}</span>
-                </button>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option>{{ __('common.transactions.view') }}</option>
-                </select>
-                
-                <div class="relative">
-                    <input type="text" placeholder="{{ __('common.search.placeholder') }}" 
-                           class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
+    @if($categories->isEmpty())
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <div class="flex">
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        No categories found. Please create categories first.
+                    </p>
                 </div>
             </div>
+        </div>
+    @endif
+
+                    <!-- Account Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+                        <!-- Saldo Total da Conta -->
+                        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                            <div class="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                                ${{ number_format($this->getAccountBalance(), 2) }}
+                </div>
+                            <div class="text-sm text-blue-600 dark:text-blue-300 mt-1">Saldo Total da Conta</div>
+        </div>
+
+                        <!-- Valores Recebidos -->
+                        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                            <div class="text-2xl font-bold text-green-900 dark:text-green-100">
+                                +${{ number_format($this->getTotalIncome(), 2) }}
+                            </div>
+                            <div class="text-sm text-green-600 dark:text-green-300 mt-1">Valores Recebidos</div>
+            </div>
+            
+                        <!-- Valores Descontados -->
+                        <div class="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 border border-red-200 dark:border-red-800">
+                            <div class="text-2xl font-bold text-red-900 dark:text-red-100">
+                                -${{ number_format($this->getTotalExpenses(), 2) }}
+                </div>
+                            <div class="text-sm text-red-600 dark:text-red-300 mt-1">Valores Descontados</div>
         </div>
     </div>
 
     <!-- Transactions Table -->
+                    <div class="pb-4 sm:pb-6">
     <div class="overflow-x-auto">
         <table class="min-w-full">
             <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-8"></th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-8"></th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACCOUNT</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DATE</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PAYEE</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CATEGORY</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MEMO</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">OUTFLOW</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">INFLOW</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.account') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.date') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.payee') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.category') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.memo') }}</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.outflow') }}</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('common.transactions.inflow') }}</th>
                     <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-8"></th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <!-- New Transaction Row -->
+                <!-- New Transaction Form -->
                 @if($showNewRow)
-                    <tr class="bg-blue-50 border-l-4 border-blue-500">
-                        <td class="px-4 py-3">
-                            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        </td>
-                        <td class="px-4 py-3">
-                            <div class="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                                <svg class="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    <tr class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
+                        <td class="px-2 sm:px-4 py-4" colspan="10">
+                            <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center mb-3 sm:mb-4">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                                        <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
                             </div>
-                        </td>
-                        <td class="px-4 py-3">
+                                    <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">{{ __('common.transactions.add_transaction') }}</h3>
+                                </div>
+                                
+                                <form wire:submit.prevent="saveNewTransaction" class="space-y-4">
+                                    <!-- Mobile Layout: Single Column -->
+                                    <div class="block md:hidden space-y-4">
+                                        <!-- Account -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.account') }}</label>
                             <select wire:model="newTransaction.account_id"
-                                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                    class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
                                 @foreach($accounts as $account)
                                     <option value="{{ $account->id }}">{{ $account->name }}</option>
                                 @endforeach
                             </select>
-                        </td>
-                        <td class="px-4 py-3">
+                                            @error('newTransaction.account_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <!-- Date -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.date') }}</label>
                             <input type="date" wire:model="newTransaction.date"
-                                   class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                        </td>
-                        <td class="px-4 py-3">
-                            <input type="text" wire:model="newTransaction.description" placeholder="Payee"
-                                   class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                        </td>
-                        <td class="px-4 py-3">
+                                                   class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                            @error('newTransaction.date') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <!-- Payee -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.payee') }}</label>
+                                            <input type="text" wire:model="newTransaction.description" placeholder="Enter payee name"
+                                                   class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                            @error('newTransaction.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <!-- Category -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.category') }}</label>
                             <select wire:model="newTransaction.category_id"
-                                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                                    class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
                                 <option value="">{{ __('common.buttons.select_category') }}</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->group->name }}: {{ $category->name }}</option>
                                 @endforeach
                             </select>
-                        </td>
-                        <td class="px-4 py-3">
-                            <input type="text" placeholder="Memo"
-                                   class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                        </td>
-                        <td class="px-4 py-3 text-right">
-                            <input type="number" step="0.01" placeholder="0.00"
-                                   class="w-full text-right border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                        </td>
-                        <td class="px-4 py-3 text-right">
-                            <input type="number" step="0.01" placeholder="0.00"
-                                   class="w-full text-right border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                        </td>
-                        <td class="px-4 py-3 text-center">
-                            <div class="flex items-center justify-center space-x-2">
-                                <button wire:click="saveNewTransaction"
-                                        class="text-green-600 hover:text-green-800 text-sm font-medium">{{ __('common.buttons.save') }}</button>
-                                <button wire:click="cancelNewTransaction"
-                                        class="text-gray-600 hover:text-gray-800 text-sm font-medium">{{ __('common.buttons.cancel') }}</button>
+                                            @error('newTransaction.category_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <!-- Memo -->
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.memo') }}</label>
+                                            <input type="text" placeholder="Enter memo (optional)"
+                                                   class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                        </div>
+
+                                        <!-- Amount Fields -->
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.outflow') }}</label>
+                                                <div class="relative">
+                                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                            <input type="number" step="0.01" wire:model="newTransaction.outflow" placeholder="0.00"
+                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                </div>
+                                                @error('newTransaction.outflow') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('common.transactions.inflow') }}</label>
+                                                <div class="relative">
+                                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                            <input type="number" step="0.01" wire:model="newTransaction.inflow" placeholder="0.00"
+                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                </div>
+                                                @error('newTransaction.inflow') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Desktop Layout: Multi Column -->
+                                    <div class="hidden md:block space-y-4">
+                                        <!-- First Row: Account, Date, Payee, Category -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                                            <!-- Account -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account</label>
+                                <select wire:model="newTransaction.account_id"
+                                                        class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                    @foreach($accounts as $account)
+                                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                                    @endforeach
+                                </select>
+                                                @error('newTransaction.account_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+
+                                            <!-- Date -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
+                                <input type="date" wire:model="newTransaction.date"
+                                                       class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                @error('newTransaction.date') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+
+                                            <!-- Payee -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Payee</label>
+                                                <input type="text" wire:model="newTransaction.description" placeholder="Enter payee name"
+                                                       class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                @error('newTransaction.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+
+                                            <!-- Category -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
+                                <select wire:model="newTransaction.category_id"
+                                                        class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                    <option value="">{{ __('common.buttons.select_category') }}</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->group->name }}: {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                                @error('newTransaction.category_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Second Row: Memo and Amount Fields -->
+                                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                            <!-- Memo -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Memo</label>
+                                                <input type="text" placeholder="Enter memo (optional)"
+                                                       class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                            </div>
+
+                                            <!-- Amount Fields -->
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Outflow</label>
+                                                    <div class="relative">
+                                                        <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                <input type="number" step="0.01" wire:model="newTransaction.outflow" placeholder="0.00"
+                                                       class="w-full pl-8 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                    </div>
+                                                    @error('newTransaction.outflow') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Inflow</label>
+                                                    <div class="relative">
+                                                        <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                <input type="number" step="0.01" wire:model="newTransaction.inflow" placeholder="0.00"
+                                                       class="w-full pl-8 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                                                    </div>
+                                                    @error('newTransaction.inflow') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <button type="button" wire:click="cancelNewTransaction"
+                                        class="px-3 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm font-medium transition-colors">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                        class="px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Save Transaction</span>
+                                </button>
+                            </div>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -192,7 +412,7 @@
                         </td>
 
                         <!-- Account -->
-                        <td class="px-4 py-3 text-sm text-gray-900">
+                        <td class="px-4 py-3 text-sm text-gray-900 break-words whitespace-normal max-w-[150px]">
                             <div class="flex items-center space-x-2">
                                 <span>{{ $transaction->account->name }}</span>
                                 @if($transaction->transactionable_type === 'App\Models\Account')
@@ -221,7 +441,7 @@
                         </td>
 
                         <!-- Payee -->
-                        <td class="px-4 py-3 text-sm text-gray-900">
+                        <td class="px-4 py-3 text-sm text-gray-900 break-words whitespace-normal max-w-[150px]">
                             @if($editingId === $transaction->id && $editingField === 'description')
                                 <input type="text" wire:model="editValue"
                                        wire:blur="saveEdit($event.target.value)"
@@ -237,7 +457,7 @@
                         </td>
 
                         <!-- Category -->
-                        <td class="px-4 py-3 text-sm">
+                        <td class="px-4 py-3 text-sm break-words whitespace-normal max-w-[200px]">
                             @if($transaction->category_id === null)
                                 <div class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded text-xs font-medium">
                                     This needs a category
@@ -275,7 +495,7 @@
                         </td>
 
                         <!-- Memo -->
-                        <td class="px-4 py-3 text-sm text-gray-500">
+                        <td class="px-4 py-3 text-sm text-gray-500 break-words whitespace-normal max-w-[150px]">
                             @if($transaction->description === 'Starting Balance' || $transaction->description === 'Reconciliation Balance Adjustment')
                                 Entered automatically by YNAB
                             @else
@@ -340,4 +560,74 @@
             </tbody>
         </table>
     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Creation Modal -->
+    @if($showAccountModal)
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">{{ __('common.buttons.new') }} {{ __('common.transactions.account') }}</h3>
+                        <button wire:click="closeAccountModal" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form wire:submit.prevent="createAccount">
+                        <div class="mb-4">
+                            <label for="account_name" class="block text-sm font-medium text-gray-700 mb-2">Account Name</label>
+                            <input type="text" 
+                                   wire:model="newAccount.name" 
+                                   id="account_name"
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                   placeholder="Enter account name">
+                            @error('newAccount.name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="account_type" class="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
+                            <select wire:model="newAccount.type" 
+                                    id="account_type"
+                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                @foreach($accountTypes as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @error('newAccount.type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="account_balance" class="block text-sm font-medium text-gray-700 mb-2">Initial Balance</label>
+                            <input type="number" 
+                                   step="0.01" 
+                                   wire:model="newAccount.balance" 
+                                   id="account_balance"
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                   placeholder="0.00">
+                            @error('newAccount.balance') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
+                        
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" 
+                                    wire:click="closeAccountModal"
+                                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Create Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
