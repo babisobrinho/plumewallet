@@ -310,6 +310,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.backoffice.login-attempts.index', [
+            'data' => $this->data,
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,

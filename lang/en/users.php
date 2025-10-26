@@ -6,6 +6,7 @@ return [
     'total_users' => 'Total: :count users',
     'new_user' => 'New User',
     'no_users_found' => 'No users found',
+    'personal_information' => 'Personal Information',
     
     'filters' => [
         'status' => 'Status',
@@ -24,13 +25,13 @@ return [
         'user_updated' => 'User updated successfully.',
         'user_deleted' => 'User deleted successfully.',
         'cannot_delete_self' => 'You cannot delete your own account.',
+        'user_not_found' => 'User not found.',
     ],
 
     'form' => [
         'select_type' => 'Select type',
         'select_role' => 'Select role',
         'full_name' => 'Full Name',
-        'phone_number' => 'Phone Number',
         'user_type' => 'User Type',
         'role' => 'Role',
         'password' => 'Password',
@@ -46,5 +47,15 @@ return [
         'active_users' => 'Active Users',
         'staff_users' => 'Staff Users',
         'client_users' => 'Client Users',
+    ],
+
+    'danger_zone' => [
+        'title' => 'Danger Zone',
+        'delete_description' => 'Once a user is deleted, all of their data will be permanently removed. This action cannot be undone.',
+        'delete_user' => 'Delete User',
+        'delete_warning' => 'This action cannot be undone.',
+        'delete_confirmation' => 'Are you sure you want to delete :name? This action cannot be undone.',
+        'confirm_name_placeholder' => 'Type the user\'s name to confirm',
+        'name_mismatch' => 'The name you entered does not match the user\'s name.',
     ],
 ];

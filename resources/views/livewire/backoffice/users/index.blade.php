@@ -49,12 +49,178 @@
             </button>
         </div>
 
-        <livewire:shared.partials.data-table 
-            :model="'user'"
-            :tableColumns="$tableColumns"
-            :tableActions="$tableActions"
-            :filterOptions="$filterOptions"
-        />
+        <!-- Users Table -->
+        <div class="bg-white dark:bg-gray-900 shadow overflow-hidden rounded-lg">
+            <!-- Search and Filters Bar -->
+            <div class="px-6 py-4 border border-gray-200 dark:border-gray-700 rounded-t-lg">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Search -->
+                    <div class="flex-1 max-w-lg">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ti ti-search text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                wire:model.live.debounce.300ms="search"
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="{{ __('common.terms.search') }}"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Status Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.status"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('users.filters.all_status') }}</option>
+                                <option value="active">{{ __('enums.status.active') }}</option>
+                                <option value="inactive">{{ __('enums.status.inactive') }}</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Role Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.role"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('users.filters.all_types') }}</option>
+                                <option value="staff">{{ __('enums.role_type.staff') }}</option>
+                                <option value="client">{{ __('enums.role_type.client') }}</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Clear Filters Button -->
+                        <button 
+                            wire:click="clearFilters"
+                            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            {{ __('common.buttons.clear') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table -->
+            <div class="overflow-x-auto border border-gray-200 dark:border-gray-700">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700 uppercase">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.labels.name') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.labels.email') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.labels.type') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.labels.verified') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.labels.registered_at') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.table.actions') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @forelse($data as $user)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-900">
+                                <!-- Name -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $user->name }}
+                                </td>
+                                
+                                <!-- Email -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $user->email }}
+                                </td>
+                                
+                                <!-- Role -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    @if($user->roles->first())
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                            {{ $user->roles->first()->name }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400">-</span>
+                                    @endif
+                                </td>
+                                
+                                <!-- Verified -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    @if($user->email_verified_at)
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
+                                            {{ __('common.terms.yes') }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
+                                            {{ __('common.terms.no') }}
+                                        </span>
+                                    @endif
+                                </td>
+                                
+                                <!-- Created At -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d/m/Y H:i') : '-' }}
+                                </td>
+                                
+                                <!-- Actions -->
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end gap-2">
+                                        <x-action-button 
+                                            method="viewUser"
+                                            :id="$user->id"
+                                            icon="eye"
+                                            color="blue"
+                                            size="sm"
+                                            :title="__('common.buttons.view')"
+                                        />
+                                        <x-action-button 
+                                            method="editUser"
+                                            :id="$user->id"
+                                            icon="pencil"
+                                            color="green"
+                                            size="sm"
+                                            :title="__('common.buttons.edit')"
+                                        />
+                                        <x-action-button 
+                                            method="confirmUserDeletion"
+                                            :id="$user->id"
+                                            icon="trash"
+                                            color="red"
+                                            size="sm"
+                                            :title="__('common.buttons.delete')"
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('common.messages.no_data') }}
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-4 py-3 border-r border-l border-b border-gray-200 dark:border-gray-700 rounded-b-lg">
+                {{ $data->links() }}
+            </div>
+        </div>
 
         <!-- User Form Modal -->
         @if($showModal)
@@ -229,17 +395,15 @@
 
 
                         <!-- Modal Footer -->
-                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
                             <button 
                                 type="submit"
                                 class="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                             >
                                 @if($isEditing)
-                                    <i class="ti ti-pencil w-4 h-4 mr-2"></i>
                                     {{ __('common.buttons.update') }}
                                 @else
-                                    <i class="ti ti-user-plus w-4 h-4 mr-2"></i>
-                                    {{ __('users.new_user') }}
+                                {{ __('common.buttons.add') }}
                                 @endif
                             </button>
                             <button 
@@ -254,6 +418,40 @@
                 </div>
             </div>
         </div>
+        @endif
+
+        <!-- Delete User Confirmation Modal -->
+        @if($userToDelete)
+            <x-confirmation-modal wire:model.live="confirmingUserDeletion">
+                <x-slot name="title">
+                    {{ __('users.danger_zone.delete_user') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    {{ __('users.danger_zone.delete_confirmation', ['name' => $userToDelete->name]) }}
+
+                    <div class="mt-4">
+                        <x-input 
+                            type="text" 
+                            class="mt-1 block w-full"
+                            placeholder="{{ __('users.danger_zone.confirm_name_placeholder') }}"
+                            wire:model="confirmName"
+                            wire:keydown.enter="deleteUser" 
+                        />
+                        <x-input-error for="confirmName" class="mt-2" />
+                    </div>
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-secondary-button wire:click="$toggle('confirmingUserDeletion')" wire:loading.attr="disabled">
+                        {{ __('common.buttons.cancel') }}
+                    </x-secondary-button>
+
+                    <x-danger-button class="ms-3" wire:click="deleteUser" wire:loading.attr="disabled">
+                        {{ __('common.buttons.delete') }}
+                    </x-danger-button>
+                </x-slot>
+            </x-confirmation-modal>
         @endif
         
     </div>

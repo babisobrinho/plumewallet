@@ -12,17 +12,10 @@
             <div>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $user->name }}</h2>
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {{ $user->email }}
+                    ID: {{ $user->id }}
                 </p>
             </div>
             <div class="flex space-x-3">
-                <a 
-                    href="{{ route('backoffice.users.edit', $user) }}" 
-                    class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                >
-                    <i class="ti ti-pencil w-4 h-4 mr-2"></i>
-                    Editar
-                </a>
                 <a 
                     href="{{ route('backoffice.users.index') }}" 
                     class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-400 dark:hover:bg-gray-500 focus:bg-gray-400 dark:focus:bg-gray-500 active:bg-gray-500 dark:active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
@@ -36,10 +29,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Informações Pessoais -->
             <div class="lg:col-span-2">
-                <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+                <div class="bg-white dark:bg-gray-900 shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
-                            Informações Pessoais
+                            {{ __('users.personal_information') }}
                         </h3>
                         <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                             <div>
@@ -51,8 +44,8 @@
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->email }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.phone') }}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->phone_number ?: 'Não informado' }}</dd>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.phone_number') }}</dt>
+                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $user->phone_number ?: '-' }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('common.labels.status') }}</dt>
@@ -85,7 +78,7 @@
 
             <!-- Informações de Acesso -->
             <div>
-                <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+                <div class="bg-white dark:bg-gray-900 shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
                             Acesso e Permissões
@@ -132,35 +125,88 @@
                         </dl>
                     </div>
                 </div>
-
-                <!-- Ações Rápidas -->
-                <div class="mt-6 bg-white dark:bg-gray-800 shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
-                            Ações Rápidas
-                        </h3>
-                        <div class="space-y-3">
-                            <a 
-                                href="{{ route('backoffice.users.edit', $user) }}" 
-                                class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-                            >
-                                <i class="ti ti-pencil w-4 h-4 inline mr-2"></i>
-                                {{ __('common.buttons.edit') }} {{ __('common.navigation.users') }}
-                            </a>
-                            @if($user->id !== auth()->id())
-                                <button 
-                                    wire:click="deleteUser({{ $user->id }})"
-                                    wire:confirm="Tem certeza que deseja eliminar este utilizador?"
-                                    class="block w-full bg-red-600 text-white text-center py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
-                                >
-                                    <i class="ti ti-trash w-4 h-4 inline mr-2"></i>
-                                    {{ __('common.buttons.delete') }} {{ __('common.navigation.users') }}
-                                </button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+
+        <!-- Danger Zone -->
+        @can('users_destroy')
+            @if($user->id !== auth()->id())
+                <div class="mt-8 bg-white dark:bg-gray-900 shadow rounded-2xl overflow-hidden border border-red-500 dark:border-red-700">
+                    <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400 p-6 flex flex-col items-start justify-between gap-2">
+                        <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                            {{ __('users.danger_zone.delete_user') }}
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ __('users.danger_zone.delete_description') }}
+                        </p>
+                        <button 
+                            wire:click="confirmUserDeletion"
+                            class="inline-flex items-center mt-2 px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                        >
+                            <i class="ti ti-trash w-4 h-4 inline"></i>
+                            {{ __('common.buttons.delete') }}
+                        </button>
+                        
+                    </div>
+                </div>
+
+                <!-- Delete User Confirmation Modal -->
+                @if($confirmingUserDeletion)
+                    <div class="fixed inset-0 z-[9999] flex items-center justify-center">
+                        <!-- Backdrop -->
+                        <div class="fixed inset-0 bg-black bg-opacity-50 z-[10000]" wire:click="cancelUserDeletion"></div>
+                        
+                        <!-- Modal -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4 relative z-[10001]">
+                            <!-- Header -->
+                            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                    {{ __('users.danger_zone.delete_user') }}
+                                </h3>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div class="px-6 py-4">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    {{ __('users.danger_zone.delete_confirmation', ['name' => $user->name]) }}
+                                </p>
+                                
+                                <div class="mt-4">
+                                    <input 
+                                        type="text" 
+                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                        placeholder="{{ __('users.danger_zone.confirm_name_placeholder') }}"
+                                        wire:model="confirmName"
+                                        wire:keydown.enter="deleteUser" 
+                                    />
+                                    @error('confirmName')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <!-- Footer -->
+                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 flex justify-end space-x-3">
+                                <button 
+                                    type="button" 
+                                    class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded-md hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    wire:click="cancelUserDeletion"
+                                >
+                                    {{ __('common.buttons.cancel') }}
+                                </button>
+                                
+                                <button 
+                                    type="button" 
+                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    wire:click="deleteUser"
+                                >
+                                    {{ __('common.buttons.delete') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endif
+        @endcan
     </div>
 </div>

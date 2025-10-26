@@ -8,16 +8,31 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 #[Layout('layouts.backoffice')]
 class Index extends Component
 {
+    use WithPagination;
+
+    // Search and filters
+    public $search = '';
+    public $filters = [
+        'status' => '',
+        'role' => '',
+    ];
+
     // Modal properties only - no more table/filter logic
     public $showModal = false;
     public $isEditing = false;
     public $editingUser = null;
+    
+    // Confirmation modal properties
+    public $confirmingUserDeletion = false;
+    public $userToDelete = null;
+    public $confirmName = '';
     
     // Modal form fields
     public $modalName = '';
@@ -166,6 +181,38 @@ class Index extends Component
         })->count();
     }
 
+    public function getDataProperty()
+    {
+        $query = User::with(['roles'])
+            ->when($this->search, function($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                      ->orWhere('email', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->filters['status'] === 'active', function($query) {
+                $query->whereNotNull('email_verified_at');
+            })
+            ->when($this->filters['status'] === 'inactive', function($query) {
+                $query->whereNull('email_verified_at');
+            })
+            ->when($this->filters['role'], function($query) {
+                $query->whereHas('roles', function($q) {
+                    $q->where('type', $this->filters['role']);
+                });
+            });
+
+        return $query->orderBy('created_at', 'desc')->paginate(15);
+    }
+
+    public function clearFilters()
+    {
+        $this->search = '';
+        $this->filters = [
+            'status' => '',
+            'role' => '',
+        ];
+        $this->resetPage();
+    }
+
     public function updatedModalRoleType()
     {
         $this->modalRole = '';
@@ -196,32 +243,61 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function deleteUser($userId)
+    public function confirmUserDeletion($userId)
     {
-        $user = User::findOrFail($userId);
+        $this->userToDelete = User::findOrFail($userId);
         
         // Prevent users from deleting themselves
-        if ($user->id === Auth::id()) {
+        if ($this->userToDelete->id === Auth::id()) {
             session()->flash('error', __('users.messages.cannot_delete_self'));
             return;
         }
         
+        $this->confirmingUserDeletion = true;
+        $this->confirmName = '';
+    }
+
+    public function deleteUser()
+    {
         $this->authorize('users_destroy');
         
-        $userName = $user->name;
-        $userEmail = $user->email;
-        $user->delete();
+        if (!$this->userToDelete) {
+            session()->flash('error', __('users.messages.user_not_found'));
+            return;
+        }
+        
+        // Validate that the user entered the correct name
+        if ($this->confirmName !== $this->userToDelete->name) {
+            $this->addError('confirmName', __('users.danger_zone.name_mismatch'));
+            return;
+        }
+        
+        // Prevent users from deleting themselves
+        if ($this->userToDelete->id === Auth::id()) {
+            session()->flash('error', __('users.messages.cannot_delete_self'));
+            return;
+        }
+        
+        $userName = $this->userToDelete->name;
+        $userEmail = $this->userToDelete->email;
         
         // Log user deletion
         LoggingService::deleted('User', [
-            'user_id' => $user->id,
+            'user_id' => $this->userToDelete->id,
             'name' => $userName,
             'email' => $userEmail,
             'deleted_by' => Auth::id()
         ]);
         
+        $this->userToDelete->delete();
+        
         session()->flash('message', __('users.messages.user_deleted'));
         $this->dispatch('refreshTable');
+        
+        // Reset modal state
+        $this->confirmingUserDeletion = false;
+        $this->userToDelete = null;
+        $this->confirmName = '';
     }
 
     public function closeModal()
@@ -434,6 +510,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.backoffice.users.index', [
+            'data' => $this->data,
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,

@@ -19,6 +19,14 @@ class Index extends Component
 {
     use WithPagination;
 
+    // Search and filters
+    public $search = '';
+    public $filters = [
+        'status' => '',
+        'category' => '',
+        'author' => '',
+    ];
+
     // Modal properties
     public $showModal = false;
     public $isEditing = false;
@@ -36,14 +44,6 @@ class Index extends Component
     public $modalCategory = '';
     public $modalIsFeatured = false;
     public $modalTags = [];
-
-    // Search and filters
-    public $search = '';
-    public $filters = [
-        'status' => '',
-        'category' => '',
-        'author' => '',
-    ];
 
     protected $listeners = [
         'refreshTable' => '$refresh',
@@ -197,13 +197,35 @@ class Index extends Component
         return Post::featured()->published()->count();
     }
 
+    public function getDataProperty()
+    {
+        $query = Post::with(['author'])
+            ->when($this->search, function($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                      ->orWhere('content', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->filters['status'], function($query) {
+                $query->where('status', $this->filters['status']);
+            })
+            ->when($this->filters['category'], function($query) {
+                $query->where('category', $this->filters['category']);
+            })
+            ->when($this->filters['author'], function($query) {
+                $query->where('author_id', $this->filters['author']);
+            });
+
+        return $query->orderBy('created_at', 'desc')->paginate(15);
+    }
+
     public function clearFilters()
     {
+        $this->search = '';
         $this->filters = [
             'status' => '',
             'category' => '',
             'author' => '',
         ];
+        $this->resetPage();
     }
 
     public function sortColumn($column)
@@ -404,6 +426,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.backoffice.blog.index', [
+            'data' => $this->data,
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,

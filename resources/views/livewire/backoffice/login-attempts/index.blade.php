@@ -38,12 +38,219 @@
             />
         </div>
 
-        <livewire:shared.partials.data-table 
-            :model="'LoginAttempt'"
-            :tableColumns="$tableColumns"
-            :tableActions="$tableActions"
-            :filterOptions="$filterOptions"
-        />
+        <!-- Login Attempts Table -->
+        <div class="bg-white dark:bg-gray-900 shadow overflow-hidden rounded-lg">
+            <!-- Search and Filters Bar -->
+            <div class="px-6 py-4 border border-gray-200 dark:border-gray-700 rounded-t-lg">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Search -->
+                    <div class="flex-1 max-w-lg">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ti ti-search text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                wire:model.live.debounce.300ms="search"
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="{{ __('common.terms.search') }}"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Status Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.status"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('login_attempts.filters.status') }}</option>
+                                @foreach(\App\Enums\LoginAttemptStatus::options() as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Country Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.country"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('login_attempts.filters.country') }}</option>
+                                @foreach(\App\Models\LoginAttempt::distinct('country')->pluck('country', 'country')->filter() as $country)
+                                    <option value="{{ $country }}">{{ $country }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Suspicious Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.suspicious"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('login_attempts.filters.suspicious') }}</option>
+                                <option value="1">{{ __('common.terms.yes') }}</option>
+                                <option value="0">{{ __('common.terms.no') }}</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Clear Filters Button -->
+                        <button 
+                            wire:click="clearFilters"
+                            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            {{ __('common.buttons.clear') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table -->
+            <div class="overflow-x-auto border border-gray-200 dark:border-gray-700">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700 uppercase">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.email') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.ip_address') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.status') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.country') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.city') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.suspicious') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('login_attempts.table.attempted_at') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{ __('common.table.actions') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @forelse($data as $attempt)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-900">
+                                <!-- Email -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $attempt->email }}
+                                </td>
+                                
+                                <!-- IP Address -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $attempt->ip_address }}
+                                </td>
+                                
+                                <!-- Status -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        {{ $attempt->status->label() }}
+                                    </span>
+                                </td>
+                                
+                                <!-- Country -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $attempt->country ?? '-' }}
+                                </td>
+                                
+                                <!-- City -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $attempt->city ?? '-' }}
+                                </td>
+                                
+                                <!-- Suspicious -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    @if($attempt->is_suspicious)
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
+                                            {{ __('common.terms.yes') }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
+                                            {{ __('common.terms.no') }}
+                                        </span>
+                                    @endif
+                                </td>
+                                
+                                <!-- Attempted At -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $attempt->attempted_at ? \Carbon\Carbon::parse($attempt->attempted_at)->format('d/m/Y H:i') : '-' }}
+                                </td>
+                                
+                                <!-- Actions -->
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div x-data="{ open: false }" class="relative inline-block">
+                                        <button 
+                                            @click="open = !open"
+                                            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        >
+                                            {{ __('common.table.actions') }}
+                                            <i class="ti ti-chevron-down w-4 h-4 ml-1"></i>
+                                        </button>
+                                        
+                                        <div 
+                                            x-show="open" 
+                                            @click.away="open = false"
+                                            x-transition:enter="transition ease-out duration-100"
+                                            x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100"
+                                            x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute right-0 mt-2 bg-white dark:bg-gray-700 rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600"
+                                            style="display: none;"
+                                        >
+                                            <div class="py-1">
+                                                <button wire:click="viewAttempt({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                    <i class="ti ti-eye w-4 h-4 inline mr-2"></i>
+                                                    {{ __('common.buttons.view') }}
+                                                </button>
+                                                <button wire:click="blockIp({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                    <i class="ti ti-shield-x w-4 h-4 inline mr-2"></i>
+                                                    {{ __('login_attempts.actions.block_ip') }}
+                                                </button>
+                                                <button wire:click="unblockIp({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                    <i class="ti ti-shield-check w-4 h-4 inline mr-2"></i>
+                                                    {{ __('login_attempts.actions.unblock_ip') }}
+                                                </button>
+                                                <button wire:click="deleteAttempt({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                    <i class="ti ti-trash w-4 h-4 inline mr-2"></i>
+                                                    {{ __('common.buttons.delete') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('common.messages.no_data') }}
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-4 py-3 border-r border-l border-b border-gray-200 dark:border-gray-700 rounded-b-lg">
+                {{ $data->links() }}
+            </div>
+        </div>
 
         <!-- Login Attempt Details Modal -->
         @if($showModal)

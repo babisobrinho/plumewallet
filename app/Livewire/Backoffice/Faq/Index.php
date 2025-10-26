@@ -196,10 +196,12 @@ class Index extends Component
 
     public function clearFilters()
     {
+        $this->search = '';
         $this->filters = [
             'category' => '',
             'status' => '',
         ];
+        $this->resetPage();
     }
 
     public function sortColumn($column)
