@@ -38,12 +38,183 @@
             />
         </div>
 
-        <livewire:shared.partials.data-table 
-            :model="'SystemLog'"
-            :tableColumns="$tableColumns"
-            :tableActions="$tableActions"
-            :filterOptions="$filterOptions"
-        />
+        <!-- Logs Table with DataTable styling -->
+        <div class="bg-white dark:bg-gray-900 shadow overflow-hidden rounded-lg">
+            <!-- Search and Filters Bar -->
+            <div class="px-6 py-4 border border-gray-200 dark:border-gray-700 rounded-t-lg">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Search -->
+                    <div class="flex-1 max-w-lg">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ti ti-search text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                wire:model.live.debounce.300ms="search"
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="{{ __('common.terms.search') }}"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Type Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.type"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('logs.filters.type') }}</option>
+                                @foreach(\App\Enums\LogType::options() as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Level Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.level"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('logs.filters.level') }}</option>
+                                @foreach(\App\Enums\LogLevel::options() as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- User Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.user"
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                            >
+                                <option value="">{{ __('logs.filters.user') }}</option>
+                                @foreach(\App\Models\User::pluck('name', 'id')->toArray() as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Clear Filters Button -->
+                        <button 
+                            wire:click="clearFilters"
+                            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            {{ __('common.buttons.clear') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table -->
+            <div class="overflow-x-auto border border-gray-200 dark:border-gray-700">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700 uppercase">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/8">
+                                {{ __('logs.table.type') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/8">
+                                {{ __('logs.table.level') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/3">
+                                {{ __('logs.table.message') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/8">
+                                {{ __('logs.table.user') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/8">
+                                {{ __('logs.table.ip_address') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider w-1/6">
+                                {{ __('logs.table.created_at') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
+                                {{-- ACTIONS --}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @forelse($data as $log)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-900">
+                                <!-- Type Badge -->
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <x-badge 
+                                        :item="$log"
+                                        :enumClass="\App\Enums\LogType::class"
+                                        :noValueKey="'common.terms.unknown'"
+                                        field="type"
+                                    />
+                                </td>
+                                
+                                <!-- Level Badge -->
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <x-badge 
+                                        :item="$log"
+                                        :enumClass="\App\Enums\LogLevel::class"
+                                        :noValueKey="'common.terms.unknown'"
+                                        field="level"
+                                    />
+                                </td>
+                                
+                                <!-- Message (truncated) -->
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    @php
+                                        $message = $log->message ?? '';
+                                        $truncated = strlen($message) > 30 ? substr($message, 0, 30) . '...' : $message;
+                                    @endphp
+                                    <span title="{{ $message }}" class="cursor-help">
+                                        {{ $truncated }}
+                                    </span>
+                                </td>
+                                
+                                <!-- User -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $log->user->name ?? '-' }}
+                                </td>
+                                
+                                <!-- IP Address -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $log->ip_address ?? '-' }}
+                                </td>
+                                
+                                <!-- Created At -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $log->created_at ? \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') : '-' }}
+                                </td>
+                                
+                                <!-- Actions -->
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <x-action-button 
+                                        method="viewLog"
+                                        :id="$log->id"
+                                        icon="eye"
+                                        color="blue"
+                                        size="sm"
+                                        :title="__('common.buttons.view')"
+                                    />
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('common.messages.no_data') }}
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-4 py-3 border-r border-l border-b border-gray-200 dark:border-gray-700 rounded-b-lg">
+                {{ $data->links() }}
+            </div>
+        </div>
 
         <!-- Log Details Modal -->
         @if($showModal)
@@ -79,11 +250,11 @@
                             </div>
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                 <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                                    {{ __('logs.details.title') }}
+                                    {{ __('logs.details.view_title') }}
                                 </h3>
                                 <div class="mt-2">
                                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                                        {{ __('logs.details.description') }}
+                                        {{ __('logs.details.view_description') }}
                                     </p>
                                 </div>
                             </div>
@@ -189,7 +360,7 @@
                         </div>
 
                         <!-- Modal Footer -->
-                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
                             <button 
                                 type="button"
                                 wire:click="closeModal"

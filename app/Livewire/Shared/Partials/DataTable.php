@@ -27,6 +27,11 @@ class DataTable extends Component
     public $filterCategory = '';
     public $filterAuthor = '';
     public $filterRole = '';
+    public $filterType = '';
+    public $filterLevel = '';
+    public $filterUser = '';
+    public $filterCountry = '';
+    public $filterSuspicious = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -110,6 +115,10 @@ class DataTable extends Component
             $this->applyPostFilters($query);
         } elseif ($normalizedModel === 'Faq') {
             $this->applyFaqFilters($query);
+        } elseif ($normalizedModel === 'SystemLog') {
+            $this->applySystemLogFilters($query);
+        } elseif ($normalizedModel === 'LoginAttempt') {
+            $this->applyLoginAttemptFilters($query);
         }
 
         // Apply sorting
@@ -179,6 +188,44 @@ class DataTable extends Component
         }
     }
 
+    protected function applySystemLogFilters($query)
+    {
+        $type = $this->filterType ?? ($this->filters['type'] ?? '');
+        $level = $this->filterLevel ?? ($this->filters['level'] ?? '');
+        $user = $this->filterUser ?? ($this->filters['user'] ?? '');
+        
+        if ($type && $type !== '' && $type !== null) {
+            $query->where('type', $type);
+        }
+
+        if ($level && $level !== '' && $level !== null) {
+            $query->where('level', $level);
+        }
+
+        if ($user && $user !== '' && $user !== null) {
+            $query->where('user_id', $user);
+        }
+    }
+
+    protected function applyLoginAttemptFilters($query)
+    {
+        $status = $this->filterStatus ?? ($this->filters['status'] ?? '');
+        $country = $this->filterCountry ?? ($this->filters['country'] ?? '');
+        $suspicious = $this->filterSuspicious ?? ($this->filters['suspicious'] ?? '');
+        
+        if ($status && $status !== '' && $status !== null) {
+            $query->where('status', $status);
+        }
+
+        if ($country && $country !== '' && $country !== null) {
+            $query->where('country', $country);
+        }
+
+        if ($suspicious !== '' && $suspicious !== null) {
+            $query->where('is_suspicious', $suspicious);
+        }
+    }
+
     public function sortColumn($field)
     {
         if ($this->sortBy === $field) {
@@ -216,6 +263,31 @@ class DataTable extends Component
         $this->resetPage();
     }
 
+    public function updatedFilterType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterLevel()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterUser()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterCountry()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterSuspicious()
+    {
+        $this->resetPage();
+    }
+
     public function clearFilters()
     {
         $this->search = '';
@@ -224,6 +296,11 @@ class DataTable extends Component
         $this->filterCategory = '';
         $this->filterAuthor = '';
         $this->filterRole = '';
+        $this->filterType = '';
+        $this->filterLevel = '';
+        $this->filterUser = '';
+        $this->filterCountry = '';
+        $this->filterSuspicious = '';
         $this->sortBy = 'created_at';
         $this->sortDirection = 'desc';
         $this->resetPage();

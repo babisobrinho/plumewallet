@@ -24,10 +24,10 @@ class LoggingServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Log system startup
-        LoggingService::systemStartup();
+        // Don't log system startup here - it's causing too many duplicates
+        // System startup should be logged elsewhere or removed entirely
         
-        // Log authentication events
+        // Log authentication events (login attempts are handled by middleware)
         Event::listen(Logout::class, function ($event) {
             LoggingService::logout();
         });

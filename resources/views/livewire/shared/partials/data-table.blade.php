@@ -191,6 +191,16 @@
                                                     </span>
                                                 @endif
                                                 @break
+                                            @case('truncate')
+                                                @php
+                                                    $maxLength = $column['maxLength'] ?? 50;
+                                                    $text = $item[$column['key']] ?? '';
+                                                    $truncated = strlen($text) > $maxLength ? substr($text, 0, $maxLength) . '...' : $text;
+                                                @endphp
+                                                <span title="{{ $text }}" class="cursor-help">
+                                                    {{ $truncated }}
+                                                </span>
+                                                @break
                                             @case('status')
                                                 @php
                                                     $status = $item[$column['key']];

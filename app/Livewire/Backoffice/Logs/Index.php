@@ -41,8 +41,6 @@ class Index extends Component
 
     protected $listeners = [
         'refreshTable' => '$refresh',
-        'editItem' => 'editLog',
-        'deleteItem' => 'deleteLog',
     ];
     
     public function mount()
@@ -99,6 +97,8 @@ class Index extends Component
                 'label' => __('logs.table.message'),
                 'sortable' => false,
                 'class' => 'w-1/3',
+                'format' => 'truncate',
+                'maxLength' => 30,
             ],
             [
                 'key' => 'user',
@@ -127,19 +127,11 @@ class Index extends Component
     {
         return [
             [
-                'type' => 'dropdown',
-                'items' => [
-                    [
-                        'label' => __('common.buttons.view'),
-                        'method' => 'viewLog',
-                        'icon' => 'eye',
-                    ],
-                    [
-                        'label' => __('common.buttons.delete'),
-                        'method' => 'deleteLog',
-                        'icon' => 'trash',
-                    ],
-                ]
+                'type' => 'button',
+                'label' => __('common.buttons.view'),
+                'method' => 'viewLog',
+                'icon' => 'eye',
+                'class' => 'bg-blue-600 hover:bg-blue-700 text-white',
             ]
         ];
     }
@@ -212,20 +204,11 @@ class Index extends Component
         
         $this->editingLog = SystemLog::findOrFail($logId);
         $this->loadLogData();
-        $this->isEditing = true;
+        $this->isEditing = false; // Changed to false since we're only viewing
         $this->showModal = true;
     }
 
-    public function deleteLog($logId)
-    {
-        $this->authorize('logs_destroy');
-        
-        $log = SystemLog::findOrFail($logId);
-        $log->delete();
-        
-        $this->dispatch('refreshTable');
-        session()->flash('message', __('logs.messages.deleted_successfully'));
-    }
+    // Removed deleteLog method - logs are read-only
 
     public function loadLogData()
     {
@@ -275,6 +258,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.backoffice.logs.index', [
+            'data' => $this->data,
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,

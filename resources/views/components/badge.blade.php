@@ -12,6 +12,10 @@
         }
     } elseif ($field === 'status') {
         $enumValue = $item->status;
+    } elseif ($field === 'type') {
+        $enumValue = $item->type;
+    } elseif ($field === 'level') {
+        $enumValue = $item->level;
     }
     
     // Get the label using the enum's label method
