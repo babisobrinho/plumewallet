@@ -233,7 +233,7 @@
                         @empty
                             <tr>
                                 <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                                    {{ __('common.messages.no_data') }}
+                                    {{ __('common.table.no_data') }}
                                 </td>
                             </tr>
                         @endforelse

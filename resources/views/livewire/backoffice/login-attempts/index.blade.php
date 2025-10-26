@@ -155,9 +155,11 @@
                                 
                                 <!-- Status -->
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                        {{ \App\Enums\LoginAttemptStatus::label($attempt->status) }}
-                                    </span>
+                                    <x-badge 
+                                        :item="$attempt" 
+                                        :enumClass="\App\Enums\LoginAttemptStatus::class"
+                                        field="status"
+                                    />
                                 </td>
                                 
                                 <!-- Country -->
@@ -234,7 +236,7 @@
                         @empty
                             <tr>
                                 <td colspan="8" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                                    {{ __('common.messages.no_data') }}
+                                    {{ __('common.table.no_data') }}
                                 </td>
                             </tr>
                         @endforelse

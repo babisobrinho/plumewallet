@@ -69,7 +69,6 @@ return [
         'inactive' => 'Inactive',
     ],
 
-
     'search' => [
         'placeholder' => 'Search...',
         'no_results' => 'No results found',
