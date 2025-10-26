@@ -3,7 +3,10 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Plume Wallet Column -->
             <div class="md:col-span-1">
-                <h3 class="text-lg font-bold text-white mb-4">{{ __('guest.footer.plume_wallet') }}</h3>
+                <div class="flex items-center gap-3 mb-4">
+                    <x-logo class="h-8 w-8" />
+                    <h3 class="text-lg font-bold text-white">{{ __('guest.footer.plume_wallet') }}</h3>
+                </div>
                 <p class="text-gray-300 text-sm leading-relaxed">
                     {{ __('guest.footer.description') }}
                 </p>

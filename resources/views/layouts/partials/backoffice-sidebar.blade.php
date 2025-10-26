@@ -1,6 +1,9 @@
 <div class="w-64 bg-gray-900 text-white dark:bg-gray-900 dark:text-gray-100">
     <div class="p-6">
-        <h1 class="text-xl font-bold">{{ config('app.name') }}</h1>
+        <div class="flex items-center gap-3 mb-2">
+            <x-logo class="h-8 w-8" />
+            <h1 class="text-xl font-bold">{{ config('app.name') }}</h1>
+        </div>
         <p class="text-gray-400 text-sm">{{ __('common.navigation.backoffice') }}</p>
     </div>
 

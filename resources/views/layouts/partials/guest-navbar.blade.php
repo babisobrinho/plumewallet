@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('homepage.show') }}" class="flex items-center gap-3">
-                        <x-application-mark class="h-8 w-8" />
+                        <x-logo class="h-8 w-8" />
                         <span class="text-xl font-bold text-gray-900 dark:text-white">PlumeWallet</span>
                     </a>
                 </div>

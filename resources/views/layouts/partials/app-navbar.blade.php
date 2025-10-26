@@ -7,11 +7,11 @@
                 <div class="shrink-0 flex items-center">
                     @auth
                         <a href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
-                            <x-application-mark class="block h-9 w-auto" />
+                            <x-logo class="block h-9 w-auto" />
                         </a>
                     @else
                         <a href="{{ route('homepage.show') }}">
-                            <x-application-mark class="block h-9 w-auto" />
+                            <x-logo class="block h-9 w-auto" />
                         </a>
                     @endauth
                 </div>
