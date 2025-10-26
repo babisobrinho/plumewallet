@@ -101,7 +101,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($payee->category)
                                 <div class="text-sm text-gray-900 dark:text-white">
-                                    {{ $payee->category->group->name }}: {{ $payee->category->name }}
+                                    {{ $payee->category->name }}
                                 </div>
                             @else
                                 <span class="text-sm text-gray-400">{{ __('common.beneficiaries.no_default_category') }}</span>
@@ -225,7 +225,7 @@
                             <option value="">{{ __('common.buttons.select_category') }} ({{ __('common.terms.optional') }})</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
-                                    {{ $category->group->name }}: {{ $category->name }}
+                                    {{ $category->name }}
                                 </option>
                             @endforeach
                         </select>

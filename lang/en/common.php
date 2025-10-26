@@ -54,6 +54,17 @@ return [
             'leave_page' => 'You have unsaved changes. Are you sure you want to leave?',
         ],
         'no_data_found' => 'No data found',
+        
+        'category' => [
+            'not_found' => 'Category not found.',
+            'cannot_delete_linked_transactions' => 'Cannot delete category. It is being used by :count transaction(s). Please reassign the records to another category first.',
+            'cannot_delete_linked_payees' => 'Cannot delete category. It is being used by :count payee(s). Please reassign the records to another category first.',
+            'cannot_delete_linked_both' => 'Cannot delete category \':name\'. It is being used by: :reasons. Please reassign the records to another category first.',
+            'cannot_delete_protected' => 'Credit Card Payment categories cannot be deleted.',
+            'deleted_success' => 'Category deleted successfully!',
+            'created_success' => 'Category created successfully for :month!',
+            'created_with_group' => 'Category group created successfully for :month!',
+        ],
     ],
 
     'terms' => [

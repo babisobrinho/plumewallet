@@ -5,6 +5,7 @@ namespace App\Livewire\App\Dashboard;
 use App\Enums\AccountType;
 use App\Models\Account;
 use App\Models\CategoryGroup;
+use App\Models\Payee;
 use App\Models\TransactionCategory;
 use Livewire\Component;
 
@@ -47,7 +48,6 @@ class BudgetTable extends Component
         'newCategoryGroup.name' => 'required|string|max:255',
         'newCategoryGroup.is_hidden' => 'boolean',
         'newCategory.name' => 'required|string|max:255',
-        'newCategory.group_id' => 'required|exists:category_groups,id',
         'newCategory.assigned_amount' => 'required|numeric|min:0',
         'assignAmount' => 'required|numeric|min:0.01',
         'assignToCategory' => 'required|exists:transaction_categories,id',
@@ -353,6 +353,9 @@ class BudgetTable extends Component
 
     public function isProtectedCategory($category)
     {
+        if (!$category || !$category->group) {
+            return false;
+        }
         return $this->isProtectedGroup($category->group);
     }
 
@@ -421,7 +424,6 @@ class BudgetTable extends Component
     {
         $this->newCategory = [
             'name' => '',
-            'group_id' => $this->categoryGroups->first()?->id ?? '',
             'assigned_amount' => 0,
         ];
     }
@@ -430,15 +432,25 @@ class BudgetTable extends Component
     {
         $this->validate([
             'newCategory.name' => 'required|string|max:255',
-            'newCategory.group_id' => 'required|exists:category_groups,id',
             'newCategory.assigned_amount' => 'required|numeric|min:0',
         ]);
 
         // Create category with current month/year as creation date
         $createdAt = \Carbon\Carbon::create($this->currentYear, $this->currentMonth, 1);
         
+        // Criar um grupo automático com o mesmo nome da categoria
+        $categoryGroup = CategoryGroup::firstOrCreate([
+            'team_id' => auth()->user()->currentTeam->id,
+            'name' => $this->newCategory['name'],
+        ], [
+            'is_hidden' => false,
+            'created_at' => $createdAt,
+            'updated_at' => $createdAt,
+        ]);
+
+        // Criar a categoria dentro desse grupo
         TransactionCategory::create([
-            'group_id' => $this->newCategory['group_id'],
+            'group_id' => $categoryGroup->id,
             'name' => $this->newCategory['name'],
             'assigned_amount' => $this->newCategory['assigned_amount'],
             'created_at' => $createdAt,
@@ -452,6 +464,69 @@ class BudgetTable extends Component
             'message' => 'Category created successfully for ' . $this->getCurrentMonthName() . '!', 
             'type' => 'success'
         ]);
+    }
+
+    public function deleteCategory($categoryId)
+    {
+        try {
+            $category = TransactionCategory::with(['group', 'transactions', 'payees'])->find($categoryId);
+            
+            if (!$category) {
+                $this->dispatch('notify', [
+                    'message' => __('common.messages.category.not_found'),
+                    'type' => 'error'
+                ]);
+                return;
+            }
+            
+            // Verificar se é categoria protegida
+            if ($this->isProtectedCategory($category)) {
+                $this->dispatch('notify', [
+                    'message' => __('common.messages.category.cannot_delete_protected'),
+                    'type' => 'warning'
+                ]);
+                return;
+            }
+            
+            // Verificar se há transações usando esta categoria
+            $transactionsCount = $category->transactions()->count();
+            $payeesCount = Payee::where('category_id', $categoryId)->count();
+            
+            // Desassociar beneficiários da categoria antes de deletar (se houver)
+            if ($payeesCount > 0) {
+                Payee::where('category_id', $categoryId)->update(['category_id' => null]);
+            }
+            
+            // Definir category_id como null para transações que usam esta categoria
+            if ($transactionsCount > 0) {
+                \App\Models\Transaction::where('category_id', $categoryId)->update(['category_id' => null]);
+            }
+            
+            // Salvar o group_id antes de deletar a categoria
+            $groupId = $category->group_id;
+            
+            // Deletar a categoria
+            $category->delete();
+            
+            // Verificar se o grupo ficou vazio após deletar a categoria
+            $remainingCategoriesCount = TransactionCategory::where('group_id', $groupId)->count();
+            if ($remainingCategoriesCount === 0) {
+                // Se o grupo não tem mais categorias, ocultá-lo
+                CategoryGroup::where('id', $groupId)->update(['is_hidden' => true]);
+            }
+            
+            $this->loadCategoryGroups();
+            
+            $this->dispatch('notify', [
+                'message' => __('common.messages.category.deleted_success'),
+                'type' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('notify', [
+                'message' => 'Erro ao deletar categoria: ' . $e->getMessage(),
+                'type' => 'error'
+            ]);
+        }
     }
 
     // Filter Methods
@@ -480,7 +555,7 @@ class BudgetTable extends Component
             }
             
             // Only show groups that have categories matching the filter
-            if ($filteredCategories->isNotEmpty() || $this->activeFilter === 'all') {
+            if ($filteredCategories->isNotEmpty()) {
                 $groupClone = clone $group;
                 $groupClone->setRelation('categories', $filteredCategories);
                 $this->filteredCategoryGroups->push($groupClone);

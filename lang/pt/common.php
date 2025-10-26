@@ -52,6 +52,17 @@ return [
             'leave_page' => 'Tem alterações não guardadas. Tem a certeza que quer sair?',
         ],
         'no_data_found' => 'Nenhum dado encontrado',
+        
+        'category' => [
+            'not_found' => 'Categoria não encontrada.',
+            'cannot_delete_linked_transactions' => 'Não é possível deletar a categoria. Ela está sendo usada por :count transação(ões). Por favor, reatribua os registros para outra categoria primeiro.',
+            'cannot_delete_linked_payees' => 'Não é possível deletar a categoria. Ela está sendo usada por :count beneficiário(s). Por favor, reatribua os registros para outra categoria primeiro.',
+            'cannot_delete_linked_both' => 'Não é possível deletar a categoria \':name\'. Ela está sendo usada por: :reasons. Por favor, reatribua os registros para outra categoria primeiro.',
+            'cannot_delete_protected' => 'Categorias de pagamento de cartão de crédito não podem ser deletadas.',
+            'deleted_success' => 'Categoria deletada com sucesso!',
+            'created_success' => 'Categoria criada com sucesso para :month!',
+            'created_with_group' => 'Category group created successfully for :month!',
+        ],
     ],
 
     'terms' => [

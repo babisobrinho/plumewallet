@@ -88,14 +88,6 @@
 
         <!-- Actions -->
         <div class="flex items-center space-x-4 text-sm">
-            <button wire:click="openCategoryGroupModal" 
-                    class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center space-x-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <span>+ {{ __('common.transactions.category') }} {{ __('common.buttons.add') }}</span>
-            </button>
-            
             <button wire:click="openCategoryModal" 
                     class="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 font-medium flex items-center space-x-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,12 +128,13 @@
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('common.transactions.activity') }}</th>
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('common.transactions.available') }}</th>
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('common.transactions.payment') }}</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-10">{{ __('common.terms.actions') }}</th>
                 </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 @if($this->getDisplayedCategoryGroups()->isEmpty())
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center">
+                        <td colspan="7" class="px-6 py-12 text-center">
                             <div class="flex flex-col items-center space-y-4">
                                 <svg class="w-16 h-16 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -196,6 +189,7 @@
                         <td class="px-6 py-3 text-right text-sm font-semibold text-gray-900 dark:text-gray-100">
                             ${{ number_format($group->categories->sum('payment'), 2) }}
                         </td>
+                        <td class="px-6 py-3"></td>
                     </tr>
 
                     <!-- Categories (only show if group is expanded) -->
@@ -310,6 +304,20 @@
                                     <span class="text-sm font-medium text-gray-400 dark:text-gray-500">—</span>
                                 @endif
                             </td>
+
+                            <!-- Actions Column -->
+                            <td class="px-6 py-3 text-center">
+                                @if(!$this->isProtectedCategory($category))
+                                    <button wire:click="deleteCategory({{ $category->id }})" 
+                                            wire:confirm="Are you sure you want to delete this category?"
+                                            class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-600 transition-colors"
+                                            title="Delete category">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    </button>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     @endif
@@ -373,18 +381,6 @@
                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                    placeholder="e.g., Groceries, Gas, Entertainment, etc.">
                             @error('newCategory.name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Category Group</label>
-                            <select wire:model="newCategory.group_id" 
-                                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select a group</option>
-                                @foreach($categoryGroups as $group)
-                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('newCategory.group_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="mb-6">
