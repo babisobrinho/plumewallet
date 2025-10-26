@@ -40,14 +40,14 @@ class Show extends Component
     {
         $this->showObservationModal = true;
         $this->observationText = '';
-        $this->observationStatus = $this->contactForm->status->value;
+        $this->observationStatus = ''; // Always start with empty (Keep current status)
     }
 
     public function closeObservationModal()
     {
         $this->showObservationModal = false;
         $this->observationText = '';
-        $this->observationStatus = $this->contactForm->status->value;
+        $this->observationStatus = ''; // Reset to empty
         $this->resetErrorBag();
     }
 
@@ -103,11 +103,16 @@ class Show extends Component
 
         // Create observation
         try {
+            $observationStatus = null;
+            if ($this->observationStatus) {
+                $observationStatus = ContactFormStatus::from($this->observationStatus);
+            }
+            
             $observation = ContactFormObservation::create([
                 'contact_form_id' => $this->contactForm->id,
                 'user_id' => Auth::id(),
                 'observation' => $this->observationText,
-                'status' => $this->observationStatus ? ContactFormStatus::from($this->observationStatus) : null,
+                'status' => $observationStatus,
             ]);
 
             \Log::info('Observation created', ['observation_id' => $observation->id]);
@@ -118,18 +123,8 @@ class Show extends Component
 
         // Update contact form status if different from current
         if ($this->observationStatus && $this->observationStatus !== $this->contactForm->status->value) {
-            $oldStatus = $this->contactForm->status;
             $newStatus = ContactFormStatus::from($this->observationStatus);
-            
             $this->contactForm->update(['status' => $newStatus]);
-            
-            // Create automatic observation for status change
-            ContactFormObservation::create([
-                'contact_form_id' => $this->contactForm->id,
-                'user_id' => Auth::id(),
-                'observation' => "Status changed from " . ContactFormStatus::label($oldStatus) . " to " . ContactFormStatus::label($newStatus),
-                'status' => $newStatus,
-            ]);
         }
 
         // Refresh the contact form to get updated observations
@@ -149,7 +144,10 @@ class Show extends Component
 
     public function getStatusOptionsProperty()
     {
+        $currentStatus = $this->contactForm->status;
+        
         return collect(ContactFormStatus::cases())
+            ->filter(fn($status) => $status !== $currentStatus) // Exclude current status
             ->mapWithKeys(fn($status) => [$status->value => ContactFormStatus::label($status)])
             ->toArray();
     }

@@ -154,6 +154,10 @@
                                                 <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">
                                                     {{ __('contact.details.status_changed_to') }}: {{ $observation->status_text }}
                                                 </p>
+                                            @else
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                    {{ __('contact.details.status') }}: {{ \App\Enums\ContactFormStatus::label($contactForm->status) }}
+                                                </p>
                                             @endif
                             </div>
                             <div class="text-right">

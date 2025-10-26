@@ -70,6 +70,7 @@ return [
         'information' => 'Contact Information',
         'update_status' => 'Update Status',
         'observations' => 'Observations',
+        'status' => 'Status',
         'status_changed_to' => 'Status changed to',
         'keep_current_status' => 'Keep current status',
     ],
