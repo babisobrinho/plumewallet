@@ -176,12 +176,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     @if($attempt->is_suspicious)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                            <i class="ti ti-circle-check w-3 h-3 mr-1"></i>
                                             {{ __('common.terms.yes') }}
                                         </span>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            <i class="ti ti-circle-x w-3 h-3 mr-1"></i>
                                             {{ __('common.terms.no') }}
                                         </span>
                                     @endif
