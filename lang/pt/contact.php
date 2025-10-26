@@ -56,6 +56,7 @@ return [
     'filters' => [
         'all_statuses' => 'Todos os Status',
         'all_subjects' => 'Todos os Assuntos',
+        'all_languages' => 'Todos os Idiomas',
         'search_placeholder' => 'Pesquisar por nome, email ou número do processo...',
     ],
     

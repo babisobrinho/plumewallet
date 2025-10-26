@@ -15,13 +15,13 @@ class ContactFormObservation extends Model
         'contact_form_id',
         'user_id',
         'observation',
-        'status_change',
+        'status',
     ];
 
     protected function casts(): array
     {
         return [
-            'status_change' => ContactFormStatus::class,
+            'status' => ContactFormStatus::class,
         ];
     }
 
@@ -42,14 +42,14 @@ class ContactFormObservation extends Model
     }
 
     /**
-     * Get the status change text.
+     * Get the status text.
      */
-    public function getStatusChangeTextAttribute(): ?string
+    public function getStatusTextAttribute(): ?string
     {
-        if (!$this->status_change) {
+        if (!$this->status) {
             return null;
         }
         
-        return \App\Enums\ContactFormStatus::label($this->status_change);
+        return \App\Enums\ContactFormStatus::label($this->status);
     }
 }

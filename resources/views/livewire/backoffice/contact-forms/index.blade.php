@@ -44,7 +44,7 @@
             <div class="px-6 py-4 border border-gray-200 dark:border-gray-700 rounded-t-lg">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
                     <!-- Search -->
-                    <div class="flex-1 max-w-lg">
+                    <div class="flex-1 max-w-md">
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ti ti-search text-gray-400"></i>
@@ -89,13 +89,26 @@
                             </select>
                         </div>
 
+                        <!-- Language Filter -->
+                        <div class="min-w-0 flex-1 sm:min-w-32">
+                            <select 
+                                wire:model.live="filters.language"
+                                wire:key="language-{{ $filters['language'] }}"
+                                class="block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            >
+                                <option value="">{{ __('contact.filters.all_languages') }}</option>
+                                @foreach($filterOptions[2]['options'] as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <!-- Clear Filters -->
                         <button 
                             wire:click="clearFilters"
                             class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
-                            <i class="ti ti-x w-4 h-4 mr-1"></i>
-                            {{ __('common.buttons.clear_filters') }}
+                            {{ __('common.buttons.clear') }}
                         </button>
                     </div>
                 </div>
@@ -137,22 +150,33 @@
                                                     field="subject"
                                                 />
                                             @endif
+                                        @elseif($column['key'] === 'preferred_language')
+                                            <x-badge 
+                                                :item="$item"
+                                                :enumClass="\App\Enums\ContactFormLanguage::class"
+                                                field="preferred_language"
+                                            />
                                         @elseif($column['key'] === 'status')
                                             <x-badge 
                                                 :item="$item"
                                                 :enumClass="\App\Enums\ContactFormStatus::class"
                                                 field="status"
                                             />
+                                        @elseif($column['key'] === 'created_at')
+                                            {{ $item->created_at->format('d/m/Y') }}
                                         @else
                                             {{ $item->{$column['key']} }}
                                         @endif
                                     </td>
                                 @endforeach
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('backoffice.contact-forms.show', $item) }}" 
-                                       class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                                        {{ __('common.buttons.view') }}
-                                    </a>
+                                    <x-action-link 
+                                        :url="route('backoffice.contact-forms.show', $item)"
+                                        icon="eye"
+                                        color="blue"
+                                        size="sm"
+                                        :title="__('common.buttons.view')"
+                                    />
                                 </td>
                             </tr>
                         @empty

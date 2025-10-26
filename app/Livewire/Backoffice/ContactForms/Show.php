@@ -18,12 +18,14 @@ class Show extends Component
     public $newStatus = '';
     
     // Observation modal
-    public $showObservationModal = false;
     public $observationText = '';
+    public $observationStatus = '';
+    public $showObservationModal = false;
 
     protected $rules = [
         'newStatus' => 'required|string',
         'observationText' => 'required|string|max:1000',
+        'observationStatus' => 'nullable|string',
     ];
 
     public function mount(ContactForm $contactForm)
@@ -31,6 +33,22 @@ class Show extends Component
         $this->authorize('contact_forms_read', $contactForm);
         $this->contactForm = $contactForm;
         $this->newStatus = $contactForm->status->value;
+        $this->observationStatus = $contactForm->status->value;
+    }
+
+    public function openObservationModal()
+    {
+        $this->showObservationModal = true;
+        $this->observationText = '';
+        $this->observationStatus = $this->contactForm->status->value;
+    }
+
+    public function closeObservationModal()
+    {
+        $this->showObservationModal = false;
+        $this->observationText = '';
+        $this->observationStatus = $this->contactForm->status->value;
+        $this->resetErrorBag();
     }
 
     public function updateStatus()
@@ -57,35 +75,76 @@ class Show extends Component
         session()->flash('message', __('contact.messages.status_updated'));
     }
 
-    public function openObservationModal()
-    {
-        $this->showObservationModal = true;
-        $this->observationText = '';
-    }
-
-    public function closeObservationModal()
-    {
-        $this->showObservationModal = false;
-        $this->observationText = '';
-        $this->resetErrorBag();
-    }
 
     public function addObservation()
     {
+        \Log::info('addObservation method called - START');
+        \Log::info('observationText: ' . $this->observationText);
+        \Log::info('observationStatus: ' . $this->observationStatus);
+        
         $this->authorize('contact_forms_update', $this->contactForm);
         
-        $this->validate([
-            'observationText' => 'required|string|max:1000',
-        ]);
+        try {
+            $this->validate([
+                'observationText' => 'required|string|max:1000',
+                'observationStatus' => 'nullable|string',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation failed', ['errors' => $e->errors()]);
+            throw $e;
+        }
 
-        ContactFormObservation::create([
+        \Log::info('Adding observation', [
             'contact_form_id' => $this->contactForm->id,
             'user_id' => Auth::id(),
             'observation' => $this->observationText,
+            'status' => $this->observationStatus,
         ]);
 
+        // Create observation
+        try {
+            $observation = ContactFormObservation::create([
+                'contact_form_id' => $this->contactForm->id,
+                'user_id' => Auth::id(),
+                'observation' => $this->observationText,
+                'status' => $this->observationStatus ? ContactFormStatus::from($this->observationStatus) : null,
+            ]);
+
+            \Log::info('Observation created', ['observation_id' => $observation->id]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to create observation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+
+        // Update contact form status if different from current
+        if ($this->observationStatus && $this->observationStatus !== $this->contactForm->status->value) {
+            $oldStatus = $this->contactForm->status;
+            $newStatus = ContactFormStatus::from($this->observationStatus);
+            
+            $this->contactForm->update(['status' => $newStatus]);
+            
+            // Create automatic observation for status change
+            ContactFormObservation::create([
+                'contact_form_id' => $this->contactForm->id,
+                'user_id' => Auth::id(),
+                'observation' => "Status changed from " . ContactFormStatus::label($oldStatus) . " to " . ContactFormStatus::label($newStatus),
+                'status' => $newStatus,
+            ]);
+        }
+
+        // Refresh the contact form to get updated observations
+        $this->contactForm->refresh();
+        $this->contactForm->load('observations.user');
+
+        // Reset the observation fields
+        $this->observationText = '';
+        $this->observationStatus = $this->contactForm->status->value;
+        $this->resetErrorBag();
+
         session()->flash('message', __('contact.messages.observation_added'));
-        $this->closeObservationModal();
+        
+        // Close the modal
+        $this->showObservationModal = false;
     }
 
     public function getStatusOptionsProperty()

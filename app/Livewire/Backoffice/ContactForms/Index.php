@@ -4,6 +4,7 @@ namespace App\Livewire\Backoffice\ContactForms;
 
 use App\Enums\ContactFormStatus;
 use App\Enums\ContactFormSubject;
+use App\Enums\ContactFormLanguage;
 use App\Models\ContactForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -19,6 +20,7 @@ class Index extends Component
     public $filters = [
         'status' => '',
         'subject' => '',
+        'language' => '',
     ];
 
     protected $listeners = [
@@ -47,6 +49,13 @@ class Index extends Component
                 'placeholder' => __('contact.filters.all_subjects'),
                 'options' => ContactFormSubject::options()
             ],
+            [
+                'key' => 'language',
+                'label' => __('contact.labels.preferred_language'),
+                'type' => 'select',
+                'placeholder' => __('contact.filters.all_languages'),
+                'options' => ContactFormLanguage::options()
+            ],
         ];
     }
 
@@ -74,6 +83,11 @@ class Index extends Component
                 'sortable' => false,
             ],
             [
+                'key' => 'preferred_language',
+                'label' => __('contact.labels.preferred_language'),
+                'sortable' => true,
+            ],
+            [
                 'key' => 'status',
                 'label' => __('common.labels.status'),
                 'sortable' => true,
@@ -81,7 +95,7 @@ class Index extends Component
             [
                 'key' => 'created_at',
                 'label' => __('common.labels.created_at'),
-                'format' => 'datetime',
+                'format' => 'date',
                 'sortable' => true,
             ],
         ];
@@ -138,6 +152,9 @@ class Index extends Component
             })
             ->when($this->filters['subject'], function($query) {
                 $query->where('subject', $this->filters['subject']);
+            })
+            ->when($this->filters['language'], function($query) {
+                $query->where('preferred_language', $this->filters['language']);
             });
 
         return $query->orderBy('created_at', 'desc')->paginate(15);

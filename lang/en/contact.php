@@ -71,11 +71,13 @@ return [
         'update_status' => 'Update Status',
         'observations' => 'Observations',
         'status_changed_to' => 'Status changed to',
+        'keep_current_status' => 'Keep current status',
     ],
     
     'filters' => [
         'all_status' => 'All Status',
         'all_subjects' => 'All Subjects',
+        'all_languages' => 'All Languages',
         'search_placeholder' => 'Search by name, email, or process number...',
     ],
     

@@ -26,6 +26,7 @@ return [
         ],
 
     'labels' => [
+        'actions' => 'Actions',
         'name' => 'Name',
         'email' => 'Email',
         'description' => 'Description',
