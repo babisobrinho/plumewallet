@@ -45,13 +45,13 @@
                             >
                                 <div class="p-4 space-y-4">
                                     @foreach($filterOptions as $filter)
-                                        <div>
+                                        <div wire:key="filter-{{ $filter['key'] }}">
                                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                                 {{ $filter['label'] }}
                                             </label>
                                             @if($filter['type'] === 'select')
                                                 <select 
-                                                    wire:model.live="filters.{{ $filter['key'] }}"
+                                                    wire:model.live.debounce.300ms="filter{{ ucfirst($filter['key']) }}"
                                                     class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-600 dark:text-white"
                                                 >
                                                     <option value="">{{ $filter['placeholder'] ?? __('common.terms.all') }}</option>
@@ -75,12 +75,6 @@
                                             class="px-3 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
                                         >
                                             {{ __('common.buttons.clear') }}
-                                        </button>
-                                        <button 
-                                            @click="open = false"
-                                            class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        >
-                                            {{ __('common.buttons.apply') }}
                                         </button>
                                     </div>
                                 </div>
@@ -162,7 +156,13 @@
                             @foreach($tableColumns as $column)
                                 <td class="px-6 py-4 text-sm {{ $column['cellClass'] ?? 'text-gray-900 dark:text-gray-100' }} {{ isset($column['ellipsis']) && $column['ellipsis'] ? 'title-cell' : (isset($column['key']) && $column['key'] === 'title' ? 'title-cell' : 'whitespace-nowrap') }}">
                                     @if(isset($column['component']))
-                                        @include($column['component'], ['item' => $item])
+                                        @php
+                                            $componentParams = array_merge(
+                                                ['item' => $item, 'field' => $column['key'] ?? null],
+                                                $column['componentParams'] ?? []
+                                            );
+                                        @endphp
+                                        @include($column['component'], $componentParams)
                                     @elseif(isset($column['key']) && $column['key'] === 'title' && isset($item[$column['key']]))
                                         <div class="title-cell" title="{{ $item[$column['key']] }}">
                                             {{ $item[$column['key']] }}
@@ -215,7 +215,7 @@
                                         @foreach($tableActions as $action)
                                             @if($action['type'] === 'button')
                                                 <button
-                                                    wire:click="{{ $action['method'] }}({{ $item['id'] }})"
+                                                    wire:click="{{ $this->getGenericMethod($action['method']) }}({{ $item['id'] }})"
                                                     class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md {{ $action['class'] }} focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $action['focusClass'] ?? 'focus:ring-blue-500' }}"
                                                 >
                                                     @if(isset($action['icon']))

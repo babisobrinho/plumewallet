@@ -23,7 +23,8 @@ return new class extends Migration
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->timestamp('published_at')->nullable();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained('post_categories')->onDelete('set null');
+            $table->string('category')->nullable();
+            $table->json('tags')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->unsignedInteger('view_count')->default(0);
             $table->timestamps();

@@ -30,6 +30,9 @@ class Index extends Component
 
     protected $listeners = [
         'refreshTable' => '$refresh',
+        'editItem' => 'editUser',
+        'deleteItem' => 'deleteUser',
+        'viewItem' => 'viewUser',
     ];
     
     public function mount()

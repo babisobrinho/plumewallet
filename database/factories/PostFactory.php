@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Post;
-use App\Models\PostCategory;
-use App\Models\PostTag;
 use App\Models\User;
 use App\Enums\PostStatus;
+use App\Enums\PostCategory;
+use App\Enums\PostTag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -41,7 +41,8 @@ class PostFactory extends Factory
             'status' => $this->faker->randomElement(PostStatus::cases()),
             'published_at' => $this->faker->optional(0.8)->dateTimeBetween('-1 year', 'now'),
             'author_id' => User::factory(),
-            'category_id' => PostCategory::factory(),
+            'category' => $this->faker->randomElement(PostCategory::cases()),
+            'tags' => $this->faker->randomElements(PostTag::values(), $this->faker->numberBetween(1, 4)),
             'is_featured' => $this->faker->boolean(15), // 15% chance of being featured
             'view_count' => $this->faker->numberBetween(0, 5000),
         ];
@@ -131,5 +132,52 @@ class PostFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'view_count' => $this->faker->numberBetween(1000, 10000),
         ]);
+    }
+
+    /**
+     * Create a post with a specific category.
+     */
+    public function withCategory(PostCategory $category): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => $category,
+        ]);
+    }
+
+    /**
+     * Create a post with specific tags.
+     */
+    public function withTags(array $tags): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'tags' => $tags,
+        ]);
+    }
+
+    /**
+     * Create a technology post.
+     */
+    public function technology(): static
+    {
+        return $this->withCategory(PostCategory::TECHNOLOGY)
+            ->withTags([PostTag::TUTORIAL->value, PostTag::GUIDE->value]);
+    }
+
+    /**
+     * Create a business post.
+     */
+    public function business(): static
+    {
+        return $this->withCategory(PostCategory::BUSINESS)
+            ->withTags([PostTag::TIPS->value, PostTag::GUIDE->value]);
+    }
+
+    /**
+     * Create a tutorial post.
+     */
+    public function tutorial(): static
+    {
+        return $this->withCategory(PostCategory::TUTORIAL)
+            ->withTags([PostTag::TUTORIAL->value, PostTag::BEGINNER->value, PostTag::GUIDE->value]);
     }
 }

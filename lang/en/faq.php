@@ -53,4 +53,6 @@ return [
         'deleted_successfully' => 'FAQ excluída com sucesso!',
         'status_toggled' => 'Status da FAQ alterado!',
     ],
+
+    'no_category' => 'Sem Categoria',
 ];

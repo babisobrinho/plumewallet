@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
-use App\Models\PostCategory;
-use App\Models\PostTag;
 use App\Models\User;
 use App\Enums\PostStatus;
+use App\Enums\PostCategory;
+use App\Enums\PostTag;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -16,13 +16,10 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get existing categories and tags
-        $categories = PostCategory::all();
-        $tags = PostTag::all();
         $users = User::all();
 
-        if ($categories->isEmpty() || $tags->isEmpty() || $users->isEmpty()) {
-            $this->command->warn('Please run PostCategorySeeder, PostTagSeeder, and UserSeeder first.');
+        if ($users->isEmpty()) {
+            $this->command->warn('Please run UserSeeder first.');
             return;
         }
 
@@ -33,14 +30,7 @@ class PostSeeder extends Seeder
             ->published()
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(2, 5))->pluck('id')->toArray()
-                );
-            });
+            ]);
 
         // Create published posts
         Post::factory()
@@ -48,14 +38,7 @@ class PostSeeder extends Seeder
             ->published()
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(1, 4))->pluck('id')->toArray()
-                );
-            });
+            ]);
 
         // Create some draft posts
         Post::factory()
@@ -63,14 +46,7 @@ class PostSeeder extends Seeder
             ->draft()
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(1, 3))->pluck('id')->toArray()
-                );
-            });
+            ]);
 
         // Create some archived posts
         Post::factory()
@@ -78,14 +54,7 @@ class PostSeeder extends Seeder
             ->archived()
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(1, 3))->pluck('id')->toArray()
-                );
-            });
+            ]);
 
         // Create some popular posts with high view counts
         Post::factory()
@@ -94,27 +63,40 @@ class PostSeeder extends Seeder
             ->popular()
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(2, 6))->pluck('id')->toArray()
-                );
-            });
+            ]);
+
+        // Create some technology posts
+        Post::factory()
+            ->count(8)
+            ->technology()
+            ->published()
+            ->create([
+                'author_id' => $users->random()->id,
+            ]);
+
+        // Create some business posts
+        Post::factory()
+            ->count(6)
+            ->business()
+            ->published()
+            ->create([
+                'author_id' => $users->random()->id,
+            ]);
+
+        // Create some tutorial posts
+        Post::factory()
+            ->count(10)
+            ->tutorial()
+            ->published()
+            ->create([
+                'author_id' => $users->random()->id,
+            ]);
 
         // Create some random posts
         Post::factory()
             ->count(20)
             ->create([
                 'author_id' => $users->random()->id,
-                'category_id' => $categories->random()->id,
-            ])
-            ->each(function ($post) use ($tags) {
-                // Attach random tags
-                $post->tags()->attach(
-                    $tags->random(rand(1, 4))->pluck('id')->toArray()
-                );
-            });
+            ]);
     }
 }

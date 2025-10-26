@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('failure_reason')->nullable();
             $table->timestamp('attempted_at');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('country', 2)->nullable();
+            $table->string('country', 10)->nullable();
             $table->string('city')->nullable();
             $table->boolean('is_suspicious')->default(false);
             $table->timestamp('blocked_until')->nullable();

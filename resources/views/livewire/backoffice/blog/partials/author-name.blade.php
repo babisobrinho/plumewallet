@@ -1,4 +1,4 @@
-@php
+\@php
     $author = $item->author;
     $authorName = $author ? $author->name : 'Sem autor';
 @endphp

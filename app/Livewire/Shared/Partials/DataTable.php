@@ -21,6 +21,12 @@ class DataTable extends Component
     // Filter properties
     public $search = '';
     public $filters = [];
+    
+    // Individual filter properties for Livewire reactivity
+    public $filterStatus = '';
+    public $filterCategory = '';
+    public $filterAuthor = '';
+    public $filterRole = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -52,18 +58,25 @@ class DataTable extends Component
     public function getDataProperty()
     {
         $modelClass = "App\\Models\\" . ucfirst($this->model);
+        $normalizedModel = ucfirst($this->model);
         
         if (!class_exists($modelClass)) {
             $modelClass = "App\\Models\\User"; // fallback
+            $normalizedModel = 'User';
         }
 
         $query = $modelClass::query();
+        
+        // Load relationships based on model
+        if ($normalizedModel === 'Post') {
+            $query->with(['author']);
+        }
 
         // Apply search
         if ($this->search) {
-            $query->where(function ($q) {
+            $query->where(function ($q) use ($normalizedModel) {
                 // Different search fields based on model
-                switch ($this->model) {
+                switch ($normalizedModel) {
                     case 'User':
                         $q->where('name', 'like', '%' . $this->search . '%')
                           ->orWhere('email', 'like', '%' . $this->search . '%');
@@ -91,8 +104,12 @@ class DataTable extends Component
         }
 
         // Apply filters based on model
-        if ($this->model === 'User') {
+        if ($normalizedModel === 'User') {
             $this->applyUserFilters($query);
+        } elseif ($normalizedModel === 'Post') {
+            $this->applyPostFilters($query);
+        } elseif ($normalizedModel === 'Faq') {
+            $this->applyFaqFilters($query);
         }
 
         // Apply sorting
@@ -107,18 +124,58 @@ class DataTable extends Component
 
     protected function applyUserFilters($query)
     {
-        if (isset($this->filters['status']) && $this->filters['status']) {
-            if ($this->filters['status'] === 'active') {
+        $status = $this->filterStatus ?? ($this->filters['status'] ?? '');
+        $role = $this->filterRole ?? ($this->filters['role'] ?? '');
+        
+        if ($status && $status !== '' && $status !== null) {
+            if ($status === 'active') {
                 $query->whereNotNull('email_verified_at');
-            } elseif ($this->filters['status'] === 'inactive') {
+            } elseif ($status === 'inactive') {
                 $query->whereNull('email_verified_at');
             }
         }
 
-        if (isset($this->filters['role']) && $this->filters['role']) {
-            $query->whereHas('roles', function ($q) {
-                $q->where('type', $this->filters['role']);
+        if ($role && $role !== '' && $role !== null) {
+            $query->whereHas('roles', function ($q) use ($role) {
+                $q->where('type', $role);
             });
+        }
+    }
+
+    protected function applyPostFilters($query)
+    {
+        $status = $this->filterStatus ?? ($this->filters['status'] ?? '');
+        $category = $this->filterCategory ?? ($this->filters['category'] ?? '');
+        $author = $this->filterAuthor ?? ($this->filters['author'] ?? '');
+        
+        if ($status && $status !== '' && $status !== null) {
+            $query->where('status', $status);
+        }
+
+        if ($category && $category !== '' && $category !== null) {
+            $query->where('category', $category);
+        }
+
+        if ($author && $author !== '' && $author !== null) {
+            $query->where('author_id', $author);
+        }
+    }
+
+    protected function applyFaqFilters($query)
+    {
+        $category = $this->filterCategory ?? ($this->filters['category'] ?? '');
+        $status = $this->filterStatus ?? ($this->filters['status'] ?? '');
+        
+        if ($category && $category !== '' && $category !== null) {
+            $query->where('category', $category);
+        }
+
+        if ($status && $status !== '' && $status !== null) {
+            if ($status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($status === 'inactive') {
+                $query->where('is_active', false);
+            }
         }
     }
 
@@ -139,7 +196,22 @@ class DataTable extends Component
         $this->resetPage();
     }
 
-    public function updatedFilters()
+    public function updatedFilterStatus()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterCategory()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterAuthor()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterRole()
     {
         $this->resetPage();
     }
@@ -148,10 +220,15 @@ class DataTable extends Component
     {
         $this->search = '';
         $this->filters = [];
+        $this->filterStatus = '';
+        $this->filterCategory = '';
+        $this->filterAuthor = '';
+        $this->filterRole = '';
         $this->sortBy = 'created_at';
         $this->sortDirection = 'desc';
         $this->resetPage();
     }
+
 
     // Generic action methods that emit events to parent component
     public function editItem($id)
@@ -179,6 +256,16 @@ class DataTable extends Component
         $this->dispatch('toggleStatus', $id);
     }
 
+    public function blockItem($id)
+    {
+        $this->dispatch('blockItem', $id);
+    }
+
+    public function unblockItem($id)
+    {
+        $this->dispatch('unblockItem', $id);
+    }
+
     public function getGenericMethod($method)
     {
         $methodMap = [
@@ -188,9 +275,15 @@ class DataTable extends Component
             'deletePost' => 'deleteItem',
             'deleteUser' => 'deleteItem',
             'deleteFaq' => 'deleteItem',
+            'deleteAttempt' => 'deleteItem',
+            'deleteLog' => 'deleteItem',
             'viewUser' => 'viewItem',
+            'viewAttempt' => 'viewItem',
+            'viewLog' => 'viewItem',
             'toggleFeatured' => 'toggleFeatured',
             'toggleStatus' => 'toggleStatus',
+            'blockIp' => 'blockItem',
+            'unblockIp' => 'unblockItem',
         ];
 
         return $methodMap[$method] ?? $method;

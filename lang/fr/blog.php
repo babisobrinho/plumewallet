@@ -63,4 +63,6 @@ return [
         'deleted_successfully' => 'Article supprimé avec succès !',
         'featured_toggled' => 'Statut de mise en vedette modifié !',
     ],
+
+    'no_category' => 'Aucune Catégorie',
 ];

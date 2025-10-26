@@ -63,4 +63,6 @@ return [
         'deleted_successfully' => 'Post deleted successfully!',
         'featured_toggled' => 'Featured status changed!',
     ],
+
+    'no_category' => 'No Category',
 ];

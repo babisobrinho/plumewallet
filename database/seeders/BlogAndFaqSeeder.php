@@ -14,12 +14,6 @@ class BlogAndFaqSeeder extends Seeder
         $this->command->info('🌱 Starting Blog and FAQ seeding...');
 
         // Seed in the correct order to respect foreign key constraints
-        $this->command->info('📂 Creating post categories...');
-        $this->call(PostCategorySeeder::class);
-
-        $this->command->info('🏷️ Creating post tags...');
-        $this->call(PostTagSeeder::class);
-
         $this->command->info('📝 Creating blog posts...');
         $this->call(PostSeeder::class);
 
@@ -28,9 +22,9 @@ class BlogAndFaqSeeder extends Seeder
 
         $this->command->info('✅ Blog and FAQ seeding completed successfully!');
         $this->command->info('📊 Summary:');
-        $this->command->info('   - Post Categories: ' . \App\Models\PostCategory::count());
-        $this->command->info('   - Post Tags: ' . \App\Models\PostTag::count());
         $this->command->info('   - Blog Posts: ' . \App\Models\Post::count());
         $this->command->info('   - FAQs: ' . \App\Models\Faq::count());
+        $this->command->info('   - Post Categories (Enums): ' . count(\App\Enums\PostCategory::cases()));
+        $this->command->info('   - Post Tags (Enums): ' . count(\App\Enums\PostTag::cases()));
     }
 }

@@ -11,7 +11,7 @@ trait HasEnumStylingMethods
      * [
      *      'case_value' => [
      *         'color' => 'red',
-     *         'icon' => 'fa-user',
+     *         'icon' => 'user',
      *         'light_bg_color' => 'bg-red-100',
      *         'light_text_color' => 'text-red-900'
      *         'dark_bg_color' => 'bg-red-200',

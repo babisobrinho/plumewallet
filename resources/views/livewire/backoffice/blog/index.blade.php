@@ -132,18 +132,18 @@
 
                             <!-- Category -->
                             <div>
-                                <x-label for="modal_category_id" :value="__('blog.form.category')" />
+                                <x-label for="modal_category" :value="__('blog.form.category')" />
                                 <select 
-                                    id="modal_category_id" 
-                                    wire:model="modalCategoryId" 
+                                    id="modal_category" 
+                                    wire:model="modalCategory" 
                                     class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                 >
                                     <option value="">{{ __('blog.form.select_category') }}</option>
-                                    @foreach(\App\Models\PostCategory::active()->get() as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @foreach(\App\Enums\PostCategory::options() as $value => $label)
+                                        <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
                                 </select>
-                                <x-input-error for="modalCategoryId" class="mt-2" />
+                                <x-input-error for="modalCategory" class="mt-2" />
                             </div>
 
                             <!-- Status -->
@@ -258,15 +258,15 @@
                         <div>
                             <x-label for="modal_tags" :value="__('blog.form.tags')" />
                             <div class="mt-2 space-y-2">
-                                @foreach(\App\Models\PostTag::active()->get() as $tag)
+                                @foreach(\App\Enums\PostTag::options() as $value => $label)
                                     <label class="inline-flex items-center">
                                         <input 
                                             type="checkbox" 
-                                            value="{{ $tag->id }}"
+                                            value="{{ $value }}"
                                             class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
                                             wire:model="modalTags"
                                         />
-                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ $tag->name }}</span>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ $label }}</span>
                                     </label>
                                 @endforeach
                             </div>

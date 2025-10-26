@@ -88,7 +88,12 @@ class Index extends Component
             [
                 'key' => 'category',
                 'label' => __('faq.table.category'),
-                'component' => 'livewire.backoffice.faq.partials.category-badge',
+                'component' => 'components.badge',
+                'componentParams' => [
+                    'enumClass' => \App\Enums\FaqCategory::class,
+                    'noValueKey' => 'faq.no_category',
+                    'field' => 'category',
+                ],
                 'sortable' => true,
                 'class' => 'w-1/6',
             ],

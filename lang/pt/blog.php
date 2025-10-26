@@ -63,4 +63,6 @@ return [
         'deleted_successfully' => 'Post excluído com sucesso!',
         'featured_toggled' => 'Status de destaque alterado!',
     ],
+
+    'no_category' => 'Sem Categoria',
 ];

@@ -3,10 +3,10 @@
 namespace App\Livewire\Backoffice\Blog;
 
 use App\Models\Post;
-use App\Models\PostCategory;
-use App\Models\PostTag;
 use App\Models\User;
 use App\Enums\PostStatus;
+use App\Enums\PostCategory;
+use App\Enums\PostTag;
 use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -33,7 +33,7 @@ class Index extends Component
     public $modalFeaturedImage = '';
     public $modalStatus = 'draft';
     public $modalPublishedAt = '';
-    public $modalCategoryId = '';
+    public $modalCategory = '';
     public $modalIsFeatured = false;
     public $modalTags = [];
 
@@ -76,9 +76,7 @@ class Index extends Component
                 'label' => __('blog.filters.category'),
                 'type' => 'select',
                 'placeholder' => __('blog.filters.all_categories'),
-                'options' => PostCategory::active()->get()->mapWithKeys(function($category) {
-                    return [$category->id => $category->name];
-                })->toArray()
+                'options' => PostCategory::options()
             ],
             [
                 'key' => 'author',
@@ -106,7 +104,12 @@ class Index extends Component
             [
                 'key' => 'category',
                 'label' => __('blog.table.category'),
-                'component' => 'livewire.backoffice.blog.partials.category-badge',
+                'component' => 'components.badge',
+                'componentParams' => [
+                    'enumClass' => \App\Enums\PostCategory::class,
+                    'noValueKey' => 'blog.no_category',
+                    'field' => 'category',
+                ],
                 'sortable' => false,
                 'class' => 'w-1/6',
             ],
@@ -120,7 +123,12 @@ class Index extends Component
             [
                 'key' => 'status',
                 'label' => __('blog.table.status'),
-                'component' => 'livewire.backoffice.blog.partials.status-badge',
+                'component' => 'components.badge',
+                'componentParams' => [
+                    'enumClass' => \App\Enums\PostStatus::class,
+                    'noValueKey' => 'blog.no_status',
+                    'field' => 'status',
+                ],
                 'sortable' => true,
                 'class' => 'w-1/6',
             ],
@@ -167,25 +175,6 @@ class Index extends Component
         ];
     }
 
-    public function getDataProperty()
-    {
-        $query = Post::with(['author', 'category', 'tags'])
-            ->when($this->search, function($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                      ->orWhere('content', 'like', '%' . $this->search . '%');
-            })
-            ->when($this->filters['status'], function($query) {
-                $query->where('status', $this->filters['status']);
-            })
-            ->when($this->filters['category'], function($query) {
-                $query->where('category_id', $this->filters['category']);
-            })
-            ->when($this->filters['author'], function($query) {
-                $query->where('author_id', $this->filters['author']);
-            });
-
-        return $query->orderBy('created_at', 'desc')->paginate(15);
-    }
 
     // Metric properties
     public function getTotalPostsProperty()
@@ -293,7 +282,7 @@ class Index extends Component
             'modalMetaTitle' => ['nullable', 'string', 'max:255'],
             'modalMetaDescription' => ['nullable', 'string', 'max:500'],
             'modalStatus' => ['required', 'in:draft,published,archived'],
-            'modalCategoryId' => ['nullable', 'exists:post_categories,id'],
+            'modalCategory' => ['nullable', 'in:' . implode(',', PostCategory::values())],
             'modalIsFeatured' => ['boolean'],
         ]);
 
@@ -320,13 +309,14 @@ class Index extends Component
             'status' => PostStatus::from($this->modalStatus),
             'published_at' => $this->modalStatus === 'published' ? ($this->modalPublishedAt ?: now()) : null,
             'author_id' => Auth::id(),
-            'category_id' => $this->modalCategoryId ?: null,
+            'category' => $this->modalCategory ?: null,
             'is_featured' => $this->modalIsFeatured,
         ]);
 
-        // Attach tags
+        // Set tags
         if (!empty($this->modalTags)) {
-            $post->tags()->sync($this->modalTags);
+            $post->tags = $this->modalTags;
+            $post->save();
         }
 
         // Log blog post creation
@@ -336,7 +326,7 @@ class Index extends Component
             'status' => $this->modalStatus,
             'is_featured' => $this->modalIsFeatured,
             'author_id' => Auth::id(),
-            'category_id' => $this->modalCategoryId,
+            'category' => $this->modalCategoryId,
         ]);
 
         session()->flash('message', __('blog.messages.created_successfully'));
@@ -354,14 +344,13 @@ class Index extends Component
             'featured_image' => $this->modalFeaturedImage,
             'status' => PostStatus::from($this->modalStatus),
             'published_at' => $this->modalStatus === 'published' ? ($this->modalPublishedAt ?: $this->editingPost->published_at) : null,
-            'category_id' => $this->modalCategoryId ?: null,
+            'category' => $this->modalCategory ?: null,
             'is_featured' => $this->modalIsFeatured,
         ]);
 
         // Update tags
-        if (!empty($this->modalTags)) {
-            $this->editingPost->tags()->sync($this->modalTags);
-        }
+        $this->editingPost->tags = $this->modalTags;
+        $this->editingPost->save();
 
         // Log blog post update
         LoggingService::updated('Blog Post', [
@@ -370,7 +359,7 @@ class Index extends Component
             'status' => $this->modalStatus,
             'is_featured' => $this->modalIsFeatured,
             'author_id' => Auth::id(),
-            'category_id' => $this->modalCategoryId,
+            'category' => $this->modalCategoryId,
         ]);
 
         session()->flash('message', __('blog.messages.updated_successfully'));
@@ -386,9 +375,9 @@ class Index extends Component
         $this->modalFeaturedImage = $this->editingPost->featured_image;
         $this->modalStatus = $this->editingPost->status->value;
         $this->modalPublishedAt = $this->editingPost->published_at ? $this->editingPost->published_at->format('Y-m-d\TH:i') : '';
-        $this->modalCategoryId = $this->editingPost->category_id;
+        $this->modalCategory = $this->editingPost->category;
         $this->modalIsFeatured = $this->editingPost->is_featured;
-        $this->modalTags = $this->editingPost->tags->pluck('id')->toArray();
+        $this->modalTags = $this->editingPost->tags ?? [];
     }
 
     public function resetModalForm()
@@ -401,7 +390,7 @@ class Index extends Component
         $this->modalFeaturedImage = '';
         $this->modalStatus = 'draft';
         $this->modalPublishedAt = '';
-        $this->modalCategoryId = '';
+        $this->modalCategory = '';
         $this->modalIsFeatured = false;
         $this->modalTags = [];
     }
@@ -418,7 +407,6 @@ class Index extends Component
             'filterOptions' => $this->filterOptions,
             'tableColumns' => $this->tableColumns,
             'tableActions' => $this->tableActions,
-            'data' => $this->data,
             'totalPosts' => $this->totalPosts,
             'publishedPosts' => $this->publishedPosts,
             'draftPosts' => $this->draftPosts,
