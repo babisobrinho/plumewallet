@@ -63,4 +63,12 @@ trait HasEnumBasicMethods
     {
         return self::tryFrom($value);
     }
+
+    /**
+     * Get the translated label for the current enum case
+     */
+    public function getLabel(): string
+    {
+        return self::getTranslationKey($this);
+    }
 }

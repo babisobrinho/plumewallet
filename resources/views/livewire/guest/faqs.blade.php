@@ -38,7 +38,7 @@
                 <div class="flex flex-wrap gap-2">
                     @foreach($this->categories as $category)
                         <button 
-                            wire:click="selectedCategory = '{{ $category->value }}'"
+                            wire:click="$set('selectedCategory', '{{ $category->value }}')"
                             class="px-4 py-2 rounded-full text-sm font-medium transition-colors
                                 {{ $selectedCategory === $category->value 
                                     ? 'bg-blue-600 text-white' 

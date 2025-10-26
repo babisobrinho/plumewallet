@@ -37,7 +37,7 @@ class PostFactory extends Factory
             'excerpt' => $this->faker->paragraph(3),
             'meta_title' => $title,
             'meta_description' => $this->faker->sentence(15),
-            'featured_image' => $this->faker->imageUrl(800, 600, 'business', true, 'Blog Post'),
+            'featured_image' => 'images/placeholders/plume-wallet-placeholder.svg',
             'status' => $this->faker->randomElement(PostStatus::cases()),
             'published_at' => $this->faker->optional(0.8)->dateTimeBetween('-1 year', 'now'),
             'author_id' => User::factory(),

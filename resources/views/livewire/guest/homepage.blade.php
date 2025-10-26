@@ -1,56 +1,71 @@
-<div>
-    <!-- Hero Section - Com forma geométrica igual ao wireframe -->
+<div class="scroll-smooth">
+    <!-- Hero Section - Clean and Simple -->
     <section class="min-h-screen bg-gray-100 flex items-center relative overflow-hidden">
-        <!-- Forma geométrica de seta começando do topo -->
-        <div class="absolute top-0 right-0 w-3/4 h-full bg-gray-800 z-0" 
+        <!-- Simple Geometric Shape -->
+        <div class="absolute top-0 right-0 w-3/4 h-full bg-gray-800 z-0 hidden lg:block" 
         style="clip-path: polygon(0% 0, 100% 0, 100% 100%, 30% 100%);"></div>
         
-        <div class="max-w-7xl mx-auto px-6 py-20 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-                <!-- Lado Esquerdo - Conteúdo -->
-                <div class="text-gray-900">
-                    <!-- Texto "Welcome to Plume" adicionado aqui -->
-                    <div class="mb-4">
-                        <span class="text-xl md:text-2xl font-semibold text-gray-700">
+        <!-- Simple Geometric Shape for Mobile -->
+        <div class="absolute top-0 right-0 w-full h-1/3 bg-gray-800 z-0 lg:hidden" 
+        style="clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);"></div>
+        
+        <div class="max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-20 2xl:pt-28 2xl:pb-24 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 2xl:gap-16 items-center relative z-10">
+                <!-- Main Content -->
+                <div class="text-center lg:text-left">
+                    <!-- Welcome Text -->
+                    <div class="mb-3 sm:mb-4">
+                        <span class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-slate-500">
                             {{ __('guest.hero.welcome') }}
                         </span>
                     </div>
                     
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                        {{ __('guest.hero.title') }}
+                    <!-- Main Title -->
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                        @if(app()->getLocale() === 'pt')
+                            <span class="text-slate-500">Controle as suas finanças</span>
+                        @elseif(app()->getLocale() === 'fr')
+                            <span class="text-slate-500">Contrôlez vos finances</span>
+                        @else
+                            <span class="text-slate-500">Control your finances</span>
+                        @endif
                     </h1>
-                    <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
+                    
+                    <!-- Subtitle -->
+                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-500 mb-6 sm:mb-8 leading-relaxed">
                         {{ __('guest.hero.subtitle') }}
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center lg:justify-start">
                         @guest
                             <x-link href="{{ route('register') }}" 
-                                   class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
+                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
                                 {{ __('guest.hero.get_started') }}
                             </x-link>
-                            <x-link href="{{ route('login') }}" 
-                                   class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
+                            <x-link href="#welcome-section" 
+                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
                                 {{ __('guest.hero.learn_more') }}
                             </x-link>
                         @else
                             <x-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" 
-                                   class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors shadow-lg">
+                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
                                 {{ __('guest.navigation.dashboard') }}
                             </x-link>
                         @endguest
                     </div>
                 </div>
                 
-                <!-- Lado Direito - Vazio como no wireframe -->
-                <div class="relative">
-                    <!-- Espaço vazio - o triângulo geométrico fica atrás -->
+                <!-- Empty Space for Desktop -->
+                <div class="relative hidden lg:block">
+                    <!-- Empty space - geometric shape is behind -->
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Welcome Section -->
-    <section class="py-20 px-6 bg-white">
+    <section id="welcome-section" class="py-20 px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
                 {{ __('guest.welcome.title') }}
