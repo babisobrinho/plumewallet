@@ -63,5 +63,10 @@ return [
         'blocked' => 'Bloqué',
         'suspicious' => 'Suspect',
     ],
+
+    'payee_status' => [
+        'listed' => 'Listé',
+        'unlisted' => 'Non listé',
+    ],
 ];
 

@@ -35,9 +35,15 @@
                         </x-nav-link>
                         <x-nav-link
                             href="{{ route('app.transactions.index') }}"
-                            :active="request()->routeIs('app.transactions.show')"
+                            :active="request()->routeIs('app.transactions.*')"
                         >
                             {{ __('common.navigation.transactions') }}
+                        </x-nav-link>
+                        <x-nav-link
+                            href="{{ route('app.beneficiaries.index') }}"
+                            :active="request()->routeIs('app.beneficiaries.*')"
+                        >
+                            {{ __('common.navigation.beneficiaries') }}
                         </x-nav-link>
                     @endauth
                 </div>
@@ -204,7 +210,21 @@
                     <x-responsive-nav-link
                         href="{{ route('app.dashboard.show') }}"
                         :active="request()->routeIs('app.dashboard.show')"
-                    />
+                    >
+                        {{ __('common.navigation.dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link
+                        href="{{ route('app.transactions.index') }}"
+                        :active="request()->routeIs('app.transactions.*')"
+                    >
+                        {{ __('common.navigation.transactions') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link
+                        href="{{ route('app.beneficiaries.index') }}"
+                        :active="request()->routeIs('app.beneficiaries.*')"
+                    >
+                        {{ __('common.navigation.beneficiaries') }}
+                    </x-responsive-nav-link>
                 @endif
             </div>
         @endauth

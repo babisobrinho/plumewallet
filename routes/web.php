@@ -3,6 +3,7 @@
 use App\Livewire\App\Dashboard\Show as AppDashboardShow;
 use App\Livewire\App\Profile\Show as AppProfileShow;
 use App\Livewire\App\Transactions\Index as AppTransactionsIndex;
+use App\Livewire\App\Beneficiaries\Index as AppBeneficiariesIndex;
 use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
 use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
@@ -67,6 +68,11 @@ Route::middleware([
         // Financial Transactions
         Route::prefix('transactions')->name('transactions.')->group(function () {
             Route::get('/', AppTransactionsIndex::class)->name('index');
+        });
+
+        // Beneficiaries (Avançado)
+        Route::prefix('beneficiaries')->name('beneficiaries.')->group(function () {
+            Route::get('/', AppBeneficiariesIndex::class)->name('index');
         });
     });
 
