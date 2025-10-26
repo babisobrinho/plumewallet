@@ -17,5 +17,6 @@ enum PermissionGroup: string
     case BLOG = 'blog';
     case FAQ = 'faq';
     case LOGS = 'logs';
+    case CONTACT_FORMS = 'contact_forms';
     case LOGIN_ATTEMPTS = 'login_attempts';
 }

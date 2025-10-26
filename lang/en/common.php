@@ -129,6 +129,8 @@ return [
         'main' => 'MAIN',
         'management' => 'MANAGEMENT',
         'content_management' => 'CONTENT MANAGEMENT',
+        'help_center' => 'HELP CENTER',
+        'contact_forms' => 'Contact Forms',
         'monitoring_logs' => 'MONITORING & LOGS',
         'users' => 'Users',
         'blog' => 'Blog',

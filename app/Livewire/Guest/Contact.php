@@ -2,57 +2,129 @@
 
 namespace App\Livewire\Guest;
 
-use Livewire\Component;
+use App\Enums\ContactFormLanguage;
+use App\Enums\ContactFormStatus;
+use App\Enums\ContactFormSubject;
+use App\Mail\ContactFormConfirmation;
+use App\Models\ContactForm;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
+use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
 
 #[Layout('layouts.guest')]
 class Contact extends Component
 {
-    #[Validate('required|email')]
-    public $email = '';
-
-    #[Validate('required|string|min:10')]
-    public $phone = '';
-
-    #[Validate('nullable|string|max:255')]
+    // Form fields
     public $name = '';
-
-    #[Validate('required|string|min:10')]
+    public $company = '';
+    public $email = '';
+    public $phone = '';
+    public $subject = '';
+    public $custom_subject = '';
     public $message = '';
+    public $preferred_language = 'en';
 
+    // UI state
+    public $showCustomSubject = false;
     public $isSubmitting = false;
-    public $submitted = false;
+
+    protected $rules = [
+        'name' => 'required|string|max:255',
+        'company' => 'nullable|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'nullable|string|max:20',
+        'subject' => 'required|string',
+        'custom_subject' => 'nullable|string|max:255',
+        'message' => 'required|string|max:2000',
+        'preferred_language' => 'required|string|in:en,pt,fr',
+    ];
+
+    public function mount()
+    {
+        $this->preferred_language = app()->getLocale();
+    }
+
+    public function updatedSubject()
+    {
+        $this->showCustomSubject = $this->subject === ContactFormSubject::OTHER->value;
+        if (!$this->showCustomSubject) {
+            $this->custom_subject = '';
+        }
+    }
 
     public function submit()
     {
+        $this->isSubmitting = true;
+        
+        // Validate custom subject if "Other" is selected
+        if ($this->subject === ContactFormSubject::OTHER->value) {
+            $this->rules['custom_subject'] = 'required|string|max:255';
+        }
+
         $this->validate();
 
-        $this->isSubmitting = true;
-
         try {
-            // Prepare email content with all form data
-            $emailContent = "New Contact Form Submission\n\n";
-            $emailContent .= "Name: " . ($this->name ?: 'Not provided') . "\n";
-            $emailContent .= "Email: " . $this->email . "\n";
-            $emailContent .= "Phone: " . $this->phone . "\n";
-            $emailContent .= "Message:\n" . $this->message . "\n";
+            // Create contact form
+            $contactForm = ContactForm::create([
+                'process_number' => ContactForm::generateProcessNumber(ContactFormLanguage::from($this->preferred_language)),
+                'name' => $this->name,
+                'company' => $this->company,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'subject' => ContactFormSubject::from($this->subject),
+                'custom_subject' => $this->custom_subject,
+                'message' => $this->message,
+                'preferred_language' => ContactFormLanguage::from($this->preferred_language),
+                'status' => ContactFormStatus::NEW,
+            ]);
 
-            // Send email
-            Mail::raw($emailContent, function ($mail) {
-                $mail->to('contact@plume.pt')
-                    ->subject('Contact Form Submission from ' . ($this->name ?: 'Anonymous'))
-                    ->replyTo($this->email);
-            });
+            // Send confirmation email to user only
+            try {
+                \Illuminate\Support\Facades\Log::info('Sending confirmation email to: ' . $contactForm->email);
+                \Illuminate\Support\Facades\Log::info('Process number: ' . $contactForm->process_number);
+                
+                Mail::to($contactForm->email)->send(new ContactFormConfirmation($contactForm));
+                
+                \Illuminate\Support\Facades\Log::info('Confirmation email sent successfully to: ' . $contactForm->email);
+            } catch (\Exception $emailException) {
+                \Illuminate\Support\Facades\Log::error('Failed to send confirmation email to: ' . $contactForm->email . ' - Error: ' . $emailException->getMessage());
+                \Illuminate\Support\Facades\Log::error('Email exception details: ' . $emailException->getTraceAsString());
+                // Don't fail the entire process if confirmation email fails
+            }
 
-            $this->submitted = true;
-            $this->reset(['email', 'phone', 'name', 'message']);
+            session()->flash('success', __('contact.messages.submitted', ['process_number' => $contactForm->process_number]));
+            
+            // Reset form
+            $this->resetForm();
+            
         } catch (\Exception $e) {
-            session()->flash('error', 'There was an error sending your message. Please try again.');
+            session()->flash('error', __('contact.messages.error'));
+            \Illuminate\Support\Facades\Log::error('Contact form submission failed: ' . $e->getMessage());
         } finally {
             $this->isSubmitting = false;
         }
+    }
+
+    private function resetForm()
+    {
+        $this->name = '';
+        $this->company = '';
+        $this->email = '';
+        $this->phone = '';
+        $this->subject = '';
+        $this->custom_subject = '';
+        $this->message = '';
+        $this->showCustomSubject = false;
+    }
+
+    public function getSubjectOptionsProperty()
+    {
+        return ContactFormSubject::options();
+    }
+
+    public function getLanguageOptionsProperty()
+    {
+        return ContactFormLanguage::options();
     }
 
     public function render()

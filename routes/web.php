@@ -18,6 +18,8 @@ use App\Livewire\Guest\AboutUs as GuestAboutUs;
 use App\Livewire\Guest\HowItWorks as GuestHowItWorks;
 use App\Livewire\Guest\Faqs as GuestFaqs;
 use App\Livewire\Guest\Contact as GuestContact;
+use App\Livewire\Backoffice\ContactForms\Index as BackofficeContactFormsIndex;
+use App\Livewire\Backoffice\ContactForms\Show as BackofficeContactFormsShow;
 use Illuminate\Support\Facades\Route;
 
 // Guest Routes (Public)
@@ -94,6 +96,12 @@ Route::middleware([
         // Login Attempts Management
         Route::prefix('login-attempts')->name('login-attempts.')->group(function () {
             Route::get('/', BackofficeLoginAttemptsIndex::class)->name('index');
+        });
+
+        // Contact Forms Management
+        Route::prefix('contact-forms')->name('contact-forms.')->group(function () {
+            Route::get('/', BackofficeContactFormsIndex::class)->name('index');
+            Route::get('/{contactForm}', BackofficeContactFormsShow::class)->name('show');
         });
     });
 });

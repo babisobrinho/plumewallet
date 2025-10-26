@@ -1,111 +1,28 @@
 <?php
 
 return [
-    'app_theme' => [
-        'light' => 'Light Theme',
-        'dark' => 'Dark Theme',
-        'system' => 'Sync With System',
+    'contact_form_subject' => [
+        'general_inquiry' => 'General Inquiry',
+        'technical_support' => 'Technical Support',
+        'billing_question' => 'Billing Question',
+        'feature_request' => 'Feature Request',
+        'bug_report' => 'Bug Report',
+        'account_issue' => 'Account Issue',
+        'partnership' => 'Partnership',
+        'other' => 'Other',
     ],
-    'role_type' => [
-        'staff' => 'Staff',
-        'client' => 'Client',
+    
+    'contact_form_language' => [
+        'en' => 'English',
+        'pt' => 'Portuguese',
+        'fr' => 'French',
     ],
-    'status' => [
-        'active' => 'Active',
-        'inactive' => 'Inactive',
-    ],
-    'account_type' => [
-        'cash' => 'Cash',
-        'checking' => 'Checking Account',
-        'savings' => 'Savings',
-        'credit_card' => 'Credit Card',
-        'line_of_credit' => 'Line of Credit',
-    ],
-    'permission_group' => [
-        'config' => 'Configuration',
-        'users' => 'Users',
-        'permissions' => 'Permissions',
-        'reports' => 'Reports',
-        'statistics' => 'Statistics',
-        'qa' => 'QA',
-    ],
-    'post_status' => [
-        'draft' => 'Draft',
-        'published' => 'Published',
-        'archived' => 'Archived',
-    ],
-    'faq_category' => [
-        'general' => 'General',
-        'account' => 'Account',
-        'transactions' => 'Transactions',
-        'security' => 'Security',
-        'billing' => 'Billing',
-        'technical' => 'Technical',
-        'features' => 'Features',
-        'support' => 'Support',
-    ],
-
-    'log_type' => [
-        'system' => 'System',
-        'audit' => 'Audit',
-        'api' => 'API',
-        'login' => 'Login',
-    ],
-
-    'log_level' => [
-        'debug' => 'Debug',
-        'info' => 'Info',
-        'warning' => 'Warning',
-        'error' => 'Error',
-        'critical' => 'Critical',
-    ],
-
-    'login_attempt_status' => [
-        'success' => 'Success',
-        'failed' => 'Failed',
-        'blocked' => 'Blocked',
-        'suspicious' => 'Suspicious',
-    ],
-
-    'post_category' => [
-        'technology' => 'Technology',
-        'business' => 'Business',
-        'lifestyle' => 'Lifestyle',
-        'travel' => 'Travel',
-        'food' => 'Food',
-        'health' => 'Health',
-        'education' => 'Education',
-        'entertainment' => 'Entertainment',
-        'sports' => 'Sports',
-        'news' => 'News',
-        'tutorial' => 'Tutorial',
-        'review' => 'Review',
-        'personal' => 'Personal',
-        'finance' => 'Finance',
-        'productivity' => 'Productivity',
-    ],
-
-    'post_tag' => [
-        'beginner' => 'Beginner',
-        'advanced' => 'Advanced',
-        'tutorial' => 'Tutorial',
-        'guide' => 'Guide',
-        'tips' => 'Tips',
-        'tricks' => 'Tricks',
-        'review' => 'Review',
-        'comparison' => 'Comparison',
-        'news' => 'News',
-        'update' => 'Update',
-        'announcement' => 'Announcement',
-        'featured' => 'Featured',
-        'popular' => 'Popular',
-        'trending' => 'Trending',
-        'hot' => 'Hot',
+    
+    'contact_form_status' => [
         'new' => 'New',
-        'updated' => 'Updated',
-        'breaking' => 'Breaking',
-        'exclusive' => 'Exclusive',
-        'sponsored' => 'Sponsored',
-        'promotional' => 'Promotional',
+        'in_progress' => 'In Progress',
+        'waiting_response' => 'Waiting Response',
+        'resolved' => 'Resolved',
+        'closed' => 'Closed',
     ],
 ];

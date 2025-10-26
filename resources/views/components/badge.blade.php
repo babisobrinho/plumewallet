@@ -12,11 +12,24 @@
         }
     } elseif ($field === 'status') {
         $enumValue = $item->status;
+    } elseif ($field === 'subject') {
+        $enumValue = $item->subject;
     } elseif ($field === 'type') {
         $typeValue = $item->type;
-        $enumValue = $typeValue ? $enumClass::fromValue($typeValue) : null;
+        // Check if typeValue is already an enum instance or a string
+        if ($typeValue instanceof $enumClass) {
+            $enumValue = $typeValue;
+        } else {
+            $enumValue = $typeValue ? $enumClass::fromValue($typeValue) : null;
+        }
     } elseif ($field === 'level') {
-        $enumValue = $item->level;
+        $levelValue = $item->level;
+        // Check if levelValue is already an enum instance or a string
+        if ($levelValue instanceof $enumClass) {
+            $enumValue = $levelValue;
+        } else {
+            $enumValue = $levelValue ? $enumClass::fromValue($levelValue) : null;
+        }
     }
     
     // Get the label using the enum's label method

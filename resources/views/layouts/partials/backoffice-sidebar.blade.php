@@ -57,6 +57,20 @@
             </div>
         </div>
 
+        <!-- HELP CENTER Section -->
+        <div class="px-4 mb-4">
+            <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('common.navigation.help_center') }}</h3>
+            <div class="space-y-1">
+                <a href="{{ route('backoffice.contact-forms.index') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium rounded-md
+                   {{ request()->routeIs('backoffice.contact-forms.*') ? 'bg-blue-600 text-white' :
+                    'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-300 dark:hover:bg-gray-800' }}">
+                    <i class="ti ti-message-circle mr-3 h-5 w-5"></i>
+                    {{ __('common.navigation.contact_forms') }}
+                </a>
+            </div>
+        </div>
+
         <!-- MONITORIZAÇÃO E LOGS Section -->
         <div class="px-4 mb-4">
             <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('common.navigation.monitoring_logs') }}</h3>

@@ -72,16 +72,16 @@
                 </h2>
             </div>
 
-            @if($submitted)
+            @if(session('success'))
                 <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
                     <div class="flex items-center">
                         <i class="ti ti-check-circle text-green-600 text-2xl mr-3"></i>
                         <div>
                             <h3 class="text-lg font-semibold text-green-800">
-                                {{ __('guest.contact.form.success.title') }}
+                                {{ __('contact.confirmation.title') }}
                             </h3>
                             <p class="text-green-700">
-                                {{ __('guest.contact.form.success.message') }}
+                                {{ session('success') }}
                             </p>
                         </div>
                     </div>
@@ -106,17 +106,55 @@
 
             <form wire:submit="submit" class="bg-gray-50 rounded-2xl p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ __('contact.labels.name') }} <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name"
+                            wire:model="name"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
+                            placeholder="{{ __('contact.labels.name') }}"
+                            required
+                        >
+                        @error('name')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Company -->
+                    <div>
+                        <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ __('contact.labels.company') }}
+                        </label>
+                        <input 
+                            type="text" 
+                            id="company"
+                            wire:model="company"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('company') border-red-500 @enderror"
+                            placeholder="{{ __('contact.labels.company') }}"
+                        >
+                        @error('company')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                            {{ __('guest.contact.form.email') }} <span class="text-red-500">*</span>
+                            {{ __('contact.labels.email') }} <span class="text-red-500">*</span>
                         </label>
                         <input 
                             type="email" 
                             id="email"
                             wire:model="email"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
-                            placeholder="{{ __('guest.contact.form.email_placeholder') }}"
+                            placeholder="{{ __('contact.labels.email') }}"
+                            required
                         >
                         @error('email')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -126,14 +164,14 @@
                     <!-- Phone -->
                     <div>
                         <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
-                            {{ __('guest.contact.form.phone') }} <span class="text-red-500">*</span>
+                            {{ __('contact.labels.phone') }}
                         </label>
                         <input 
                             type="tel" 
                             id="phone"
                             wire:model="phone"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('phone') border-red-500 @enderror"
-                            placeholder="{{ __('guest.contact.form.phone_placeholder') }}"
+                            placeholder="{{ __('contact.labels.phone') }}"
                         >
                         @error('phone')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -141,34 +179,80 @@
                     </div>
                 </div>
 
-                <!-- Name -->
-                <div class="mb-6">
-                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                        {{ __('guest.contact.form.name') }}
-                    </label>
-                    <input 
-                        type="text" 
-                        id="name"
-                        wire:model="name"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
-                        placeholder="{{ __('guest.contact.form.name_placeholder') }}"
-                    >
-                    @error('name')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Subject -->
+                    <div>
+                        <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ __('contact.labels.subject') }} <span class="text-red-500">*</span>
+                        </label>
+                        <select 
+                            id="subject"
+                            wire:model.live="subject"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('subject') border-red-500 @enderror"
+                            required
+                        >
+                            <option value="">{{ __('contact.placeholders.select_subject') }}</option>
+                            @foreach($this->subjectOptions as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('subject')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Preferred Language -->
+                    <div>
+                        <label for="preferred_language" class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ __('contact.labels.preferred_language') }} <span class="text-red-500">*</span>
+                        </label>
+                        <select 
+                            id="preferred_language"
+                            wire:model="preferred_language"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('preferred_language') border-red-500 @enderror"
+                            required
+                        >
+                            @foreach($this->languageOptions as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('preferred_language')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
+
+                <!-- Custom Subject (shown when "Other" is selected) -->
+                @if($showCustomSubject)
+                    <div class="mb-6">
+                        <label for="custom_subject" class="block text-sm font-semibold text-gray-700 mb-2">
+                            {{ __('contact.labels.custom_subject') }} <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="custom_subject"
+                            wire:model="custom_subject"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('custom_subject') border-red-500 @enderror"
+                            placeholder="{{ __('contact.placeholders.custom_subject') }}"
+                        >
+                        @error('custom_subject')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endif
 
                 <!-- Message -->
                 <div class="mb-8">
                     <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
-                        {{ __('guest.contact.form.message') }} <span class="text-red-500">*</span>
+                        {{ __('contact.labels.message') }} <span class="text-red-500">*</span>
                     </label>
                     <textarea 
                         id="message"
                         wire:model="message"
                         rows="6"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('message') border-red-500 @enderror"
-                        placeholder="{{ __('guest.contact.form.message_placeholder') }}"
+                        placeholder="{{ __('contact.placeholders.message') }}"
+                        required
                     ></textarea>
                     @error('message')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -183,11 +267,11 @@
                         class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center mx-auto"
                     >
                         <span wire:loading.remove wire:target="submit">
-                            {{ __('guest.contact.form.submit') }}
+                            {{ __('contact.buttons.submit') }}
                         </span>
                         <span wire:loading wire:target="submit" class="flex items-center">
                             <i class="ti ti-loader-2 animate-spin mr-2"></i>
-                            {{ __('guest.contact.form.sending') }}
+                            {{ __('contact.buttons.submitting') }}
                         </span>
                     </button>
                 </div>
