@@ -53,7 +53,7 @@
                                 type="text" 
                                 wire:model.live.debounce.300ms="search"
                                 class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="{{ __('common.terms.search') }}"
+                                placeholder="{{ __('common.search.placeholder') }}"
                             >
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                                 <!-- Status -->
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                        {{ $attempt->status->label() }}
+                                        {{ \App\Enums\LoginAttemptStatus::label($attempt->status) }}
                                     </span>
                                 </td>
                                 
@@ -192,46 +192,42 @@
                                 
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <div x-data="{ open: false }" class="relative inline-block">
-                                        <button 
-                                            @click="open = !open"
-                                            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                        >
-                                            {{ __('common.table.actions') }}
-                                            <i class="ti ti-chevron-down w-4 h-4 ml-1"></i>
-                                        </button>
-                                        
-                                        <div 
-                                            x-show="open" 
-                                            @click.away="open = false"
-                                            x-transition:enter="transition ease-out duration-100"
-                                            x-transition:enter-start="transform opacity-0 scale-95"
-                                            x-transition:enter-end="transform opacity-100 scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="transform opacity-100 scale-100"
-                                            x-transition:leave-end="transform opacity-0 scale-95"
-                                            class="absolute right-0 mt-2 bg-white dark:bg-gray-700 rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600"
-                                            style="display: none;"
-                                        >
-                                            <div class="py-1">
-                                                <button wire:click="viewAttempt({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                    <i class="ti ti-eye w-4 h-4 inline mr-2"></i>
-                                                    {{ __('common.buttons.view') }}
-                                                </button>
-                                                <button wire:click="blockIp({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                    <i class="ti ti-shield-x w-4 h-4 inline mr-2"></i>
-                                                    {{ __('login_attempts.actions.block_ip') }}
-                                                </button>
-                                                <button wire:click="unblockIp({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                    <i class="ti ti-shield-check w-4 h-4 inline mr-2"></i>
-                                                    {{ __('login_attempts.actions.unblock_ip') }}
-                                                </button>
-                                                <button wire:click="deleteAttempt({{ $attempt->id }})" class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                    <i class="ti ti-trash w-4 h-4 inline mr-2"></i>
-                                                    {{ __('common.buttons.delete') }}
-                                                </button>
-                                            </div>
-                                        </div>
+                                    <div class="flex justify-end gap-2">
+                                        <x-action-button 
+                                            method="viewAttempt"
+                                            :id="$attempt->id"
+                                            icon="eye"
+                                            color="blue"
+                                            size="sm"
+                                            :title="__('common.buttons.view')"
+                                        />
+                                        @if($this->isIpBlocked($attempt->ip_address))
+                                            <x-action-button 
+                                                method="unblockIp"
+                                                :id="$attempt->id"
+                                                icon="shield-x"
+                                                color="gray"
+                                                size="sm"
+                                                :title="__('login_attempts.actions.unblock_ip')"
+                                            />
+                                        @else
+                                            <x-action-button 
+                                                method="blockIp"
+                                                :id="$attempt->id"
+                                                icon="shield-check"
+                                                color="green"
+                                                size="sm"
+                                                :title="__('login_attempts.actions.block_ip')"
+                                            />
+                                        @endif
+                                        <x-action-button 
+                                            method="deleteAttempt"
+                                            :id="$attempt->id"
+                                            icon="trash"
+                                            color="red"
+                                            size="sm"
+                                            :title="__('common.buttons.delete')"
+                                        />
                                     </div>
                                 </td>
                             </tr>
@@ -418,7 +414,7 @@
                         </div>
 
                         <!-- Modal Footer -->
-                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
+                        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -mx-4 -mb-4 mt-6">
                             <button 
                                 type="button"
                                 wire:click="closeModal"
@@ -431,6 +427,29 @@
                 </div>
             </div>
         </div>
+        @endif
+
+        <!-- Unblock IP Confirmation Modal -->
+        @if($confirmingUnblock && $attemptToUnblock)
+            <x-confirmation-modal wire:model.live="confirmingUnblock">
+                <x-slot name="title">
+                    {{ __('login_attempts.confirm_unblock.title') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    {{ __('login_attempts.confirm_unblock.message', ['ip' => $attemptToUnblock->ip_address]) }}
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-secondary-button wire:click="cancelUnblock" wire:loading.attr="disabled">
+                        {{ __('common.buttons.cancel') }}
+                    </x-secondary-button>
+
+                    <x-danger-button class="ms-3" wire:click="confirmUnblockIp" wire:loading.attr="disabled">
+                        {{ __('login_attempts.actions.unblock_ip') }}
+                    </x-danger-button>
+                </x-slot>
+            </x-confirmation-modal>
         @endif
         
     </div>

@@ -85,4 +85,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasRoleType(RoleType::CLIENT->value);
     }
+
+    /**
+     * Get the user's role type
+     */
+    public function getTypeAttribute(): ?string
+    {
+        $role = $this->roles->first();
+        return $role ? $role->type : null;
+    }
 }

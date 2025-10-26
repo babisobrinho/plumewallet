@@ -146,13 +146,12 @@
                                 
                                 <!-- Role -->
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    @if($user->roles->first())
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-                                            {{ $user->roles->first()->name }}
-                                        </span>
-                                    @else
-                                        <span class="text-gray-400">-</span>
-                                    @endif
+                                    <x-badge 
+                                        :item="$user"
+                                        :enumClass="\App\Enums\RoleType::class"
+                                        field="type"
+                                        :noValueKey="'no_role'"
+                                    />
                                 </td>
                                 
                                 <!-- Verified -->
@@ -178,23 +177,21 @@
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
-                                        <x-action-button 
-                                            method="viewUser"
-                                            :id="$user->id"
+                                        <x-action-link 
+                                            url="{{ route('backoffice.users.show', $user->id) }}"
                                             icon="eye"
                                             color="blue"
                                             size="sm"
                                             :title="__('common.buttons.view')"
                                         />
-                                        <x-action-button 
-                                            method="editUser"
-                                            :id="$user->id"
+                                        <x-action-link 
+                                            url="{{ route('backoffice.users.show', $user->id) }}"
                                             icon="pencil"
                                             color="green"
                                             size="sm"
                                             :title="__('common.buttons.edit')"
                                         />
-                                        <x-action-button 
+                                        <x-action-link 
                                             method="confirmUserDeletion"
                                             :id="$user->id"
                                             icon="trash"
@@ -456,4 +453,22 @@
         
     </div>
 </div>
+
+<script>
+document.addEventListener('livewire:init', () => {
+    Livewire.on('filters-cleared', () => {
+        // Reset all select dropdowns to their first option (default)
+        const selects = document.querySelectorAll('select[wire\\:model\\.live^="filters"]');
+        selects.forEach(select => {
+            select.selectedIndex = 0;
+        });
+        
+        // Clear search input field
+        const searchInput = document.querySelector('input[wire\\:model\\.live\\.debounce\\.300ms="search"]');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+    });
+});
+</script>
 

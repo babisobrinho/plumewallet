@@ -5,6 +5,10 @@ return [
     'subtitle' => 'Manage blog posts and content',
     'post' => 'Post',
     'new_post' => 'New Post',
+    'create_post' => 'Create Post',
+    'edit_post' => 'Edit Post',
+    'create_description' => 'Create a new blog post',
+    'edit_description' => 'Edit existing blog post',
     'no_posts_found' => 'No posts found',
 
     'metrics' => [
@@ -34,6 +38,8 @@ return [
 
     'actions' => [
         'toggle_featured' => 'Toggle Featured',
+        'feature' => 'Feature Post',
+        'unfeature' => 'Unfeature Post',
         'highlight' => 'Highlight',
         'remove_from_highlights' => 'Remove from Highlights',
     ],

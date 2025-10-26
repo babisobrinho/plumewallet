@@ -18,6 +18,10 @@ class Index extends Component
     public $showModal = false;
     public $isEditing = false;
     public $editingAttempt = null;
+    
+    // Unblock confirmation modal
+    public $confirmingUnblock = false;
+    public $attemptToUnblock = null;
 
     // Form properties
     public $modalEmail = '';
@@ -26,7 +30,6 @@ class Index extends Component
     public $modalStatus = '';
     public $modalFailureReason = '';
     public $modalAttemptedAt = '';
-    public $modalUserId = '';
     public $modalCountry = '';
     public $modalCity = '';
     public $modalIsSuspicious = false;
@@ -39,13 +42,12 @@ class Index extends Component
         'country' => '',
         'suspicious' => '',
     ];
+    
+    // Cache busting for data refresh
+    public $dataRefreshKey = 0;
 
     protected $listeners = [
         'refreshTable' => '$refresh',
-        'editItem' => 'editAttempt',
-        'deleteItem' => 'deleteAttempt',
-        'blockItem' => 'blockIp',
-        'unblockItem' => 'unblockIp',
     ];
     
     public function mount()
@@ -53,120 +55,14 @@ class Index extends Component
         $this->authorize('login_attempts_read');
     }
 
-    public function getFilterOptionsProperty()
-    {
-        return [
-            [
-                'key' => 'status',
-                'label' => __('login_attempts.filters.status'),
-                'type' => 'select',
-                'placeholder' => __('common.terms.all'),
-                'options' => LoginAttemptStatus::options(),
-            ],
-            [
-                'key' => 'country',
-                'label' => __('login_attempts.filters.country'),
-                'type' => 'select',
-                'placeholder' => __('common.terms.all'),
-                'options' => LoginAttempt::distinct('country')->pluck('country', 'country')->filter()->toArray(),
-            ],
-            [
-                'key' => 'suspicious',
-                'label' => __('login_attempts.filters.suspicious'),
-                'type' => 'select',
-                'placeholder' => __('common.terms.all'),
-                'options' => [
-                    '1' => __('common.terms.yes'),
-                    '0' => __('common.terms.no'),
-                ],
-            ],
-        ];
-    }
 
-    public function getTableColumnsProperty()
-    {
-        return [
-            [
-                'key' => 'email',
-                'label' => __('login_attempts.table.email'),
-                'sortable' => true,
-                'class' => 'w-1/6',
-            ],
-            [
-                'key' => 'ip_address',
-                'label' => __('login_attempts.table.ip_address'),
-                'sortable' => true,
-                'class' => 'w-1/8',
-            ],
-            [
-                'key' => 'status',
-                'label' => __('login_attempts.table.status'),
-                'component' => 'livewire.backoffice.login-attempts.partials.status-badge',
-                'sortable' => true,
-                'class' => 'w-1/8',
-            ],
-            [
-                'key' => 'country',
-                'label' => __('login_attempts.table.country'),
-                'sortable' => false,
-                'class' => 'w-1/12',
-            ],
-            [
-                'key' => 'city',
-                'label' => __('login_attempts.table.city'),
-                'sortable' => false,
-                'class' => 'w-1/8',
-            ],
-            [
-                'key' => 'is_suspicious',
-                'label' => __('login_attempts.table.suspicious'),
-                'component' => 'livewire.backoffice.login-attempts.partials.suspicious-badge',
-                'sortable' => true,
-                'class' => 'w-1/12',
-            ],
-            [
-                'key' => 'attempted_at',
-                'label' => __('login_attempts.table.attempted_at'),
-                'sortable' => true,
-                'format' => 'datetime',
-                'class' => 'w-1/6',
-            ],
-        ];
-    }
 
-    public function getTableActionsProperty()
-    {
-        return [
-            [
-                'type' => 'dropdown',
-                'items' => [
-                    [
-                        'label' => __('common.buttons.view'),
-                        'method' => 'viewAttempt',
-                        'icon' => 'eye',
-                    ],
-                    [
-                        'label' => __('login_attempts.actions.block_ip'),
-                        'method' => 'blockIp',
-                        'icon' => 'shield-x',
-                    ],
-                    [
-                        'label' => __('login_attempts.actions.unblock_ip'),
-                        'method' => 'unblockIp',
-                        'icon' => 'shield-check',
-                    ],
-                    [
-                        'label' => __('common.buttons.delete'),
-                        'method' => 'deleteAttempt',
-                        'icon' => 'trash',
-                    ],
-                ]
-            ]
-        ];
-    }
 
     public function getDataProperty()
     {
+        // Use refresh key to force fresh queries
+        $refreshKey = $this->dataRefreshKey;
+        
         $query = LoginAttempt::with(['user'])
             ->when($this->search, function($query) {
                 $query->where('email', 'like', '%' . $this->search . '%')
@@ -228,23 +124,55 @@ class Index extends Component
         
         $this->dispatch('refreshTable');
         session()->flash('message', __('login_attempts.messages.ip_blocked'));
+        
+        // Force data refresh
+        $this->dataRefreshKey++;
+        $this->dispatch('$refresh');
     }
 
     public function unblockIp($attemptId)
     {
         $this->authorize('login_attempts_update');
         
-        $attempt = LoginAttempt::findOrFail($attemptId);
+        $this->attemptToUnblock = LoginAttempt::findOrFail($attemptId);
+        $this->confirmingUnblock = true;
+    }
+    
+    public function confirmUnblockIp()
+    {
+        $this->authorize('login_attempts_update');
         
-        // Unblock all attempts from this IP
-        LoginAttempt::where('ip_address', $attempt->ip_address)
-            ->update([
-                'is_suspicious' => false,
-                'blocked_until' => null,
-            ]);
+        if ($this->attemptToUnblock) {
+            // Unblock all attempts from this IP
+            LoginAttempt::where('ip_address', $this->attemptToUnblock->ip_address)
+                ->update([
+                    'is_suspicious' => false,
+                    'blocked_until' => null,
+                ]);
+            
+            $this->dispatch('refreshTable');
+            session()->flash('message', __('login_attempts.messages.ip_unblocked'));
+        }
         
-        $this->dispatch('refreshTable');
-        session()->flash('message', __('login_attempts.messages.ip_unblocked'));
+        $this->confirmingUnblock = false;
+        $this->attemptToUnblock = null;
+        
+        // Force data refresh
+        $this->dataRefreshKey++;
+        $this->dispatch('$refresh');
+    }
+    
+    public function cancelUnblock()
+    {
+        $this->confirmingUnblock = false;
+        $this->attemptToUnblock = null;
+    }
+    
+    public function isIpBlocked($ipAddress)
+    {
+        return LoginAttempt::where('ip_address', $ipAddress)
+            ->where('blocked_until', '>', now())
+            ->exists();
     }
 
     public function deleteAttempt($attemptId)
@@ -266,7 +194,6 @@ class Index extends Component
         $this->modalStatus = $this->editingAttempt->status->value;
         $this->modalFailureReason = $this->editingAttempt->failure_reason;
         $this->modalAttemptedAt = $this->editingAttempt->attempted_at ? $this->editingAttempt->attempted_at->format('Y-m-d\TH:i') : '';
-        $this->modalUserId = $this->editingAttempt->user_id;
         $this->modalCountry = $this->editingAttempt->country;
         $this->modalCity = $this->editingAttempt->city;
         $this->modalIsSuspicious = $this->editingAttempt->is_suspicious;
@@ -281,7 +208,6 @@ class Index extends Component
         $this->modalStatus = '';
         $this->modalFailureReason = '';
         $this->modalAttemptedAt = '';
-        $this->modalUserId = '';
         $this->modalCountry = '';
         $this->modalCity = '';
         $this->modalIsSuspicious = false;
@@ -305,15 +231,15 @@ class Index extends Component
             'suspicious' => '',
         ];
         $this->resetPage();
+        
+        // Force UI update
+        $this->dispatch('$refresh');
     }
 
     public function render()
     {
         return view('livewire.backoffice.login-attempts.index', [
             'data' => $this->data,
-            'filterOptions' => $this->filterOptions,
-            'tableColumns' => $this->tableColumns,
-            'tableActions' => $this->tableActions,
             'suspiciousAttempts' => $this->suspiciousAttempts,
             'blockedAttempts' => $this->blockedAttempts,
             'recentAttempts' => $this->recentAttempts,

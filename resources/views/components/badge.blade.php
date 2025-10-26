@@ -13,7 +13,8 @@
     } elseif ($field === 'status') {
         $enumValue = $item->status;
     } elseif ($field === 'type') {
-        $enumValue = $item->type;
+        $typeValue = $item->type;
+        $enumValue = $typeValue ? $enumClass::fromValue($typeValue) : null;
     } elseif ($field === 'level') {
         $enumValue = $item->level;
     }

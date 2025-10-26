@@ -32,7 +32,7 @@
 
             <x-metric-card 
                 :title="__('faq.metrics.total_views')"
-                :value="number_format(\App\Models\Faq::sum('view_count'))"
+                :value="number_format($totalViews)"
                 icon="ti ti-eye"
                 color="purple"
             />
@@ -78,14 +78,9 @@
                                 class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="">{{ __('faq.filters.all_categories') }}</option>
-                                <option value="general">{{ __('enums.faq_category.general') }}</option>
-                                <option value="account">{{ __('enums.faq_category.account') }}</option>
-                                <option value="transactions">{{ __('enums.faq_category.transactions') }}</option>
-                                <option value="security">{{ __('enums.faq_category.security') }}</option>
-                                <option value="billing">{{ __('enums.faq_category.billing') }}</option>
-                                <option value="technical">{{ __('enums.faq_category.technical') }}</option>
-                                <option value="features">{{ __('enums.faq_category.features') }}</option>
-                                <option value="support">{{ __('enums.faq_category.support') }}</option>
+                                @foreach($filterOptions[0]['options'] as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
                             </select>
                         </div>
                         
@@ -96,8 +91,9 @@
                                 class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                             >
                                 <option value="">{{ __('faq.filters.all_status') }}</option>
-                                <option value="active">{{ __('common.terms.active') }}</option>
-                                <option value="inactive">{{ __('common.terms.inactive') }}</option>
+                                @foreach($filterOptions[1]['options'] as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
                             </select>
                         </div>
                         
@@ -151,7 +147,7 @@
                                 <!-- Category -->
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                        {{ $faq->category->label() }}
+                                        {{ $categoryLabels[$faq->category->value] ?? $faq->category->value }}
                                     </span>
                                 </td>
                                 
@@ -301,14 +297,9 @@
                                     class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                     required
                                 >
-                                    <option value="general">{{ __('enums.faq_category.general') }}</option>
-                                    <option value="account">{{ __('enums.faq_category.account') }}</option>
-                                    <option value="transactions">{{ __('enums.faq_category.transactions') }}</option>
-                                    <option value="security">{{ __('enums.faq_category.security') }}</option>
-                                    <option value="billing">{{ __('enums.faq_category.billing') }}</option>
-                                    <option value="technical">{{ __('enums.faq_category.technical') }}</option>
-                                    <option value="features">{{ __('enums.faq_category.features') }}</option>
-                                    <option value="support">{{ __('enums.faq_category.support') }}</option>
+                                    @foreach($filterOptions[0]['options'] as $value => $label)
+                                        <option value="{{ $value }}">{{ $label }}</option>
+                                    @endforeach
                                 </select>
                                 <x-input-error for="modalCategory" class="mt-2" />
                             </div>
@@ -403,3 +394,21 @@
         
     </div>
 </div>
+
+<script>
+document.addEventListener('livewire:init', () => {
+    Livewire.on('filters-cleared', () => {
+        // Reset all select dropdowns to their first option (default)
+        const selects = document.querySelectorAll('select[wire\\:model\\.live^="filters"]');
+        selects.forEach(select => {
+            select.selectedIndex = 0;
+        });
+        
+        // Clear search input field
+        const searchInput = document.querySelector('input[wire\\:model\\.live\\.debounce\\.300ms="search"]');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+    });
+});
+</script>

@@ -2,6 +2,7 @@
 
 return [
     'buttons' => [
+        'back' => 'Back',
         'submit' => 'Submit',
         'reset' => 'Reset',
         'search' => 'Search',
@@ -16,6 +17,7 @@ return [
         'edit' => 'Edit',
         'view' => 'View',
         'apply' => 'Apply',
+        'close' => 'Close',
         'clear' => 'Clear',
             'sort' => 'Sort',
             'filters' => 'Filters',
@@ -69,7 +71,7 @@ return [
 
 
     'search' => [
-        'placeholder' => 'Search by name or email...',
+        'placeholder' => 'Search...',
         'no_results' => 'No results found',
     ],
 

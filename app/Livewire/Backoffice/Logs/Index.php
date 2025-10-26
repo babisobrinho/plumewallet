@@ -253,6 +253,9 @@ class Index extends Component
             'user' => '',
         ];
         $this->resetPage();
+        
+        // Force UI update
+        $this->dispatch('$refresh');
     }
 
     public function render()

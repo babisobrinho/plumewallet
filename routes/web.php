@@ -8,6 +8,8 @@ use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
 use App\Livewire\Backoffice\Blog\Index as BackofficeBlogIndex;
+use App\Livewire\Backoffice\Blog\Create as BackofficeBlogCreate;
+use App\Livewire\Backoffice\Blog\Edit as BackofficeBlogEdit;
 use App\Livewire\Backoffice\Faq\Index as BackofficeFaqIndex;
 use App\Livewire\Backoffice\Logs\Index as BackofficeLogsIndex;
 use App\Livewire\Backoffice\LoginAttempts\Index as BackofficeLoginAttemptsIndex;
@@ -75,6 +77,8 @@ Route::middleware([
         // Blog Management
         Route::prefix('blog')->name('blog.')->group(function () {
             Route::get('/', BackofficeBlogIndex::class)->name('index');
+            Route::get('/create', BackofficeBlogCreate::class)->name('create');
+            Route::get('/{post}/edit', BackofficeBlogEdit::class)->name('edit');
         });
 
         // FAQ Management

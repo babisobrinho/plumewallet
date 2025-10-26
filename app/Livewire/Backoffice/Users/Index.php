@@ -4,6 +4,7 @@ namespace App\Livewire\Backoffice\Users;
 
 use App\Models\User;
 use App\Enums\RoleType;
+use App\Enums\Status;
 use App\Actions\Fortify\CreateNewUser;
 use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
@@ -45,9 +46,7 @@ class Index extends Component
 
     protected $listeners = [
         'refreshTable' => '$refresh',
-        'editItem' => 'editUser',
         'deleteItem' => 'deleteUser',
-        'viewItem' => 'viewUser',
     ];
     
     public function mount()
@@ -55,30 +54,30 @@ class Index extends Component
         $this->authorize('users_read');
     }
 
+    // Cached filter options to prevent performance issues
+    private $cachedFilterOptions = null;
+
     public function getFilterOptionsProperty()
     {
-        return [
-            [
-                'key' => 'status',
-                'label' => __('common.labels.status'),
-                'type' => 'select',
-                'placeholder' => __('users.filters.all_status'),
-                'options' => [
-                    'active' => __('enums.status.active'),
-                    'inactive' => __('enums.status.inactive'),
+        if ($this->cachedFilterOptions === null) {
+            $this->cachedFilterOptions = [
+                [
+                    'key' => 'status',
+                    'label' => __('common.labels.status'),
+                    'type' => 'select',
+                    'placeholder' => __('users.filters.all_status'),
+                    'options' => Status::options()
+                ],
+                [
+                    'key' => 'role',
+                    'label' => __('users.filters.user_type'),
+                    'type' => 'select',
+                    'placeholder' => __('users.filters.all_types'),
+                    'options' => RoleType::options()
                 ]
-            ],
-            [
-                'key' => 'role',
-                'label' => __('users.filters.user_type'),
-                'type' => 'select',
-                'placeholder' => __('users.filters.all_types'),
-                'options' => [
-                    'staff' => __('enums.role_type.staff'),
-                    'client' => __('enums.role_type.client'),
-                ]
-            ]
-        ];
+            ];
+        }
+        return $this->cachedFilterOptions;
     }
 
     public function getTableColumnsProperty()
@@ -123,13 +122,15 @@ class Index extends Component
                 'items' => [
                     [
                         'label' => __('common.buttons.view'),
+                        'url' => 'backoffice.users.show',
                         'icon' => 'eye',
-                        'method' => 'viewUser',
+                        'params' => ['user' => 'id'],
                     ],
                     [
                         'label' => __('common.buttons.edit'),
+                        'url' => 'backoffice.users.show',
                         'icon' => 'pencil',
-                        'method' => 'editUser',
+                        'params' => ['user' => 'id'],
                     ],
                     [
                         'label' => __('common.buttons.delete'),
@@ -211,6 +212,14 @@ class Index extends Component
             'role' => '',
         ];
         $this->resetPage();
+        
+        // Force UI update by dispatching a custom event
+        $this->dispatch('filters-cleared');
+    }
+
+    public function updatedFilters()
+    {
+        $this->resetPage();
     }
 
     public function updatedModalRoleType()
@@ -218,20 +227,6 @@ class Index extends Component
         $this->modalRole = '';
     }
 
-    public function viewUser($userId)
-    {
-        return redirect()->route('backoffice.users.show', $userId);
-    }
-
-    public function editUser($userId)
-    {
-        $this->authorize('users_update');
-        
-        $this->isEditing = true;
-        $this->editingUser = User::findOrFail($userId);
-        $this->loadUserData();
-        $this->showModal = true;
-    }
 
     public function createUser()
     {

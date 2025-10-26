@@ -4,6 +4,7 @@ namespace App\Livewire\Backoffice\Faq;
 
 use App\Models\Faq;
 use App\Enums\FaqCategory;
+use App\Enums\Status;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -44,36 +45,30 @@ class Index extends Component
         $this->authorize('faq_read');
     }
 
+    // Cached filter options to prevent performance issues
+    private $cachedFilterOptions = null;
+
     public function getFilterOptionsProperty()
     {
-        return [
-            [
-                'key' => 'category',
-                'label' => __('faq.filters.category'),
-                'type' => 'select',
-                'placeholder' => __('faq.filters.all_categories'),
-                'options' => [
-                    'general' => __('enums.faq_category.general'),
-                    'account' => __('enums.faq_category.account'),
-                    'transactions' => __('enums.faq_category.transactions'),
-                    'security' => __('enums.faq_category.security'),
-                    'billing' => __('enums.faq_category.billing'),
-                    'technical' => __('enums.faq_category.technical'),
-                    'features' => __('enums.faq_category.features'),
-                    'support' => __('enums.faq_category.support'),
+        if ($this->cachedFilterOptions === null) {
+            $this->cachedFilterOptions = [
+                [
+                    'key' => 'category',
+                    'label' => __('faq.filters.category'),
+                    'type' => 'select',
+                    'placeholder' => __('faq.filters.all_categories'),
+                    'options' => FaqCategory::options()
+                ],
+                [
+                    'key' => 'status',
+                    'label' => __('faq.filters.status'),
+                    'type' => 'select',
+                    'placeholder' => __('faq.filters.all_status'),
+                    'options' => Status::options()
                 ]
-            ],
-            [
-                'key' => 'status',
-                'label' => __('faq.filters.status'),
-                'type' => 'select',
-                'placeholder' => __('faq.filters.all_status'),
-                'options' => [
-                    'active' => __('common.terms.active'),
-                    'inactive' => __('common.terms.inactive'),
-                ]
-            ]
-        ];
+            ];
+        }
+        return $this->cachedFilterOptions;
     }
 
     public function getTableColumnsProperty()
@@ -173,25 +168,41 @@ class Index extends Component
         return $query->ordered()->paginate(15);
     }
 
-    // Metric properties
+    // Cached metrics to avoid multiple database queries
+    private $cachedMetrics = null;
+
+    public function getMetricsProperty()
+    {
+        if ($this->cachedMetrics === null) {
+            $this->cachedMetrics = [
+                'total' => Faq::count(),
+                'active' => Faq::where('is_active', true)->count(),
+                'inactive' => Faq::where('is_active', false)->count(),
+                'total_views' => Faq::sum('view_count'),
+            ];
+        }
+        return $this->cachedMetrics;
+    }
+
+    // Metric properties (now using cached data)
     public function getTotalFaqsProperty()
     {
-        return Faq::count();
+        return $this->metrics['total'];
     }
 
     public function getActiveFaqsProperty()
     {
-        return Faq::active()->count();
+        return $this->metrics['active'];
     }
 
     public function getInactiveFaqsProperty()
     {
-        return Faq::where('is_active', false)->count();
+        return $this->metrics['inactive'];
     }
 
-    public function getFaqsByCategoryProperty()
+    public function getTotalViewsProperty()
     {
-        return Faq::active()->count();
+        return $this->metrics['total_views'];
     }
 
     public function clearFilters()
@@ -202,6 +213,44 @@ class Index extends Component
             'status' => '',
         ];
         $this->resetPage();
+        
+        // Force UI update by dispatching a custom event
+        $this->dispatch('filters-cleared');
+    }
+
+    public function updatedFilters()
+    {
+        $this->resetPage();
+    }
+
+    // Clear cached data when filters change
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFiltersCategory()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFiltersStatus()
+    {
+        $this->resetPage();
+    }
+
+    // Cache category labels to avoid repeated translation calls
+    private $categoryLabels = null;
+
+    public function getCategoryLabelsProperty()
+    {
+        if ($this->categoryLabels === null) {
+            $this->categoryLabels = [];
+            foreach (FaqCategory::cases() as $category) {
+                $this->categoryLabels[$category->value] = FaqCategory::label($category);
+            }
+        }
+        return $this->categoryLabels;
     }
 
     public function sortColumn($column)
@@ -236,6 +285,9 @@ class Index extends Component
         $faq = Faq::findOrFail($faqId);
         $faq->delete();
         
+        // Clear cached metrics
+        $this->cachedMetrics = null;
+        
         $this->dispatch('refreshTable');
         session()->flash('message', __('faq.messages.deleted_successfully'));
     }
@@ -246,6 +298,9 @@ class Index extends Component
         
         $faq = Faq::findOrFail($faqId);
         $faq->update(['is_active' => !$faq->is_active]);
+        
+        // Clear cached metrics
+        $this->cachedMetrics = null;
         
         $this->dispatch('refreshTable');
         session()->flash('message', __('faq.messages.status_toggled'));
@@ -281,6 +336,9 @@ class Index extends Component
             'is_active' => $this->modalIsActive,
         ]);
 
+        // Clear cached metrics
+        $this->cachedMetrics = null;
+
         session()->flash('message', __('faq.messages.created_successfully'));
     }
 
@@ -293,6 +351,9 @@ class Index extends Component
             'order' => $this->modalOrder,
             'is_active' => $this->modalIsActive,
         ]);
+
+        // Clear cached metrics
+        $this->cachedMetrics = null;
 
         session()->flash('message', __('faq.messages.updated_successfully'));
     }
@@ -331,6 +392,8 @@ class Index extends Component
             'totalFaqs' => $this->totalFaqs,
             'activeFaqs' => $this->activeFaqs,
             'inactiveFaqs' => $this->inactiveFaqs,
+            'totalViews' => $this->totalViews,
+            'categoryLabels' => $this->categoryLabels,
         ]);
     }
 }
