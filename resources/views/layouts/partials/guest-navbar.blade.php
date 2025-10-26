@@ -79,6 +79,84 @@
                     </div>
                 @endauth
 
+                <!-- Language Selector -->
+                <div class="me-3" x-data="{ open: false }">
+                    <div class="relative">
+                        <button @click="open = ! open" class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            <i class="ti ti-language text-lg"></i>
+                            <span class="hidden md:inline">
+                                @if(app()->getLocale() === 'pt')
+                                    Português
+                                @elseif(app()->getLocale() === 'fr')
+                                    Français
+                                @else
+                                    English
+                                @endif
+                            </span>
+                            <svg class="-me-0.5 ms-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </button>
+
+                        <div x-show="open" @click.away="open = false" 
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="transform opacity-0 scale-95"
+                             x-transition:enter-end="transform opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="transform opacity-100 scale-100"
+                             x-transition:leave-end="transform opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50"
+                             style="display: none;">
+                            <div class="py-1">
+                                <form action="{{ route('language.switch') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="locale" value="en">
+                                    <input type="hidden" name="referer" value="{{ url()->current() }}">
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {{ app()->getLocale() === 'en' ? 'bg-gray-100 dark:bg-gray-700 font-medium' : '' }}">
+                                        <div class="flex items-center justify-between">
+                                            <span>English</span>
+                                            @if(app()->getLocale() === 'en')
+                                                <i class="ti ti-check text-blue-600 dark:text-blue-400"></i>
+                                            @endif
+                                        </div>
+                                    </button>
+                                </form>
+                                
+                                <form action="{{ route('language.switch') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="locale" value="pt">
+                                    <input type="hidden" name="referer" value="{{ url()->current() }}">
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {{ app()->getLocale() === 'pt' ? 'bg-gray-100 dark:bg-gray-700 font-medium' : '' }}">
+                                        <div class="flex items-center justify-between">
+                                            <span>Português</span>
+                                            @if(app()->getLocale() === 'pt')
+                                                <i class="ti ti-check text-blue-600 dark:text-blue-400"></i>
+                                            @endif
+                                        </div>
+                                    </button>
+                                </form>
+                                
+                                <form action="{{ route('language.switch') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="locale" value="fr">
+                                    <input type="hidden" name="referer" value="{{ url()->current() }}">
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {{ app()->getLocale() === 'fr' ? 'bg-gray-100 dark:bg-gray-700 font-medium' : '' }}">
+                                        <div class="flex items-center justify-between">
+                                            <span>Français</span>
+                                            @if(app()->getLocale() === 'fr')
+                                                <i class="ti ti-check text-blue-600 dark:text-blue-400"></i>
+                                            @endif
+                                        </div>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 @guest
                     <x-link href="{{ route('login') }}" class="me-2">
                         {{ __('guest.navigation.log_in') }}

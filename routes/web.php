@@ -39,6 +39,9 @@ Route::get('/security', GuestSecurity::class)->name('security.show');
 Route::get('/blog', GuestBlog::class)->name('blog.index');
 Route::get('/blog/{post:slug}', GuestBlogPost::class)->name('blog.post');
 
+// Language Switch
+Route::post('/language/switch', [App\Http\Controllers\LanguageController::class, 'switch'])->name('language.switch');
+
 // Email verification for different account
 Route::get('/email/verification/different-account', function () {
     return view('auth.email-verification-different-account');
