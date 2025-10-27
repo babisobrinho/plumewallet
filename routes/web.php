@@ -123,3 +123,6 @@ Route::middleware([
         });
     });
 });
+
+// Include Jetstream routes
+require __DIR__.'/jetstream.php';

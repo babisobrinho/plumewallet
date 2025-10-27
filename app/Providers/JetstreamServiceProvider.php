@@ -27,6 +27,9 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Disable Jetstream's automatic route registration
+        Jetstream::ignoreRoutes();
+        
         $this->configurePermissions();
 
         Jetstream::createTeamsUsing(CreateTeam::class);
