@@ -1,71 +1,62 @@
-<div class="scroll-smooth">
-    <!-- Hero Section - Clean and Simple -->
-    <section class="min-h-screen bg-gray-100 flex items-center relative overflow-hidden">
-        <!-- Simple Geometric Shape -->
-        <div class="absolute top-0 right-0 w-3/4 h-full bg-gray-800 z-0 hidden lg:block" 
-        style="clip-path: polygon(0% 0, 100% 0, 100% 100%, 30% 100%);"></div>
-        
-        <!-- Simple Geometric Shape for Mobile -->
-        <div class="absolute top-0 right-0 w-full h-1/3 bg-gray-800 z-0 lg:hidden" 
-        style="clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);"></div>
-        
-        <div class="max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-20 2xl:pt-28 2xl:pb-24 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 2xl:gap-16 items-center relative z-10">
-                <!-- Main Content -->
-                <div class="text-center lg:text-left">
-                    <!-- Welcome Text -->
-                    <div class="mb-3 sm:mb-4">
-                        <span class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-slate-500">
-                            {{ __('guest.hero.welcome') }}
-                        </span>
-                    </div>
-                    
-                    <!-- Main Title -->
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
-                        @if(app()->getLocale() === 'pt')
-                            <span class="text-slate-500">Controle as suas finanças</span>
-                        @elseif(app()->getLocale() === 'fr')
-                            <span class="text-slate-500">Contrôlez vos finances</span>
-                        @else
-                            <span class="text-slate-500">Control your finances</span>
-                        @endif
-                    </h1>
-                    
-                    <!-- Subtitle -->
-                    <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-500 mb-6 sm:mb-8 leading-relaxed">
-                        {{ __('guest.hero.subtitle') }}
-                    </p>
-                    
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center lg:justify-start">
-                        @guest
-                            <x-link href="{{ route('register') }}" 
-                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
-                                {{ __('guest.hero.get_started') }}
-                            </x-link>
-                            <x-link href="#welcome-section" 
-                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
-                                {{ __('guest.hero.learn_more') }}
-                            </x-link>
-                        @else
-                            <x-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" 
-                                   class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors shadow-lg text-base sm:text-lg lg:text-xl">
-                                {{ __('guest.navigation.dashboard') }}
-                            </x-link>
-                        @endguest
-                    </div>
+<div>
+    <!-- Hero Section -->
+    <section class="relative bg-slate-900 min-h-screen flex items-center overflow-hidden">
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-2xl"></div>
+            <div class="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-2xl"></div>
+            <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-white rounded-full blur-2xl"></div>
+        </div>
+
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="h-full w-full" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Title -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    {{ __('guest.hero.title') }}
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    {{ __('guest.hero.subtitle') }}
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    @guest
+                        <x-link href="{{ route('register') }}" 
+                               class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                            {{ __('guest.hero.get_started') }}
+                        </x-link>
+                        <button @click="document.getElementById('content-section').scrollIntoView({ behavior: 'smooth' })" 
+                               class="inline-flex items-center justify-center px-8 py-3 border-2 border-slate-400 text-slate-300 font-medium rounded-lg hover:border-slate-300 hover:text-white transition-colors">
+                            {{ __('guest.hero.learn_more') }}
+                        </button>
+                    @else
+                        <x-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}" 
+                               class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                            {{ __('guest.navigation.dashboard') }}
+                        </x-link>
+                    @endguest
                 </div>
-                
-                <!-- Empty Space for Desktop -->
-                <div class="relative hidden lg:block">
-                    <!-- Empty space - geometric shape is behind -->
+
+                <!-- Decorative Line -->
+                <div class="mt-16 flex justify-center">
+                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
                 </div>
             </div>
         </div>
+
+        <!-- Bottom Gradient -->
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
     </section>
 
     <!-- Welcome Section -->
-    <section id="welcome-section" class="py-20 px-6 bg-white">
+    <section id="content-section" class="py-20 px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
                 {{ __('guest.welcome.title') }}
