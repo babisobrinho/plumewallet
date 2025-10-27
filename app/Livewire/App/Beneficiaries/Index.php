@@ -74,6 +74,9 @@ class Index extends Component
 
     public function openModal($payeeId = null)
     {
+        // Ensure delete modal is closed
+        $this->showDeleteModal = false;
+        
         $this->isEditing = $payeeId !== null;
         $this->editingPayee = $payeeId;
 
@@ -106,6 +109,9 @@ class Index extends Component
 
     public function confirmPayeeDeletion($payeeId)
     {
+        // Ensure add/edit modal is closed
+        $this->showModal = false;
+        
         $this->deletingPayeeId = $payeeId;
         $this->replacementPayeeId = null;
         $this->showDeleteModal = true;
