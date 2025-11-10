@@ -11,7 +11,6 @@ enum ContactFormSubject: string
 
     case GENERAL_INQUIRY = 'general_inquiry';
     case TECHNICAL_SUPPORT = 'technical_support';
-    case BILLING_QUESTION = 'billing_question';
     case FEATURE_REQUEST = 'feature_request';
     case BUG_REPORT = 'bug_report';
     case ACCOUNT_ISSUE = 'account_issue';
@@ -39,14 +38,6 @@ enum ContactFormSubject: string
                 'light_text_color' => 'text-green-800',
                 'dark_bg_color' => 'dark:bg-green-900',
                 'dark_text_color' => 'dark:text-green-200',
-            ],
-            'billing_question' => [
-                'color' => 'yellow',
-                'icon' => 'credit-card',
-                'light_bg_color' => 'bg-yellow-100',
-                'light_text_color' => 'text-yellow-800',
-                'dark_bg_color' => 'dark:bg-yellow-900',
-                'dark_text_color' => 'dark:text-yellow-200',
             ],
             'feature_request' => [
                 'color' => 'purple',

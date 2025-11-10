@@ -63,10 +63,30 @@ return [
         'blocked' => 'Bloqué',
         'suspicious' => 'Suspect',
     ],
-
     'payee_status' => [
         'listed' => 'Listé',
         'unlisted' => 'Non listé',
+    ],
+    'contact_form_language' => [
+        'en' => 'English',
+        'fr' => 'Français',
+        'pt' => 'Português',
+    ],
+    'contact_form_status' => [
+        'new' => 'Nouveau',
+        'in_progress' => 'En cours',
+        'awaiting_response' => 'En attente de réponse',
+        'resolved' => 'Résolu',
+        'closed' => 'Fermé',
+    ],
+    'contact_form_subject' => [
+        'general_inquiry' => 'Demande générale',
+        'technical_support' => 'Support technique',
+        'feature_request' => 'Demande de fonctionnalité',
+        'bug_report' => 'Rapport de bug',
+        'account_issue' => 'Problème de compte',
+        'partnership' => 'Partenariat',
+        'other' => 'Autre',
     ],
 ];
 

@@ -84,7 +84,6 @@ return [
         'finance' => 'Finance',
         'productivity' => 'Productivity',
     ],
-
     'post_tag' => [
         'beginner' => 'Beginner',
         'advanced' => 'Advanced',
@@ -106,5 +105,26 @@ return [
         'waiting_response' => 'Waiting Response',
         'resolved' => 'Resolved',
         'closed' => 'Closed',
+    ],
+    'contact_form_language' => [
+        'en' => 'English',
+        'fr' => 'Français',
+        'pt' => 'Português',
+    ],
+    'contact_form_status' => [
+        'new' => 'New',
+        'in_progress' => 'In Progress',
+        'waiting_response' => 'Waiting Response',
+        'resolved' => 'Resolved',
+        'closed' => 'Closed',
+    ],
+    'contact_form_subject' => [
+        'general_inquiry' => 'General Inquiry',
+        'technical_support' => 'Technical Support',
+        'feature_request' => 'Feature Request',
+        'bug_report' => 'Bug Report',
+        'account_issue' => 'Account Issue',
+        'partnership' => 'Partnership',
+        'other' => 'Other',
     ],
 ];

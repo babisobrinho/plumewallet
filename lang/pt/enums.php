@@ -63,9 +63,29 @@ return [
         'blocked' => 'Bloqueado',
         'suspicious' => 'Suspeito',
     ],
-
     'payee_status' => [
         'listed' => 'Listado',
         'unlisted' => 'Não Listado',
+    ],
+    'contact_form_language' => [
+        'en' => 'English',
+        'fr' => 'Français',
+        'pt' => 'Português',
+    ],
+    'contact_form_status' => [
+        'new' => 'Novo',
+        'in_progress' => 'Em Progresso',
+        'awaiting_response' => 'Aguardando Resposta',
+        'resolved' => 'Resolvido',
+        'closed' => 'Fechado',
+    ],
+    'contact_form_subject' => [
+        'general_inquiry' => 'Consulta Geral',
+        'technical_support' => 'Suporte Técnico',
+        'feature_request' => 'Pedido de Funcionalidade',
+        'bug_report' => 'Relatório de Erro',
+        'account_issue' => 'Problema de Conta',
+        'partnership' => 'Parceria',
+        'other' => 'Outro',
     ],
 ];
