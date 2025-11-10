@@ -60,7 +60,7 @@ return [
 
     'solution' => [
         'title' => 'The perfect solution for your wallet',
-        'description' => 'Explaining about managing finances and such. A complete platform that adapts to your financial needs, whether you are a student, professional or entrepreneur.',
+        'description' => 'PlumeWallet helps you take control of your personal finances by tracking income and expenses, creating budgets, setting savings goals and automating transfers. Whether you want to save for short-term goals, plan long-term investments or simply understand where your money goes, our tools provide clear insights, secure data protection and tailored features for different life stages (student, family, professional).',
         'features' => [
             'total_control' => 'Total control of your expenses',
             'detailed_reports' => 'Detailed reports and insights',
@@ -95,7 +95,7 @@ return [
 
     'profiles' => [
         'title' => 'The perfect solution for your wallet',
-        'subtitle' => 'Explaining about managing finances and such',
+        'subtitle' => 'Tailored financial profiles with practical recommendations to manage income, expenses and savings according to your lifestyle.',
         'family' => [
             'title' => 'Family',
             'subtitle' => 'Family financial management',

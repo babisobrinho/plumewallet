@@ -61,7 +61,7 @@ return [
 
     'solution' => [
         'title' => 'La solution parfaite pour votre portefeuille',
-        'description' => 'Explication sur la gestion des finances et autres. Une plateforme complète qui s\'adapte à vos besoins financiers, que vous soyez étudiant, professionnel ou entrepreneur.',
+        'description' => 'PlumeWallet vous aide à reprendre le contrôle de vos finances personnelles en suivant vos revenus et dépenses, en créant des budgets, en définissant des objectifs d\'épargne et en automatisant les transferts. Que vous souhaitiez épargner pour des objectifs à court terme, planifier des investissements à long terme ou simplement comprendre où va votre argent, nos outils fournissent des analyses claires, une protection des données et des fonctionnalités adaptées à différentes étapes de la vie (étudiant, famille, professionnel).',
         'features' => [
             'total_control' => 'Contrôle total de vos dépenses',
             'detailed_reports' => 'Rapports détaillés et insights',
@@ -96,7 +96,7 @@ return [
 
     'profiles' => [
         'title' => 'La solution parfaite pour votre portefeuille',
-        'subtitle' => 'Explication sur la gestion des finances et autres',
+        'subtitle' => 'Profils financiers adaptés avec des recommandations pratiques pour gérer revenus, dépenses et épargnes selon votre style de vie.',
         'family' => [
             'title' => 'Famille',
             'subtitle' => 'Gestion financière familiale',

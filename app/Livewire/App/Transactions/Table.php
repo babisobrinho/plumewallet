@@ -168,7 +168,7 @@ class Table extends Component
         $this->newTransaction = [
             'account_id' => $this->accounts->first()?->id,
             'date' => now()->format('Y-m-d'),
-            'category_id' => '',
+            'category_id' => null,
             'description' => '',
             'amount' => '',
             'outflow' => '',
@@ -216,7 +216,8 @@ class Table extends Component
             'date' => $this->newTransaction['date'],
             'description' => $this->newTransaction['description'],
             'amount' => $amount,
-            'category_id' => $this->newTransaction['category_id'],
+            // Coerce empty values to null to avoid SQL inserting empty string for nullable foreign keys
+            'category_id' => $this->newTransaction['category_id'] ?: null,
             'is_cleared' => false,
             'is_reconciled' => false,
         ];

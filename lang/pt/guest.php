@@ -60,7 +60,7 @@ return [
 
     'solution' => [
         'title' => 'A solução perfeita para a sua carteira',
-        'description' => 'Explicação sobre gestão de finanças e afins. Uma plataforma completa que se adapta às suas necessidades financeiras, seja estudante, profissional ou empreendedor.',
+        'description' => 'O PlumeWallet ajuda-o a tomar controlo das suas finanças pessoais ao registar rendimentos e despesas, criar orçamentos, definir objetivos de poupança e automatizar transferências. Quer pretenda poupar para objetivos a curto prazo, planear investimentos a longo prazo ou simplesmente entender para onde vai o seu dinheiro, as nossas ferramentas fornecem insights claros, proteção de dados e funcionalidades adaptadas a diferentes fases da vida (estudante, família, profissional).',
         'features' => [
             'total_control' => 'Controlo total das suas despesas',
             'detailed_reports' => 'Relatórios detalhados e insights',
@@ -95,7 +95,7 @@ return [
 
     'profiles' => [
         'title' => 'A solução perfeita para a sua carteira',
-        'subtitle' => 'Explicação sobre gestão de finanças e afins',
+        'subtitle' => 'Perfis financeiros adaptados com recomendações práticas para gerir rendimentos, despesas e poupanças conforme o seu estilo de vida.',
         'family' => [
             'title' => 'Família',
             'subtitle' => 'Gestão financeira familiar',
