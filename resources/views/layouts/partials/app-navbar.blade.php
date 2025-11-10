@@ -43,7 +43,7 @@
                             href="{{ route('app.beneficiaries.index') }}"
                             :active="request()->routeIs('app.beneficiaries.*')"
                         >
-                            {{ __('common.navigation.beneficiaries') }}
+                            {{ __('common.payees.title') }}
                         </x-nav-link>
                     @endauth
                 </div>
