@@ -52,15 +52,15 @@
                             <x-slot name="content">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('guest.navigation.account') }}
+                                    {{ __('common.navigation.manage_account') }}
                                 </div>
 
                                 <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.dashboard.show') : route('app.dashboard.show') }}">
-                                    {{ __('guest.navigation.dashboard') }}
+                                    {{ __('common.navigation.dashboard') }}
                                 </x-dropdown-link>
 
                                 <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}">
-                                    {{ __('guest.navigation.profile') }}
+                                    {{ __('common.navigation.profile') }}
                                 </x-dropdown-link>
 
                                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
@@ -71,7 +71,7 @@
 
                                     <x-dropdown-link href="{{ route('logout') }}"
                                              @click.prevent="$root.submit();">
-                                        {{ __('guest.navigation.log_out') }}
+                                        {{ __('common.navigation.log_out') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>

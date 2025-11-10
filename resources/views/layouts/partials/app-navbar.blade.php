@@ -18,154 +18,125 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    @guest
-                        <x-nav-link href="{{ route('homepage.show') }}" :active="request()->routeIs('homepage.show')">
-                            {{ __('common.navigation.home') }}
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('how-it-works.show') }}" :active="request()->routeIs('how-it-works.show')">
-                            {{ __('guest.footer.how_it_works') }}
-                        </x-nav-link>
-                    @endguest
-                    @auth
-                        <x-nav-link
-                                href="{{ route('app.dashboard.show') }}"
-                                :active="request()->routeIs('app.dashboard.show')"
-                        >
-                            {{ __('common.navigation.dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link
-                            href="{{ route('app.transactions.index') }}"
-                            :active="request()->routeIs('app.transactions.*')"
-                        >
-                            {{ __('common.navigation.transactions') }}
-                        </x-nav-link>
-                        <x-nav-link
-                            href="{{ route('app.beneficiaries.index') }}"
-                            :active="request()->routeIs('app.beneficiaries.*')"
-                        >
-                            {{ __('common.payees.title') }}
-                        </x-nav-link>
-                    @endauth
+                    <x-nav-link
+                            href="{{ route('app.dashboard.show') }}"
+                            :active="request()->routeIs('app.dashboard.show')"
+                    >
+                        {{ __('common.navigation.dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link
+                        href="{{ route('app.transactions.index') }}"
+                        :active="request()->routeIs('app.transactions.*')"
+                    >
+                        {{ __('common.navigation.transactions') }}
+                    </x-nav-link>
+                    <x-nav-link
+                        href="{{ route('app.beneficiaries.index') }}"
+                        :active="request()->routeIs('app.beneficiaries.*')"
+                    >
+                        {{ __('common.payees.title') }}
+                    </x-nav-link>
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                @roletype('client')
-                    <!-- Teams Dropdown -->
-                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                        <div class="ms-3 relative">
-                            <x-dropdown align="right" width="60">
-                                <x-slot name="trigger">
-                                    <span class="inline-flex rounded-md">
-                                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                            {{ Auth::user()->currentTeam?->name ?? __('common.navigation.no_team') }}
+                <!-- Teams Dropdown -->
+                <div class="ms-3 relative">
+                    <x-dropdown align="right" width="60">
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    {{ Auth::user()->currentTeam?->name ?? __('teams.personal_space') }}
 
-                                            <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                            </svg>
-                                        </button>
-                                    </span>
-                                </x-slot>
+                                    <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
 
-                                <x-slot name="content">
-                                    <div class="w-60">
-                                        <!-- Team Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('common.navigation.manage_team') }}
-                                        </div>
-
-                                        <!-- Team Settings -->
-                                        @if(Auth::user()->currentTeam)
-                                            <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                            {{ __('common.navigation.team_settings') }}
-                                        </x-dropdown-link>
-
-                                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                            <x-dropdown-link href="{{ route('teams.create') }}">
-                                                {{ __('common.navigation.create_new_team') }}
-                                            </x-dropdown-link>
-                                        @endcan
-
-                                        <!-- Team Switcher -->
-                                        @if (Auth::user()->allTeams()->count() > 1)
-                                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                                {{ __('common.navigation.switch_teams') }}
-                                            </div>
-
-                                            @foreach (Auth::user()->allTeams() as $team)
-                                                <x-switchable-team :team="$team" />
-                                            @endforeach
-                                        @endif
-                                        @endif
-                                    </div>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
-                    @endif
-                @endroletype
-
-                @auth
-                    <!-- Settings Dropdown -->
-                    <div class="ms-3 relative">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center gap-1 px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                            <img class="size-8 rounded-full object-cover border-2 border-gray-300 dark:border-white mr-1" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                        @endif
-
-                                        {{ Auth::user()->name }}
-
-                                        <svg class="-me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <!-- Account Management -->
+                        <x-slot name="content">
+                            <div class="w-60">
+                                <!-- Team Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('common.navigation.manage_account') }}
+                                    {{ __('common.navigation.manage_team') }}
                                 </div>
 
-                                <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}">
-                                    {{ __('common.navigation.profile') }}
+                                <!-- Team Settings -->
+                                @if(Auth::user()->currentTeam)
+                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                    {{ __('common.navigation.team_settings') }}
                                 </x-dropdown-link>
 
-                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                    <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                        {{ __('common.navigation.api_tokens') }}
+                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                                    <x-dropdown-link href="{{ route('teams.create') }}">
+                                        {{ __('common.navigation.create_new_team') }}
                                     </x-dropdown-link>
+                                @endcan
+
+                                <!-- Team Switcher -->
+                                @if (Auth::user()->allTeams()->count() > 1)
+                                    <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('common.navigation.switch_teams') }}
+                                    </div>
+
+                                    @foreach (Auth::user()->allTeams() as $team)
+                                        <x-switchable-team :team="$team" />
+                                    @endforeach
                                 @endif
+                                @endif
+                            </div>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
 
-                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                <!-- Settings Dropdown -->
+                <div class="ms-3 relative">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center gap-1 px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                        <img class="size-8 rounded-full object-cover border-2 border-gray-300 dark:border-white mr-1" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    @endif
 
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}" x-data>
-                                    @csrf
+                                    {{ Auth::user()->name }}
 
-                                    <x-dropdown-link href="{{ route('logout') }}"
-                                             @click.prevent="$root.submit();">
-                                        {{ __('common.navigation.log_out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
-                @endauth
+                                    <svg class="-me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
 
-                @guest
-                    <x-link href="{{ route('login') }}" class="me-2">
-                        {{ __('common.navigation.log_in') }}
-                    </x-link>
-                    <x-link href="{{ route('register') }}" class="bg-indigo-500 hover:bg-indigo-400 dark:bg-indigo-400 dark:hover:bg-indigo-500">
-                        {{ __('common.navigation.register') }}
-                    </x-link>
-                @endguest
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('common.navigation.manage_account') }}
+                            </div>
+
+                            <x-dropdown-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}">
+                                {{ __('common.navigation.profile') }}
+                            </x-dropdown-link>
+
+                            <!-- API token links removed from navigation -->
+
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-dropdown-link href="{{ route('logout') }}"
+                                            @click.prevent="$root.submit();">
+                                    {{ __('common.navigation.log_out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
             </div>
 
             <!-- Hamburger -->
@@ -200,12 +171,15 @@
         @endguest
 
         @auth
+            <!-- Navigation Links -->
             <div class="pt-2 pb-3 space-y-1">
                 @if(Auth::user()->isStaff())
                     <x-responsive-nav-link
                         href="{{ route('backoffice.dashboard.show') }}"
                         :active="request()->routeIs('backoffice.dashboard.show')"
-                    />
+                    >
+                        {{ __('common.navigation.dashboard') }}
+                    </x-responsive-nav-link>
                 @else
                     <x-responsive-nav-link
                         href="{{ route('app.dashboard.show') }}"
@@ -223,14 +197,48 @@
                         href="{{ route('app.beneficiaries.index') }}"
                         :active="request()->routeIs('app.beneficiaries.*')"
                     >
-                        {{ __('common.navigation.beneficiaries') }}
+                        {{ __('common.payees.title') }}
                     </x-responsive-nav-link>
                 @endif
             </div>
-        @endauth
 
-        @roletype('client')
-            <!-- Responsive Settings Options -->
+            <!-- Teams Section -->
+            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                <div class="px-4">
+                    <div class="text-xs text-gray-400">{{ __('common.navigation.manage_team') }}</div>
+                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+                        {{ Auth::user()->currentTeam?->name ?? __('teams.personal_space') }}
+                    </div>
+                </div>
+
+                <div class="mt-3 space-y-1">
+                    @if(Auth::user()->currentTeam)
+                        <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                            {{ __('common.navigation.team_settings') }}
+                        </x-responsive-nav-link>
+                    @endif
+
+                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                        <x-responsive-nav-link href="{{ route('teams.create') }}">
+                            {{ __('common.navigation.create_new_team') }}
+                        </x-responsive-nav-link>
+                    @endcan
+
+                    @if (Auth::user()->allTeams()->count() > 1)
+                        <div class="border-t border-gray-200 dark:border-gray-600 my-2"></div>
+
+                        <div class="px-4">
+                            <div class="text-xs text-gray-400">{{ __('common.navigation.switch_teams') }}</div>
+                        </div>
+
+                        @foreach (Auth::user()->allTeams() as $team)
+                            <x-switchable-team :team="$team" component="responsive-nav-link" />
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+
+            <!-- Settings Section -->
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="flex items-center px-4">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -247,16 +255,11 @@
 
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
-                    <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    <x-responsive-nav-link href="{{ Auth::user()->isStaff() ? route('backoffice.profile.show') : route('app.profile.show') }}">
                         {{ __('common.navigation.profile') }}
                     </x-responsive-nav-link>
 
-                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                            {{ __('common.navigation.api_tokens') }}
-                        </x-responsive-nav-link>
-                    @endif
-
+                    <!-- API token links removed from responsive navigation -->
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
@@ -265,43 +268,8 @@
                             {{ __('common.navigation.log_out') }}
                         </x-responsive-nav-link>
                     </form>
-
-                    <!-- Team Management -->
-                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('common.navigation.manage_team') }}
-                        </div>
-
-                        <!-- Team Settings -->
-                        @if(Auth::user()->currentTeam)
-                            <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                            {{ __('common.navigation.team_settings') }}
-                        </x-responsive-nav-link>
-
-                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                            <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                                {{ __('common.navigation.create_new_team') }}
-                            </x-responsive-nav-link>
-                        @endcan
-
-                        <!-- Team Switcher -->
-                        @if (Auth::user()->allTeams()->count() > 1)
-                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('common.navigation.switch_teams') }}
-                            </div>
-
-                            @foreach (Auth::user()->allTeams() as $team)
-                                <x-switchable-team :team="$team" component="responsive-nav-link" />
-                            @endforeach
-                        @endif
-                        @endif
-                    @endif
                 </div>
             </div>
-        @endroletype
+        @endauth
     </div>
 </nav>

@@ -26,6 +26,7 @@ return [
         'welcome_title' => 'Welcome back!',
         'welcome_subtitle' => 'Don\'t have an account yet?',
         'create_account_button' => 'Create account',
+        'forgot_password' => 'Forgot your password?',
     ],
 
     // Register page

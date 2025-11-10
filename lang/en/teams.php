@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'personal_space' => 'My Space',
     'roles' => [
         'names' => [
             'owner' => 'Owner',

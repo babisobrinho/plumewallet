@@ -26,6 +26,7 @@ return [
         'welcome_title' => 'Bem-vindo de volta!',
         'welcome_subtitle' => 'Ainda não tem uma conta?',
         'create_account_button' => 'Criar conta',
+        'forgot_password' => 'Esqueceu a sua palavra-passe?',
     ],
 
     // Register page

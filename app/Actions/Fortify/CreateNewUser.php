@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
@@ -33,21 +34,24 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'language' => session('locale') ?? app()->getLocale(), // Use the current locale (set by middleware or session)
             ]), function (User $user) {
-                $this->createTeam($user);   // Create a personal team
+                $this->createTeam($user);   // Create a personal space
                 $user->assignRole('regular');   // Assign the 'regular' role
             });
         });
     }
 
     /**
-     * Create a personal team for the user.
+     * Create a personal space (team) for the user
      */
     protected function createTeam(User $user): void
     {
+    $teamName = Lang::get('teams.personal_space', [], $user->language ?? session('locale') ?? app()->getLocale());
+
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => $teamName,
             'personal_team' => true,
         ]));
     }

@@ -92,6 +92,7 @@ return [
         'english' => 'English',
         'portuguese' => 'Português',
         'french' => 'Français',
+        'selector_label' => 'Idioma',
     ],
 
     'welcome' => [

@@ -81,6 +81,7 @@ return [
         'english' => 'English',
         'portuguese' => 'Português',
         'french' => 'Français',
+        'selector_label' => 'Langue',
     ],
 
     'welcome' => [
