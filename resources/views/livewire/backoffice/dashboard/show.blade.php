@@ -59,7 +59,7 @@
                 color="orange"
             />
             @endcan
-            @can("system_logs_read")
+            @can("logs_read")
             <x-metric-card 
                 title="System Logs"
                 :value="number_format($systemLogs)"
@@ -151,7 +151,7 @@
             <div class="bg-white dark:bg-gray-900 shadow rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">System Activity</h3>
                 <div class="space-y-4">
-                    @can("system_logs_read")
+                    @can("logs_read")
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
