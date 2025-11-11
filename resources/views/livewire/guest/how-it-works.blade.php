@@ -1,6 +1,6 @@
 <div class="scroll-smooth">
     <!-- Hero Section -->
-    <section class="py-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <section class="py-20 px-6 bg-gray-200">
         <div class="max-w-6xl mx-auto text-center">
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
                 {{ __('guest.how_it_works.title') }}
@@ -12,7 +12,7 @@
     </section>
 
     <!-- Main Content Section -->
-    <section class="py-20 px-6 bg-white">
+    <section class="py-20 px-6 bg-gray-100">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-6">
@@ -27,8 +27,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <!-- Step 1 -->
                 <div class="text-center">
-                    <div class="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                        <i class="ti ti-user-plus text-blue-600 text-3xl"></i>
+                    <div class="bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="ti ti-user-plus text-white text-3xl"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">
                         {{ __('guest.how_it_works.step1.title') }}
@@ -40,8 +40,8 @@
 
                 <!-- Step 2 -->
                 <div class="text-center">
-                    <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                        <i class="ti ti-pig-money text-green-600 text-3xl"></i>
+                    <div class="bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="ti ti-pig-money text-white text-3xl"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">
                         {{ __('guest.how_it_works.step2.title') }}
@@ -53,8 +53,8 @@
 
                 <!-- Step 3 -->
                 <div class="text-center">
-                    <div class="bg-purple-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                        <i class="ti ti-chart-line text-purple-600 text-3xl"></i>
+                    <div class="bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="ti ti-chart-line text-white text-3xl"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">
                         {{ __('guest.how_it_works.step3.title') }}
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Call to Action -->
-            <div class="bg-gray-50 rounded-2xl p-8 text-center">
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100">
                 <h3 class="text-3xl font-bold text-gray-900 mb-4">
                     {{ __('guest.how_it_works.cta.title') }}
                 </h3>
@@ -75,7 +75,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('register') }}" 
-                       class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
+                       class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
                         {{ __('guest.how_it_works.cta.create_account') }}
                     </a>
                     <a href="{{ route('faqs.show') }}" 
@@ -88,7 +88,7 @@
     </section>
 
     <!-- Benefits Section -->
-    <section class="py-20 px-6 bg-gray-50">
+    <section class="py-20 px-6 bg-gray-100">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-900 mb-6">
@@ -98,9 +98,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Benefit 1 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                        <i class="ti ti-shield-check text-green-600 text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 shadow-lg text-center border border-gray-100">
+                    <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="ti ti-shield-check text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
                         {{ __('guest.how_it_works.benefits.secure.title') }}
@@ -111,9 +111,9 @@
                 </div>
 
                 <!-- Benefit 2 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                    <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                        <i class="ti ti-clock text-blue-600 text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 shadow-lg text-center border border-gray-100">
+                    <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="ti ti-clock text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
                         {{ __('guest.how_it_works.benefits.easy.title') }}
@@ -124,9 +124,9 @@
                 </div>
 
                 <!-- Benefit 3 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                    <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                        <i class="ti ti-device-mobile text-purple-600 text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 shadow-lg text-center border border-gray-100">
+                    <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="ti ti-device-mobile text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
                         {{ __('guest.how_it_works.benefits.mobile.title') }}
@@ -137,9 +137,9 @@
                 </div>
 
                 <!-- Benefit 4 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                    <div class="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                        <i class="ti ti-heart text-orange-600 text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 shadow-lg text-center border border-gray-100">
+                    <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="ti ti-heart text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
                         {{ __('guest.how_it_works.benefits.free.title') }}

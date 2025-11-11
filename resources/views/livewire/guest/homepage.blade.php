@@ -96,7 +96,7 @@
                 <div class="relative h-96 flex items-center justify-center overflow-hidden">
                     <!-- Card 1 - Economia Inteligente -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentSlide === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         :class="currentSlide === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-70 scale-90 z-20'"
                          @click="goToSlide(0)">
                         <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 0 ? 'text-white' : 'text-gray-700'">
                             <!-- Título Principal -->
@@ -121,7 +121,7 @@
                     
                     <!-- Card 2 - Viagens do Sonho (CENTRO) -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentSlide === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         :class="currentSlide === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-70 scale-90 z-20'"
                          @click="goToSlide(1)">
                         <div class="p-8 text-white text-left h-full flex flex-col">
                             <!-- Título Principal -->
@@ -146,7 +146,7 @@
                     
                     <!-- Card 3 - Investimentos -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentSlide === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg opacity-90 z-20'"
+                         :class="currentSlide === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-90 z-20'"
                          @click="goToSlide(2)">
                         <div class="p-8 text-left h-full flex flex-col" :class="currentSlide === 2 ? 'text-white' : 'text-gray-700'">
                             <!-- Título Principal -->
@@ -217,7 +217,7 @@
                     <!-- Step 1 -->
                     <div class="bg-gradient-to-r from-teal-50 to-teal-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
-                            <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mr-6">
+                            <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mr-6">
                                 <i class="ti ti-user-plus text-white text-2xl"></i>
                             </div>
                             <div>
@@ -230,7 +230,7 @@
                     <!-- Step 2 -->
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
-                            <div class="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center mr-6">
+                            <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mr-6">
                                 <i class="ti ti-wallet text-white text-2xl"></i>
                             </div>
                             <div>
@@ -243,7 +243,7 @@
                     <!-- Step 3 -->
                     <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
                         <div class="flex items-center">
-                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mr-6">
+                            <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mr-6">
                                 <i class="ti ti-trending-up text-white text-2xl"></i>
                             </div>
                             <div>
@@ -256,7 +256,7 @@
 
                 <!-- Botão CTA Centralizado -->
                 <div class="text-center">
-                    <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-bold text-lg rounded-lg hover:bg-teal-700 transition-colors shadow-lg">
+                    <x-link href="{{ route('register') }}" class="inline-flex items-center px-8 py-4 bg-gray-700 text-white font-bold text-lg rounded-lg hover:bg-gray-600 transition-colors shadow-lg">
                         {{ __('guest.steps.cta') }}
                         <i class="ti ti-arrow-right w-5 h-5 ml-2"></i>
                     </x-link>
@@ -291,12 +291,12 @@
                 <div class="relative h-96 flex items-center justify-center overflow-hidden">
                     <!-- Card 1 - Estudante -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentProfile === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         :class="currentProfile === 0 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl border border-gray-100 scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-70 scale-90 z-20'"
                          @click="goToProfile(0)">
                         <div class="p-8 text-left h-full flex flex-col">
                             <!-- Header do Card -->
                             <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                                <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
                                     <i class="ti ti-school text-white text-xl"></i>
                                 </div>
                                 <div>
@@ -341,12 +341,12 @@
 
                     <!-- Card 2 - Família (CENTRO) -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentProfile === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         :class="currentProfile === 1 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl border border-gray-100 scale-100 opacity-100 z-30' : 'left-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-70 scale-90 z-20'"
                          @click="goToProfile(1)">
                         <div class="p-8 text-left h-full flex flex-col">
                             <!-- Header do Card -->
                             <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                                <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
                                     <i class="ti ti-users text-white text-xl"></i>
                                 </div>
                                 <div>
@@ -391,12 +391,12 @@
 
                     <!-- Card 3 - Profissional Empregado -->
                     <div class="absolute transition-all duration-500 ease-in-out cursor-pointer"
-                         :class="currentProfile === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg opacity-70 scale-90 z-20'"
+                         :class="currentProfile === 2 ? 'left-1/2 transform -translate-x-1/2 w-96 bg-white rounded-xl shadow-2xl border border-gray-100 scale-100 opacity-100 z-30' : 'right-0 w-96 bg-white rounded-xl shadow-lg border border-gray-100 opacity-70 scale-90 z-20'"
                          @click="goToProfile(2)">
                         <div class="p-8 text-left h-full flex flex-col">
                             <!-- Header do Card -->
                             <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                                <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
                                     <i class="ti ti-briefcase text-white text-xl"></i>
                                 </div>
                                 <div>
@@ -444,23 +444,23 @@
                 <!-- Indicadores do Carrossel -->
                 <div class="flex justify-center items-center mt-12 space-x-2">
                     <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
-                            :class="currentProfile === 0 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            :class="currentProfile === 0 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
                             @click="goToProfile(0)"></button>
                     <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
-                            :class="currentProfile === 1 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            :class="currentProfile === 1 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
                             @click="goToProfile(1)"></button>
                     <button class="rounded-full transition-all duration-300 hover:bg-gray-400"
-                            :class="currentProfile === 2 ? 'w-8 h-2 bg-teal-600' : 'w-2 h-2 bg-gray-300'"
+                            :class="currentProfile === 2 ? 'w-8 h-2 bg-gray-800' : 'w-2 h-2 bg-gray-300'"
                             @click="goToProfile(2)"></button>
                 </div>
 
                 <!-- Botões de navegação -->
                 <div class="flex justify-center items-center mt-6 space-x-4">
-                    <button class="p-3 rounded-full bg-teal-600 shadow-lg hover:bg-teal-700 transition-colors"
+                    <button class="p-3 rounded-full bg-gray-800 shadow-lg hover:bg-gray-700 transition-colors"
                             @click="previousProfile()">
                         <i class="ti ti-chevron-left text-white text-lg"></i>
                     </button>
-                    <button class="p-3 rounded-full bg-teal-600 shadow-lg hover:bg-teal-700 transition-colors"
+                    <button class="p-3 rounded-full bg-gray-800 shadow-lg hover:bg-gray-700 transition-colors"
                             @click="nextProfile()">
                         <i class="ti ti-chevron-right text-white text-lg"></i>
                     </button>

@@ -97,6 +97,7 @@
                             {{-- tags removed from public post view --}}
 
                             <!-- Share Buttons -->
+                            <!-- Share Buttons -->
                             <div class="mt-8 pt-8 border-t border-gray-200">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-4">
                                     {{ __('guest.blog.share_article') }}
@@ -104,24 +105,24 @@
                                 <div class="flex gap-3">
                                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" 
                                        target="_blank" 
-                                       class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                                       class="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                         <i class="ti ti-brand-twitter"></i>
                                         <span>{{ __('guest.blog.twitter') }}</span>
                                     </a>
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
                                        target="_blank" 
-                                       class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                       class="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                         <i class="ti ti-brand-facebook"></i>
                                         <span>{{ __('guest.blog.facebook') }}</span>
                                     </a>
                                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}" 
                                        target="_blank" 
-                                       class="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                                       class="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                         <i class="ti ti-brand-linkedin"></i>
                                         <span>{{ __('guest.blog.linkedin') }}</span>
                                     </a>
                                     <button onclick="navigator.clipboard.writeText('{{ request()->url() }}')" 
-                                            class="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                                            class="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                         <i class="ti ti-copy"></i>
                                         <span>{{ __('guest.blog.copy_link') }}</span>
                                     </button>
