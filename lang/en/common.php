@@ -11,6 +11,7 @@ return [
         'upload' => 'Upload',
         'save' => 'Save',
         'add' => 'Add',
+        'create' => 'Create',
         'update' => 'Update',
         'delete' => 'Delete',
         'new' => 'New',
@@ -80,6 +81,8 @@ return [
         'active' => 'Active',
         'inactive' => 'Inactive',
         'unknown' => 'Unknown',
+        'actions' => 'Actions',
+        'go_to_current_month' => 'Go to current month',
     ],
 
     'search' => [
@@ -135,6 +138,9 @@ return [
         'inflow' => 'Inflow',
         'accounts_count' => ':count account',
         'accounts_count_plural' => ':count accounts',
+        'account_name' => 'Account Name',
+        'account_type' => 'Account Type',
+        'initial_balance' => 'Initial Balance',
     ],
 
     'budget' => [
@@ -143,6 +149,9 @@ return [
         'money_available' => 'Money Available',
         'snoozed' => 'Snoozed',
         'vacation' => 'Vacation',
+        'assign_money_to_category' => 'Assign Money to Category',
+        'amount_to_assign' => 'Amount to Assign',
+        'assign_to_category' => 'Assign to Category',
     ],
 
     'payees' => [

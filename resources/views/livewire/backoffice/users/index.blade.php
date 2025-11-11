@@ -309,7 +309,7 @@
 
                         <!-- Phone -->
                         <div>
-                            <x-label for="modal_phone_number" :value="__('users.form.phone_number')" />
+                            <x-label for="modal_phone_number" :value="__('common.labels.phone_number')" />
                             <x-input 
                                 id="modal_phone_number" 
                                 type="tel" 

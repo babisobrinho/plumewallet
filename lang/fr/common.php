@@ -9,6 +9,7 @@ return [
         'download' => 'Télécharger',
         'upload' => 'Téléverser',
         'save' => 'Enregistrer',
+        'create' => 'Créer',
         'update' => 'Mettre à jour',
         'delete' => 'Supprimer',
         'new' => 'Nouveau',
@@ -23,6 +24,7 @@ return [
         ],
 
     'labels' => [
+        'actions' => 'Actions',
         'name' => 'Nom',
         'email' => 'Email',
         'description' => 'Description',
@@ -64,6 +66,8 @@ return [
         'active' => 'Actif',
         'inactive' => 'Inactif',
         'unknown' => 'Inconnu',
+        'actions' => 'Actions',
+        'go_to_current_month' => 'Aller au mois actuel',
     ],
 
 
@@ -120,6 +124,9 @@ return [
         'inflow' => 'Entrée',
         'accounts_count' => ':count compte',
         'accounts_count_plural' => ':count comptes',
+        'account_name' => 'Nom du Compte',
+        'account_type' => 'Type de Compte',
+        'initial_balance' => 'Solde Initial',
     ],
 
     'budget' => [
@@ -128,6 +135,9 @@ return [
         'money_available' => 'Argent disponible',
         'snoozed' => 'Reporté',
         'vacation' => 'Vacances',
+        'assign_money_to_category' => 'Attribuer de l\'argent à la catégorie',
+        'amount_to_assign' => 'Montant à attribuer',
+        'assign_to_category' => 'Attribuer à la catégorie',
     ],
 
     'payees' => [

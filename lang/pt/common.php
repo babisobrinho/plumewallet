@@ -9,6 +9,7 @@ return [
         'download' => 'Descarregar',
         'upload' => 'Carregar',
         'save' => 'Guardar',
+        'create' => 'Criar',
         'update' => 'Atualizar',
         'delete' => 'Eliminar',
         'new' => 'Novo',
@@ -23,6 +24,7 @@ return [
         ],
 
     'labels' => [
+        'actions' => 'Ações',
         'name' => 'Nome',
         'email' => 'Email',
         'description' => 'Descrição',
@@ -61,7 +63,7 @@ return [
             'cannot_delete_protected' => 'Categorias de pagamento de cartão de crédito não podem ser deletadas.',
             'deleted_success' => 'Categoria deletada com sucesso!',
             'created_success' => 'Categoria criada com sucesso para :month!',
-            'created_with_group' => 'Category group created successfully for :month!',
+            'created_with_group' => 'Grupo de categorias criado com sucesso para :month!',
         ],
     ],
 
@@ -75,6 +77,8 @@ return [
         'active' => 'Ativo',
         'inactive' => 'Inativo',
         'unknown' => 'Desconhecido',
+        'actions' => 'Ações',
+        'go_to_current_month' => 'Ir para o mês atual',
     ],
 
 
@@ -131,6 +135,9 @@ return [
         'inflow' => 'Entrada',
         'accounts_count' => ':count conta',
         'accounts_count_plural' => ':count contas',
+        'account_name' => 'Nome da Conta',
+        'account_type' => 'Tipo de Conta',
+        'initial_balance' => 'Saldo Inicial',
     ],
 
     'budget' => [
@@ -139,6 +146,9 @@ return [
         'money_available' => 'Dinheiro Disponível',
         'snoozed' => 'Adiado',
         'vacation' => 'Férias',
+        'assign_money_to_category' => 'Atribuir Dinheiro à Categoria',
+        'amount_to_assign' => 'Valor a Atribuir',
+        'assign_to_category' => 'Atribuir à Categoria',
     ],
 
     'payees' => [
