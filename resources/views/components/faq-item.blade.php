@@ -23,7 +23,7 @@
          x-transition:leave-end="opacity-0 transform scale-95"
          class="px-6 pb-4">
         <div class="text-gray-600 leading-relaxed">
-            {!! nl2br(e($faq->answer)) !!}
+            {!! $faq->answer !!}
         </div>
     </div>
 </div>

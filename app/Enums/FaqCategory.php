@@ -13,7 +13,6 @@ enum FaqCategory: string
     case ACCOUNT = 'account';
     case TRANSACTIONS = 'transactions';
     case SECURITY = 'security';
-    case BILLING = 'billing';
     case TECHNICAL = 'technical';
     case FEATURES = 'features';
     case SUPPORT = 'support';
@@ -55,14 +54,6 @@ enum FaqCategory: string
                 'light_text_color' => 'text-red-800',
                 'dark_bg_color' => 'dark:bg-red-900',
                 'dark_text_color' => 'dark:text-red-200',
-            ],
-            'billing' => [
-                'color' => 'yellow',
-                'icon' => 'receipt',
-                'light_bg_color' => 'bg-yellow-100',
-                'light_text_color' => 'text-yellow-800',
-                'dark_bg_color' => 'dark:bg-yellow-900',
-                'dark_text_color' => 'dark:text-yellow-200',
             ],
             'technical' => [
                 'color' => 'purple',

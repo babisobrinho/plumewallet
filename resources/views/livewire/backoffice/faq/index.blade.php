@@ -30,12 +30,7 @@
                 color="red"
             />
 
-            <x-metric-card 
-                :title="__('faq.metrics.total_views')"
-                :value="number_format($totalViews)"
-                icon="ti ti-eye"
-                color="purple"
-            />
+            {{-- total views metric removed (view_count removed) --}}
         </div>
 
         <!-- Header com botão de criar -->
@@ -125,9 +120,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
                                 {{ __('faq.table.status') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
-                                {{ __('faq.table.views') }}
-                            </th>
+                            {{-- views column removed --}}
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
                                 {{ __('faq.table.created_at') }}
                             </th>
@@ -171,10 +164,7 @@
                                     @endif
                                 </td>
                                 
-                                <!-- Views -->
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $faq->view_count ?? 0 }}
-                                </td>
+                                {{-- views removed --}}
                                 
                                 <!-- Created At -->
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
@@ -213,7 +203,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
                                     {{ __('common.table.no_data') }}
                                 </td>
                             </tr>

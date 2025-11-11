@@ -152,14 +152,14 @@ class FaqSeeder extends Seeder
             [
                 'question' => 'How does billing work?',
                 'answer' => '<p>Billing is handled securely through our payment partners. You can choose monthly or annual billing cycles, and all payments are processed securely with automatic renewals.</p>',
-                'category' => FaqCategory::BILLING,
+                'category' => FaqCategory::ACCOUNT,
                 'order' => 1,
                 'is_active' => true,
             ],
             [
                 'question' => 'What payment methods are accepted?',
                 'answer' => '<p>We accept all major credit cards, PayPal, and bank transfers. All payments are processed securely through our trusted payment partners.</p>',
-                'category' => FaqCategory::BILLING,
+                'category' => FaqCategory::ACCOUNT,
                 'order' => 2,
                 'is_active' => true,
             ],

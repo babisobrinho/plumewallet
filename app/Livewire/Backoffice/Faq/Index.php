@@ -31,12 +31,7 @@ class Index extends Component
     public $filters = [
         'category' => '',
         'status' => '',
-    ];
-
-    protected $listeners = [
-        'refreshTable' => '$refresh',
-        'editItem' => 'editFaq',
-        'deleteItem' => 'deleteFaq',
+            // view_count column removed from FAQs
         'toggleStatus' => 'toggleStatus',
     ];
     
@@ -178,7 +173,6 @@ class Index extends Component
                 'total' => Faq::count(),
                 'active' => Faq::where('is_active', true)->count(),
                 'inactive' => Faq::where('is_active', false)->count(),
-                'total_views' => Faq::sum('view_count'),
             ];
         }
         return $this->cachedMetrics;
@@ -202,7 +196,8 @@ class Index extends Component
 
     public function getTotalViewsProperty()
     {
-        return $this->metrics['total_views'];
+        // view_count was removed; return 0 for compatibility
+        return 0;
     }
 
     public function clearFilters()
@@ -311,7 +306,7 @@ class Index extends Component
         $this->validate([
             'modalQuestion' => ['required', 'string', 'max:500'],
             'modalAnswer' => ['required', 'string'],
-            'modalCategory' => ['required', 'in:general,account,transactions,security,billing,technical,features,support'],
+            'modalCategory' => ['required', 'in:' . implode(',', FaqCategory::values())],
             'modalOrder' => ['required', 'integer', 'min:0'],
             'modalIsActive' => ['boolean'],
         ]);

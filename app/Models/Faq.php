@@ -17,14 +17,12 @@ class Faq extends Model
         'category',
         'order',
         'is_active',
-        'view_count',
     ];
 
     protected $casts = [
         'category' => FaqCategory::class,
         'is_active' => 'boolean',
         'order' => 'integer',
-        'view_count' => 'integer',
     ];
 
     public function scopeActive($query)
@@ -44,6 +42,7 @@ class Faq extends Model
 
     public function incrementViewCount()
     {
-        $this->increment('view_count');
+        // view_count removed from FAQs; no-op to preserve API compatibility
+        return;
     }
 }

@@ -28,7 +28,7 @@ class FaqFactory extends Factory
             'category' => $category,
             'order' => $this->faker->numberBetween(1, 100),
             'is_active' => $this->faker->boolean(90), // 90% chance of being active
-            'view_count' => $this->faker->numberBetween(0, 1000),
+            // view_count removed from FAQs: no longer tracked
         ];
     }
 
@@ -78,7 +78,7 @@ class FaqFactory extends Factory
                 'How do I secure my account?',
                 'What if I suspect unauthorized access?',
             ],
-            FaqCategory::BILLING => [
+            FaqCategory::ACCOUNT => [
                 'How does billing work?',
                 'What payment methods are accepted?',
                 'Can I cancel my subscription?',
@@ -187,8 +187,7 @@ class FaqFactory extends Factory
      */
     public function popular(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'view_count' => $this->faker->numberBetween(500, 2000),
-        ]);
+        // view_count removed; keep method for API compatibility but do nothing
+        return $this->state(fn (array $attributes) => []);
     }
 }
