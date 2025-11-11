@@ -3,12 +3,16 @@
 return [
     'title' => 'Gestão de Utilizadores',
     'subtitle' => 'Gerir utilizadores do sistema',
+    'show_title' => 'Detalhes do Utilizador',
+    'show_subtitle' => 'Informações completas do utilizador',
     'edit_user' => 'Editar Utilizador',
     'edit_description' => 'Atualizar informações do utilizador',
     'total_users' => 'Total: :count utilizadores',
     'new_user' => 'Novo Utilizador',
     'no_users_found' => 'Nenhum utilizador encontrado',
+    'no_role' => 'Sem Função',
     'personal_information' => 'Informações Pessoais',
+    'access_permissions' => 'Acesso e Permissões',
     'change_password' => 'Alterar Palavra-passe',
     
     'filters' => [
@@ -53,5 +57,15 @@ return [
         'active_users' => 'Utilizadores Ativos',
         'staff_users' => 'Utilizadores Staff',
         'client_users' => 'Utilizadores Cliente',
+    ],
+
+    'danger_zone' => [
+        'title' => 'Zona de Perigo',
+        'delete_description' => 'Uma vez que um utilizador é eliminado, todos os seus dados serão removidos permanentemente. Esta ação não pode ser desfeita.',
+        'delete_user' => 'Eliminar Utilizador',
+        'delete_warning' => 'Esta ação não pode ser desfeita.',
+        'delete_confirmation' => 'Tem a certeza de que pretende eliminar :name? Esta ação não pode ser desfeita.',
+        'confirm_name_placeholder' => 'Digite o nome do utilizador para confirmar',
+        'name_mismatch' => 'O nome que introduziu não corresponde ao nome do utilizador.',
     ],
 ];

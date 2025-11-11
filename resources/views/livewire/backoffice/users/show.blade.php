@@ -1,7 +1,7 @@
 <x-slot name="header">
     <x-backoffice-header
-        title="Detalhes do Utilizador"
-        subtitle="Informações completas do utilizador"
+        :title="__('users.show_title')"
+        :subtitle="__('users.show_subtitle')"
     />
 </x-slot>
 
@@ -21,7 +21,7 @@
                     class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest hover:bg-gray-400 dark:hover:bg-gray-500 focus:bg-gray-400 dark:focus:bg-gray-500 active:bg-gray-500 dark:active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
                 >
                     <i class="ti ti-arrow-left w-4 h-4 mr-2"></i>
-                    Voltar
+                    {{ __('common.buttons.back') }}
                 </a>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 <div class="bg-white dark:bg-gray-900 shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
-                            Acesso e Permissões
+                            {{ __('users.access_permissions') }}
                         </h3>
                         <dl class="space-y-4">
                             <div>
@@ -98,6 +98,24 @@
                                         field="type"
                                         :noValueKey="'no_role'"
                                     />
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('users.form.role') }}</dt>
+                                <dd class="mt-1">
+                                    @php
+                                        $userRole = $user->roles->first();
+                                    @endphp
+                                    
+                                    @if($userRole)
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                            {{ $userRole->name }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                            {{ __('users.no_role') }}
+                                        </span>
+                                    @endif
                                 </dd>
                             </div>
                             <div>

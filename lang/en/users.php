@@ -3,12 +3,16 @@
 return [
     'title' => 'User Management',
     'subtitle' => 'Manage system users',
+    'show_title' => 'User Details',
+    'show_subtitle' => 'Complete user information',
     'edit_user' => 'Edit User',
     'edit_description' => 'Update user information',
     'total_users' => 'Total: :count users',
     'new_user' => 'New User',
     'no_users_found' => 'No users found',
+    'no_role' => 'No Role',
     'personal_information' => 'Personal Information',
+    'access_permissions' => 'Access and Permissions',
     'change_password' => 'Change Password',
     
     'filters' => [
