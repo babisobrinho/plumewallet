@@ -3,10 +3,13 @@
 return [
     'title' => 'User Management',
     'subtitle' => 'Manage system users',
+    'edit_user' => 'Edit User',
+    'edit_description' => 'Update user information',
     'total_users' => 'Total: :count users',
     'new_user' => 'New User',
     'no_users_found' => 'No users found',
     'personal_information' => 'Personal Information',
+    'change_password' => 'Change Password',
     
     'filters' => [
         'status' => 'Status',
@@ -31,10 +34,13 @@ return [
     'form' => [
         'select_type' => 'Select type',
         'select_role' => 'Select role',
+        'select_user_type' => 'Select user type',
         'full_name' => 'Full Name',
         'user_type' => 'User Type',
         'role' => 'Role',
         'password' => 'Password',
+        'new_password' => 'New Password',
+        'confirm_password' => 'Confirm Password',
         'email_verified' => 'Email Verified',
         'verified_on' => 'Verified on',
         'create_description' => 'Create a new user account with the required information.',

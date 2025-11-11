@@ -185,7 +185,7 @@
                                             :title="__('common.buttons.view')"
                                         />
                                         <x-action-link 
-                                            url="{{ route('backoffice.users.show', $user->id) }}"
+                                            url="{{ route('backoffice.users.edit', $user->id) }}"
                                             icon="pencil"
                                             color="green"
                                             size="sm"

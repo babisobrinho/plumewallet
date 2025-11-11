@@ -3,9 +3,13 @@
 return [
     'title' => 'Gestão de Utilizadores',
     'subtitle' => 'Gerir utilizadores do sistema',
+    'edit_user' => 'Editar Utilizador',
+    'edit_description' => 'Atualizar informações do utilizador',
     'total_users' => 'Total: :count utilizadores',
     'new_user' => 'Novo Utilizador',
     'no_users_found' => 'Nenhum utilizador encontrado',
+    'personal_information' => 'Informações Pessoais',
+    'change_password' => 'Alterar Palavra-passe',
     
     'filters' => [
         'status' => 'Estado',
@@ -29,11 +33,14 @@ return [
     'form' => [
         'select_type' => 'Selecione o tipo',
         'select_role' => 'Selecione o cargo',
+        'select_user_type' => 'Selecione o tipo de utilizador',
         'full_name' => 'Nome Completo',
         'phone_number' => 'Número de Telefone',
         'user_type' => 'Tipo de Utilizador',
         'role' => 'Cargo',
         'password' => 'Palavra-passe',
+        'new_password' => 'Nova Palavra-passe',
+        'confirm_password' => 'Confirmar Palavra-passe',
         'email_verified' => 'Email Verificado',
         'verified_on' => 'Verificado em',
         'create_description' => 'Criar uma nova conta de utilizador com as informações necessárias.',

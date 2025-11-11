@@ -2,6 +2,7 @@
 
 return [
     'buttons' => [
+        'back' => 'Retour',
         'submit' => 'Soumettre',
         'reset' => 'Réinitialiser',
         'search' => 'Rechercher',
@@ -27,6 +28,7 @@ return [
         'actions' => 'Actions',
         'name' => 'Nom',
         'email' => 'Email',
+        'phone_number' => 'Numéro de téléphone',
         'description' => 'Description',
         'status' => 'Statut',
         'created_at' => 'Créé le',

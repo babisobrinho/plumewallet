@@ -22,11 +22,6 @@ class FaqSeeder extends Seeder
         $this->createTechnicalFaqs();
         $this->createFeatureFaqs();
         $this->createSupportFaqs();
-
-        // Create some random FAQs
-        Faq::factory()
-            ->count(20)
-            ->create();
     }
 
     private function createGeneralFaqs(): void

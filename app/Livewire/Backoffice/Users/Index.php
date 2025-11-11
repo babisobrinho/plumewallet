@@ -128,7 +128,7 @@ class Index extends Component
                     ],
                     [
                         'label' => __('common.buttons.edit'),
-                        'url' => 'backoffice.users.show',
+                        'url' => 'backoffice.users.edit',
                         'icon' => 'pencil',
                         'params' => ['user' => 'id'],
                     ],

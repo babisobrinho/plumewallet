@@ -8,6 +8,7 @@ use App\Livewire\Backoffice\Dashboard\Show as BackofficeDashboardShow;
 use App\Livewire\Backoffice\Profile\Show as BackofficeProfileShow;
 use App\Livewire\Backoffice\Users\Index as BackofficeUsersIndex;
 use App\Livewire\Backoffice\Users\Show as BackofficeUsersShow;
+use App\Livewire\Backoffice\Users\Edit as BackofficeUsersEdit;
 use App\Livewire\Backoffice\Blog\Index as BackofficeBlogIndex;
 use App\Livewire\Backoffice\Blog\Create as BackofficeBlogCreate;
 use App\Livewire\Backoffice\Blog\Edit as BackofficeBlogEdit;
@@ -95,6 +96,7 @@ Route::middleware([
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', BackofficeUsersIndex::class)->name('index');
             Route::get('/{user}', BackofficeUsersShow::class)->name('show');
+            Route::get('/{user}/edit', BackofficeUsersEdit::class)->name('edit');
         });
 
         // Blog Management
