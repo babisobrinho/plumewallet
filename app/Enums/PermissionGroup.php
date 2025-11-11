@@ -10,9 +10,6 @@ enum PermissionGroup: string
 
     case CONFIG = 'config';
     case USERS = 'users';
-    case PERMISSIONS = 'permissions';
-    case REPORTS = 'reports';
-    case STATISTICS = 'statistics';
     case QA = 'qa';
     case BLOG = 'blog';
     case FAQ = 'faq';
