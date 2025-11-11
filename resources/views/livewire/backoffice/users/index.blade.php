@@ -348,7 +348,7 @@
                             >
                                 <option value="">{{ __('users.form.select_role') }}</option>
                                 @foreach($roleOptions as $value => $label)
-                                    <option value="{{ $value }}">{{ ucfirst($label) }}</option>
+                                    <option value="{{ $value }}">{{ $label }}</option>
                                 @endforeach
                             </select>
                             <x-input-error for="modalRole" class="mt-2" />
@@ -400,7 +400,7 @@
                                 @if($isEditing)
                                     {{ __('common.buttons.update') }}
                                 @else
-                                {{ __('common.buttons.add') }}
+                                {{ __('users.form.add_user') }}
                                 @endif
                             </button>
                             <button 
