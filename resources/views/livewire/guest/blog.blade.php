@@ -108,7 +108,7 @@
                                             </a>
                                         </h3>
                                         <p class="text-gray-600 text-sm line-clamp-3 mb-4">
-                                            {{ $post->excerpt }}
+                                            {!! $post->excerpt !!}
                                         </p>
                                         
                                         {{-- tags removed from public posts list --}}

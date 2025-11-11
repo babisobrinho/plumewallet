@@ -45,10 +45,7 @@ class Post extends Model
     // Category and tags are now stored as enum values and arrays
     // No need for relationships
 
-    public function comments(): HasMany
-    {
-        return $this->hasMany(PostComment::class);
-    }
+    // Post comments feature removed from project; relation intentionally removed.
 
     public function scopePublished($query)
     {

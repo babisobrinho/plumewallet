@@ -57,12 +57,7 @@
                                 <div class="flex items-center gap-4 text-sm text-gray-500">
                                     <div class="flex items-center gap-1">
                                         <i class="ti ti-calendar"></i>
-                                        <span>{{ $post->published_at->format('F d, Y') }}</span>
-                                    </div>
-                                    {{-- view count removed --}}
-                                    <div class="flex items-center gap-1">
-                                        <i class="ti ti-clock"></i>
-                                        <span>{{ __('guest.blog.min_read') }}</span>
+                                        <span>{{ $post->published_at->format('Y-m-d H:i') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +70,7 @@
                             <!-- Excerpt -->
                             @if($post->excerpt)
                             <div class="text-xl text-gray-600 mb-8 leading-relaxed">
-                                {{ $post->excerpt }}
+                                {!! $post->excerpt !!}
                             </div>
                             @endif
 
@@ -135,68 +130,7 @@
                         </div>
                     </article>
 
-                    <!-- Comments Section -->
-                    <div class="mt-8 bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-6">
-                            {{ __('guest.blog.comments') }} ({{ $comments->count() }})
-                        </h3>
-
-                        <!-- Comment Form -->
-                        <form wire:submit.prevent="submitComment" class="mb-8">
-                            <div class="mb-4">
-                                <label for="newComment" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{ __('guest.blog.comment') }} *
-                                </label>
-                                <textarea 
-                                    id="newComment"
-                                    wire:model="newComment"
-                                    rows="4"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-                                    placeholder="{{ __('guest.blog.share_thoughts') }}"
-                                    required
-                                ></textarea>
-                                @error('newComment') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                {{ __('guest.blog.submit_comment') }}
-                            </button>
-                        </form>
-
-                        @if(session('comment-success'))
-                        <div class="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg">
-                            <p class="text-green-800">{{ session('comment-success') }}</p>
-                        </div>
-                        @endif
-
-                        <!-- Comments List -->
-                        <div class="space-y-6">
-                            @foreach($comments as $comment)
-                            <div class="border-b border-gray-200 pb-6 last:border-b-0">
-                                <div class="flex items-start gap-4">
-                                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <i class="ti ti-user text-sm"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="flex items-center gap-2 mb-2">
-                                            <h4 class="font-medium text-gray-900">{{ $comment->user->name ?? 'Anonymous' }}</h4>
-                                            <span class="text-sm text-gray-500">
-                                                {{ $comment->created_at->format('M d, Y') }}
-                                            </span>
-                                        </div>
-                                        <p class="text-gray-700">{{ $comment->content }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                            @if($comments->count() === 0)
-                            <div class="text-center py-8">
-                                <i class="ti ti-message-circle text-4xl text-gray-400 mb-4"></i>
-                                <p class="text-gray-600">{{ __('guest.blog.no_comments') }}</p>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
+                    {{-- Comments feature removed from public posts --}}
                 </div>
 
                 <!-- Sidebar -->
