@@ -155,15 +155,15 @@ return [
             'title' => 'Our Team',
             'lenice' => [
                 'name' => 'Lenice Soares',
-                'description' => 'Passionate about technology and development. Focused on PHP, Laravel, Python and JavaScript, always seeking new challenges and learning opportunities.',
+                'description' => 'Full-Stack Web Developer',
             ],
             'babi' => [
                 'name' => 'Babi Sobrinho',
-                'description' => 'Full-stack developer passionate about creating intuitive and friendly experiences. Specialized in PHP, Laravel, JavaScript and TailwindCSS, with focus on web development and multimedia.',
+                'description' => 'Full-Stack Web Developer',
             ],
             'rebeca' => [
                 'name' => 'Rebeca Santos',
-                'description' => 'Developer in training, focused on JavaScript, HTML, CSS and Python. Always seeking new knowledge and experiences in the world of programming and web development.',
+                'description' => 'Full-Stack Web Developer',
             ],
         ],
         'footer' => [

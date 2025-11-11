@@ -155,15 +155,15 @@ return [
             'title' => 'A Nossa Equipa',
             'lenice' => [
                 'name' => 'Lenice Soares',
-                'description' => 'Apaixonada por tecnologia e desenvolvimento. Focada em PHP, Laravel, Python e JavaScript, sempre em busca de novos desafios e oportunidades de aprendizagem.',
+                'description' => 'Full-Stack Web Developer',
             ],
             'babi' => [
                 'name' => 'Babi Sobrinho',
-                'description' => 'Desenvolvedora full-stack apaixonada por criar experiências intuitivas e amigáveis. Especializada em PHP, Laravel, JavaScript e TailwindCSS, com foco em desenvolvimento web e multimédia.',
+                'description' => 'Full-Stack Web Developer',
             ],
             'rebeca' => [
                 'name' => 'Rebeca Santos',
-                'description' => 'Desenvolvedora em formação, focada em JavaScript, HTML, CSS e Python. Sempre em busca de novos conhecimentos e experiências no mundo da programação e desenvolvimento web.',
+                'description' => 'Full-Stack Web Developer',
             ],
         ],
         'footer' => [
