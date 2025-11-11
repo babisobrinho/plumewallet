@@ -1,5 +1,4 @@
 <div class="scroll-smooth">
-
     <!-- Seção Nossa História -->
     <section id="historia" class="py-20 px-6 bg-gray-200">
         <div class="max-w-6xl mx-auto">
@@ -95,6 +94,8 @@
             </div>
         </div>
     </section>
+
+    <!-- Seção com os botões -->
     <section class="bg-gray-800 py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -104,9 +105,9 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.contact_us.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('contact.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.contact_us.button') }}
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Coluna 2 - O que fazemos -->
@@ -115,9 +116,9 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.what_we_do.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('homepage.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.what_we_do.button') }}
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Coluna 3 - Alguma dúvida -->
@@ -126,13 +127,14 @@
                     <p class="text-gray-300 mb-6 leading-relaxed">
                         {{ __('guest.about_us.footer.any_questions.description') }}
                     </p>
-                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <a href="{{ route('faqs.show') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
                         {{ __('guest.about_us.footer.any_questions.button') }}
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
-</section>
+    </section>
+
     <!-- Seção Nossa Equipa -->
     <section id="equipa" class="py-20 px-6 bg-gray-100">
         <div class="max-w-6xl mx-auto">
@@ -145,9 +147,8 @@
 
             <!-- Cards da Equipa -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-             <!-- Membro 1 - Babi -->
-             <div class="bg-white rounded-lg p-8 text-center shadow-lg">
+                <!-- Membro 1 - Babi -->
+                <div class="bg-white rounded-lg p-8 text-center shadow-lg">
                     <div class="mb-6">
                         <img src="https://github.com/babisobrinho.png" 
                              alt="Babi Sobrinho" 
@@ -217,6 +218,4 @@
             </div>
         </div>
     </section>
-
-    
 </div>
