@@ -30,8 +30,6 @@ class SeedBlogAndFaq extends Command
             
             // Clear existing data
             \App\Models\Post::query()->delete();
-            \App\Models\PostCategory::query()->delete();
-            \App\Models\PostTag::query()->delete();
             \App\Models\Faq::query()->delete();
             
             $this->info('✅ Existing data cleared.');

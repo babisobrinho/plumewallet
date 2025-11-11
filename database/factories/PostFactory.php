@@ -24,27 +24,92 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(rand(3, 8));
-        $slug = Str::slug($title);
-        
-        // Generate realistic content
-        $content = $this->generateRealisticContent();
-        
+        $category = $this->faker->randomElement([
+            PostCategory::TECHNOLOGY,
+            PostCategory::BUSINESS,
+            PostCategory::FINANCE,
+            PostCategory::PRODUCTIVITY,
+            PostCategory::EDUCATION,
+        ]);
+
+        $titles = [
+            PostCategory::TECHNOLOGY->value => [
+                'en' => 'How technology is changing finance',
+                'pt' => 'Como a tecnologia está mudando as finanças',
+                'fr' => 'Comment la technologie change la finance',
+            ],
+            PostCategory::BUSINESS->value => [
+                'en' => 'Business tips for startups',
+                'pt' => 'Dicas de negócios para startups',
+                'fr' => 'Conseils d’affaires pour startups',
+            ],
+            PostCategory::FINANCE->value => [
+                'en' => 'Personal finance basics',
+                'pt' => 'Noções básicas de finanças pessoais',
+                'fr' => 'Bases des finances personnelles',
+            ],
+            PostCategory::PRODUCTIVITY->value => [
+                'en' => 'Productivity hacks for remote work',
+                'pt' => 'Dicas de produtividade para trabalho remoto',
+                'fr' => 'Astuces de productivité pour le télétravail',
+            ],
+            PostCategory::EDUCATION->value => [
+                'en' => 'Learning finance online',
+                'pt' => 'Aprendendo finanças online',
+                'fr' => 'Apprendre la finance en ligne',
+            ],
+        ];
+
+        $contents = [
+            PostCategory::TECHNOLOGY->value => [
+                'en' => 'Discover how new technologies are transforming the financial world and making transactions easier.',
+                'pt' => 'Descubra como novas tecnologias estão transformando o mundo financeiro e facilitando transações.',
+                'fr' => 'Découvrez comment les nouvelles technologies transforment le monde financier et facilitent les transactions.',
+            ],
+            PostCategory::BUSINESS->value => [
+                'en' => 'Startups need to focus on innovation and customer experience to succeed in today’s market.',
+                'pt' => 'Startups precisam focar em inovação e experiência do cliente para ter sucesso no mercado atual.',
+                'fr' => 'Les startups doivent se concentrer sur l’innovation et l’expérience client pour réussir sur le marché actuel.',
+            ],
+            PostCategory::FINANCE->value => [
+                'en' => 'Managing your personal finances is essential for a secure future. Learn the basics here.',
+                'pt' => 'Gerenciar suas finanças pessoais é essencial para um futuro seguro. Aprenda o básico aqui.',
+                'fr' => 'Gérer ses finances personnelles est essentiel pour un avenir sûr. Apprenez les bases ici.',
+            ],
+            PostCategory::PRODUCTIVITY->value => [
+                'en' => 'Remote work can be productive with the right tools and habits. See our top tips.',
+                'pt' => 'O trabalho remoto pode ser produtivo com as ferramentas e hábitos certos. Veja nossas principais dicas.',
+                'fr' => 'Le télétravail peut être productif avec les bons outils et habitudes. Découvrez nos meilleurs conseils.',
+            ],
+            PostCategory::EDUCATION->value => [
+                'en' => 'Online courses make learning finance accessible to everyone. Find out how to start.',
+                'pt' => 'Cursos online tornam o aprendizado de finanças acessível a todos. Veja como começar.',
+                'fr' => 'Les cours en ligne rendent l’apprentissage de la finance accessible à tous. Découvrez comment commencer.',
+            ],
+        ];
+
+        $lang = app()->getLocale();
+        $lang = in_array($lang, ['en', 'pt', 'fr']) ? $lang : 'en';
+
+    // Titles may repeat; ensure slug is unique by appending a short random suffix to the slug only
+    $baseTitle = $titles[$category->value][$lang];
+    $uniqueSuffix = Str::lower(Str::random(6));
+    $title = $baseTitle;
+    $content = '<p>' . $contents[$category->value][$lang] . '</p>';
+
         return [
             'title' => $title,
-            'slug' => $slug,
+            'slug' => Str::slug($title . ' ' . $uniqueSuffix),
             'content' => $content,
-            'excerpt' => $this->faker->paragraph(3),
+            'excerpt' => $content,
             'meta_title' => $title,
-            'meta_description' => $this->faker->sentence(15),
+            'meta_description' => $content,
             'featured_image' => 'images/placeholders/plume-wallet-placeholder.svg',
-            'status' => $this->faker->randomElement(PostStatus::cases()),
-            'published_at' => $this->faker->optional(0.8)->dateTimeBetween('-1 year', 'now'),
+            'status' => PostStatus::PUBLISHED,
+            'published_at' => now(),
             'author_id' => User::factory(),
-            'category' => $this->faker->randomElement(PostCategory::cases()),
-            'tags' => $this->faker->randomElements(PostTag::values(), $this->faker->numberBetween(1, 4)),
-            'is_featured' => $this->faker->boolean(15), // 15% chance of being featured
-            'view_count' => $this->faker->numberBetween(0, 5000),
+            'category' => $category,
+            'is_featured' => false,
         ];
     }
 
@@ -129,9 +194,8 @@ class PostFactory extends Factory
      */
     public function popular(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'view_count' => $this->faker->numberBetween(1000, 10000),
-        ]);
+        // view_count removed from posts; keep method for API compatibility but do nothing
+        return $this->state(fn (array $attributes) => []);
     }
 
     /**
@@ -149,35 +213,9 @@ class PostFactory extends Factory
      */
     public function withTags(array $tags): static
     {
-        return $this->state(fn (array $attributes) => [
-            'tags' => $tags,
-        ]);
+        // tags removed from posts; ignore tags passed
+        return $this->state(fn (array $attributes) => []);
     }
 
-    /**
-     * Create a technology post.
-     */
-    public function technology(): static
-    {
-        return $this->withCategory(PostCategory::TECHNOLOGY)
-            ->withTags([PostTag::TUTORIAL->value, PostTag::GUIDE->value]);
-    }
-
-    /**
-     * Create a business post.
-     */
-    public function business(): static
-    {
-        return $this->withCategory(PostCategory::BUSINESS)
-            ->withTags([PostTag::TIPS->value, PostTag::GUIDE->value]);
-    }
-
-    /**
-     * Create a tutorial post.
-     */
-    public function tutorial(): static
-    {
-        return $this->withCategory(PostCategory::TUTORIAL)
-            ->withTags([PostTag::TUTORIAL->value, PostTag::BEGINNER->value, PostTag::GUIDE->value]);
-    }
+    // Métodos específicos removidos pois não são mais necessários para a proposta do projeto
 }

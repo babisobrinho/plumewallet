@@ -5,7 +5,6 @@ namespace App\Livewire\Backoffice\Blog;
 use App\Models\Post;
 use App\Enums\PostStatus;
 use App\Enums\PostCategory;
-use App\Enums\PostTag;
 use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -28,7 +27,6 @@ class Edit extends Component
     public $publishedAt = '';
     public $category = '';
     public $isFeatured = false;
-    public $tags = [];
 
     protected $listeners = [
         'refreshForm' => '$refresh',
@@ -52,8 +50,6 @@ class Edit extends Component
             'status' => ['required', 'in:draft,published,archived'],
             'category' => ['nullable', 'in:' . implode(',', PostCategory::values())],
             'isFeatured' => ['boolean'],
-            'tags' => ['array'],
-            'tags.*' => ['in:' . implode(',', PostTag::values())],
         ];
     }
 
@@ -69,7 +65,6 @@ class Edit extends Component
         $this->publishedAt = $this->post->published_at ? $this->post->published_at->format('Y-m-d\TH:i') : '';
         $this->category = $this->post->category?->value;
         $this->isFeatured = $this->post->is_featured;
-        $this->tags = $this->post->tags ?? [];
     }
 
     public function update()
@@ -90,10 +85,6 @@ class Edit extends Component
             'is_featured' => $this->isFeatured,
         ]);
 
-        // Update tags
-        $this->post->tags = $this->tags;
-        $this->post->save();
-
         // Log blog post update
         LoggingService::updated('Blog Post', [
             'post_id' => $this->post->id,
@@ -113,7 +104,6 @@ class Edit extends Component
     {
         return view('livewire.backoffice.blog.edit', [
             'categories' => PostCategory::options(),
-            'availableTags' => PostTag::options(),
             'statuses' => [
                 'draft' => __('enums.post_status.draft'),
                 'published' => __('enums.post_status.published'),

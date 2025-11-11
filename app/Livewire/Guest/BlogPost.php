@@ -20,9 +20,6 @@ class BlogPost extends Component
     public function mount(Post $post)
     {
         $this->post = $post;
-        
-        // Increment view count
-        $this->post->incrementViewCount();
     }
 
     public function submitComment()

@@ -59,10 +59,7 @@
                                         <i class="ti ti-calendar"></i>
                                         <span>{{ $post->published_at->format('F d, Y') }}</span>
                                     </div>
-                                    <div class="flex items-center gap-1">
-                                        <i class="ti ti-eye"></i>
-                                        <span>{{ number_format($post->view_count) }} {{ __('guest.blog.views') }}</span>
-                                    </div>
+                                    {{-- view count removed --}}
                                     <div class="flex items-center gap-1">
                                         <i class="ti ti-clock"></i>
                                         <span>{{ __('guest.blog.min_read') }}</span>
@@ -102,21 +99,7 @@
                                 {!! $post->content !!}
                             </div>
 
-                            <!-- Tags -->
-                            @if($post->getTagEnums() && count($post->getTagEnums()) > 0)
-                            <div class="mt-8 pt-8 border-t border-gray-200">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                                    {{ __('guest.blog.tags') }}
-                                </h3>
-                                <div class="flex flex-wrap gap-2">
-                                    @foreach($post->getTagEnums() as $tag)
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                                        {{ $tag->getLabel() }}
-                                    </span>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
+                            {{-- tags removed from public post view --}}
 
                             <!-- Share Buttons -->
                             <div class="mt-8 pt-8 border-t border-gray-200">
@@ -264,10 +247,8 @@
                                             {{ $relatedPost->title }}
                                         </a>
                                     </h4>
-                                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                                        <div class="flex items-center gap-2 text-xs text-gray-500">
                                         <span>{{ $relatedPost->published_at->format('M d') }}</span>
-                                        <span>•</span>
-                                        <span>{{ number_format($relatedPost->view_count) }} {{ __('guest.blog.views') }}</span>
                                     </div>
                                 </div>
                             </div>

@@ -5,7 +5,6 @@ namespace App\Livewire\Backoffice\Blog;
 use App\Models\Post;
 use App\Enums\PostStatus;
 use App\Enums\PostCategory;
-use App\Enums\PostTag;
 use App\Services\LoggingService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -26,7 +25,6 @@ class Create extends Component
     public $publishedAt = '';
     public $category = '';
     public $isFeatured = false;
-    public $tags = [];
 
     protected $listeners = [
         'refreshForm' => '$refresh',
@@ -48,8 +46,6 @@ class Create extends Component
             'status' => ['required', 'in:draft,published,archived'],
             'category' => ['nullable', 'in:' . implode(',', PostCategory::values())],
             'isFeatured' => ['boolean'],
-            'tags' => ['array'],
-            'tags.*' => ['in:' . implode(',', PostTag::values())],
         ];
     }
 
@@ -72,12 +68,6 @@ class Create extends Component
             'is_featured' => $this->isFeatured,
         ]);
 
-        // Set tags
-        if (!empty($this->tags)) {
-            $post->tags = $this->tags;
-            $post->save();
-        }
-
         // Log blog post creation
         LoggingService::created('Blog Post', [
             'post_id' => $post->id,
@@ -97,7 +87,6 @@ class Create extends Component
     {
         return view('livewire.backoffice.blog.create', [
             'categories' => PostCategory::options(),
-            'availableTags' => PostTag::options(),
             'statuses' => [
                 'draft' => __('enums.post_status.draft'),
                 'published' => __('enums.post_status.published'),

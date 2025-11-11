@@ -24,9 +24,7 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->string('category')->nullable();
-            $table->json('tags')->nullable();
             $table->boolean('is_featured')->default(false);
-            $table->unsignedInteger('view_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
             

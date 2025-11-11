@@ -34,6 +34,13 @@ return [
         'published' => 'Publicado',
         'archived' => 'Arquivado',
     ],
+    'post_category' => [
+        'technology' => 'Tecnologia',
+        'business' => 'Negócios',
+        'finance' => 'Finanças',
+        'productivity' => 'Produtividade',
+        'education' => 'Educação',
+    ],
     'faq_category' => [
         'general' => 'Geral',
         'account' => 'Conta',

@@ -119,12 +119,7 @@ class Index extends Component
                 'class' => 'w-1/6',
                 'format' => 'datetime',
             ],
-            [
-                'key' => 'view_count',
-                'label' => __('blog.table.views'),
-                'sortable' => true,
-                'class' => 'w-1/12',
-            ],
+            // views column removed
         ];
     }
 

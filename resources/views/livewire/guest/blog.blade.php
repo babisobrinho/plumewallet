@@ -46,23 +46,17 @@
                                     @endforeach
                                 </select>
 
-                                <!-- Tag Filter -->
-                                <select wire:model.live="selectedTag" class="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500">
-                                    <option value="">{{ __('guest.blog.all_tags') }}</option>
-                                    @foreach($tags as $tag)
-                                    <option value="{{ $tag->value }}">{{ $tag->getLabel() }}</option>
-                                    @endforeach
-                                </select>
+                                {{-- tag filter removed --}}
 
                                 <!-- Sort -->
                                 <select wire:model.live="sortBy" class="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500">
                                     <option value="published_at">{{ __('guest.blog.latest') }}</option>
-                                    <option value="view_count">{{ __('guest.blog.most_popular') }}</option>
+                                    {{-- most popular removed (no view_count) --}}
                                     <option value="title">{{ __('guest.blog.title_az') }}</option>
                                 </select>
                             </div>
 
-                            @if($search || $selectedCategory || $selectedTag)
+                            @if($search || $selectedCategory)
                             <button wire:click="clearFilters" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
                                 {{ __('guest.blog.clear_filters') }}
                             </button>
@@ -117,16 +111,7 @@
                                             {{ $post->excerpt }}
                                         </p>
                                         
-                                        <!-- Tags -->
-                                        @if($post->getTagEnums() && count($post->getTagEnums()) > 0)
-                                        <div class="flex flex-wrap gap-1 mb-4">
-                                            @foreach($post->getTagEnums() as $tag)
-                                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800">
-                                                {{ $tag->getLabel() }}
-                                            </span>
-                                            @endforeach
-                                        </div>
-                                        @endif
+                                        {{-- tags removed from public posts list --}}
 
                                         <div class="flex items-center justify-between">
                                             <div class="flex items-center gap-2">
@@ -137,10 +122,7 @@
                                                     {{ $post->author->name }}
                                                 </span>
                                             </div>
-                                            <div class="flex items-center gap-1 text-sm text-gray-500">
-                                                <i class="ti ti-eye"></i>
-                                                <span>{{ number_format($post->view_count) }}</span>
-                                            </div>
+                                            {{-- view count removed --}}
                                         </div>
                                     </div>
                                 </article>
@@ -208,10 +190,8 @@
                                             {{ $popularPost->title }}
                                         </a>
                                     </h4>
-                                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                                        <div class="flex items-center gap-2 text-xs text-gray-500">
                                         <span>{{ $popularPost->published_at->format('M d') }}</span>
-                                        <span>•</span>
-                                        <span>{{ number_format($popularPost->view_count) }} {{ __('guest.blog.views') }}</span>
                                     </div>
                                 </div>
                             </div>

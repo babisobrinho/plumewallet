@@ -165,30 +165,7 @@
                     <x-input-error for="metaDescription" class="mt-2" />
                 </div>
 
-                <!-- Tags -->
-                <div>
-                    <x-label for="tags" :value="__('blog.form.tags')" />
-                    <div class="mt-2 p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800">
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                            @foreach($availableTags as $value => $label)
-                                <label class="inline-flex items-center p-3 rounded-md transition-colors cursor-pointer">
-                                    <input 
-                                        type="checkbox" 
-                                        value="{{ $value }}"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
-                                        wire:model="tags"
-                                    />
-                                    <span class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">{{ $label }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
-                            <i class="ti ti-info-circle w-4 h-4 inline mr-1"></i>
-                            Select one or more tags to categorize your post
-                        </div>
-                    </div>
-                    <x-input-error for="tags" class="mt-2" />
-                </div>
+                {{-- tags removed: not used in project anymore --}}
 
                 <!-- Form Actions -->
                 <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">

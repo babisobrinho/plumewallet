@@ -3,8 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
-use App\Models\PostCategory;
-use App\Models\PostTag;
+use App\Enums\PostCategory;
 use App\Models\User;
 use App\Enums\PostStatus;
 use Illuminate\Console\Command;
@@ -34,17 +33,11 @@ class GenerateBlogTestData extends Command
         
         $this->info("📝 Generating {$count} additional blog posts...");
 
-        $categories = PostCategory::all();
-        $tags = PostTag::all();
+        $categories = PostCategory::cases();
         $users = User::all();
 
-        if ($categories->isEmpty()) {
+        if (empty($categories)) {
             $this->error('No post categories found. Please run the blog seeders first.');
-            return 1;
-        }
-
-        if ($tags->isEmpty()) {
-            $this->error('No post tags found. Please run the blog seeders first.');
             return 1;
         }
 
@@ -60,13 +53,8 @@ class GenerateBlogTestData extends Command
             $post = Post::factory()
                 ->create([
                     'author_id' => $users->random()->id,
-                    'category_id' => $categories->random()->id,
+                    'category' => $categories[array_rand($categories)],
                 ]);
-
-            // Attach random tags
-            $post->tags()->attach(
-                $tags->random(rand(1, 5))->pluck('id')->toArray()
-            );
 
             $bar->advance();
         }

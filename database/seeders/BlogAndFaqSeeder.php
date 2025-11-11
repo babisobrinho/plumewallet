@@ -25,6 +25,6 @@ class BlogAndFaqSeeder extends Seeder
         $this->command->info('   - Blog Posts: ' . \App\Models\Post::count());
         $this->command->info('   - FAQs: ' . \App\Models\Faq::count());
         $this->command->info('   - Post Categories (Enums): ' . count(\App\Enums\PostCategory::cases()));
-        $this->command->info('   - Post Tags (Enums): ' . count(\App\Enums\PostTag::cases()));
+    $this->command->info('   - Post Tags: removed from project');
     }
 }

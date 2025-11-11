@@ -141,9 +141,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
                                 {{ __('blog.table.published_at') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
-                                {{ __('blog.table.views') }}
-                            </th>
+                            {{-- views column removed --}}
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 tracking-wider">
                                 {{ __('common.table.actions') }}
                             </th>
@@ -185,10 +183,7 @@
                                     {{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d/m/Y H:i') : '-' }}
                                 </td>
                                 
-                                <!-- Views -->
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $post->view_count ?? 0 }}
-                                </td>
+                                {{-- views removed: not used in project anymore --}}
                                 
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -232,7 +227,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
                                     {{ __('common.table.no_data') }}
                                 </td>
                             </tr>

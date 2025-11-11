@@ -4,7 +4,7 @@ namespace App\Livewire\Guest;
 
 use App\Models\Post;
 use App\Enums\PostCategory;
-use App\Enums\PostTag;
+// PostTag removed
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +14,6 @@ class Blog extends Component
 
     public $search = '';
     public $selectedCategory = '';
-    public $selectedTag = '';
     public $sortBy = 'published_at';
     public $sortDirection = 'desc';
     public $perPage = 9;
@@ -42,11 +41,6 @@ class Blog extends Component
         \Log::info('Category updated to: ' . $this->selectedCategory);
     }
 
-    public function updatedSelectedTag()
-    {
-        $this->resetPage();
-    }
-
     public function sortBy($field)
     {
         if ($this->sortBy === $field) {
@@ -60,9 +54,8 @@ class Blog extends Component
 
     public function clearFilters()
     {
-        $this->search = '';
-        $this->selectedCategory = '';
-        $this->selectedTag = '';
+    $this->search = '';
+    $this->selectedCategory = '';
         $this->sortBy = 'published_at';
         $this->sortDirection = 'desc';
         $this->resetPage();
@@ -82,18 +75,11 @@ class Blog extends Component
                       ->orWhere('content', 'like', '%' . $this->search . '%')
                       ->orWhereHas('author', function ($authorQuery) {
                           $authorQuery->where('name', 'like', '%' . $this->search . '%');
-                      })
-                      ->orWhere(function ($tagQuery) {
-                          $tagQuery->whereJsonContains('tags', $this->search)
-                                   ->orWhereRaw("JSON_SEARCH(tags, 'one', ?) IS NOT NULL", ['%' . $this->search . '%']);
                       });
                 });
             })
             ->when($this->selectedCategory, function ($query) {
                 $query->byCategory($this->selectedCategory);
-            })
-            ->when($this->selectedTag, function ($query) {
-                $query->byTag($this->selectedTag);
             })
             ->orderBy($this->sortBy, $this->sortDirection);
 
@@ -117,7 +103,7 @@ class Blog extends Component
     {
         return Post::published()
             ->with(['author'])
-            ->orderBy('view_count', 'desc')
+            ->orderBy('published_at', 'desc')
             ->limit(5)
             ->get();
     }
@@ -127,10 +113,7 @@ class Blog extends Component
         return PostCategory::cases();
     }
 
-    public function getTagsProperty()
-    {
-        return PostTag::cases();
-    }
+    // tags removed
 
     public function getCategoryPostsCountProperty()
     {
@@ -150,7 +133,6 @@ class Blog extends Component
             'featuredPosts' => $this->featuredPosts,
             'popularPosts' => $this->popularPosts,
             'categories' => $this->categories,
-            'tags' => $this->tags,
             'categoryPostsCount' => $this->categoryPostsCount,
         ])->layout('layouts.guest');
     }
