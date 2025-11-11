@@ -12,14 +12,14 @@
     </section>
 
     <!-- Contact Information Section -->
-    <section class="py-16 px-6 bg-gray-100">
+    <section class="py-16 px-6 bg-gray-200">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Operating Hours -->
                 <div class="text-center">
-                    <div class="bg-white rounded-xl p-8 shadow-lg">
-                        <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i class="ti ti-clock text-blue-600 text-2xl"></i>
+                    <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                            <i class="ti ti-clock text-white text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-4">
                             {{ __('guest.contact.hours.title') }}
@@ -32,9 +32,9 @@
 
                 <!-- Phone -->
                 <div class="text-center">
-                    <div class="bg-white rounded-xl p-8 shadow-lg">
-                        <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i class="ti ti-phone text-green-600 text-2xl"></i>
+                    <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                            <i class="ti ti-phone text-white text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-4">
                             {{ __('guest.contact.phone.title') }}
@@ -47,9 +47,9 @@
 
                 <!-- Email -->
                 <div class="text-center">
-                    <div class="bg-white rounded-xl p-8 shadow-lg">
-                        <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                            <i class="ti ti-mail text-purple-600 text-2xl"></i>
+                    <div class="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                            <i class="ti ti-mail text-white text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-4">
                             {{ __('guest.contact.email.title') }}
@@ -64,7 +64,7 @@
     </section>
 
     <!-- Contact Form Section -->
-    <section class="py-16 px-6 bg-white">
+    <section class="py-16 px-6 bg-gray-100">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-gray-900 mb-6">
@@ -73,14 +73,14 @@
             </div>
 
             @if(session('success'))
-                <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+                <div class="bg-white border border-gray-200 rounded-lg p-6 mb-8 shadow-lg">
                     <div class="flex items-center">
-                        <i class="ti ti-check-circle text-green-600 text-2xl mr-3"></i>
+                        <i class="ti ti-check-circle text-gray-800 text-2xl mr-3"></i>
                         <div>
-                            <h3 class="text-lg font-semibold text-green-800">
+                            <h3 class="text-lg font-semibold text-gray-900">
                                 {{ __('contact.confirmation.title') }}
                             </h3>
-                            <p class="text-green-700">
+                            <p class="text-gray-700">
                                 {{ session('success') }}
                             </p>
                         </div>
@@ -89,14 +89,14 @@
             @endif
 
             @if(session('error'))
-                <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+                <div class="bg-white border border-gray-200 rounded-lg p-6 mb-8 shadow-lg">
                     <div class="flex items-center">
-                        <i class="ti ti-alert-circle text-red-600 text-2xl mr-3"></i>
+                        <i class="ti ti-alert-circle text-gray-800 text-2xl mr-3"></i>
                         <div>
-                            <h3 class="text-lg font-semibold text-red-800">
+                            <h3 class="text-lg font-semibold text-gray-900">
                                 {{ __('guest.contact.form.error.title') }}
                             </h3>
-                            <p class="text-red-700">
+                            <p class="text-gray-700">
                                 {{ session('error') }}
                             </p>
                         </div>
@@ -104,7 +104,7 @@
                 </div>
             @endif
 
-            <form wire:submit="submit" class="bg-gray-50 rounded-2xl p-8">
+            <form wire:submit="submit" class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <!-- Name -->
                     <div>
@@ -115,7 +115,7 @@
                             type="text" 
                             id="name"
                             wire:model="name"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('name') border-red-500 @enderror"
                             placeholder="{{ __('contact.labels.name') }}"
                             required
                         >
@@ -133,7 +133,7 @@
                             type="text" 
                             id="company"
                             wire:model="company"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('company') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('company') border-red-500 @enderror"
                             placeholder="{{ __('contact.labels.company') }}"
                         >
                         @error('company')
@@ -152,7 +152,7 @@
                             type="email" 
                             id="email"
                             wire:model="email"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('email') border-red-500 @enderror"
                             placeholder="{{ __('contact.labels.email') }}"
                             required
                         >
@@ -170,7 +170,7 @@
                             type="tel" 
                             id="phone"
                             wire:model="phone"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('phone') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('phone') border-red-500 @enderror"
                             placeholder="{{ __('contact.labels.phone') }}"
                         >
                         @error('phone')
@@ -188,7 +188,7 @@
                         <select 
                             id="subject"
                             wire:model.live="subject"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('subject') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('subject') border-red-500 @enderror"
                             required
                         >
                             <option value="">{{ __('contact.placeholders.select_subject') }}</option>
@@ -209,7 +209,7 @@
                         <select 
                             id="preferred_language"
                             wire:model="preferred_language"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('preferred_language') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('preferred_language') border-red-500 @enderror"
                             required
                         >
                             @foreach($this->languageOptions as $value => $label)
@@ -232,7 +232,7 @@
                             type="text" 
                             id="custom_subject"
                             wire:model="custom_subject"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('custom_subject') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('custom_subject') border-red-500 @enderror"
                             placeholder="{{ __('contact.placeholders.custom_subject') }}"
                         >
                         @error('custom_subject')
@@ -250,7 +250,7 @@
                         id="message"
                         wire:model="message"
                         rows="6"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('message') border-red-500 @enderror"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent @error('message') border-red-500 @enderror"
                         placeholder="{{ __('contact.placeholders.message') }}"
                         required
                     ></textarea>
@@ -264,7 +264,7 @@
                     <button 
                         type="submit"
                         wire:loading.attr="disabled"
-                        class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center mx-auto"
+                        class="bg-gray-800 hover:bg-gray-700 disabled:bg-gray-400 text-white px-8 py-4 rounded-lg font-semibold transition-colors flex items-center justify-center mx-auto"
                     >
                         <span wire:loading.remove wire:target="submit">
                             {{ __('contact.buttons.submit') }}
@@ -289,7 +289,7 @@
                 {{ __('guest.contact.cta.subtitle') }}
             </p>
             <a href="{{ route('register') }}" 
-               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors inline-block">
+               class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors inline-block">
                 {{ __('guest.contact.cta.button') }}
             </a>
         </div>
